@@ -10,7 +10,7 @@ const Container = styled.div`
     justify-content: center;
     align-itens: center;
     background: white;
-    width: 95%;
+
 `
 const Card = styled.div`
     background: #e9e8e8;

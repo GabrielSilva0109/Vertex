@@ -6,49 +6,36 @@ import iconBitcoin from './img/iconsBitcoin.png'
 import iconCard from './img/iconsCard.png'
 
 const Container = styled.div`
-    width: 95%;
     display: flex;
     justify-content: center;
     align-itens: center;
     background: white;
 `
-const CardLeft = styled.div`
-    float: left;
+const Card = styled.div`
     background: #b0ff00;
-    width: 60%;
+    width: 78%;
     height: 400px;
     padding: 20px;
     margin: 20px;
     border-radius: 8px;
 `
 
-const CardRight = styled.div`
-    float: right;
-    width: 27%;
-    display: flex;
-    align-itens: start;
-`
-
 const Title = styled.div`
-    font-size: 1.2rem;
+    font-size: 2.5rem;
     color: black;
     font-weight: bold;
     display: flex;
     align-items: center;
-    gap: 10px;
 `
 
 const About: React.FC = () => {
     return (
         <Container>
-            <CardLeft>
+            <Card>
                 <Title>
                   Vertex
                 </Title>
-            </CardLeft>
-            <CardRight>
-                <Title>Sobre</Title>
-            </CardRight>
+            </Card>
         </Container>
     )
 }
