@@ -9,6 +9,7 @@ const HeaderStyle = styled.div`
 `
 
 const TitleBank = styled.div`
+    display: flex;
     color: white;
 `
 
@@ -36,15 +37,21 @@ const BtnLogin = styled.button`
     font-weight: bold;
     border: none;
     cursor: pointer;
+    
     &:hover{
         background: #d3fd74;
     }
+`
+
+const Icon = styled.h1`
+    color: #b0ff00;
 `
 
 const Header: React.FC = () =>{
     return (
         <HeaderStyle>
             <TitleBank>
+                <Icon>$</Icon>
                 <h1>Vertex Bank</h1>
             </TitleBank>
             <NavLinks>

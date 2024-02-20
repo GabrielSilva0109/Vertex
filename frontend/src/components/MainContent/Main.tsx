@@ -38,15 +38,13 @@ const Main: React.FC = () => {
   return (
     <Container>
         <LeftContainer>
-            <TitleMain>Seu universo financeiro<br/> ao seu alcance.</TitleMain>
+            <TitleMain>Seu universo financeiro<br/> em um só lugar</TitleMain>
             <TextMain>Ações, criptomoedas, fundos de investimento, renda fixa <br />
                 e muito mais. Diversifique seu portfólio, maximize seus retornos e <br />
                 acompanhe tudo em tempo real com nossa plataforma intuitiva.</TextMain>
         </LeftContainer>
-
         <RightContainer>
             <Image  src={creditCardImage} />
-            
         </RightContainer>
     </Container>
   )
