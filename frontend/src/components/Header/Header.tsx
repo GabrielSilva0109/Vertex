@@ -1,5 +1,6 @@
 import React from 'react';
-import styled from 'styled-components';
+import styled from 'styled-components'
+import { Link } from 'react-router-dom'
 
 const HeaderStyle = styled.div`
     background: black;
@@ -51,7 +52,7 @@ const UlLinks = styled.ul`
     }
 `
 
-const BtnLogin = styled.button`
+const BtnLogin = styled(Link)`
     background: #b0ff00;
     padding: 12px;
     border-radius: 20px;
@@ -60,6 +61,8 @@ const BtnLogin = styled.button`
     font-weight: bold;
     border: none;
     cursor: pointer;
+    text-decoration: none;
+
 
     &:hover {
         background: #d3fd74;
@@ -87,7 +90,7 @@ const Header: React.FC = () => {
                         <li>Contato</li>
                     </UlLinks>
                 </NavLinks>
-                <BtnLogin className='btn-login'>Login</BtnLogin>
+                <BtnLogin  to="/login" >Login</BtnLogin>
             </Nav>
             
         </HeaderStyle>
