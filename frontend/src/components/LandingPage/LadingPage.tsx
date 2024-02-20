@@ -6,10 +6,7 @@ const LandingPage: React.FC = () => {
   return (
     <div>
         <Header />
-      <main>
-        <Main />
-        
-      </main>
+        <Main />      
     </div>
   )
 }

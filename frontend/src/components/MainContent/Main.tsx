@@ -7,14 +7,22 @@ const Container = styled.div`
     background: black;
     color: white;
     justify-content: center;
+    align-items: center;
 `
 const LeftContainer = styled.div`
-    display flex;
-    justify-content: start;
+    display block;
 `
 
 const TitleMain = styled.h1`
-    font-size: 2.5rem;
+    font-size: 2.8rem;
+    text-align: start;
+`
+
+const TextMain = styled.p`
+    font-size: 1.2rem;
+    text-align: start;
+    color: gray;
+    font-weight: 600;
 `
 
 const RightContainer = styled.div`
@@ -31,9 +39,9 @@ const Main: React.FC = () => {
     <Container>
         <LeftContainer>
             <TitleMain>Seu universo financeiro<br/> ao seu alcance.</TitleMain>
-            <p>Invista em ações, criptomoedas, fundos de investimento, renda fixa <br />
+            <TextMain>Ações, criptomoedas, fundos de investimento, renda fixa <br />
                 e muito mais. Diversifique seu portfólio, maximize seus retornos e <br />
-                acompanhe tudo em tempo real com nossa plataforma intuitiva.</p>
+                acompanhe tudo em tempo real com nossa plataforma intuitiva.</TextMain>
         </LeftContainer>
 
         <RightContainer>
