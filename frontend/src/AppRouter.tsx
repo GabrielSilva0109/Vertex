@@ -1,16 +1,15 @@
 import React from 'react';
-import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
-import LandingPage from './components/LandingPage' 
+import { BrowserRouter as Router, Route, Routes } from 'react-router-dom'
+import LandingPage from './components/LandingPage/LadingPage' 
 
 const AppRouter: React.FC = () => {
   return (
     <Router>
-      <Switch>
+      <Routes>
         <Route path="/" element={<LandingPage />} />
-    
-      </Switch>
+      </Routes>    
     </Router>
-  );
-};
+  )
+}
 
-export default AppRouter;
+export default AppRouter
