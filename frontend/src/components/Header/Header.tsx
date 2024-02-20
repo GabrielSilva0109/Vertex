@@ -24,6 +24,7 @@ const UlLinks = styled.ul`
     align-items: center;
     gap: 30px;
     list-style: none;
+    cursor: pointer;
 `
 
 const BtnLogin = styled.button`
@@ -34,7 +35,7 @@ const BtnLogin = styled.button`
     font-size: 1rem;
     font-weight: bold;
     border: none;
-
+    cursor: pointer;
     &:hover{
         background: #d3fd74;
     }
