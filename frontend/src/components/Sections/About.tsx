@@ -1,9 +1,5 @@
 import React from 'react'
 import styled from 'styled-components'
-import iconAcoes from './img/iconsAcoes.png'
-import iconCoin from './img/iconsCoin.png'
-import iconBitcoin from './img/iconsBitcoin.png'
-import iconCard from './img/iconsCard.png'
 
 const Container = styled.div`
     display: flex;
@@ -11,10 +7,11 @@ const Container = styled.div`
     align-itens: center;
     background: white;
 `
+
 const Card = styled.div`
     background: #b0ff00;
-    width: 78%;
-    height: 400px;
+    width: 92%;
+    height: 200px;
     padding: 20px;
     margin: 20px;
     border-radius: 8px;

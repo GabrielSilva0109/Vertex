@@ -1,6 +1,6 @@
-import React from 'react'
-import styled from 'styled-components'
-import creditCardImage from './credit-card.png'
+import React from 'react';
+import styled from 'styled-components';
+import creditCardImage from './credit-card.png';
 
 const Container = styled.div`
     display: flex;
@@ -8,46 +8,63 @@ const Container = styled.div`
     color: white;
     justify-content: center;
     align-items: center;
-`
+    flex-wrap: wrap; /* Permite que os elementos quebrem para a próxima linha em telas menores */
+    padding: 20px; /* Adiciona espaço ao redor dos elementos */
+`;
+
 const LeftContainer = styled.div`
-    display block;
-`
+    flex: 1;
+    max-width: 600px; /* Define uma largura máxima para o LeftContainer */
+    padding: 20px;
+`;
 
 const TitleMain = styled.h1`
     font-size: 2.8rem;
     text-align: start;
-`
+
+    @media (max-width: 768px) {
+       font-size: 1.8rem;
+    }
+`;
 
 const TextMain = styled.p`
     font-size: 1.2rem;
     text-align: start;
     color: gray;
     font-weight: 600;
-`
+
+    @media (max-width: 768px) {
+        font-size: 1rem;
+     }
+`;
 
 const RightContainer = styled.div`
-    display flex;
-`
+    flex: 1;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+`;
 
 const Image = styled.img`
-    width: 500px;
+    width: 100%;
     height: auto;
-`
+    max-width: 500px; /* Define uma largura máxima para a imagem */
+`;
 
 const Main: React.FC = () => {
-  return (
-    <Container>
-        <LeftContainer>
-            <TitleMain>Seu universo financeiro<br/> em um só lugar</TitleMain>
-            <TextMain>Ações, criptomoedas, fundos de investimento, renda fixa <br />
-                e muito mais. Diversifique seu portfólio, maximize seus retornos e <br />
-                acompanhe tudo em tempo real com nossa plataforma intuitiva.</TextMain>
-        </LeftContainer>
-        <RightContainer>
-            <Image  src={creditCardImage} />
-        </RightContainer>
-    </Container>
-  )
-}
+    return (
+        <Container>
+            <LeftContainer>
+                <TitleMain>Seu universo financeiro<br /> em um só lugar</TitleMain>
+                <TextMain>Ações, criptomoedas, fundos de investimento, renda fixa <br />
+                    e muito mais. Diversifique seu portfólio, maximize seus retornos e <br />
+                    acompanhe tudo em tempo real com nossa plataforma intuitiva.</TextMain>
+            </LeftContainer>
+            <RightContainer>
+                <Image src={creditCardImage} />
+            </RightContainer>
+        </Container>
+    );
+};
 
-export default Main
+export default Main;

@@ -1,68 +1,95 @@
-import React from 'react'
-import styled from 'styled-components'
+import React from 'react';
+import styled from 'styled-components';
 
 const HeaderStyle = styled.div`
     background: black;
     display: flex;
     justify-content: space-between;
     padding: 0px 20px;
+    align-items: center;
+
+    @media (max-width: 768px) {
+        align-items: center;
+        text-align: center;
+    }
 `
 
 const TitleBank = styled.div`
     display: flex;
+    align-items: center;
     color: white;
+`
+
+const Nav = styled.div`
+    display: flex;
+    align-items: center;
+    gap: 20px;
+`
+
+const Icon = styled.h1`
+    color: #b0ff00;
+    margin-right: 8px;
 `
 
 const NavLinks = styled.div`
     color: white;
     font-size: 1.2rem;
     font-weight: 600;
-    display: flex;
-    justify-content: center;
+
+    @media (max-width: 768px) {
+        display: none;
+    }
 `
+
 const UlLinks = styled.ul`
     display: flex;
-    align-items: center;
-    gap: 30px;
+    gap: 50px;
     list-style: none;
-    cursor: pointer;
+
+    @media (max-width: 768px) {
+        display: none;
+    }
 `
 
 const BtnLogin = styled.button`
     background: #b0ff00;
-    padding: 12px 18px;
+    padding: 12px;
     border-radius: 20px;
     color: black;
     font-size: 1rem;
     font-weight: bold;
     border: none;
     cursor: pointer;
-    
-    &:hover{
+
+    &:hover {
         background: #d3fd74;
+    }
+
+    @media (max-width: 768px) {
+        display: block;
     }
 `
 
-const Icon = styled.h1`
-    color: #b0ff00;
-`
-
-const Header: React.FC = () =>{
+const Header: React.FC = () => {
     return (
         <HeaderStyle>
             <TitleBank>
                 <Icon>$</Icon>
                 <h1>Vertex Bank</h1>
             </TitleBank>
-            <NavLinks>
-                <UlLinks>
-                    <li>Inicio</li>
-                    <li>Sobre</li>
-                    <li>Beneficios</li>
-                    <li>Contato</li>
-                    <li><BtnLogin className='btn-login'>Login</BtnLogin></li>
-                </UlLinks>               
-            </NavLinks>
+
+            <Nav>
+                <NavLinks>
+                    <UlLinks>
+                        <li>Inicio</li>
+                        <li>Sobre</li>
+                        <li>Beneficios</li>
+                        <li>Contato</li>
+                    </UlLinks>
+                </NavLinks>
+                <BtnLogin className='btn-login'>Login</BtnLogin>
+            </Nav>
+            
         </HeaderStyle>
     )
 }
