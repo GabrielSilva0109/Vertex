@@ -1,7 +1,8 @@
-import React, { useState } from 'react';
-import styled from 'styled-components';
-import { toast } from 'react-toastify';
-import 'react-toastify/dist/ReactToastify.css';
+import React, { useState } from 'react'
+import styled from 'styled-components'
+import { toast } from 'react-toastify'
+import 'react-toastify/dist/ReactToastify.css'
+import { useNavigate } from 'react-router-dom'
 
 const Container = styled.div`
     height: 555px;
@@ -152,6 +153,8 @@ const FormCadastro: React.FC<{ onBackToLogin: () => void }> = ({ onBackToLogin }
 };
 
 const FormLogin: React.FC = () => {
+    const navigate = useNavigate()
+    const [user, setUser] = useState<any>(null)
     const [isLoginForm, setIsLoginForm] = useState(true)
     const [loginData, setLoginData] = useState({cpf: '', password: ''})
 
@@ -178,8 +181,9 @@ const FormLogin: React.FC = () => {
             });
 
             if (response.ok) {
-                toast.success('Login realizado com sucesso!');
-                
+                const userData = await response.json()
+                setUser(userData)
+                navigate('/home', { state: userData })
             } else {
                 const responseBody = await response.text();
                 console.error('Erro na requisição:', responseBody);

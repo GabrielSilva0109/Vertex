@@ -123,9 +123,9 @@ export const loginUser = async (req: Request, res: Response) => {
             console.log('Senha correspondente?', passwordMatch);
 
             if (passwordMatch) {
-                res.status(200).json({ message: 'Login bem-sucedido' });
+                res.status(200).json({ message: 'Login bem-sucedido' })
             } else {
-                res.status(401).json({ message: 'Credenciais inválidas pela senha' });
+                res.status(401).json({ message: 'Credenciais inválidas pela senha' })
             }
         } else {
             res.status(401).json({ message: 'Credenciais inválidas result' });
