@@ -100,39 +100,41 @@ export const loginUser = async (req: Request, res: Response) => {
 
         const q = "SELECT * FROM users WHERE cpf=?";
 
-       
         const result: any[] = await new Promise((resolve, reject) => {
             db.query(q, [cpf], (error, result) => {
                 if (error) {
                     console.error('Erro ao buscar usuário no banco de dados:', error);
                     reject(error);
                 } else {
+                    console.log('Resultado da consulta ao banco de dados:', result);
+
+                    if (result.length > 0) {
+                        const user = result[0];
+
+                        // Compara a senha fornecida com o hash armazenado no banco de dados
+                        const passwordMatch = bcrypt.compareSync(password, user.password);
+
+                        console.log('Senha correspondente?', passwordMatch);
+
+                        if (passwordMatch) {
+                            console.log('Login bem-sucedido. Enviando informações do usuário:', user);
+                            res.status(200).json(user);
+                        } else {
+                            res.status(401).json({ message: 'Credenciais inválidas pela senha' });
+                        }
+                    } else {
+                        res.status(401).json({ message: 'Credenciais inválidas result' });
+                    }
+
                     resolve(result);
                 }
             });
         });
-
-        console.log('Resultado da consulta ao banco de dados:', result);
-
-        if (result.length > 0) {
-            const user = result[0];
-
-            // Compara a senha fornecida com o hash armazenado no banco de dados
-            const passwordMatch = await bcrypt.compare(password, user.password);
-
-            console.log('Senha correspondente?', passwordMatch);
-
-            if (passwordMatch) {
-                res.status(200).json({ message: 'Login bem-sucedido' })
-            } else {
-                res.status(401).json({ message: 'Credenciais inválidas pela senha' })
-            }
-        } else {
-            res.status(401).json({ message: 'Credenciais inválidas result' });
-        }
     } catch (error) {
         console.error('Erro ao processar a solicitação de login:', error);
         res.status(500).json({ message: 'Erro interno do servidor' });
     }
 };
+
+
 

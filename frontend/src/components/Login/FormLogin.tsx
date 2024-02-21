@@ -179,11 +179,17 @@ const FormLogin: React.FC = () => {
                 },
                 body: JSON.stringify(loginData),
             });
-
+    
             if (response.ok) {
-                const userData = await response.json()
-                setUser(userData)
-                navigate('/home', { state: userData })
+                const userData = await response.json();
+                console.log('Informações do usuário recebidas do servidor:', userData);
+    
+                if (userData) {
+                    // Redirecionar para a página home com as informações do usuário
+                    navigate('/home', { state: { user: userData } });
+                } else {
+                    toast.error('Erro ao obter informações do usuário após o login');
+                }
             } else {
                 const responseBody = await response.text();
                 console.error('Erro na requisição:', responseBody);
@@ -193,7 +199,9 @@ const FormLogin: React.FC = () => {
             console.error('Erro ao processar a requisição:', error);
             toast.error('Erro ao processar a requisição');
         }
-    }
+    };
+    
+    
 
     return (
         <Container>
