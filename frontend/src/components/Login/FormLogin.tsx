@@ -1,5 +1,5 @@
-import React from 'react'
-import styled from 'styled-components'
+import React, { useState } from 'react';
+import styled from 'styled-components';
 
 const Container = styled.div`
     height: 555px;
@@ -13,7 +13,7 @@ const Container = styled.div`
 
 const Box = styled.div`
     width: 350px;
-    height: 400px;
+    min-height: 400px;
     background: gray;
     border-radius: 10px;
     display: flex;
@@ -72,7 +72,6 @@ const BtnLogin = styled.button`
     &:hover {
         background: #d3fd74;
     }
-
 `
 
 const BtnCadastro = styled.button`
@@ -89,22 +88,46 @@ const BtnCadastro = styled.button`
     &:hover {
         background: #dfdfdf;
     }
-
 `
 
+const FormCadastro: React.FC<{ onBackToLogin: () => void }> = ({ onBackToLogin }) => {
+    return (
+        <Box>
+            <h1>Cadastro</h1>
+            <Input placeholder='Nome' type="text" />
+            <Input placeholder='Email' type="text" />
+            <Input placeholder='CPF' type="text" />
+            <Input placeholder='Nascimento' type="date" />
+            <Input placeholder='Senha' type="password" />
+            <BtnCadastro>Cadastrar</BtnCadastro>
+            <BtnLogin onClick={onBackToLogin}>Login</BtnLogin>
+        </Box>
+    );
+};
+
 const FormLogin: React.FC = () => {
+    const [isLoginForm, setIsLoginForm] = useState(true);
+
+    const toggleForm = () => {
+        setIsLoginForm(!isLoginForm);
+    };
+
     return (
         <Container>
-            <Box>
-                <h1>Login</h1>
-                <Input placeholder='CPF' type="text" />
-                <Input placeholder='Senha' type="password"  />
-                <BtnLogin>Login</BtnLogin>
-                <BtnCadastro>Cadastrar</BtnCadastro>
-            </Box>
+            {isLoginForm ? (
+                <Box>
+                    <h1>Login</h1>
+                    <Input placeholder='CPF' type="text" />
+                    <Input placeholder='Senha' type="password"  />
+                    <BtnLogin>Login</BtnLogin>
+                    <BtnCadastro onClick={toggleForm}>Cadastrar</BtnCadastro>
+                </Box>
+            ) : (
+                <FormCadastro onBackToLogin={toggleForm} />
+            )}
         </Container>
-    )
-}
+    );
+};
 
 
-export default FormLogin
+export default FormLogin;
