@@ -1,5 +1,8 @@
 import React, { useState } from 'react';
 import styled from 'styled-components';
+import { toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
+
 
 const Container = styled.div`
     height: 555px;
@@ -37,24 +40,24 @@ const Input = styled.input`
     transition: all 0.3s ease-in-out;
 
     &:hover {
-    background-color: #f1f1f1;
-    border-color: #667788;
+        background-color: #f1f1f1;
+        border-color: #667788;
     }
 
     &:focus {
-    background-color: #272727;
-    border-color: #b0ff00;
-    box-shadow: 0 0 5px rgba(0, 0, 0, 0.2);
+        background-color: #272727;
+        border-color: #b0ff00;
+        box-shadow: 0 0 5px rgba(0, 0, 0, 0.2);
     }
 
     &.invalid {
-    border-color: #ff0000;
-    background-color: #f00;
+        border-color: #ff0000;
+        background-color: #f00;
     }
 
     /* Animações */
     &.entering {
-    animation: slide-in 0.3s ease-in-out forwards;
+        animation: slide-in 0.3s ease-in-out forwards;
     }
 `
 
@@ -97,7 +100,9 @@ const FormCadastro: React.FC<{ onBackToLogin: () => void }> = ({ onBackToLogin }
         cpf: '',
         password: '',
     })
-    
+
+    const [registrationStatus, setRegistrationStatus] = useState<string | null>(null);
+
     const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
         const { name, value } = e.target;
         setFormData((prevData) => ({
@@ -108,25 +113,33 @@ const FormCadastro: React.FC<{ onBackToLogin: () => void }> = ({ onBackToLogin }
 
     const handleCadastroClick = async () => {
         try {
+            console.log('Formato da Requisição:', JSON.stringify(formData));
+    
             const response = await fetch('http://localhost:3333/user', {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',
                 },
                 body: JSON.stringify(formData),
-            });
-
+            })
+    
             if (response.ok) {
-                console.log('Cadastro realizado com sucesso!');
+                toast.success('Cadastro realizado com sucesso!')
+                toast.success('Faça o Login!')
                 onBackToLogin()
             } else {
-                console.error('Erro no cadastro:', response.statusText);
+                const responseBody = await response.text()
+                console.error('Erro na requisição:', responseBody)
+                toast.error(`Erro no cadastro. Detalhes: ${responseBody}`)
             }
         } catch (error) {
+            console.error('Erro ao processar a requisição:', error)
+            toast.error('Erro ao processar a requisição')
             
-            console.error('Erro na requisição:', error);
         }
-    }
+    };
+    
+    
 
     return (
         <Box>
@@ -134,10 +147,10 @@ const FormCadastro: React.FC<{ onBackToLogin: () => void }> = ({ onBackToLogin }
             <Input placeholder='Nome' type="text" name='name' value={formData.name} onChange={handleInputChange} />
             <Input placeholder='Email' type="text" name='email' value={formData.email} onChange={handleInputChange}/>
             <Input placeholder='CPF' type="text" name='cpf' value={formData.cpf} onChange={handleInputChange}/>
-            
             <Input placeholder='Senha' type="password" name='password' value={formData.password} onChange={handleInputChange}/>
             <BtnCadastro onClick={handleCadastroClick}>Cadastrar</BtnCadastro>
             <BtnLogin onClick={onBackToLogin}>Login</BtnLogin>
+            {registrationStatus && <p>{registrationStatus}</p>}
         </Box>
     );
 };
@@ -165,6 +178,5 @@ const FormLogin: React.FC = () => {
         </Container>
     );
 };
-
 
 export default FormLogin;

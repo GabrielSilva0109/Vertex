@@ -90,3 +90,28 @@ export const deleteUser = (req: Request, res: Response) => {
         return res.status(200).json('Usuário Deletado!!');
     });
 }
+
+//Realiza o Login
+export const loginUser = async (req: Request, res: Response) => {
+    try {
+        const { cpf, password } = req.body
+
+        const q = "SELECT * FROM users WHERE cpf=? AND password=?";
+
+        db.query(q, [cpf, password], (error, result) => {
+            if (error) {
+                console.error('Erro ao realizar login:', error);
+                return res.status(500).json({ message: 'Erro interno do servidor' });
+            }
+
+            if (result.length > 0) {
+                res.status(200).json({ message: 'Login bem-sucedido' });
+            } else {
+                res.status(401).json({ message: 'Credenciais inválidas' });
+            }
+        });
+    } catch (error) {
+        console.error('Erro ao processar a solicitação de login:', error);
+        res.status(500).json({ message: 'Erro interno do servidor' });
+    }
+}
