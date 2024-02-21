@@ -157,7 +157,7 @@ const FormLogin: React.FC = () => {
     const [user, setUser] = useState<any>(null)
     const [isLoginForm, setIsLoginForm] = useState(true)
     const [loginData, setLoginData] = useState({cpf: '', password: ''})
-
+    
     const toggleForm = () => {
         setIsLoginForm(!isLoginForm);
     }
