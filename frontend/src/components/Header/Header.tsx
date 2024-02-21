@@ -52,6 +52,13 @@ const UlLinks = styled.ul`
     }
 `
 
+const Links = styled(Link)`
+    color: white;
+    font-size: 1.2rem;
+    font-weight: 600;
+    text-decoration: none
+`
+
 const BtnLogin = styled(Link)`
     background: #b0ff00;
     padding: 12px;
@@ -77,14 +84,14 @@ const Header: React.FC = () => {
     return (
         <HeaderStyle>
             <TitleBank>
-                <Icon>$</Icon>
+                <Icon>$</Icon>                
                 <h1>Vertex Bank</h1>
             </TitleBank>
 
             <Nav>
                 <NavLinks>
                     <UlLinks>
-                        <li>Inicio</li>
+                        <Links to="/">Inicio</Links>
                         <li>Sobre</li>
                         <li>Beneficios</li>
                         <li>Contato</li>
