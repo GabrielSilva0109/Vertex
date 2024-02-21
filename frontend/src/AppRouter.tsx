@@ -4,6 +4,7 @@ import LandingPage from './components/LandingPage/LadingPage';
 import LoginPage from './components/Login/LoginPage';
 import { ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
+import Home from './components/Home/Home';
 
 const AppRouter: React.FC = () => {
   return (
@@ -11,6 +12,7 @@ const AppRouter: React.FC = () => {
       <Routes>
         <Route path="/" element={<LandingPage />} />
         <Route path="/login" element={<LoginPage />} />
+        <Route path="/home" element={<Home />} />
       </Routes>
       <ToastContainer />
     </Router>

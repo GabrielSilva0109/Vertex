@@ -30,11 +30,11 @@ export const createUser = (req: Request, res: Response) => {
     const { name, password, email, birth, cpf, estado, cidade } = req.body;
 
     if (!name || !password || !email) {
-        return res.status(400).json({ error: 'Campos Obrigatórios!' });
+        return res.status(400).json({ error: 'Campos Obrigatórios!' })
     }
 
     // Criptografa a senha antes de armazenar
-    const hashedPassword = bcrypt.hashSync(password, 10);
+    const hashedPassword = bcrypt.hashSync(password, 10)
 
     const q = "INSERT INTO users (`name`, `password`,`email`,`birth`, `cpf`, `estado`, `cidade`) VALUES (?,?,?,?,?,?,?);";
     db.query(q, [name, hashedPassword, email, birth, cpf, estado, cidade], (erro, data) => {
@@ -91,27 +91,48 @@ export const deleteUser = (req: Request, res: Response) => {
     });
 }
 
-//Realiza o Login
+// Realiza o Login
 export const loginUser = async (req: Request, res: Response) => {
     try {
-        const { cpf, password } = req.body
+        const { cpf, password } = req.body;
 
-        const q = "SELECT * FROM users WHERE cpf=? AND password=?";
+        console.log('Tentativa de login com CPF:', cpf);
 
-        db.query(q, [cpf, password], (error, result) => {
-            if (error) {
-                console.error('Erro ao realizar login:', error);
-                return res.status(500).json({ message: 'Erro interno do servidor' });
-            }
+        const q = "SELECT * FROM users WHERE cpf=?";
 
-            if (result.length > 0) {
+       
+        const result: any[] = await new Promise((resolve, reject) => {
+            db.query(q, [cpf], (error, result) => {
+                if (error) {
+                    console.error('Erro ao buscar usuário no banco de dados:', error);
+                    reject(error);
+                } else {
+                    resolve(result);
+                }
+            });
+        });
+
+        console.log('Resultado da consulta ao banco de dados:', result);
+
+        if (result.length > 0) {
+            const user = result[0];
+
+            // Compara a senha fornecida com o hash armazenado no banco de dados
+            const passwordMatch = await bcrypt.compare(password, user.password);
+
+            console.log('Senha correspondente?', passwordMatch);
+
+            if (passwordMatch) {
                 res.status(200).json({ message: 'Login bem-sucedido' });
             } else {
-                res.status(401).json({ message: 'Credenciais inválidas' });
+                res.status(401).json({ message: 'Credenciais inválidas pela senha' });
             }
-        });
+        } else {
+            res.status(401).json({ message: 'Credenciais inválidas result' });
+        }
     } catch (error) {
         console.error('Erro ao processar a solicitação de login:', error);
         res.status(500).json({ message: 'Erro interno do servidor' });
     }
-}
+};
+

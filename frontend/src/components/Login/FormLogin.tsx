@@ -3,7 +3,6 @@ import styled from 'styled-components';
 import { toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 
-
 const Container = styled.div`
     height: 555px;
     width: 100%;
@@ -135,12 +134,9 @@ const FormCadastro: React.FC<{ onBackToLogin: () => void }> = ({ onBackToLogin }
         } catch (error) {
             console.error('Erro ao processar a requisição:', error)
             toast.error('Erro ao processar a requisição')
-            
         }
-    };
+    }
     
-    
-
     return (
         <Box>
             <h1>Cadastro</h1>
@@ -156,20 +152,53 @@ const FormCadastro: React.FC<{ onBackToLogin: () => void }> = ({ onBackToLogin }
 };
 
 const FormLogin: React.FC = () => {
-    const [isLoginForm, setIsLoginForm] = useState(true);
+    const [isLoginForm, setIsLoginForm] = useState(true)
+    const [loginData, setLoginData] = useState({cpf: '', password: ''})
 
     const toggleForm = () => {
         setIsLoginForm(!isLoginForm);
+    }
+
+    const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+        const { name, value } = e.target;
+        setLoginData((prevData) => ({
+            ...prevData,
+            [name]: value,
+        }));
     };
+
+    const handleLoginClick = async () => {
+        try {
+            const response = await fetch('http://localhost:3333/login', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify(loginData),
+            });
+
+            if (response.ok) {
+                toast.success('Login realizado com sucesso!');
+                
+            } else {
+                const responseBody = await response.text();
+                console.error('Erro na requisição:', responseBody);
+                toast.error(`Erro no login. Detalhes: ${responseBody}`);
+            }
+        } catch (error) {
+            console.error('Erro ao processar a requisição:', error);
+            toast.error('Erro ao processar a requisição');
+        }
+    }
 
     return (
         <Container>
             {isLoginForm ? (
                 <Box>
                     <h1>Login</h1>
-                    <Input placeholder='CPF' type="text" />
-                    <Input placeholder='Senha' type="password"  />
-                    <BtnLogin>Login</BtnLogin>
+                    <Input placeholder='CPF' type="text" name='cpf' value={loginData.cpf} onChange={handleInputChange}/>
+                    <Input placeholder='Senha' type="password" name='password' value={loginData.password} onChange={handleInputChange}/>
+                    <BtnLogin onClick={handleLoginClick}>Login</BtnLogin>
                     <BtnCadastro onClick={toggleForm}>Cadastrar</BtnCadastro>
                 </Box>
             ) : (
