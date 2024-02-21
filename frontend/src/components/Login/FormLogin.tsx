@@ -91,15 +91,52 @@ const BtnCadastro = styled.button`
 `
 
 const FormCadastro: React.FC<{ onBackToLogin: () => void }> = ({ onBackToLogin }) => {
+    const [formData, setFormData] = useState({
+        name: '',
+        email: '',
+        cpf: '',
+        password: '',
+    })
+    
+    const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+        const { name, value } = e.target;
+        setFormData((prevData) => ({
+            ...prevData,
+            [name]: value,
+        }))
+    }
+
+    const handleCadastroClick = async () => {
+        try {
+            const response = await fetch('http://localhost:3333/user', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify(formData),
+            });
+
+            if (response.ok) {
+                console.log('Cadastro realizado com sucesso!');
+                onBackToLogin()
+            } else {
+                console.error('Erro no cadastro:', response.statusText);
+            }
+        } catch (error) {
+            
+            console.error('Erro na requisição:', error);
+        }
+    }
+
     return (
         <Box>
             <h1>Cadastro</h1>
-            <Input placeholder='Nome' type="text" />
-            <Input placeholder='Email' type="text" />
-            <Input placeholder='CPF' type="text" />
-            <Input placeholder='Nascimento' type="date" />
-            <Input placeholder='Senha' type="password" />
-            <BtnCadastro>Cadastrar</BtnCadastro>
+            <Input placeholder='Nome' type="text" name='name' value={formData.name} onChange={handleInputChange} />
+            <Input placeholder='Email' type="text" name='email' value={formData.email} onChange={handleInputChange}/>
+            <Input placeholder='CPF' type="text" name='cpf' value={formData.cpf} onChange={handleInputChange}/>
+            
+            <Input placeholder='Senha' type="password" name='password' value={formData.password} onChange={handleInputChange}/>
+            <BtnCadastro onClick={handleCadastroClick}>Cadastrar</BtnCadastro>
             <BtnLogin onClick={onBackToLogin}>Login</BtnLogin>
         </Box>
     );
