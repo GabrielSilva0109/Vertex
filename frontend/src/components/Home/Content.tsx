@@ -1,5 +1,13 @@
 import React from "react"
 import styled from "styled-components"
+import iconAcoes from '../Sections/img/iconsAcoes.png'
+import iconCoin from '../Sections/img/iconsCoin.png'
+import iconBitcoin from '../Sections/img/iconsBitcoin.png'
+import iconCard from '../Sections/img/iconsCard.png'
+import iconDespesa from '../Sections/img/iconsDespesa.png'
+import iconInvestimento from '../Sections/img/iconsInvestimento.png'
+import iconSaldo from '../Sections/img/iconsSaldo.png' 
+
 
 const Container = styled.div`
   display: flex;
@@ -36,7 +44,7 @@ const Box = styled.div`
     background: #2C2C2E;
     margin-top: 30px;
     border-radius: 10px;
-
+    padding: 5px;
 `
 
 const Main = styled.main`
@@ -54,7 +62,21 @@ const BoxRight = styled.div`
     background: #2C2C2E;
     margin-top: 30px;
     border-radius: 10px;
-    
+    padding: 5px;
+`
+
+const Title = styled.h1`
+    color: white;
+    font-size: 1.5rem;
+    padding: 0px;
+    margin:0px;
+    display: flex;
+    align-items: center;
+    justify-content: start;
+`
+
+const Icon = styled.img`
+    width: 35px;
 `
 
 const Content: React.FC = () =>{
@@ -64,13 +86,22 @@ const Content: React.FC = () =>{
             <LeftContainer>
                 <Top>
                     <Box>
-                        <h1>Saldo</h1>
+                    <Title>
+                        <Icon src={iconSaldo} />
+                        Saldo
+                    </Title>
                     </Box>
                     <Box>
-                        <h1>Investimentos</h1>
+                    <Title>
+                        <Icon src={iconInvestimento} />
+                        Investimento
+                    </Title>
                     </Box>
                     <Box>
-                        <h1>Dividas</h1>
+                    <Title>
+                        <Icon src={iconDespesa} />
+                        Despesa
+                        </Title>
                     </Box>
                 </Top>
 
@@ -82,10 +113,16 @@ const Content: React.FC = () =>{
 
             <RightContainer>
                 <BoxRight>
-                    <h1>Ações</h1>
+                    <Title>
+                        <Icon src={iconAcoes} />
+                        Ações
+                    </Title>
                 </BoxRight>
                 <BoxRight>
-                    <h1>Crypto</h1>
+                    <Title>
+                        <Icon src={iconBitcoin} />
+                        Crypto
+                    </Title>
                 </BoxRight>
             </RightContainer>
 
