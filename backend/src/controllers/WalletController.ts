@@ -1,7 +1,6 @@
 import { Request, Response } from 'express'
 import { db } from '../db'
 import { error } from 'console'
-import bcrypt from 'bcrypt'
 
 //Retorna todos os Wallets
 export const getWallets = (req: Request, res: Response) => {
@@ -14,8 +13,7 @@ export const getWallets = (req: Request, res: Response) => {
     })
 }
 
-
-//Retorna Usuario Por ID
+//Retorna Wallet Por ID
 export const getWalletById = (req: Request, res:Response) => {
     const q = "SELECT * FROM wallet WHERE `id`=?;"
 
@@ -26,68 +24,53 @@ export const getWalletById = (req: Request, res:Response) => {
     })
 }
 
-//Cria um Usuario   
+//Cria uma Wallet   
 export const createWallet = (req: Request, res: Response) => {
-    const { name, password, email, birth, cpf, estado, cidade } = req.body;
+    const { user_id, conta, saldo } = req.body;
 
-    if (!name || !password || !email) {
-        return res.status(400).json({ error: 'Campos Obrigatórios!' })
+    if (!user_id || !conta) {
+        return res.status(400).json({ error: 'Atributos Obrigatórios!' })
     }
 
-    // Criptografa a senha antes de armazenar
-    const hashedPassword = bcrypt.hashSync(password, 10)
 
-    const q = "INSERT INTO users (`name`, `password`,`email`,`birth`, `cpf`, `estado`, `cidade`) VALUES (?,?,?,?,?,?,?);";
-    db.query(q, [name, hashedPassword, email, birth, cpf, estado, cidade], (erro, data) => {
-        if (erro) return res.status(500).json({ erro: 'Erro ao Cadastrar Usuário' });
+    const q = "INSERT INTO wallet (`user_id`, `conta`,`saldo`) VALUES (?,?,?);";
+    db.query(q, [user_id, conta, saldo], (erro, data) => {
+        if (erro) return res.status(500).json({ erro: 'Erro ao Criar Wallet' });
 
-        return res.status(201).json('Usuário Criado!!');
+        return res.status(201).json('Wallet Criado!!');
     });
 }
 
 //Atualiza os dados da Wallet
 export const updateWallet = (req: Request, res: Response) => {
-    const userId = req.params.id;
-    const { name, password, email, birth, cpf, estado, cidade } = req.body;
+    const walletId = req.params.id;
+    const { saldo } = req.body;
 
-    if (!name && !password && !email && !birth && !cpf && !estado && !cidade) {
-        return res.status(400).json({ error: 'Nenhum dado de atualização fornecido' });
+    if (!saldo) {
+        return res.status(400).json({ error: 'Nenhum valor de atualização fornecido' });
     }
 
-    const updatedFields: Record<string, any> = {};
+    const q = 'UPDATE wallet SET saldo=? WHERE id=?'
 
-    if (name) updatedFields.name = name;
-    if (password) {
-        const hashedPassword = bcrypt.hashSync(password, 10);
-        updatedFields.password = hashedPassword;
-    }
-    if (email) updatedFields.email = email;
-    if (birth) updatedFields.birth = birth;
-    if (cpf) updatedFields.cpf = cpf;
-    if (estado) updatedFields.estado = estado;
-    if (cidade) updatedFields.cidade = cidade;
+    db.query(q, [saldo, walletId], (error, data) => {
+        if (error) {
+            console.log('Erro ao Atualizar a Wallet', error);
+            return res.status(500).json('Erro ao atualizar o saldo!');
+        }
 
-    const fieldsToUpdate = Object.keys(updatedFields);
-    const placeholders = fieldsToUpdate.map((field) => `${field}=?`).join(', ');
-
-    const q = `UPDATE users SET ${placeholders} WHERE id=?`;
-    const values = [...fieldsToUpdate.map((field) => updatedFields[field]), userId];
-
-    db.query(q, values, (erro, data) => {
-        if (erro) return res.status(500).json({ erro: 'Erro ao Atualizar Usuário' });
-
-        return res.status(200).json('Usuário Atualizado!!');
+        return res.status(200).json('Saldo Atualizado!');
     });
 }
 
+
 //Deleta a Wallet
 export const deleteWallet = (req: Request, res: Response) => {
-    const userId = req.params.id;
+    const walletId = req.params.id;
 
-    const q = "DELETE FROM users WHERE `id`=?";
-    db.query(q, [userId], (erro, data) => {
-        if (erro) return res.status(500).json({ erro: 'Erro ao Deletar Usuário' });
+    const q = "DELETE FROM wallet WHERE `id`=?";
+    db.query(q, [walletId], (error, data) => {
+        if (error) return res.status(500).json({ error: 'Erro ao Deletar Wallet' });
 
-        return res.status(200).json('Usuário Deletado!!');
+        return res.status(200).json('Wallet Deletada!!');
     });
 }
