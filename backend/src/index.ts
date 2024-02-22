@@ -1,6 +1,8 @@
 import express from 'express'
 import cors from 'cors'
 import userRoutes from './routes/UserRoutes'
+import walletRoutes from './routes/WalletRoutes'
+
 
 const app = express()
 const port = 3333
@@ -15,7 +17,7 @@ app.get('/', (req, res) => {
 })
 
 // Rotas específicas de usuários
-app.use('/', userRoutes)
+app.use('/', userRoutes, walletRoutes)
 
 app.listen(port, () => {
   console.log(`Servidor rodando em http://localhost:${port}`)

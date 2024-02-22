@@ -27,16 +27,14 @@ const Home: React.FC = () => {
   }, [user]);
 
   return (
-    <div>
+    <>
       <NavBar />
       <Content />
-      {user && (
-        <div>
-          <p>Nome: {user.name}</p>
-          <p>Email: {user.email}</p>
-        </div>
-      )}
-    </div>
+      
+    
+    </>
+      
+      
   );
 };
 

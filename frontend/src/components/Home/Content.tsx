@@ -15,6 +15,10 @@ const Container = styled.div`
   width: 100%;
   height: 100vh;
   color: white;
+
+  @media (max-width: 768px) {
+    flex-direction: column;
+}
 `
 
 const LeftContainer = styled.div`
@@ -24,12 +28,17 @@ const LeftContainer = styled.div`
     display: flex;  
     flex-direction: column;
     align-items: center;
+
+
 `
 
 const RightContainer = styled.div`
   flex: 1;
   border-radius: 10px;
-  margin:20px;
+  margin: 20px;
+  gap: 10px;
+  display: flex;
+  flex-direction: column;
 `
 
 const Top = styled.div`
@@ -39,10 +48,9 @@ const Top = styled.div`
 `
 
 const Box = styled.div`
-    width: 300px;
+    width: 30%;
     height: 150px;
     background: #2C2C2E;
-    margin-top: 30px;
     border-radius: 10px;
     padding: 5px;
 `
@@ -58,11 +66,10 @@ const Main = styled.main`
 `
 
 const BoxRight = styled.div`
-    height: 350px;
     background: #2C2C2E;
-    margin-top: 30px;
     border-radius: 10px;
     padding: 5px;
+    height: 48%;
 `
 
 const Title = styled.h1`
@@ -73,6 +80,10 @@ const Title = styled.h1`
     display: flex;
     align-items: center;
     justify-content: start;
+
+    @media (max-width: 768px) {
+        font-size: 1.2rem;
+    }
 `
 
 const Icon = styled.img`
@@ -106,7 +117,7 @@ const Content: React.FC = () =>{
                 </Top>
 
                 <Main>
-                    <h1>Cardeira grafico</h1>
+                    <h1>Carteira grafico</h1>
 
                 </Main>
             </LeftContainer>
