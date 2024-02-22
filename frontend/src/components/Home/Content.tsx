@@ -10,9 +10,12 @@ const Container = styled.div`
 `
 
 const LeftContainer = styled.div`
-  flex: 3; 
-  border-radius: 10px;
-  margin:20px;
+    flex: 3; 
+    border-radius: 10px;
+    margin:20px;
+    display: flex;  
+    flex-direction: column;
+    align-items: center;
 `
 
 const RightContainer = styled.div`
@@ -23,13 +26,12 @@ const RightContainer = styled.div`
 
 const Top = styled.div`
     display: flex;
-    justify-content: center;
-    align-items: center;
-    gap: 20px;
+    justify-content: space-between;
+    width: 100%;
 `
 
 const Box = styled.div`
-    width: 250px;
+    width: 300px;
     height: 150px;
     background: #2C2C2E;
     margin-top: 30px;
@@ -38,8 +40,13 @@ const Box = styled.div`
 `
 
 const Main = styled.main`
+    display: flex;
+    justify-content: center;
     background: #2C2C2C;
-    width: 100;
+    width: 100%;
+    height: 100%;
+    border-radius: 10px;
+    margin-top: 10px;
 `
 
 const BoxRight = styled.div`
@@ -47,6 +54,7 @@ const BoxRight = styled.div`
     background: #2C2C2E;
     margin-top: 30px;
     border-radius: 10px;
+    
 `
 
 const Content: React.FC = () =>{
