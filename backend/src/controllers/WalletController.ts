@@ -62,7 +62,6 @@ export const updateWallet = (req: Request, res: Response) => {
     });
 }
 
-
 //Deleta a Wallet
 export const deleteWallet = (req: Request, res: Response) => {
     const walletId = req.params.id;

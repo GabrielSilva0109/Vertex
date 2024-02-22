@@ -10,13 +10,13 @@ const Container = styled.div`
     align-items: center;
     flex-wrap: wrap; /* Permite que os elementos quebrem para a próxima linha em telas menores */
     padding: 20px; /* Adiciona espaço ao redor dos elementos */
-`;
+`
 
 const LeftContainer = styled.div`
     flex: 1;
     max-width: 600px; /* Define uma largura máxima para o LeftContainer */
     padding: 20px;
-`;
+`
 
 const TitleMain = styled.h1`
     font-size: 2.8rem;
@@ -25,7 +25,7 @@ const TitleMain = styled.h1`
     @media (max-width: 768px) {
        font-size: 1.8rem;
     }
-`;
+`
 
 const TextMain = styled.p`
     font-size: 1.2rem;
@@ -33,32 +33,40 @@ const TextMain = styled.p`
     color: gray;
     font-weight: 600;
 
+    span {
+        transition: color 0.3s ease;
+
+        &:hover {
+            color: #b0ff00; 
+        }
+    }
+
     @media (max-width: 768px) {
         font-size: 1rem;
-     }
-`;
+    }
+`
 
 const RightContainer = styled.div`
     flex: 1;
     display: flex;
     justify-content: center;
     align-items: center;
-`;
+`
 
 const Image = styled.img`
     width: 100%;
     height: auto;
     max-width: 500px; /* Define uma largura máxima para a imagem */
-`;
+`
 
 const Main: React.FC = () => {
     return (
         <Container>
             <LeftContainer>
                 <TitleMain>Seu universo financeiro<br /> em um só lugar</TitleMain>
-                <TextMain>Ações, criptomoedas, fundos de investimento, renda fixa <br />
-                    e muito mais. Diversifique seu portfólio, maximize seus retornos e <br />
-                    acompanhe tudo em tempo real com nossa plataforma intuitiva.</TextMain>
+                <TextMain><span>Ações</span>, <span>Criptomoedas</span>, <span>ETFs</span>, <span>Renda fixa </span>
+                     e muito mais.<br /> Diversifique seu portfólio, maximize seus retornos e <br />
+                    acompanhe tudo em tempo real com nossa plataforma.</TextMain>
             </LeftContainer>
             <RightContainer>
                 <Image src={creditCardImage} />

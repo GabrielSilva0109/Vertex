@@ -93,7 +93,6 @@ const Icon = styled.img`
 const Content: React.FC = () =>{
     return (
         <Container>
-
             <LeftContainer>
                 <Top>
                     <Box>

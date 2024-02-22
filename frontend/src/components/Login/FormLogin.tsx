@@ -17,7 +17,7 @@ const Container = styled.div`
 const Box = styled.div`
     width: 350px;
     min-height: 400px;
-    background: gray;
+    background: #2C2C2E;
     border-radius: 10px;
     display: flex;
     justify-content: center;
@@ -130,7 +130,7 @@ const FormCadastro: React.FC<{ onBackToLogin: () => void }> = ({ onBackToLogin }
             } else {
                 const responseBody = await response.text()
                 console.error('Erro na requisição:', responseBody)
-                toast.error(`Erro no cadastro. Detalhes: ${responseBody}`)
+                toast.error(`Erro: Campos obrigatorios!`)
             }
         } catch (error) {
             console.error('Erro ao processar a requisição:', error)
@@ -150,7 +150,7 @@ const FormCadastro: React.FC<{ onBackToLogin: () => void }> = ({ onBackToLogin }
             {registrationStatus && <p>{registrationStatus}</p>}
         </Box>
     );
-};
+}
 
 const FormLogin: React.FC = () => {
     const navigate = useNavigate()
@@ -167,8 +167,8 @@ const FormLogin: React.FC = () => {
         setLoginData((prevData) => ({
             ...prevData,
             [name]: value,
-        }));
-    };
+        }))
+    }
 
     const handleLoginClick = async () => {
         try {
@@ -193,15 +193,13 @@ const FormLogin: React.FC = () => {
             } else {
                 const responseBody = await response.text();
                 console.error('Erro na requisição:', responseBody);
-                toast.error(`Erro no login. Detalhes: ${responseBody}`);
+                toast.error(`Erro ao Logar`);
             }
         } catch (error) {
             console.error('Erro ao processar a requisição:', error);
             toast.error('Erro ao processar a requisição');
         }
-    };
-    
-    
+    }
 
     return (
         <Container>
@@ -217,7 +215,7 @@ const FormLogin: React.FC = () => {
                 <FormCadastro onBackToLogin={toggleForm} />
             )}
         </Container>
-    );
-};
+    )
+}
 
-export default FormLogin;
+export default FormLogin
