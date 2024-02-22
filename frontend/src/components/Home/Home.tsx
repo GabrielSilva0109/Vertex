@@ -2,6 +2,8 @@ import React, { useEffect } from "react";
 import { useLocation, useNavigate } from "react-router-dom";
 import { toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
+import NavBar from "../Header/NavBar";
+import Content from "./Content";
 
 const Home: React.FC = () => {
   const { state } = useLocation();
@@ -26,7 +28,8 @@ const Home: React.FC = () => {
 
   return (
     <div>
-      <h2>Bem-vindo à página Home</h2>
+      <NavBar />
+      <Content />
       {user && (
         <div>
           <p>Nome: {user.name}</p>
