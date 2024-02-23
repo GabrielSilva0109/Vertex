@@ -49,9 +49,15 @@ const Top = styled.div`
 const Box = styled.div`
     width: 30%;
     height: 150px;
-    background: #2C2C2E;
-    border-radius: 10px;
+    border-radius: 30px;
     padding: 5px;
+    box-shadow: 10px 10px 10px rgba(12, 12, 10, 0.2);
+    background: linear-gradient(-45deg, #b0ff00 0%, #6d8f21 100% );
+    display: flex;
+    align-items: center;
+    justify-content: start;
+    overflow: hidden;
+    transition: all 0.6s cubic-bezier(0.23, 1, 0.320, 1);
 `
 
 const Main = styled.main`
@@ -60,17 +66,20 @@ const Main = styled.main`
     background: #2C2C2C;
     width: 100%;
     height: 100%;
-    border-radius: 10px;
+    border-radius: 30px;
     margin-top: 10px;
+    box-shadow: 10px 10px 10px rgba(12, 12, 10, 0.2); 
 `
 
 const BoxRight = styled.div`
-    background: #b0ff00;
-    border-radius: 10px;
-    padding: 5px;
-    height: 48%;
-    
-`
+width: 190px;
+height: 254px;
+border-radius: 1rem;
+background-color: #b0ff00; /* Cor principal */
+background-image: linear-gradient(43deg, #ffcc00 0%, #ff66b2 46%, #ff9966 100%); /* Gradiente de cores */
+box-shadow: rgba(0, 0, 0, 0.17) 0px -23px 25px 0px inset, rgba(0, 0, 0, 0.15) 0px -36px 30px 0px inset, rgba(0, 0, 0, 0.1) 0px -79px 40px 0px inset, rgba(0, 0, 0, 0.06) 0px 2px 1px, rgba(0, 0, 0, 0.09) 0px 4px 2px, rgba(0, 0, 0, 0.09) 0px 8px 4px, rgba(0, 0, 0, 0.09) 0px 16px 8px, rgba(0, 0, 0, 0.09) 0px 32px 16px;
+`;
+
 
 const Title = styled.h1`
     color: white;
@@ -134,8 +143,9 @@ const Content: React.FC = () =>{
                     <Box>
                     <Title>
                         <Icon src={iconSaldo} />
-                        Saldo: {saldo.toFixed(2)}
+                        Saldo  {saldo.toFixed(2)}
                     </Title>
+                    
                     </Box>
                     <Box>
                     <Title>
