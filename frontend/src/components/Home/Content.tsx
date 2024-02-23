@@ -25,7 +25,7 @@ const Container = styled.div`
 const LeftContainer = styled.div`
     flex: 3; 
     border-radius: 10px;
-    margin:20px;
+    margin:10px;
     display: flex;  
     flex-direction: column;
     align-items: center;
@@ -34,7 +34,7 @@ const LeftContainer = styled.div`
 const RightContainer = styled.div`
   flex: 1;
   border-radius: 10px;
-  margin: 20px;
+  margin: 10px;
   gap: 10px;
   display: flex;
   flex-direction: column;
