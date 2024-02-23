@@ -5,7 +5,7 @@ import 'react-toastify/dist/ReactToastify.css'
 import { useNavigate } from 'react-router-dom'
 
 const Container = styled.div`
-    height: 555px;
+    height: 87.9vh;
     width: 100%;
     background:black;
     display: flex;
