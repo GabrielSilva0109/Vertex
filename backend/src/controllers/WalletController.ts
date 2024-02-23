@@ -4,7 +4,7 @@ import { error } from 'console'
 
 //Retorna todos os Wallets
 export const getWallets = (req: Request, res: Response) => {
-    const q = "SELECT * FROM wallet;"
+    const q = "SELECT * FROM wallets;"
 
     db.query(q, (error, data) => {
         if (error) return res.status(500).json({ error: 'Erro interno no servidor' })
@@ -15,7 +15,7 @@ export const getWallets = (req: Request, res: Response) => {
 
 //Retorna Wallet Por ID
 export const getWalletById = (req: Request, res:Response) => {
-    const q = "SELECT * FROM wallet WHERE `id`=?;"
+    const q = "SELECT * FROM wallets WHERE `id`=?;"
 
     db.query(q, [req.params.id], (erro, data) =>{
         if(erro) return res.status(500).json({erro: 'Erro ao encontrar Wallet'})
@@ -33,7 +33,7 @@ export const createWallet = (req: Request, res: Response) => {
     }
 
 
-    const q = "INSERT INTO wallet (`user_id`, `conta`,`saldo`) VALUES (?,?,?);";
+    const q = "INSERT INTO wallets (`user_id`, `conta`,`saldo`) VALUES (?,?,?);";
     db.query(q, [user_id, conta, saldo], (erro, data) => {
         if (erro) return res.status(500).json({ erro: 'Erro ao Criar Wallet' });
 
@@ -50,7 +50,7 @@ export const updateWallet = (req: Request, res: Response) => {
         return res.status(400).json({ error: 'Nenhum valor de atualização fornecido' });
     }
 
-    const q = 'UPDATE wallet SET saldo=? WHERE id=?'
+    const q = 'UPDATE wallets SET saldo=? WHERE id=?'
 
     db.query(q, [saldo, walletId], (error, data) => {
         if (error) {
@@ -66,7 +66,7 @@ export const updateWallet = (req: Request, res: Response) => {
 export const deleteWallet = (req: Request, res: Response) => {
     const walletId = req.params.id;
 
-    const q = "DELETE FROM wallet WHERE `id`=?";
+    const q = "DELETE FROM wallets WHERE `id`=?";
     db.query(q, [walletId], (error, data) => {
         if (error) return res.status(500).json({ error: 'Erro ao Deletar Wallet' });
 

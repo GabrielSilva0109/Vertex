@@ -2,6 +2,12 @@ import { Request, Response } from 'express'
 import { db } from '../db'
 import { error } from 'console'
 import bcrypt from 'bcrypt'
+import { randomBytes } from 'crypto'
+
+const generateRandomNumber = () => {
+    const randomNumber = Math.floor(10000 + Math.random() * 90000);
+    return randomNumber.toString();
+}
 
 //Retorna todos os Usuarios
 export const getUsers = (req: Request, res: Response) => {
@@ -25,23 +31,37 @@ export const getUserById = (req: Request, res:Response) => {
     })
 }
 
-//Cria um Usuario   
+// Cria um Usuario
 export const createUser = (req: Request, res: Response) => {
-    const { name, password, email, birth, cpf, cep } = req.body
+    const { name, password, email, birth, cpf, cep } = req.body;
 
     if (!name || !password || !email) {
-        return res.status(400).json({ error: 'Campos Obrigatórios!' })
+        return res.status(400).json({ error: 'Campos Obrigatórios!' });
     }
 
     // Criptografa a senha antes de armazenar
-    const hashedPassword = bcrypt.hashSync(password, 10)
+    const hashedPassword = bcrypt.hashSync(password, 10);
 
     const q = "INSERT INTO users (`name`, `password`,`email`,`birth`, `cpf`, `cep`) VALUES (?,?,?,?,?,?);";
     db.query(q, [name, hashedPassword, email, birth, cpf, cep], (erro, data) => {
-        if (erro) return res.status(500).json({ erro: 'Erro ao Cadastrar Usuário' });
+        if (erro) return res.status(500).json({ erro: 'Erro ao Cadastrar Usuário' })
 
-        return res.status(201).json('Usuário Criado!!');
-    });
+        // Recupera o ID do usuário recém-criado
+        const userId = data.insertId;
+
+        // Gera um número randômico de 5 caracteres para a conta
+        const contaNumber = generateRandomNumber()
+
+        // Cria uma wallet para o novo usuário
+        const walletQuery = "INSERT INTO wallets (`user_id`, `conta`, `saldo`) VALUES (?,?,?);";
+        db.query(walletQuery, [userId, contaNumber, 0.00], (walletError, walletData) => {
+            if (walletError) {
+                return res.status(500).json({ error: 'Erro ao Criar Wallet para o Usuário' });
+            }
+
+            return res.status(201).json('Usuário e Wallet Criados!!');
+        })
+    })
 }
 
 //Atualiza os dados do Usuario
@@ -94,11 +114,11 @@ export const deleteUser = (req: Request, res: Response) => {
 // Realiza o Login
 export const loginUser = async (req: Request, res: Response) => {
     try {
-        const { cpf, password } = req.body;
+        const { cpf, password } = req.body
 
-        console.log('Tentativa de login com CPF:', cpf);
+        console.log('Tentativa de login com CPF:', cpf)
 
-        const q = "SELECT * FROM users WHERE cpf=?";
+        const q = "SELECT * FROM users WHERE cpf=?"
 
         const result: any[] = await new Promise((resolve, reject) => {
             db.query(q, [cpf], (error, result) => {

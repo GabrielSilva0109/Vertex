@@ -2,7 +2,6 @@ import React from 'react'
 import styled from 'styled-components'
 import { Link } from 'react-router-dom'
 
-
 const Nav = styled.div`
     background: black;
     display: flex;
@@ -83,14 +82,13 @@ const NavBar: React.FC = () => {
 
             <Links>
                 <UlLinks>
-                    <Navigation to="/">Home</Navigation>
+                    <Navigation to="/home">Home</Navigation>
                     <Navigation to="">Carteira</Navigation>
                     <Navigation to="">Gastos</Navigation>
                     <Navigation to="">Noticias</Navigation>
 
                 </UlLinks>
             </Links>
-
 
             <Config>
                 <BtnSair to="/login">Sair</BtnSair>
