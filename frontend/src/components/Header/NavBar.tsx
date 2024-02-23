@@ -52,24 +52,19 @@ const Config = styled.div`
 `
 
 const BtnSair = styled(Link)`
-    background: gray;
-    padding: 8px;
-    border-radius: 50%;
-    color: black;
-    font-size: 1rem;
-    font-weight: bold;
+    display: flex;
+    align-items: center;
+    justify-content: flex-start;
+    width: 45px;
+    height: 45px;
     border: none;
+    border-radius: 50%;
     cursor: pointer;
-    text-decoration: none;
-
-
-    &:hover {
-        background: #d3fd74;
-    }
-
-    @media (max-width: 768px) {
-        display: block;
-    }
+    position: relative;
+    overflow: hidden;
+    transition-duration: 0.3s;
+    box-shadow: 2px 2px 10px rgba(0, 0, 0, 0.199);
+    background-color: #b0ff00
 `
 
 const NavBar: React.FC = () => {
