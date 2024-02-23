@@ -27,7 +27,7 @@ export const getUserById = (req: Request, res:Response) => {
 
 //Cria um Usuario   
 export const createUser = (req: Request, res: Response) => {
-    const { name, password, email, birth, cpf, estado, cidade } = req.body;
+    const { name, password, email, birth, cpf, cep } = req.body
 
     if (!name || !password || !email) {
         return res.status(400).json({ error: 'Campos Obrigatórios!' })
@@ -36,8 +36,8 @@ export const createUser = (req: Request, res: Response) => {
     // Criptografa a senha antes de armazenar
     const hashedPassword = bcrypt.hashSync(password, 10)
 
-    const q = "INSERT INTO users (`name`, `password`,`email`,`birth`, `cpf`, `estado`, `cidade`) VALUES (?,?,?,?,?,?,?);";
-    db.query(q, [name, hashedPassword, email, birth, cpf, estado, cidade], (erro, data) => {
+    const q = "INSERT INTO users (`name`, `password`,`email`,`birth`, `cpf`, `cep`) VALUES (?,?,?,?,?,?);";
+    db.query(q, [name, hashedPassword, email, birth, cpf, cep], (erro, data) => {
         if (erro) return res.status(500).json({ erro: 'Erro ao Cadastrar Usuário' });
 
         return res.status(201).json('Usuário Criado!!');
