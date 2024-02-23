@@ -3,7 +3,7 @@ import styled from 'styled-components'
 import { Link } from 'react-router-dom'
 
 const Nav = styled.div`
-    background: black;
+    background: rgb(28, 28, 30);
     display: flex;
     justify-content: space-between;
     padding: 0px 20px;

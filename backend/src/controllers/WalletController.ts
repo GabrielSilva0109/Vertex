@@ -24,6 +24,16 @@ export const getWalletById = (req: Request, res:Response) => {
     })
 }
 
+export const getWalletByIdUser = (req: Request, res: Response) => {
+    const q = "SELECT * FROM wallets WHERE `user_id`=?;"
+
+    db.query(q, [req.params.id], (erro, data) => {
+        if(erro) return res.status(500).json({erro: 'Erro ao encontrar a Wallet do Usuario'})
+
+        return res.status(200).json(data[0])
+    })
+}
+
 //Cria uma Wallet   
 export const createWallet = (req: Request, res: Response) => {
     const { user_id, conta, saldo } = req.body;
@@ -58,7 +68,7 @@ export const updateWallet = (req: Request, res: Response) => {
             return res.status(500).json('Erro ao atualizar o saldo!');
         }
 
-        return res.status(200).json('Saldo Atualizado!');
+        return res.status(200).json('Saldo Atualizado!' + q);
     });
 }
 

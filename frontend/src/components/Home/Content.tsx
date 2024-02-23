@@ -1,4 +1,4 @@
-import React from "react"
+import React, { useEffect, useState } from "react"
 import styled from "styled-components"
 import iconAcoes from '../Sections/img/iconsAcoes.png'
 import iconCoin from '../Sections/img/iconsCoin.png'
@@ -7,11 +7,12 @@ import iconCard from '../Sections/img/iconsCard.png'
 import iconDespesa from '../Sections/img/iconsDespesa.png'
 import iconInvestimento from '../Sections/img/iconsInvestimento.png'
 import iconSaldo from '../Sections/img/iconsSaldo.png' 
+import { useLocation } from "react-router-dom"
 
 
 const Container = styled.div`
   display: flex;
-  background: rgb(28, 28, 30);;
+  background: rgb(28, 28, 30);
   width: 100%;
   height: 100vh;
   color: white;
@@ -28,8 +29,6 @@ const LeftContainer = styled.div`
     display: flex;  
     flex-direction: column;
     align-items: center;
-
-
 `
 
 const RightContainer = styled.div`
@@ -66,10 +65,11 @@ const Main = styled.main`
 `
 
 const BoxRight = styled.div`
-    background: #2C2C2E;
+    background: #b0ff00;
     border-radius: 10px;
     padding: 5px;
     height: 48%;
+    
 `
 
 const Title = styled.h1`
@@ -91,6 +91,42 @@ const Icon = styled.img`
 `
 
 const Content: React.FC = () =>{
+    const [saldo, setSaldo] = useState<number>(0)
+    const { state } = useLocation()
+    const user = state?.user
+
+    // Função para buscar o saldo do usuário com base no ID e atualizar o estado local
+    const fetchSaldo = async (userId: number) => {
+        try {
+            const response = await fetch(`http://localhost:3333/walletUser/${userId}`);
+            
+            if (!response.ok) {
+                console.error(`Erro na requisição: ${response.status} - ${response.statusText}`);
+                return;
+            }
+            console.log('Response: ', response)
+            
+            console.log('id: ', userId)
+            const data = await response.json();
+
+            console.log('data: ', data)
+            if (data && data.saldo !== undefined) {
+                setSaldo(data.saldo);
+            } else {
+                console.error(`Resposta inesperada do servidor: ${JSON.stringify(data)}`);
+            }
+        } catch (error) {
+            console.error("Erro ao buscar saldo:", error);
+        }
+    };
+    
+
+    useEffect(() => {
+        if (user && user.id) {
+            fetchSaldo(user.id)
+        }
+    }, [user])
+
     return (
         <Container>
             <LeftContainer>
@@ -98,7 +134,7 @@ const Content: React.FC = () =>{
                     <Box>
                     <Title>
                         <Icon src={iconSaldo} />
-                        Saldo
+                        Saldo: {saldo.toFixed(2)}
                     </Title>
                     </Box>
                     <Box>
