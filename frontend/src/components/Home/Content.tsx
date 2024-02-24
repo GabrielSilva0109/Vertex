@@ -102,12 +102,20 @@ const CryptoPrice = styled.div`
   display: flex;
   align-items: center;
   justify-content: space-between;
+  flex-direction: column;
   margin-top: 10px;
 `
 
 const Content: React.FC = () =>{
-    const [btcPrice, setBtcPrice] = useState<number | null>(null);
-    const [ethPrice, setEthPrice] = useState<number | null>(null);
+    const [btcPrice, setBtcPrice] = useState<number | null>(null)
+    const [ethPrice, setEthPrice] = useState<number | null>(null)
+    const [cardanoPrice, setCardanoPrice] = useState<number | null>(null)
+    const [xrpPrice, setXrpPrice] = useState<number | null>(null)
+    const [maticPrice, setMaticPrice] = useState<number | null>(null)
+    const [bnbPrice, setBnbPrice] = useState<number | null>(null)
+    const [solanaPrice, setSolanaPrice] = useState<number | null>(null)
+
+
     const [saldo, setSaldo] = useState<number>(0)
     const { state } = useLocation()
     const user = state?.user
@@ -218,6 +226,10 @@ const Content: React.FC = () =>{
                     <CryptoPrice>
                         <span>BTC: ${btcPrice}</span>
                         <span>ETH: ${ethPrice}</span>
+                        <span>BNB: ${bnbPrice}</span>
+                        <span>CARDANO: ${cardanoPrice}</span>
+                        <span>MATIC: ${maticPrice}</span>
+                        <span>SOLANA: ${solanaPrice}</span>
                 </CryptoPrice>
                 </BoxRight>
             </RightContainer>
