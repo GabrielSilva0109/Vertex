@@ -100,7 +100,8 @@ const Icon = styled.img`
 
 const CryptoPrice = styled.div`
   display: flex;
-  align-items: center;
+  gap:5px;
+  align-items: start;
   justify-content: space-between;
   flex-direction: column;
   margin-top: 10px;
@@ -143,7 +144,7 @@ const Content: React.FC = () =>{
         } catch (error) {
             console.error("Erro ao buscar saldo:", error);
         }
-    };
+    }
     
 
     useEffect(() => {
@@ -155,18 +156,17 @@ const Content: React.FC = () =>{
     const fetchCryptoPrices = async () => {
         try {
           const response = await axios.get(
-            "https://api.coingecko.com/api/v3/simple/price?ids=bitcoin,ethereum,polygon,binancecoin,cardano,solana,ripple&vs_currencies=usd"
+            "https://api.coingecko.com/api/v3/simple/price?ids=bitcoin,ethereum,binancecoin,cardano,solana,ripple&vs_currencies=usd"
           )
     
           if (response.status === 200) {
-            const data = response.data;
-            setBtcPrice(data.bitcoin.usd.toFixed(2));
-            setEthPrice(data.ethereum.usd.toFixed(2));
-            setMaticPrice(data.polygon.usd.toFixed(2));
-            setBnbPrice(data.binancecoin.usd.toFixed(2));
-            setCardanoPrice(data.cardano.usd.toFixed(2));
-            setSolanaPrice(data.solana.usd.toFixed(2));
-            setXrpPrice(data.ripple.usd.toFixed(2));
+            const data = response.data
+            setBtcPrice(data.bitcoin.usd.toFixed(2))
+            setEthPrice(data.ethereum.usd.toFixed(2))
+            setBnbPrice(data.binancecoin.usd.toFixed(2))
+            setCardanoPrice(data.cardano.usd.toFixed(2))
+            setSolanaPrice(data.solana.usd.toFixed(2))
+            setXrpPrice(data.ripple.usd.toFixed(2))
           }
         } catch (error) {
           console.error("Erro ao buscar preços de criptomoedas:", error)
@@ -175,7 +175,7 @@ const Content: React.FC = () =>{
     
       useEffect(() => {
         fetchCryptoPrices()
-        const intervalId = setInterval(fetchCryptoPrices, 10000)// Atualiza os preços a cada minuto
+        const intervalId = setInterval(fetchCryptoPrices, 70000)
     
         return () => clearInterval(intervalId)
       }, [])
@@ -228,7 +228,6 @@ const Content: React.FC = () =>{
                         <span>ETH: ${ethPrice}</span>
                         <span>BNB: ${bnbPrice}</span>
                         <span>CARDANO: ${cardanoPrice}</span>
-                        <span>MATIC: ${maticPrice}</span>
                         <span>SOLANA: ${solanaPrice}</span>
                 </CryptoPrice>
                 </BoxRight>

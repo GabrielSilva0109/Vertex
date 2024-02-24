@@ -147,8 +147,8 @@ const NavBar: React.FC = () => {
                         </svg>
                         <Text>&nbsp;&nbsp;&nbsp;&nbsp;Sair</Text>
                     </Sign>
+                    
                 </BtnSair>
-
             </Config>
         </Nav>
     )
