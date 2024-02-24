@@ -133,7 +133,6 @@ const NavBar: React.FC = () => {
                     <Navigation to="">Carteira</Navigation>
                     <Navigation to="">Gastos</Navigation>
                     <Navigation to="">Noticias</Navigation>
-
                 </UlLinks>
             </Links>
 
