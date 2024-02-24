@@ -8,7 +8,7 @@ import iconDespesa from '../Sections/img/iconsDespesa.png'
 import iconInvestimento from '../Sections/img/iconsInvestimento.png'
 import iconSaldo from '../Sections/img/iconsSaldo.png' 
 import { useLocation } from "react-router-dom"
-
+import axios from "axios"
 
 const Container = styled.div`
   display: flex;
@@ -78,8 +78,7 @@ const BoxRight = styled.div`
     background-color: #b0ff00;
     background-image: linear-gradient(43deg, #b0ff00 0%, #0193b0b3 46%, #0193b0 100%);
     box-shadow: rgba(0, 0, 0, 0.17) 0px -23px 25px 0px inset, rgba(0, 0, 0, 0.15) 0px -36px 30px 0px inset, rgba(0, 0, 0, 0.1) 0px -79px 40px 0px inset, rgba(0, 0, 0, 0.06) 0px 2px 1px, rgba(0, 0, 0, 0.09) 0px 4px 2px, rgba(0, 0, 0, 0.09) 0px 8px 4px, rgba(0, 0, 0, 0.09) 0px 16px 8px, rgba(0, 0, 0, 0.09) 0px 32px 16px;
-`;
-
+`
 
 const Title = styled.h1`
     color: white;
@@ -99,7 +98,16 @@ const Icon = styled.img`
     width: 35px;
 `
 
+const CryptoPrice = styled.div`
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-top: 10px;
+`
+
 const Content: React.FC = () =>{
+    const [btcPrice, setBtcPrice] = useState<number | null>(null);
+    const [ethPrice, setEthPrice] = useState<number | null>(null);
     const [saldo, setSaldo] = useState<number>(0)
     const { state } = useLocation()
     const user = state?.user
@@ -135,6 +143,29 @@ const Content: React.FC = () =>{
             fetchSaldo(user.id)
         }
     }, [user])
+
+    const fetchCryptoPrices = async () => {
+        try {
+          const response = await axios.get(
+            "https://api.coingecko.com/api/v3/simple/price?ids=bitcoin,ethereum&vs_currencies=usd"
+          )
+    
+          if (response.status === 200) {
+            const data = response.data
+            setBtcPrice(data.bitcoin.usd)
+            setEthPrice(data.ethereum.usd)
+          }
+        } catch (error) {
+          console.error("Erro ao buscar preços de criptomoedas:", error)
+        }
+      }
+    
+      useEffect(() => {
+        fetchCryptoPrices()
+        const intervalId = setInterval(fetchCryptoPrices, 10000)// Atualiza os preços a cada minuto
+    
+        return () => clearInterval(intervalId)
+      }, [])
 
     return (
         <Container>
@@ -179,6 +210,10 @@ const Content: React.FC = () =>{
                         <Icon src={iconBitcoin} />
                         Crypto
                     </Title>
+                    <CryptoPrice>
+                        <span>BTC: ${btcPrice}</span>
+                        <span>ETH: ${ethPrice}</span>
+                </CryptoPrice>
                 </BoxRight>
             </RightContainer>
 
