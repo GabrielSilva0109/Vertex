@@ -147,13 +147,18 @@ const Content: React.FC = () =>{
     const fetchCryptoPrices = async () => {
         try {
           const response = await axios.get(
-            "https://api.coingecko.com/api/v3/simple/price?ids=bitcoin,ethereum&vs_currencies=usd"
+            "https://api.coingecko.com/api/v3/simple/price?ids=bitcoin,ethereum,polygon,binancecoin,cardano,solana,ripple&vs_currencies=usd"
           )
     
           if (response.status === 200) {
-            const data = response.data
-            setBtcPrice(data.bitcoin.usd)
-            setEthPrice(data.ethereum.usd)
+            const data = response.data;
+            setBtcPrice(data.bitcoin.usd.toFixed(2));
+            setEthPrice(data.ethereum.usd.toFixed(2));
+            setMaticPrice(data.polygon.usd.toFixed(2));
+            setBnbPrice(data.binancecoin.usd.toFixed(2));
+            setCardanoPrice(data.cardano.usd.toFixed(2));
+            setSolanaPrice(data.solana.usd.toFixed(2));
+            setXrpPrice(data.ripple.usd.toFixed(2));
           }
         } catch (error) {
           console.error("Erro ao buscar preços de criptomoedas:", error)
