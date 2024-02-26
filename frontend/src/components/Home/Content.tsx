@@ -52,10 +52,11 @@ const Box = styled.div`
     border-radius: 30px;
     padding: 5px;
     box-shadow: 10px 10px 10px rgba(12, 12, 10, 0.2);
-    background: linear-gradient(43deg, #b0ff00 0%, #71ae8a 46%, #40413e 100%);
+    background: linear-gradient(43deg, #7a7d75 0%, #3a6b4e 46%, #40413e 100%);
     display: flex;
-    align-items: center;
-    justify-content: start;
+    flex-direction: column;
+    align-items: start;
+    justify-content: space-evenly;
     overflow: hidden;
     transition: all 0.6s cubic-bezier(0.23, 1, 0.320, 1);
 `
@@ -105,6 +106,16 @@ const CryptoPrice = styled.div`
   justify-content: space-between;
   flex-direction: column;
   margin-top: 10px;
+`
+
+const Info = styled.div`
+    color: #b0ff00;
+    font-size: 1.5rem;
+    padding: 5px;
+    font-weight: bold;
+    @media (max-width: 768px) {
+        font-size: 1.2rem;
+    }
 `
 
 const Content: React.FC = () =>{
@@ -185,23 +196,31 @@ const Content: React.FC = () =>{
             <LeftContainer>
                 <Top>
                     <Box>
-                    <Title>
-                        <Icon src={iconSaldo} />
-                        Saldo  {saldo.toFixed(2)}
-                    </Title>
-                    
+                        <Title>
+                            <Icon src={iconSaldo} />
+                            Saldo
+                        </Title>
+                        <Info>
+                              {saldo.toFixed(2)}
+                        </Info>
                     </Box>
                     <Box>
-                    <Title>
-                        <Icon src={iconInvestimento} />
-                        Investimento
-                    </Title>
+                        <Title>
+                            <Icon src={iconInvestimento} />
+                            Investimento
+                        </Title>
+                        <Info style={{color: 'white'}}>
+                              {saldo.toFixed(2)}
+                        </Info>
                     </Box>
                     <Box>
                     <Title>
                         <Icon src={iconDespesa} />
                         Despesa
                         </Title>
+                        <Info style={{color: 'red'}}>
+                              {saldo.toFixed(2)}
+                        </Info>
                     </Box>
                 </Top>
 
