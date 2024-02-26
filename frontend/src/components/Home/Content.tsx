@@ -141,6 +141,14 @@ const Content: React.FC = () =>{
     const [bnbPrice, setBnbPrice] = useState<number | null>(null)
     const [solanaPrice, setSolanaPrice] = useState<number | null>(null)
 
+    const [btcPriceChange, setBtcPriceChange] = useState<number | null>(null)
+    const [ethPriceChange, setEthPriceChange] = useState<number | null>(null)
+    const [cardanoPriceChange, setCardanoPriceChange] = useState<number | null>(null)
+    const [xrpPriceChange, setXrpPriceChange] = useState<number | null>(null)
+    const [maticPriceChange, setMaticPriceChange] = useState<number | null>(null)
+    const [bnbPriceChange, setBnbPriceChange] = useState<number | null>(null)
+    const [solanaPriceChange, setSolanaPriceChange] = useState<number | null>(null)
+
 
     const [saldo, setSaldo] = useState<number>(0)
     const { state } = useLocation()
@@ -178,6 +186,7 @@ const Content: React.FC = () =>{
         }
     }, [user])
 
+
     const fetchCryptoPrices = async () => {
         try {
           const response = await axios.get(
@@ -197,9 +206,29 @@ const Content: React.FC = () =>{
           console.error("Erro ao buscar preços de criptomoedas:", error)
         }
       }
+      const fetchCryptoPriceChanges = async () => {
+        try {
+          const response = await axios.get(
+            "https://api.coingecko.com/api/v3/simple/price?ids=bitcoin,ethereum,binancecoin,cardano,solana&vs_currencies=usd"
+          );
+    
+          if (response.status === 200) {
+            const data = response.data
+            setBtcPriceChange(data.bitcoin.usd_24h_change)
+            setEthPriceChange(data.ethereum.usd_24h_change)
+            setBnbPriceChange(data.binancecoin.usd_24h_change)
+            setCardanoPriceChange(data.cardano.usd_24h_change)
+            setSolanaPriceChange(data.solana.usd_24h_change)
+          }
+        } catch (error) {
+          console.error("Erro ao buscar variações diárias de preços de criptomoedas:", error);
+        }
+      }
     
       useEffect(() => {
         fetchCryptoPrices()
+        fetchCryptoPriceChanges()
+
         const intervalId = setInterval(fetchCryptoPrices, 70000)
     
         return () => clearInterval(intervalId)
@@ -210,11 +239,10 @@ const Content: React.FC = () =>{
             <LeftContainer>
                 <Top>
                     <Box>
-                        
                         <Title>
                             <Icon src={iconSaldo} />
                             Saldo
-                            <button>Seila</button>
+                            <button>+</button>
                         </Title>                        
                         <Info>
                               {saldo.toFixed(2)}
@@ -261,6 +289,9 @@ const Content: React.FC = () =>{
                     <CryptoPrice>
                         <Crypto>
                             <Icon src={btc}/><span>BTC: ${btcPrice}</span>
+                            <span>{btcPriceChange.toFixed(2)}%</span>
+                                
+                            
                         </Crypto>
                         <Crypto>
                             <Icon src={eth}/><span>ETH: ${ethPrice}</span>
