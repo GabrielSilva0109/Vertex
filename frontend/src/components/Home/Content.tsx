@@ -149,10 +149,11 @@ const CryptoPriceChange = styled.span<{ positive: boolean }>`
 `
 
 const Content: React.FC = () =>{
-  const [cryptoData, setCryptoData] = useState<any[]>([]);
-  const [saldo, setSaldo] = useState<number>(0);
-  const { state } = useLocation();
-  const user = state?.user;
+    const [acoesBrasileiras, setAcoesBrasileiras] = useState<any[]>([])
+    const [cryptoData, setCryptoData] = useState<any[]>([]);
+    const [saldo, setSaldo] = useState<number>(0);
+    const { state } = useLocation();
+    const user = state?.user;
 
   const fetchSaldo = async (userId: number) => {
     try {
@@ -206,10 +207,48 @@ const Content: React.FC = () =>{
     }
   }
 
+  const fetchAcoesBrasileiras = async () => {
+    try{
+        const response = await axios.get(
+            "https://www.alphavantage.co/query", {
+                params: {
+                    function: "TIME_SERIES_INTRADAY",
+                    symbol: "PETR4",
+                    interval: "1min",
+                    apikey: "A3T2U1WP3QANVAQG"
+                }
+            }
+        )
+        console.log("aqui esta ações ", response)
+        if (response.data && response.data["Time Series (1min)"]) {
+            // Organize os dados conforme necessário
+            const timeSeries = response.data["Time Series (1min)"];
+            const ultimaAtualizacao = Object.keys(timeSeries)[0];
+            const dadosMaisRecentes = timeSeries[ultimaAtualizacao];
+            // Exemplo: preço mais recente da Petrobras
+            const precoMaisRecente = dadosMaisRecentes["1. open"];
+    
+            // Atualize o estado com os dados necessários
+            setAcoesBrasileiras([
+              {
+                id: "petrobras",
+                name: "Petrobras",
+                current_price: precoMaisRecente,
+                
+              },
+              
+            ]);
+          }
+        } catch (error) {
+          console.error("Erro ao buscar dados das ações brasileiras:", error);
+        }
+    
+  }
+
   useEffect(() => {
     fetchCryptoData()
-    
-    const intervalId = setInterval(fetchCryptoData, 50000)
+    fetchAcoesBrasileiras()
+    const intervalId = setInterval(fetchCryptoData, 20000)
 
     return () => clearInterval(intervalId)
   }, [])
@@ -250,7 +289,7 @@ const Content: React.FC = () =>{
 
         <Main>
           <h1>Carteira gráfico</h1>
-          {/* Adicione o conteúdo relacionado ao gráfico aqui */}
+          
         </Main>
       </LeftContainer>
 
@@ -260,7 +299,15 @@ const Content: React.FC = () =>{
             <Icon src={iconAcoes} />
             Ações
           </Title>
-          {/* Adicione o conteúdo relacionado às ações aqui */}
+          <CryptoPrice>
+            {acoesBrasileiras.map((acao) => (
+              <Crypto key={acao.id}>
+                <Icon src={iconAcoes} />
+                <span>{acao.name.toUpperCase()}: R$ {acao.current_price}</span>
+                {/* Adicione outros dados conforme necessário */}
+              </Crypto>
+            ))}
+          </CryptoPrice>
         </BoxRight>
         <BoxRight>
           <Title>
@@ -277,7 +324,6 @@ const Content: React.FC = () =>{
                 </CryptoPriceChange>
               </Crypto>
             ))}
-            
           </CryptoPrice>
         </BoxRight>
       </RightContainer>
