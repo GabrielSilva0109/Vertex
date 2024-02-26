@@ -14,7 +14,7 @@ import btc from '../Sections/img/bitcoin.svg'
 import cardano from '../Sections/img/cardano.svg'
 import eth from '../Sections/img/eth.svg'
 import solana from '../Sections/img/solana.png'
-
+import xrp from '../Sections/img/xrp.svg'
 
 const Container = styled.div`
   display: flex;
@@ -25,16 +25,16 @@ const Container = styled.div`
 
   @media (max-width: 768px) {
     flex-direction: column;
-}
+  }
 `
 
 const LeftContainer = styled.div`
-    flex: 3; 
-    border-radius: 10px;
-    margin:10px;
-    display: flex;  
-    flex-direction: column;
-    align-items: center;
+  flex: 3; 
+  border-radius: 10px;
+  margin:10px;
+  display: flex;  
+  flex-direction: column;
+  align-items: center;
 `
 
 const RightContainer = styled.div`
@@ -47,70 +47,73 @@ const RightContainer = styled.div`
 `
 
 const Top = styled.div`
-    display: flex;
-    justify-content: space-between;
-    width: 100%;
+  display: flex;
+  justify-content: space-between;
+  width: 100%;
 `
 
 const Box = styled.div`
-    width: 30%;
-    height: 150px;
-    border-radius: 30px;
-    padding: 5px;
-    box-shadow: 10px 10px 10px rgba(12, 12, 10, 0.2);
-    background: linear-gradient(43deg, #7a7d75 0%, #b0ff006e 46%, #40413e 100%);
-    display: flex;
-    flex-direction: column;
-    align-items: start;
-    justify-content: space-evenly;
-    overflow: hidden;
-    transition: all 0.6s cubic-bezier(0.23, 1, 0.320, 1);
+  width: 30%;
+  height: 150px;
+  border-radius: 30px;
+  padding: 5px;
+  box-shadow: 10px 10px 10px rgba(12, 12, 10, 0.2);
+  background: linear-gradient(43deg, #7a7d75 0%, #b0ff006e 46%, #40413e 100%);
+  display: flex;
+  flex-direction: column;
+  align-items: start;
+  justify-content: space-evenly;
+  overflow: hidden;
+  transition: all 0.6s cubic-bezier(0.23, 1, 0.320, 1);
 `
 
 const Main = styled.main`
-    display: flex;
-    justify-content: center;
-    background: #2C2C2C;
-    width: 100%;
-    height: 100%;
-    border-radius: 30px;
-    margin-top: 10px;
-    box-shadow: 10px 10px 10px rgba(12, 12, 10, 0.2); 
+  display: flex;
+  justify-content: center;
+  background: #2C2C2C;
+  width: 100%;
+  height: 100%;
+  border-radius: 30px;
+  margin-top: 10px;
+  box-shadow: 10px 10px 10px rgba(12, 12, 10, 0.2); 
 `
 
 const BoxRight = styled.div`
-    padding: 5px;
-    height: 48%;
-    border-radius: 1rem;
-    background-color: ;
-    background-image: linear-gradient(43deg, #cdcdcd 0%, #bfc1c1b3 46%, #8f8f8f 100%);
-    box-shadow: rgba(0, 0, 0, 0.17) 0px -23px 25px 0px inset, rgba(0, 0, 0, 0.15) 0px -36px 30px 0px inset, rgba(0, 0, 0, 0.1) 0px -79px 40px 0px inset, rgba(0, 0, 0, 0.06) 0px 2px 1px, rgba(0, 0, 0, 0.09) 0px 4px 2px, rgba(0, 0, 0, 0.09) 0px 8px 4px, rgba(0, 0, 0, 0.09) 0px 16px 8px, rgba(0, 0, 0, 0.09) 0px 32px 16px;
+  padding: 5px;
+  height: 48%;
+  border-radius: 1rem;
+  background-color: ;
+  background-image: linear-gradient(43deg, #cdcdcd 0%, #bfc1c1b3 46%, #8f8f8f 100%);
+  box-shadow: rgba(0, 0, 0, 0.17) 0px -23px 25px 0px inset, rgba(0, 0, 0, 0.15) 0px -36px 30px 0px inset, rgba(0, 0, 0, 0.1) 0px -79px 40px 0px inset, rgba(0, 0, 0, 0.06) 0px 2px 1px, rgba(0, 0, 0, 0.09) 0px 4px 2px, rgba(0, 0, 0, 0.09) 0px 8px 4px, rgba(0, 0, 0, 0.09) 0px 16px 8px, rgba(0, 0, 0, 0.09) 0px 32px 16px;
+
+  overflow: auto;
+  -ms-overflow-style: none;
+  &::-webkit-scrollbar {
+    width: 0px; 
+  }
+  &::-webkit-scrollbar-thumb {
+    background-color: #bfc1c1b3;
+    border-radius: 10px;
+  }
 `
 
-const Crypto = styled.div`
-    display: flex;
-    align-items: center;
-    margin: 5px;
-    font-weight: bold;
-    gap:5px;
-`
 
 const Title = styled.h1`
-    color: white;
-    font-size: 1.5rem;
-    padding: 0px;
-    margin:0px;
-    display: flex;
-    align-items: center;
-    justify-content: start;
+  color: white;
+  font-size: 1.5rem;
+  padding: 0px;
+  margin:0px;
+  display: flex;
+  align-items: center;
+  justify-content: start;
 
-    @media (max-width: 768px) {
-        font-size: 1.2rem;
-    }
+  @media (max-width: 768px) {
+    font-size: 1.2rem;
+  }
 `
 
 const Icon = styled.img`
-    width: 35px;
+  width: 35px;
 `
 
 const CryptoPrice = styled.div`
@@ -122,196 +125,184 @@ const CryptoPrice = styled.div`
   margin-top: 10px;
 `
 
-const Info = styled.div`
-    color: #b0ff00;
-    font-size: 1.5rem;
-    padding: 5px;
+const Crypto = styled.div`
+    display: flex;
+    align-items: center;
+    margin: 5px;
     font-weight: bold;
-    @media (max-width: 768px) {
-        font-size: 1.2rem;
-    }
+    gap:5px;
+    width: 100%;
+`
+
+const Info = styled.div`
+  color: #b0ff00;
+  font-size: 1.5rem;
+  padding: 5px;
+  font-weight: bold;
+  @media (max-width: 768px) {
+    font-size: 1.2rem;
+  }
+`
+
+const CryptoPriceChange = styled.span<{ positive: boolean }>`
+  color: ${({ positive }) => (positive ? '#b0ff00' : 'red')};
 `
 
 const Content: React.FC = () =>{
-    const [btcPrice, setBtcPrice] = useState<number | null>(null)
-    const [ethPrice, setEthPrice] = useState<number | null>(null)
-    const [cardanoPrice, setCardanoPrice] = useState<number | null>(null)
-    const [xrpPrice, setXrpPrice] = useState<number | null>(null)
-    const [maticPrice, setMaticPrice] = useState<number | null>(null)
-    const [bnbPrice, setBnbPrice] = useState<number | null>(null)
-    const [solanaPrice, setSolanaPrice] = useState<number | null>(null)
+  const [cryptoData, setCryptoData] = useState<any[]>([]);
+  const [saldo, setSaldo] = useState<number>(0);
+  const { state } = useLocation();
+  const user = state?.user;
 
-    const [btcPriceChange, setBtcPriceChange] = useState<number | null>(null)
-    const [ethPriceChange, setEthPriceChange] = useState<number | null>(null)
-    const [cardanoPriceChange, setCardanoPriceChange] = useState<number | null>(null)
-    const [xrpPriceChange, setXrpPriceChange] = useState<number | null>(null)
-    const [maticPriceChange, setMaticPriceChange] = useState<number | null>(null)
-    const [bnbPriceChange, setBnbPriceChange] = useState<number | null>(null)
-    const [solanaPriceChange, setSolanaPriceChange] = useState<number | null>(null)
+  const fetchSaldo = async (userId: number) => {
+    try {
+      const response = await fetch(`http://localhost:3333/walletUser/${userId}`);
+      
+      if (!response.ok) {
+        console.error(`Erro na requisição: ${response.status} - ${response.statusText}`);
+        return;
+      }
 
+      const data = await response.json();
 
-    const [saldo, setSaldo] = useState<number>(0)
-    const { state } = useLocation()
-    const user = state?.user
-
-    // Função para buscar o saldo do usuário com base no ID e atualizar o estado local
-    const fetchSaldo = async (userId: number) => {
-        try {
-            const response = await fetch(`http://localhost:3333/walletUser/${userId}`);
-            
-            if (!response.ok) {
-                console.error(`Erro na requisição: ${response.status} - ${response.statusText}`);
-                return;
-            }
-            console.log('Response: ', response)
-            
-            console.log('id: ', userId)
-            const data = await response.json();
-
-            console.log('data: ', data)
-            if (data && data.saldo !== undefined) {
-                setSaldo(data.saldo);
-            } else {
-                console.error(`Resposta inesperada do servidor: ${JSON.stringify(data)}`);
-            }
-        } catch (error) {
-            console.error("Erro ao buscar saldo:", error);
-        }
+      if (data && data.saldo !== undefined) {
+        setSaldo(data.saldo);
+      } else {
+        console.error(`Resposta inesperada do servidor: ${JSON.stringify(data)}`);
+      }
+    } catch (error) {
+      console.error("Erro ao buscar saldo:", error);
     }
-    
+  }
 
-    useEffect(() => {
-        if (user && user.id) {
-            fetchSaldo(user.id)
+  useEffect(() => {
+    if (user && user.id) {
+      fetchSaldo(user.id)
+    }
+  }, [user])
+
+  const fetchCryptoData = async () => {
+    try {
+      const response = await axios.get(
+        "https://api.coingecko.com/api/v3/coins/markets",
+        {
+          params: {
+            vs_currency: "usd",
+            ids: "bitcoin,ethereum,binancecoin,cardano,solana,ripple",
+            order: "market_cap_desc",
+            per_page: 100,
+            page: 1,
+            sparkline: false,
+            price_change_percentage: "1h,24h,7d",
+          },
         }
-    }, [user])
+      )
 
-
-    const fetchCryptoPrices = async () => {
-        try {
-          const response = await axios.get(
-            "https://api.coingecko.com/api/v3/simple/price?ids=bitcoin,ethereum,binancecoin,cardano,solana,ripple&vs_currencies=usd"
-          )
-    
-          if (response.status === 200) {
-            const data = response.data
-            setBtcPrice(data.bitcoin.usd.toFixed(2))
-            setEthPrice(data.ethereum.usd.toFixed(2))
-            setBnbPrice(data.binancecoin.usd.toFixed(2))
-            setCardanoPrice(data.cardano.usd.toFixed(2))
-            setSolanaPrice(data.solana.usd.toFixed(2))
-            setXrpPrice(data.ripple.usd.toFixed(2))
-          }
-        } catch (error) {
-          console.error("Erro ao buscar preços de criptomoedas:", error)
-        }
+      if (response.status === 200) {
+        setCryptoData(response.data);
       }
-      const fetchCryptoPriceChanges = async () => {
-        try {
-          const response = await axios.get(
-            "https://api.coingecko.com/api/v3/simple/price?ids=bitcoin,ethereum,binancecoin,cardano,solana&vs_currencies=usd"
-          );
+    } catch (error) {
+      console.error("Erro ao buscar dados de criptomoedas:", error)
+    }
+  }
+
+  useEffect(() => {
+    fetchCryptoData()
     
-          if (response.status === 200) {
-            const data = response.data
-            setBtcPriceChange(data.bitcoin.usd_24h_change)
-            setEthPriceChange(data.ethereum.usd_24h_change)
-            setBnbPriceChange(data.binancecoin.usd_24h_change)
-            setCardanoPriceChange(data.cardano.usd_24h_change)
-            setSolanaPriceChange(data.solana.usd_24h_change)
-          }
-        } catch (error) {
-          console.error("Erro ao buscar variações diárias de preços de criptomoedas:", error);
-        }
-      }
-    
-      useEffect(() => {
-        fetchCryptoPrices()
-        fetchCryptoPriceChanges()
+    const intervalId = setInterval(fetchCryptoData, 50000)
 
-        const intervalId = setInterval(fetchCryptoPrices, 70000)
-    
-        return () => clearInterval(intervalId)
-      }, [])
+    return () => clearInterval(intervalId)
+  }, [])
 
-    return (
-        <Container>
-            <LeftContainer>
-                <Top>
-                    <Box>
-                        <Title>
-                            <Icon src={iconSaldo} />
-                            Saldo
-                            <button>+</button>
-                        </Title>                        
-                        <Info>
-                              {saldo.toFixed(2)}
-                        </Info>
-                    </Box>
-                    <Box>
-                        <Title>
-                            <Icon src={iconInvestimento} />
-                            Investimento
-                        </Title>
-                        <Info style={{color: 'white'}}>
-                              {saldo.toFixed(2)}
-                        </Info>
-                    </Box>
-                    <Box>
-                    <Title>
-                        <Icon src={iconDespesa} />
-                        Despesa
-                        </Title>
-                        <Info style={{color: 'red'}}>
-                              {saldo.toFixed(2)}
-                        </Info>
-                    </Box>
-                </Top>
+  return (
+    <Container>
+      <LeftContainer>
+        <Top>
+          <Box>
+            <Title>
+              <Icon src={iconSaldo} />
+              Saldo
+              <button>+</button>
+            </Title>                        
+            <Info>
+              {saldo.toFixed(2)}
+            </Info>
+          </Box>
+          <Box>
+            <Title>
+              <Icon src={iconInvestimento} />
+              Investimento
+            </Title>
+            <Info style={{color: 'white'}}>
+              {saldo.toFixed(2)}
+            </Info>
+          </Box>
+          <Box>
+            <Title>
+              <Icon src={iconDespesa} />
+              Despesa
+            </Title>
+            <Info style={{color: 'red'}}>
+              {saldo.toFixed(2)}
+            </Info>
+          </Box>
+        </Top>
 
-                <Main>
-                    <h1>Carteira grafico</h1>
+        <Main>
+          <h1>Carteira gráfico</h1>
+          {/* Adicione o conteúdo relacionado ao gráfico aqui */}
+        </Main>
+      </LeftContainer>
 
-                </Main>
-            </LeftContainer>
-
-            <RightContainer>
-                <BoxRight>
-                    <Title>
-                        <Icon src={iconAcoes} />
-                        Ações
-                    </Title>
-                </BoxRight>
-                <BoxRight>
-                    <Title>
-                        <Icon src={iconBitcoin} />
-                        Crypto
-                    </Title>
-                    <CryptoPrice>
-                        <Crypto>
-                            <Icon src={btc}/><span>BTC: ${btcPrice}</span>
-                            <span>{btcPriceChange.toFixed(2)}%</span>
-                                
-                            
-                        </Crypto>
-                        <Crypto>
-                            <Icon src={eth}/><span>ETH: ${ethPrice}</span>
-                        </Crypto>
-
-                        <Crypto>
-                            <Icon src={bnb}/><span>BNB: ${bnbPrice}</span>
-                        </Crypto>
-                        <Crypto>
-                            <Icon src={cardano}/><span>CARDANO: ${cardanoPrice}</span>
-                        </Crypto>
-                        <Crypto>
-                        <Icon style={{borderRadius: "50%"}} src={solana}/><span>SOLANA: ${solanaPrice}</span>
-                        </Crypto>
-                    </CryptoPrice>
-                </BoxRight>
-            </RightContainer>
-
-        </Container>
-    )
+      <RightContainer>
+        <BoxRight>
+          <Title>
+            <Icon src={iconAcoes} />
+            Ações
+          </Title>
+          {/* Adicione o conteúdo relacionado às ações aqui */}
+        </BoxRight>
+        <BoxRight>
+          <Title>
+            <Icon src={iconBitcoin} />
+            Crypto
+          </Title>
+          <CryptoPrice>
+            {cryptoData.map((crypto) => (
+              <Crypto key={crypto.id}>
+                <Icon src={getCryptoIcon(crypto.id)} />
+                <span>{crypto.id.toUpperCase()}: ${crypto.current_price}</span>
+                <CryptoPriceChange positive={crypto.price_change_percentage_24h >= 0}>
+                  {crypto.price_change_percentage_24h.toFixed(2)}%
+                </CryptoPriceChange>
+              </Crypto>
+            ))}
+            
+          </CryptoPrice>
+        </BoxRight>
+      </RightContainer>
+    </Container>
+  )
 }
 
 export default Content
+
+function getCryptoIcon(cryptoId: string): string {
+    switch (cryptoId) {
+      case "bitcoin":
+        return btc;
+      case "ethereum":
+        return eth;
+      case "binancecoin":
+        return bnb;
+      case "cardano":
+        return cardano;
+      case "solana":
+        return solana;
+        case "ripple":
+            return xrp;
+      default:
+        return ""
+    }
+  }
+  
