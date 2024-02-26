@@ -196,10 +196,12 @@ const Content: React.FC = () =>{
             <LeftContainer>
                 <Top>
                     <Box>
+                        
                         <Title>
                             <Icon src={iconSaldo} />
                             Saldo
-                        </Title>
+                            <button>Seila</button>
+                        </Title>                        
                         <Info>
                               {saldo.toFixed(2)}
                         </Info>
