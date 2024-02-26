@@ -9,6 +9,12 @@ import iconInvestimento from '../Sections/img/iconsInvestimento.png'
 import iconSaldo from '../Sections/img/iconsSaldo.png' 
 import { useLocation } from "react-router-dom"
 import axios from "axios"
+import bnb from '../Sections/img/bnb2.svg'
+import btc from '../Sections/img/bitcoin.svg'
+import cardano from '../Sections/img/cardano.svg'
+import eth from '../Sections/img/eth.svg'
+import solana from '../Sections/img/solana.png'
+
 
 const Container = styled.div`
   display: flex;
@@ -79,6 +85,14 @@ const BoxRight = styled.div`
     background-color: ;
     background-image: linear-gradient(43deg, #cdcdcd 0%, #bfc1c1b3 46%, #8f8f8f 100%);
     box-shadow: rgba(0, 0, 0, 0.17) 0px -23px 25px 0px inset, rgba(0, 0, 0, 0.15) 0px -36px 30px 0px inset, rgba(0, 0, 0, 0.1) 0px -79px 40px 0px inset, rgba(0, 0, 0, 0.06) 0px 2px 1px, rgba(0, 0, 0, 0.09) 0px 4px 2px, rgba(0, 0, 0, 0.09) 0px 8px 4px, rgba(0, 0, 0, 0.09) 0px 16px 8px, rgba(0, 0, 0, 0.09) 0px 32px 16px;
+`
+
+const Crypto = styled.div`
+    display: flex;
+    align-items: center;
+    margin: 5px;
+    font-weight: bold;
+    gap:5px;
 `
 
 const Title = styled.h1`
@@ -245,12 +259,23 @@ const Content: React.FC = () =>{
                         Crypto
                     </Title>
                     <CryptoPrice>
-                        <span>BTC: ${btcPrice}</span>
-                        <span>ETH: ${ethPrice}</span>
-                        <span>BNB: ${bnbPrice}</span>
-                        <span>CARDANO: ${cardanoPrice}</span>
-                        <span>SOLANA: ${solanaPrice}</span>
-                </CryptoPrice>
+                        <Crypto>
+                            <Icon src={btc}/><span>BTC: ${btcPrice}</span>
+                        </Crypto>
+                        <Crypto>
+                            <Icon src={eth}/><span>ETH: ${ethPrice}</span>
+                        </Crypto>
+
+                        <Crypto>
+                            <Icon src={bnb}/><span>BNB: ${bnbPrice}</span>
+                        </Crypto>
+                        <Crypto>
+                            <Icon src={cardano}/><span>CARDANO: ${cardanoPrice}</span>
+                        </Crypto>
+                        <Crypto>
+                        <Icon style={{borderRadius: "50%"}} src={solana}/><span>SOLANA: ${solanaPrice}</span>
+                        </Crypto>
+                    </CryptoPrice>
                 </BoxRight>
             </RightContainer>
 
