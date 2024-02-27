@@ -6,10 +6,14 @@ import NavBar from "../Header/NavBar";
 import Content from "./Content";
 
 const Home: React.FC = () => {
-  const { state } = useLocation();
-  const user = state?.user;
+  const { state } = useLocation()
+  const user = state?.user
 
-  const navigate = useNavigate();
+  const navigate = useNavigate()
+
+  const handleCarteiraClick = () => {
+    navigate('/carteira', { state: { user } })
+  }
 
   const redirectToLogin = async () => {
     if (!user || user === null) {
@@ -24,11 +28,11 @@ const Home: React.FC = () => {
 
   useEffect(() => {
     
-  }, [user]);
+  }, [user])
 
   return (
     <>
-      <NavBar />
+      <NavBar user={user}/>
       <Content />
     </> 
   )

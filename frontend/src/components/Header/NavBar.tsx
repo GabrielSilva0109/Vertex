@@ -99,12 +99,18 @@ const NavBar: React.FC<{user?: any}> = ({user}) => {
 
             <Links>
                 <UlLinks>
-                    <Navigation to="/home">Home</Navigation>
+                    <Navigation to={`/home`} {...(user ? { state: { user } } : {})}>
+                        Home
+                    </Navigation>
                     <Navigation to={`/carteira`} {...(user ? { state: { user } } : {})}>
-                            Carteira
-                            </Navigation>
-                    <Navigation to="">Gastos</Navigation>
-                    <Navigation to="">Noticias</Navigation>
+                        Carteira
+                    </Navigation>
+                    <Navigation to={`/Investimentos`} {...(user ? { state: { user } } : {})}>
+                        Investimentos
+                    </Navigation>
+                    <Navigation to={`/noticias`} {...(user ? { state: { user } } : {})}>
+                        Noticias
+                    </Navigation>
                 </UlLinks>
             </Links>
 
