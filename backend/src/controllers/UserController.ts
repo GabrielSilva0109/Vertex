@@ -67,9 +67,9 @@ export const createUser = (req: Request, res: Response) => {
 //Atualiza os dados do Usuario
 export const updateUser = (req: Request, res: Response) => {
     const userId = req.params.id;
-    const { name, password, email, birth, cpf, estado, cidade } = req.body;
+    const { name, password, email, birth, cpf, cep, picture } = req.body;
 
-    if (!name && !password && !email && !birth && !cpf && !estado && !cidade) {
+    if (!name && !password && !email && !birth && !cpf && !cep && !picture) {
         return res.status(400).json({ error: 'Nenhum dado de atualização fornecido' });
     }
 
@@ -77,26 +77,26 @@ export const updateUser = (req: Request, res: Response) => {
 
     if (name) updatedFields.name = name;
     if (password) {
-        const hashedPassword = bcrypt.hashSync(password, 10);
-        updatedFields.password = hashedPassword;
+        const hashedPassword = bcrypt.hashSync(password, 10)
+        updatedFields.password = hashedPassword
     }
-    if (email) updatedFields.email = email;
-    if (birth) updatedFields.birth = birth;
-    if (cpf) updatedFields.cpf = cpf;
-    if (estado) updatedFields.estado = estado;
-    if (cidade) updatedFields.cidade = cidade;
+    if (email) updatedFields.email = email
+    if (birth) updatedFields.birth = birth
+    if (cpf) updatedFields.cpf = cpf
+    if (cep) updatedFields.cep = cep
+    if (picture) updatedFields.picture = picture
 
     const fieldsToUpdate = Object.keys(updatedFields);
-    const placeholders = fieldsToUpdate.map((field) => `${field}=?`).join(', ');
+    const placeholders = fieldsToUpdate.map((field) => `${field}=?`).join(', ')
 
-    const q = `UPDATE users SET ${placeholders} WHERE id=?`;
-    const values = [...fieldsToUpdate.map((field) => updatedFields[field]), userId];
+    const q = `UPDATE users SET ${placeholders} WHERE id=?`
+    const values = [...fieldsToUpdate.map((field) => updatedFields[field]), userId]
 
     db.query(q, values, (erro, data) => {
-        if (erro) return res.status(500).json({ erro: 'Erro ao Atualizar Usuário' });
+        if (erro) return res.status(500).json({ erro: 'Erro ao Atualizar Usuário' })
 
-        return res.status(200).json('Usuário Atualizado!!');
-    });
+        return res.status(200).json('Usuário Atualizado!!')
+    })
 }
 
 //Deleta o Usuario

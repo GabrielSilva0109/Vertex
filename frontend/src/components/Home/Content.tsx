@@ -179,6 +179,11 @@ const Content: React.FC = () =>{
   useEffect(() => {
     if (user && user.id) {
       fetchSaldo(user.id)
+      fetchCryptoData()
+      fetchAcoesBrasileiras()
+      const intervalId = setInterval(fetchCryptoData, 20000)
+
+     return () => clearInterval(intervalId)
     }
   }, [user])
 
