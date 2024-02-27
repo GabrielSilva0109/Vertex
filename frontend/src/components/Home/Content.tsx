@@ -58,7 +58,7 @@ const Box = styled.div`
   border-radius: 30px;
   padding: 5px;
   box-shadow: 10px 10px 10px rgba(12, 12, 10, 0.2);
-  background: linear-gradient(43deg, #7a7d75 0%, #b0ff006e 46%, #40413e 100%);
+  background: #2C2C2C;
   display: flex;
   flex-direction: column;
   align-items: start;
