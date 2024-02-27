@@ -89,7 +89,7 @@ const Sign = styled.div`
 `
 
 
-const NavBar: React.FC = () => {
+const NavBar: React.FC<{user?: any}> = ({user}) => {
     return (
         <Nav>
             <TitleBank>
@@ -100,7 +100,9 @@ const NavBar: React.FC = () => {
             <Links>
                 <UlLinks>
                     <Navigation to="/home">Home</Navigation>
-                    <Navigation to="">Carteira</Navigation>
+                    <Navigation to={`/carteira`} {...(user ? { state: { user } } : {})}>
+                            Carteira
+                            </Navigation>
                     <Navigation to="">Gastos</Navigation>
                     <Navigation to="">Noticias</Navigation>
                 </UlLinks>

@@ -208,42 +208,39 @@ const Content: React.FC = () =>{
   }
 
   const fetchAcoesBrasileiras = async () => {
-    try{
-        const response = await axios.get(
-            "https://www.alphavantage.co/query", {
-                params: {
-                    function: "TIME_SERIES_INTRADAY",
-                    symbol: "PETR4",
-                    interval: "1min",
-                    apikey: "A3T2U1WP3QANVAQG"
-                }
+    try {
+        const response = await axios.get("https://www.alphavantage.co/query", {
+            params: {
+                function: "TIME_SERIES_INTRADAY",
+                symbol: "PETR4",
+                interval: "1min",
+                apikey: "A3T2U1WP3QANVAQG"
             }
-        )
-        console.log("aqui esta ações ", response)
+        });
+
+        console.log("Resposta da API:", response.data);
+
         if (response.data && response.data["Time Series (1min)"]) {
-            // Organize os dados conforme necessário
             const timeSeries = response.data["Time Series (1min)"];
             const ultimaAtualizacao = Object.keys(timeSeries)[0];
             const dadosMaisRecentes = timeSeries[ultimaAtualizacao];
-            // Exemplo: preço mais recente da Petrobras
             const precoMaisRecente = dadosMaisRecentes["1. open"];
-    
-            // Atualize o estado com os dados necessários
+
+            console.log("Preço mais recente:", precoMaisRecente);
+
             setAcoesBrasileiras([
-              {
-                id: "petrobras",
-                name: "Petrobras",
-                current_price: precoMaisRecente,
-                
-              },
-              
+                {
+                    id: "petrobras",
+                    name: "Petrobras",
+                    current_price: precoMaisRecente
+                },
             ]);
-          }
-        } catch (error) {
-          console.error("Erro ao buscar dados das ações brasileiras:", error);
         }
-    
-  }
+    } catch (error) {
+        console.error("Erro ao buscar dados das ações brasileiras:", error);
+    }
+}
+
 
   useEffect(() => {
     fetchCryptoData()

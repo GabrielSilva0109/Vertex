@@ -19,8 +19,8 @@ const Home: React.FC = () => {
   };
 
   useEffect(() => {
-    redirectToLogin();
-  }, []);
+    redirectToLogin()
+  }, [])
 
   useEffect(() => {
     
@@ -30,13 +30,8 @@ const Home: React.FC = () => {
     <>
       <NavBar />
       <Content />
-      
-    
-    </>
-      
-      
-  );
-};
+    </> 
+  )
+}
 
-export default Home;
-
+export default Home
