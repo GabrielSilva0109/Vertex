@@ -163,7 +163,7 @@ const FormLogin: React.FC = () => {
     }
 
     const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-        const { name, value } = e.target;
+        const { name, value } = e.target
         setLoginData((prevData) => ({
             ...prevData,
             [name]: value,
@@ -178,17 +178,17 @@ const FormLogin: React.FC = () => {
                     'Content-Type': 'application/json',
                 },
                 body: JSON.stringify(loginData),
-            });
+            })
     
             if (response.ok) {
                 const userData = await response.json();
-                console.log('Informações do usuário recebidas do servidor:', userData);
+                console.log('Informações do usuário recebidas do servidor:', userData)
     
                 if (userData) {
                     // Redirecionar para a página home com as informações do usuário
-                    navigate('/home', { state: { user: userData } });
+                    navigate('/home', { state: { user: userData } })
                 } else {
-                    toast.error('Erro ao obter informações do usuário após o login');
+                    toast.error('Erro ao obter informações do usuário após o login')
                 }
             } else {
                 const responseBody = await response.text();
