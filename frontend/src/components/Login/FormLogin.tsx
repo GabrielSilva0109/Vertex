@@ -101,13 +101,24 @@ const FormCadastro: React.FC<{ onBackToLogin: () => void }> = ({ onBackToLogin }
         password: '',
     })
 
-    const [registrationStatus, setRegistrationStatus] = useState<string | null>(null);
+    const [registrationStatus, setRegistrationStatus] = useState<string | null>(null)
+
+    const formatCPF = (value: string) => {
+        const onlyNumbers = value.replace(/[^\d]/g, '')
+        const formattedCPF = onlyNumbers.replace(
+            /^(\d{3})(\d{3})(\d{3})(\d{2})$/,
+            '$1.$2.$3-$4'
+        )
+        return formattedCPF
+    }
 
     const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-        const { name, value } = e.target;
+        const { name, value } = e.target
+        const formattedValue = name === 'cpf' ? formatCPF(value) : value
+
         setFormData((prevData) => ({
             ...prevData,
-            [name]: value,
+            [name]: formattedValue,
         }))
     }
 
@@ -137,7 +148,8 @@ const FormCadastro: React.FC<{ onBackToLogin: () => void }> = ({ onBackToLogin }
             toast.error('Erro ao processar a requisição')
         }
     }
-    
+
+   
     return (
         <Box>
             <h1>Cadastro</h1>
@@ -164,9 +176,10 @@ const FormLogin: React.FC = () => {
 
     const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
         const { name, value } = e.target
+        const formattedValue = name === 'cpf' ? formatCPF(value) : value
         setLoginData((prevData) => ({
             ...prevData,
-            [name]: value,
+            [name]: formattedValue,
         }))
     }
 
@@ -219,3 +232,9 @@ const FormLogin: React.FC = () => {
 }
 
 export default FormLogin
+
+function formatCPF(value: string) {
+    const onlyNumbers = value.replace(/[^\d]/g, '');
+    const formattedCPF = onlyNumbers.replace(/^(\d{3})(\d{3})(\d{3})(\d{2})$/, '$1.$2.$3-$4');
+    return formattedCPF;
+}
