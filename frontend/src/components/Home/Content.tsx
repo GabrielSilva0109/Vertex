@@ -181,7 +181,6 @@ const Loader = styled.div`
 `
 
 const Content: React.FC = () =>{
-    const [acoesBrasileiras, setAcoesBrasileiras] = useState<any[]>([])
     const [ cryptoData, setCryptoData] = useState<any[]>([])
     const [ saldo, setSaldo] = useState<number>(0)
     const { state } = useLocation()
@@ -214,7 +213,6 @@ const Content: React.FC = () =>{
     if (user && user.id) {
       fetchSaldo(user.id)
       fetchCryptoData()
-      fetchAcoesBrasileiras()
       const intervalId = setInterval(fetchCryptoData, 20000)
 
      return () => clearInterval(intervalId)
@@ -245,18 +243,11 @@ const Content: React.FC = () =>{
       setIsLoadingCrypto(false)
     } catch (error) {
       console.error("Erro ao buscar dados de criptomoedas:", error)
-    } finally {
-      
-    }
-  }
-
-  const fetchAcoesBrasileiras = async () => {
-    
-  }
+    } 
+  }  
   
   useEffect(() => {
     fetchCryptoData()
-    fetchAcoesBrasileiras()
     const intervalId = setInterval(fetchCryptoData, 20000)
 
     return () => clearInterval(intervalId)
@@ -308,13 +299,8 @@ const Content: React.FC = () =>{
               <Icon src={iconAcoes} />
               Ações
             </Title>
-            {isLoading ? ( // Exibe o loader enquanto isLoading é true
-            <Loader></Loader>
-            ) : (
-            <>
-            </>
-          )}
-        </BoxRight>
+            
+          </BoxRight>
         <BoxRight>
         
           <Title>
