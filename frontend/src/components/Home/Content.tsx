@@ -97,7 +97,6 @@ const BoxRight = styled.div`
   }
 `
 
-
 const Title = styled.h1`
   color: white;
   font-size: 1.5rem;
@@ -180,11 +179,6 @@ const Loader = styled.div`
   }
 `
 
-const TopBox = styled.div`
-  
-
-`
-
 const Content: React.FC = () =>{
     const [ cryptoData, setCryptoData] = useState<any[]>([])
     const [ saldo, setSaldo] = useState<number>(0)
@@ -250,13 +244,6 @@ const Content: React.FC = () =>{
       console.error("Erro ao buscar dados de criptomoedas:", error)
     } 
   }  
-  
-  useEffect(() => {
-    fetchCryptoData()
-    const intervalId = setInterval(fetchCryptoData, 20000)
-
-    return () => clearInterval(intervalId)
-  }, [])
 
   return (
     <Container>
@@ -264,15 +251,11 @@ const Content: React.FC = () =>{
         <Top>
           <Box>
             <Title>
-              <TopBox>
                 <Icon src={iconSaldo} />
                 Saldo
-                <button>+</button>
-              </TopBox>
-              
             </Title>                        
             <Info>
-              {saldo.toFixed(2)}
+              R${saldo.toFixed(2)}
             </Info>
           </Box>
           <Box>
@@ -281,7 +264,7 @@ const Content: React.FC = () =>{
               Investimento
             </Title>
             <Info style={{color: 'white'}}>
-              {saldo.toFixed(2)}
+              R${saldo.toFixed(2)}
             </Info>
           </Box>
           <Box>
@@ -290,7 +273,7 @@ const Content: React.FC = () =>{
               Despesa
             </Title>
             <Info style={{color: 'red'}}>
-              {saldo.toFixed(2)}
+              R${saldo.toFixed(2)}
             </Info>
           </Box>
         </Top>

@@ -123,9 +123,7 @@ const FormCadastro: React.FC<{ onBackToLogin: () => void }> = ({ onBackToLogin }
     }
 
     const handleCadastroClick = async () => {
-        try {
-            console.log('Formato da Requisição:', JSON.stringify(formData));
-    
+        try {    
             const response = await fetch('http://localhost:3333/user', {
                 method: 'POST',
                 headers: {
@@ -140,11 +138,9 @@ const FormCadastro: React.FC<{ onBackToLogin: () => void }> = ({ onBackToLogin }
                 onBackToLogin()
             } else {
                 const responseBody = await response.text()
-                console.error('Erro na requisição:', responseBody)
                 toast.error(`Erro: Campos obrigatorios!`)
             }
         } catch (error) {
-            console.error('Erro ao processar a requisição:', error)
             toast.error('Erro ao processar a requisição')
         }
     }

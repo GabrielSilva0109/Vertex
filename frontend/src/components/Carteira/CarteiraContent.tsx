@@ -32,27 +32,6 @@ const RightContainer = styled.div`
   flex-direction: column;
 `
 
-const Top = styled.div`
-  display: flex;
-  justify-content: space-between;
-  width: 100%;
-`
-
-const Box = styled.div`
-  width: 100%;
-  height: 100px;
-  border-radius: 30px;
-  padding: 5px;
-  box-shadow: 10px 10px 10px rgba(12, 12, 10, 0.2);
-  background: #b0ff00;
-  display: flex;
-  flex-direction: column;
-  align-items: start;
-  justify-content: space-evenly;
-  overflow: hidden;
-  transition: all 0.6s cubic-bezier(0.23, 1, 0.320, 1);
-`
-
 const Main = styled.main`
   display: flex;
   justify-content: start;
@@ -62,13 +41,27 @@ const Main = styled.main`
   width: 100%;
   height: 100%;
   border-radius: 30px;
-  margin-top: 10px;
   box-shadow: 10px 10px 10px rgba(12, 12, 10, 0.2); 
 `
 
+const Btn = styled.button`
+  background: #b0ff00;
+  padding: 12px;
+  border-radius: 20px;
+  color: black;
+  font-size: 1rem;
+  font-weight: bold;
+  border: none;
+  cursor: pointer;
+  text-decoration: none;
+
+  &:hover {
+      background: #d3fd74;
+  }
+`
+
 const BoxRight = styled.div`
-  padding: 5px;
-  height: 100%;
+  height: 50%;
   border-radius: 1rem;
   background-image: linear-gradient(43deg, #cdcdcd 0%, #bfc1c1b3 46%, #8f8f8f 100%);
   box-shadow: rgba(0, 0, 0, 0.17) 0px -23px 25px 0px inset, rgba(0, 0, 0, 0.15) 0px -36px 30px 0px inset, rgba(0, 0, 0, 0.1) 0px -79px 40px 0px inset, rgba(0, 0, 0, 0.06) 0px 2px 1px, rgba(0, 0, 0, 0.09) 0px 4px 2px, rgba(0, 0, 0, 0.09) 0px 8px 4px, rgba(0, 0, 0, 0.09) 0px 16px 8px, rgba(0, 0, 0, 0.09) 0px 32px 16px;
@@ -89,10 +82,10 @@ const BoxRight = styled.div`
 `
 
 const Title = styled.h1`
-  color: black;
+  color: white;
   font-size: 1.5rem;
   padding: 0px;
-  margin:0px;
+  margin:10px;
   display: flex;
   align-items: center;
   justify-content: start;
@@ -116,22 +109,75 @@ const ImgPerfil = styled.div`
     background: #d9d9d9;
   }
 `
+
+const Input = styled.input`
+    background-color: #e1e1e1;
+    color: black;
+    font-family: "Roboto", sans-serif;
+    font-weight: 400;
+    font-size: 16px;
+    padding: 12px 16px;
+    border-radius: 8px;
+    border: 1px solid #b0ff00;
+    outline: none;
+    transition: all 0.3s ease-in-out;
+
+    &:hover {
+        background-color: #f1f1f1;
+        border-color: #667788;
+    }
+
+    &:focus {
+        background-color: #272727;
+        border-color: #b0ff00;
+        box-shadow: 0 0 5px rgba(0, 0, 0, 0.2);
+    }
+
+    &.invalid {
+        border-color: #ff0000;
+        background-color: #f00;
+    }
+
+    /* Animações */
+    &.entering {
+        animation: slide-in 0.3s ease-in-out forwards;
+    }
+`
+
+const Form = styled.div`
+    display:flex;
+    flex-direction: column;
+    gap: 10px;
+`
 const CarteiraContent: React.FC = () =>{
     const { state } = useLocation()
     const user = state?.user    
-    const navigate = useNavigate()    
+    const navigate = useNavigate()
+
+    const [formData, setFormData] = useState({
+      name: '',
+      valor: '',
+      descricao: ''
+  })
+
+    const adicionarTransacao = async () => {
+      try{
+        const response = await fetch('http://localhost:3333/ativo', {
+          method: 'POST',
+          headers: {
+              'Content-Type': 'application/json',
+          },
+          body: JSON.stringify(formData),
+      })
+
+      } catch (erro) {
+        console.log("Erro ao Adicionar Transação")
+      }
+    }
 
     return(
         <Container>
-        <LeftContainer>
-          <Top>
-            <Box>
-              <Title>
-                Saldo
-              </Title>                        
-            </Box>
-          </Top>
-  
+        <LeftContainer>  
           <Main>
             <h1>Extrato</h1>
             <Extrato>
@@ -151,6 +197,16 @@ const CarteiraContent: React.FC = () =>{
 
             <p>{user.email}</p>
             <p>{user.cpf}</p>
+            
+          </BoxRight>
+          <BoxRight>
+            <Title>Transação</Title>
+            <Form>
+              <Input placeholder="Titulo"/>
+              <Input placeholder="Valor"/>
+              <Input placeholder="Descrição"/>
+              <Btn>Adicionar</Btn>
+            </Form>
             
           </BoxRight>
         </RightContainer>
