@@ -148,11 +148,45 @@ const CryptoPriceChange = styled.span<{ positive: boolean }>`
   color: ${({ positive }) => (positive ? '#b0ff00' : 'red')};
 `
 
+const Loader = styled.div`
+  width: 30px;
+  height: 30px;
+  display: grid;
+  border-radius: 50%;
+  -webkit-mask: radial-gradient(farthest-side, #0000 40%, #000 41%);
+  background: linear-gradient(0deg, #b0ff01 50%, #9adf00 0) center / 4px 100%, linear-gradient(59deg, #80b900 50%, #b0ff00 0) center / 100% 4px;
+  background-repeat: no-repeat;
+  animation: s3 1s infinite steps(12);
+  margin: 0px 10px;
+  &::before,
+  &::after {
+    content: "";
+    grid-area: 1/1;
+    border-radius: 50%;
+    background: inherit;
+    opacity: 0.915;
+    transform: rotate(30deg);
+  }
+
+  &::after {
+    opacity: 0.83;
+    transform: rotate(60deg);
+  }
+
+  @keyframes s3 {
+    100% {
+      transform: rotate(1turn);
+    }
+  }
+`
+
 const Content: React.FC = () =>{
     const [acoesBrasileiras, setAcoesBrasileiras] = useState<any[]>([])
     const [ cryptoData, setCryptoData] = useState<any[]>([])
     const [ saldo, setSaldo] = useState<number>(0)
     const { state } = useLocation()
+    const [isLoadingCrypto, setIsLoadingCrypto] = useState<boolean>(true)
+    const [isLoading, setIsLoading] = useState<boolean>(false)//lembrar de trocar apos a API AÇÔES
     const user = state?.user
 
   const fetchSaldo = async (userId: number) => {
@@ -189,6 +223,7 @@ const Content: React.FC = () =>{
 
   const fetchCryptoData = async () => {
     try {
+      setIsLoadingCrypto(true)
       const response = await axios.get(
         "https://api.coingecko.com/api/v3/coins/markets",
         {
@@ -205,21 +240,18 @@ const Content: React.FC = () =>{
       )
 
       if (response.status === 200) {
-        setCryptoData(response.data);
+        setCryptoData(response.data)
       }
+      setIsLoadingCrypto(false)
     } catch (error) {
       console.error("Erro ao buscar dados de criptomoedas:", error)
+    } finally {
+      
     }
   }
 
   const fetchAcoesBrasileiras = async () => {
-    try {
-      const response = await axios.get('http://localhost:3333/acoesBrasileiras');
-      console.log('Resposta da API do Yahoo Finance:', response.data);
-     
-    } catch (error) {
-      console.error('Erro ao buscar dados das ações brasileiras:', error);
-    }
+    
   }
   
   useEffect(() => {
@@ -272,25 +304,30 @@ const Content: React.FC = () =>{
 
       <RightContainer>
         <BoxRight>
-          <Title>
-            <Icon src={iconAcoes} />
-            Ações
-          </Title>
-          <CryptoPrice>
-            {acoesBrasileiras.map((acao) => (
-              <Crypto key={acao.id}>
-                <Icon src={iconAcoes} />
-                <span>{acao.name.toUpperCase()}: R$ {acao.current_price}</span>
-                {/* Adicione outros dados conforme necessário */}
-              </Crypto>
-            ))}
-          </CryptoPrice>
+            <Title>
+              <Icon src={iconAcoes} />
+              Ações
+            </Title>
+            {isLoading ? ( // Exibe o loader enquanto isLoading é true
+            <Loader></Loader>
+            ) : (
+            <>
+            </>
+          )}
         </BoxRight>
         <BoxRight>
+        
           <Title>
             <Icon src={iconBitcoin} />
             Crypto
+            {isLoadingCrypto ? ( 
+            <Loader></Loader>
+          ) : (
+            <>
+          </>
+          )}
           </Title>
+          
           <CryptoPrice>
             {cryptoData.map((crypto) => (
               <Crypto key={crypto.id}>
