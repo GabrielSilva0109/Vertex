@@ -150,8 +150,8 @@ const CryptoPriceChange = styled.span<{ positive: boolean }>`
 
 const Content: React.FC = () =>{
     const [acoesBrasileiras, setAcoesBrasileiras] = useState<any[]>([])
-    const [cryptoData, setCryptoData] = useState<any[]>([])
-    const [saldo, setSaldo] = useState<number>(0)
+    const [ cryptoData, setCryptoData] = useState<any[]>([])
+    const [ saldo, setSaldo] = useState<number>(0)
     const { state } = useLocation()
     const user = state?.user
 
