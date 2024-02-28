@@ -214,39 +214,14 @@ const Content: React.FC = () =>{
 
   const fetchAcoesBrasileiras = async () => {
     try {
-        const response = await axios.get("https://www.alphavantage.co/query", {
-            params: {
-                function: "TIME_SERIES_INTRADAY",
-                symbol: "PETR4",
-                interval: "1min",
-                apikey: "A3T2U1WP3QANVAQG"
-            }
-        });
-
-        console.log("Resposta da API:", response.data);
-
-        if (response.data && response.data["Time Series (1min)"]) {
-            const timeSeries = response.data["Time Series (1min)"];
-            const ultimaAtualizacao = Object.keys(timeSeries)[0];
-            const dadosMaisRecentes = timeSeries[ultimaAtualizacao];
-            const precoMaisRecente = dadosMaisRecentes["1. open"];
-
-            console.log("Preço mais recente:", precoMaisRecente);
-
-            setAcoesBrasileiras([
-                {
-                    id: "petrobras",
-                    name: "Petrobras",
-                    current_price: precoMaisRecente
-                },
-            ]);
-        }
+      const response = await axios.get('http://localhost:3333/acoesBrasileiras');
+      console.log('Resposta da API do Yahoo Finance:', response.data);
+     
     } catch (error) {
-        console.error("Erro ao buscar dados das ações brasileiras:", error);
+      console.error('Erro ao buscar dados das ações brasileiras:', error);
     }
-}
-
-
+  }
+  
   useEffect(() => {
     fetchCryptoData()
     fetchAcoesBrasileiras()
