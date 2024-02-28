@@ -180,6 +180,11 @@ const Loader = styled.div`
   }
 `
 
+const TopBox = styled.div`
+  
+
+`
+
 const Content: React.FC = () =>{
     const [ cryptoData, setCryptoData] = useState<any[]>([])
     const [ saldo, setSaldo] = useState<number>(0)
@@ -259,9 +264,12 @@ const Content: React.FC = () =>{
         <Top>
           <Box>
             <Title>
-              <Icon src={iconSaldo} />
-              Saldo
-              <button>+</button>
+              <TopBox>
+                <Icon src={iconSaldo} />
+                Saldo
+                <button>+</button>
+              </TopBox>
+              
             </Title>                        
             <Info>
               {saldo.toFixed(2)}
