@@ -12,7 +12,7 @@ export const getAtivos = async (req: Request, res: Response) => {
 
 //Retorna ATIVO por ID
 export const getAtivoById = async (req: Request, res: Response) => {
-    const q = "SELECT * FROM Ativo where `id`=?;"
+    const q = "SELECT * FROM ativo where `id`=?;"
 
     db.query(q, [req.params.id], (erro, data) => {
         if(erro) return res.status(500).json({erro: "Erro ao trazer Ativo por ID"})
@@ -20,7 +20,10 @@ export const getAtivoById = async (req: Request, res: Response) => {
     })
 }
 
-export const createAtivo = async () => {
+export const createAtivo = async (req: Request, res: Response) => {
+    const {wallet_id, nome, valor, quantidade, corretora}= req.body
+    
+    const q = "INSERT INTO ativo(`wallet_id`, `nome`, `valor`, `quantidade`, `corretora`) values (?,?,?,?,?);"
 
 }
 
