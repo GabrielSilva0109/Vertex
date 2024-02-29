@@ -2,7 +2,7 @@ import { Request, Response } from 'express'
 import { db } from '../db'
 import { error } from 'console'
 import bcrypt from 'bcrypt'
-import { randomBytes } from 'crypto'
+
 
 const generateRandomNumber = () => {
     const randomNumber = Math.floor(10000 + Math.random() * 90000);
