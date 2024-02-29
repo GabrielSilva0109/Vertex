@@ -34,8 +34,15 @@ export const createAtivo = async (req: Request, res: Response) => {
 
 }
 
-export const updateAtivo = async () => {
+export const updateAtivo = async (req: Request, res:Response) => {
+    const {wallet_id, nome, valor, quantidade, corretora}= req.body
 
+    const q = "UPDATE ativo set (`wallet_id`, `nome`, `valor`, `quantidade`, `corretora`) WHERE id?;"
+
+    db.query(q, [wallet_id, nome, valor, quantidade,corretora], (erro, data) =>{
+        if(erro) res.status(500).json({erro: "Erro ao Atualizar o Ativo"})
+        return res.status(201).json("Ativo Atualizado!")
+    })
 }
 
 export const deleteAtivo = async () => {
