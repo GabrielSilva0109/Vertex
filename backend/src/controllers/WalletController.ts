@@ -63,13 +63,10 @@ export const updateWallet = (req: Request, res: Response) => {
     const q = 'UPDATE wallets SET saldo=? WHERE id=?'
 
     db.query(q, [saldo, walletId], (error, data) => {
-        if (error) {
-            console.log('Erro ao Atualizar a Wallet', error);
-            return res.status(500).json('Erro ao atualizar o saldo!');
-        }
-
-        return res.status(200).json('Saldo Atualizado!' + q);
-    });
+        if (error) return res.status(500).json('Erro ao atualizar o saldo!');
+        
+        return res.status(200).json('Saldo Atualizado!');
+    })
 }
 
 //Deleta a Wallet

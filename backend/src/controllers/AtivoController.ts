@@ -34,17 +34,26 @@ export const createAtivo = async (req: Request, res: Response) => {
 
 }
 
-export const updateAtivo = async (req: Request, res:Response) => {
-    const {wallet_id, nome, valor, quantidade, corretora}= req.body
+export const updateAtivo = async (req: Request, res: Response) => {
+    const walletId = req.params.id
+    const { nome, valor, quantidade, corretora } = req.body
 
-    const q = "UPDATE ativo set (`wallet_id`, `nome`, `valor`, `quantidade`, `corretora`) WHERE id?;"
+    const q = "UPDATE ativo SET nome=?, valor=?, quantidade=?, corretora=? WHERE id=?;"
 
-    db.query(q, [wallet_id, nome, valor, quantidade,corretora], (erro, data) =>{
-        if(erro) res.status(500).json({erro: "Erro ao Atualizar o Ativo"})
-        return res.status(201).json("Ativo Atualizado!")
+    db.query(q, [nome, valor, quantidade, corretora, walletId], (erro, data) => {
+        if (erro) return res.status(500).json({ erro: "Erro ao Atualizar o Ativo" })
+        return res.status(200).json("Ativo Atualizado!")
     })
 }
 
-export const deleteAtivo = async () => {
 
+export const deleteAtivo = async (req: Request, res: Response) => {
+    const walletId = req.params.id;
+
+    const q = "DELETE FROM ativo WHERE id=?;";
+
+    db.query(q, [walletId], (erro, data) => {
+        if (erro) return res.status(500).json({ erro: "Erro ao Excluir o Ativo" });
+        return res.status(200).json("Ativo Excluído!");
+    });
 }
