@@ -22,8 +22,15 @@ export const getAtivoById = async (req: Request, res: Response) => {
 
 export const createAtivo = async (req: Request, res: Response) => {
     const {wallet_id, nome, valor, quantidade, corretora}= req.body
-    
+    if(!nome || !valor || !wallet_id){
+        return res.status(400).json({erro: "Campos Obrigatorios!"})
+    }
+
     const q = "INSERT INTO ativo(`wallet_id`, `nome`, `valor`, `quantidade`, `corretora`) values (?,?,?,?,?);"
+    db.query(q, [wallet_id, nome, valor, quantidade, corretora], (erro, data) =>{
+        if(erro) return res.status(500).json({erro: "Erro ao Cadastrar o Ativo"})
+        return res.status(201).json("Cadastrado Ativo!")
+    })
 
 }
 
