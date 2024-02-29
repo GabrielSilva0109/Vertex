@@ -20,6 +20,7 @@ export const getAtivoById = async (req: Request, res: Response) => {
     })
 }
 
+//Cria o ATIVO
 export const createAtivo = async (req: Request, res: Response) => {
     const {wallet_id, nome, valor, quantidade, corretora}= req.body
     if(!nome || !valor || !wallet_id){
@@ -31,22 +32,33 @@ export const createAtivo = async (req: Request, res: Response) => {
         if(erro) return res.status(500).json({erro: "Erro ao Cadastrar o Ativo"})
         return res.status(201).json("Cadastrado Ativo!")
     })
-
 }
 
+//Atualiza o ATIVO
 export const updateAtivo = async (req: Request, res: Response) => {
     const walletId = req.params.id
     const { nome, valor, quantidade, corretora } = req.body
 
-    const q = "UPDATE ativo SET nome=?, valor=?, quantidade=?, corretora=? WHERE id=?;"
+    // Construir a parte SET dinamicamente com base nos campos fornecidos pelo usuário
+    const setFields = []
+    if (nome !== undefined) setFields.push("nome=?")
+    if (valor !== undefined) setFields.push("valor=?")
+    if (quantidade !== undefined) setFields.push("quantidade=?")
+    if (corretora !== undefined) setFields.push("corretora=?")
 
-    db.query(q, [nome, valor, quantidade, corretora, walletId], (erro, data) => {
+    if (setFields.length === 0) {
+        return res.status(400).json({ erro: "Nenhum campo fornecido para atualização" });
+    }
+
+    const q = `UPDATE ativo SET ${setFields.join(", ")} WHERE id=?;`
+
+    db.query(q, [...Object.values(req.body).filter(value => value !== undefined), walletId], (erro, data) => {
         if (erro) return res.status(500).json({ erro: "Erro ao Atualizar o Ativo" })
         return res.status(200).json("Ativo Atualizado!")
     })
 }
 
-
+//Excluir o ATIVO
 export const deleteAtivo = async (req: Request, res: Response) => {
     const walletId = req.params.id;
 

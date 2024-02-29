@@ -53,8 +53,8 @@ export const createWallet = (req: Request, res: Response) => {
 
 //Atualiza os dados da Wallet
 export const updateWallet = (req: Request, res: Response) => {
-    const walletId = req.params.id;
-    const { saldo } = req.body;
+    const walletId = req.params.id
+    const { saldo } = req.body
 
     if (!saldo) {
         return res.status(400).json({ error: 'Nenhum valor de atualização fornecido' });
