@@ -44,8 +44,9 @@ const Main = styled.main`
   box-shadow: 10px 10px 10px rgba(12, 12, 10, 0.2); 
 `
 
-const Btn = styled.button`
+const BtnAtivo = styled.button`
   background: #b0ff00;
+  width: 200px;
   padding: 12px;
   border-radius: 20px;
   color: black;
@@ -60,8 +61,26 @@ const Btn = styled.button`
   }
 `
 
+const BtnDespesa = styled.button`
+  background: white;
+  padding: 12px;
+  width: 200px;
+  margin-top: 10px;
+  border-radius: 20px;
+  color: black;
+  font-size: 1rem;
+  font-weight: bold;
+  border: none;
+  cursor: pointer;
+  text-decoration: none;
+
+  &:hover {
+    background: #dfdfdf;
+  }
+`
+
 const BoxRight = styled.div`
-  height: 50%;
+  height: 100%;
   border-radius: 1rem;
   background-image: linear-gradient(43deg, #cdcdcd 0%, #bfc1c1b3 46%, #8f8f8f 100%);
   box-shadow: rgba(0, 0, 0, 0.17) 0px -23px 25px 0px inset, rgba(0, 0, 0, 0.15) 0px -36px 30px 0px inset, rgba(0, 0, 0, 0.1) 0px -79px 40px 0px inset, rgba(0, 0, 0, 0.06) 0px 2px 1px, rgba(0, 0, 0, 0.09) 0px 4px 2px, rgba(0, 0, 0, 0.09) 0px 8px 4px, rgba(0, 0, 0, 0.09) 0px 16px 8px, rgba(0, 0, 0, 0.09) 0px 32px 16px;
@@ -78,20 +97,6 @@ const BoxRight = styled.div`
   &::-webkit-scrollbar-thumb {
     background-color: #bfc1c1b3;
     border-radius: 10px;
-  }
-`
-
-const Title = styled.h1`
-  color: white;
-  font-size: 1.5rem;
-  padding: 0px;
-  margin:10px;
-  display: flex;
-  align-items: center;
-  justify-content: start;
-
-  @media (max-width: 768px) {
-    font-size: 1.2rem;
   }
 `
 
@@ -153,12 +158,36 @@ const CarteiraContent: React.FC = () =>{
     const { state } = useLocation()
     const user = state?.user    
     const navigate = useNavigate()
-
+    const [isModalOpen, setIsModalOpen] = useNavigate(false) 
+    
     const [formData, setFormData] = useState({
-      name: '',
+      wallet_id: user.id, 
+      titulo: '',
       valor: '',
-      descricao: ''
-  })
+      observacao: '',
+      categoria: '',
+      fonte: '',
+      data: ''
+    });
+
+    const openModal = () => {
+      setIsModalOpen(true);
+    };
+  
+    const closeModal = () => {
+      setIsModalOpen(false);
+      setError('');
+      // Limpar o formulário ou fazer outras ações necessárias ao fechar o modal
+      setFormData({
+        wallet_id: '',
+        titulo: '',
+        valor: '',
+        observacao: '',
+        categoria: '',
+        fonte: '',
+        data: ''
+      });
+    };
 
     const adicionarTransacao = async () => {
       try{
@@ -197,17 +226,8 @@ const CarteiraContent: React.FC = () =>{
 
             <p>{user.email}</p>
             <p>{user.cpf}</p>
-            
-          </BoxRight>
-          <BoxRight>
-            <Title>Transação</Title>
-            <Form>
-              <Input placeholder="Titulo"/>
-              <Input placeholder="Valor"/>
-              <Input placeholder="Descrição"/>
-              <Btn onClick={adicionarTransacao}>Adicionar</Btn>
-            </Form>
-            
+            <BtnAtivo onClick={openModal}>Adicionar Ativo</BtnAtivo>
+            <BtnDespesa onClick={openModal}>Adicionar Despesa</BtnDespesa>
           </BoxRight>
         </RightContainer>
       </Container>

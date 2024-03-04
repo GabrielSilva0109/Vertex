@@ -3,7 +3,7 @@ import { Request, Response } from 'express';
 
 // Retorna todos os ATIVOS
 export const getAtivos = async (req: Request, res: Response) => {
-    const q = "SELECT * FROM ativos;";  // Alteração do nome da tabela para 'ativos'
+    const q = "SELECT * FROM ativos;";  
     db.query(q, (erro, data) => {
         if (erro) return res.status(500).json({ erro: "Erro ao trazer os Ativos" });
         return res.status(200).json(data);
@@ -12,7 +12,7 @@ export const getAtivos = async (req: Request, res: Response) => {
 
 // Retorna ATIVO por ID
 export const getAtivoById = async (req: Request, res: Response) => {
-    const q = "SELECT * FROM ativos WHERE `id`=?;";  // Alteração do nome da tabela para 'ativos'
+    const q = "SELECT * FROM ativos WHERE `id`=?;"; 
 
     db.query(q, [req.params.id], (erro, data) => {
         if (erro) return res.status(500).json({ erro: "Erro ao trazer Ativo por ID" });
@@ -22,7 +22,7 @@ export const getAtivoById = async (req: Request, res: Response) => {
 
 // Cria o ATIVO
 export const createAtivo = async (req: Request, res: Response) => {
-    const { wallet_id, titulo, valor, observacao, categoria, fonte, data } = req.body;  // Atualização dos nomes das propriedades
+    const { wallet_id, titulo, valor, observacao, categoria, fonte, data } = req.body; 
 
     if (!titulo || !valor || !wallet_id) {
         return res.status(400).json({ erro: "Campos Obrigatórios!" });
@@ -38,7 +38,7 @@ export const createAtivo = async (req: Request, res: Response) => {
 // Atualiza o ATIVO
 export const updateAtivo = async (req: Request, res: Response) => {
     const ativoId = req.params.id;
-    const { titulo, valor, observacao, categoria, fonte, data } = req.body;  // Atualização dos nomes das propriedades
+    const { titulo, valor, observacao, categoria, fonte, data } = req.body;  
 
     // Construir a parte SET dinamicamente com base nos campos fornecidos pelo usuário
     const setFields = [];
@@ -50,14 +50,14 @@ export const updateAtivo = async (req: Request, res: Response) => {
     if (data !== undefined) setFields.push("data=?");
 
     if (setFields.length === 0) {
-        return res.status(400).json({ erro: "Nenhum campo fornecido para atualização" });
+        return res.status(400).json({ erro: "Nenhum campo fornecido para atualização" })
     }
 
-    const q = `UPDATE ativos SET ${setFields.join(", ")} WHERE id=?;`;  // Alteração do nome da tabela para 'ativos'
+    const q = `UPDATE ativos SET ${setFields.join(", ")} WHERE id=?;`
 
     db.query(q, [...Object.values(req.body).filter(value => value !== undefined), ativoId], (erro, data) => {
-        if (erro) return res.status(500).json({ erro: "Erro ao Atualizar o Ativo" });
-        return res.status(200).json("Ativo Atualizado!");
+        if (erro) return res.status(500).json({ erro: "Erro ao Atualizar o Ativo" })
+        return res.status(200).json("Ativo Atualizado!")
     });
 }
 
