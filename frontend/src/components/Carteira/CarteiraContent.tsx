@@ -205,7 +205,7 @@ const CarteiraContent: React.FC = () =>{
               <Input placeholder="Titulo"/>
               <Input placeholder="Valor"/>
               <Input placeholder="Descrição"/>
-              <Btn>Adicionar</Btn>
+              <Btn onClick={adicionarTransacao}>Adicionar</Btn>
             </Form>
             
           </BoxRight>
