@@ -127,6 +127,7 @@ const CarteiraContent: React.FC = () =>{
     const [IdWallet, setIdWallet] = useState('')
     const dataAtual = new Date()
     const dataFormatada = `${dataAtual.getFullYear()}-${dataAtual.getMonth() + 1}-${dataAtual.getDate()}`
+    const [saldo, setSaldo] = useState<number | null>(null)
 
     const [formData, setFormData] = useState({
       wallet_id: IdWallet,
@@ -162,6 +163,7 @@ const CarteiraContent: React.FC = () =>{
         if (response.ok) {
           const data = await response.json()
           setIdWallet(data.id)
+          setSaldo(data.saldo)
         } else {
           console.error("Erro na resposta da requisição:", response.status)
         }
@@ -176,7 +178,28 @@ const CarteiraContent: React.FC = () =>{
 
     const adicionarTransacao = async () => {
       try{
-        await walletUser();
+        await walletUser()
+
+        if (saldo === null) {
+          toast.error("Erro ao obter o saldo!");
+          return
+        }
+
+        const novoSaldo = saldo + parseFloat(formData.valor);
+
+        const saldoAtualizadoResponse = await fetch(`http://localhost:3333/wallet/${IdWallet}`, {
+          method: "PUT",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify({ saldo: novoSaldo }),
+        });
+
+        if (!saldoAtualizadoResponse.ok) {
+          toast.error("Erro ao atualizar saldo!");
+          return;
+        }
+
         const response = await fetch('http://localhost:3333/ativo', {
           method: 'POST',
           headers: {

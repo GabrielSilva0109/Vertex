@@ -62,12 +62,18 @@ interface ModalProps {
                 value={formData.titulo}
                 onChange={(e) => setFormData({ ...formData, titulo: e.target.value })}
             />
-            <Input 
-                type="text"
+            <Input
+                type="number"
+                step="0.01"
                 placeholder="Valor"
                 value={formData.valor}
                 onChange={(e) => setFormData({ ...formData, valor: e.target.value })}
-            />
+                onBlur={(e) => {
+                  // Formatar o valor para ter até 2 casas decimais
+                  const formattedValue = parseFloat(e.target.value).toFixed(2);
+                  setFormData({ ...formData, valor: formattedValue });
+                }}
+              />
             <Input 
                 type="text"
                 placeholder="Observação"
