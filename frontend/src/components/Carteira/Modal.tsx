@@ -39,19 +39,21 @@ const ModalContainer = styled.div`
   display: flex;
   justify-content: center;
   align-items: center;
-`;
+`
 
 const ModalContent = styled.div`
   background: #515151;
   padding: 20px;
   border-radius: 10px;
-`;
+`
 
 const Form = styled.div`
   display: flex;
   flex-direction: column;
   gap: 10px;
-`;
+  justify-content: center;
+  align-items: center;
+`
 
 const Modal: React.FC<ModalProps> = ({ isOpen, onClose, onSubmit, formData, setFormData, isDespesa, onCheckboxChange }) => {
   return (
@@ -93,7 +95,7 @@ const Modal: React.FC<ModalProps> = ({ isOpen, onClose, onSubmit, formData, setF
             value={formData.fonte}
             onChange={(e) => setFormData({ ...formData, fonte: e.target.value })}
           />
-          <input
+          <Input
             type="checkbox"
             checked={isDespesa}
             onChange={onCheckboxChange}
