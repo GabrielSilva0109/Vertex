@@ -124,15 +124,15 @@ const CarteiraContent: React.FC = () =>{
     const navigate = useNavigate()
     const [isModalOpen, setIsModalOpen] = useState(false) 
     const idUser = user.id
+    const [IdWallet, setIdWallet] = useState('')
 
     const [formData, setFormData] = useState({
-      wallet_id: idUser,
+      wallet_id: IdWallet,
       titulo: '',
       valor: '',
       observacao: '',
       categoria: '',
-      fonte: '',
-      data: ''
+      fonte: ''
     })
 
     const openModal = () => {
@@ -143,29 +143,30 @@ const CarteiraContent: React.FC = () =>{
       setIsModalOpen(false)
       // Limpar o formulário ou fazer outras ações necessárias ao fechar o modal
       setFormData({
-        wallet_id: idUser,
+        wallet_id: IdWallet,
         titulo: '',
         valor: '',
         observacao: '',
         categoria: '',
-        fonte: '',
-        data: ''
+        fonte: ''
       })
     }
 
     const walletUser = async () => {
       try {
-        const response = await fetch(`http://localhost:3333/walletUser/${idUser}`);
+        const response = await fetch(`http://localhost:3333/walletUser/${idUser}`)
         if (response.ok) {
-          const data = await response.json();
-          console.log("Retorno", data);
+          const data = await response.json()
+          setIdWallet(data.id)
+          console.log("Retorno", data)
         } else {
-          console.error("Erro na resposta da requisição:", response.status);
+          console.error("Erro na resposta da requisição:", response.status)
         }
       } catch (error) {
-        console.error("Erro ao buscar carteira:", error);
+        console.error("Erro ao buscar carteira:", error)
       }
     }
+
     useEffect(() => {
       walletUser()
     }, [])
@@ -182,8 +183,8 @@ const CarteiraContent: React.FC = () =>{
         if(response.ok){
           toast.success('Ativo cadastrado !')
         } else {
-          toast.error('Erro ao cadastrar !')
-          console.log("erro na Requisição: ", user)
+          toast.error('Erro ao Requisição do ATIVO  !')
+          console.log("erro na Requisição do ATIVO ", setIdWallet)
         }
 
       } catch (erro) {

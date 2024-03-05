@@ -13,8 +13,7 @@ interface ModalProps {
       valor: string;
       observacao: string;
       categoria: string;
-      fonte: string;
-      data: string;
+      fonte: string
     };
     setFormData: React.Dispatch<React.SetStateAction<{
       wallet_id: string;
@@ -23,7 +22,6 @@ interface ModalProps {
       observacao: string;
       categoria: string;
       fonte: string;
-      data: string;
     }>>;
   }
   
