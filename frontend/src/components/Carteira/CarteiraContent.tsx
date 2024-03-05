@@ -1,7 +1,9 @@
-import React, { ChangeEvent, useState } from "react"
+import React, { ChangeEvent, useEffect, useState } from "react"
 import { useLocation, useNavigate } from "react-router-dom"
 import styled from "styled-components"
 import Modal from "./Modal"
+import { toast } from 'react-toastify'
+import 'react-toastify/dist/ReactToastify.css'
 
 const Container = styled.div`
   display: flex;
@@ -66,7 +68,6 @@ export const BtnDespesa = styled.button`
   background: white;
   padding: 12px;
   width: 200px;
-  margin-top: 10px;
   border-radius: 20px;
   color: black;
   font-size: 1rem;
@@ -86,6 +87,7 @@ const BoxRight = styled.div`
   background-image: linear-gradient(43deg, #cdcdcd 0%, #bfc1c1b3 46%, #8f8f8f 100%);
   box-shadow: rgba(0, 0, 0, 0.17) 0px -23px 25px 0px inset, rgba(0, 0, 0, 0.15) 0px -36px 30px 0px inset, rgba(0, 0, 0, 0.1) 0px -79px 40px 0px inset, rgba(0, 0, 0, 0.06) 0px 2px 1px, rgba(0, 0, 0, 0.09) 0px 4px 2px, rgba(0, 0, 0, 0.09) 0px 8px 4px, rgba(0, 0, 0, 0.09) 0px 16px 8px, rgba(0, 0, 0, 0.09) 0px 32px 16px;
   display: flex;
+  gap:10px;
   flex-direction: column;
   justify-content: start;
   align-items: center;
@@ -116,60 +118,22 @@ const ImgPerfil = styled.div`
   }
 `
 
-const Input = styled.input`
-    background-color: #e1e1e1;
-    color: black;
-    font-family: "Roboto", sans-serif;
-    font-weight: 400;
-    font-size: 16px;
-    padding: 12px 16px;
-    border-radius: 8px;
-    border: 1px solid #b0ff00;
-    outline: none;
-    transition: all 0.3s ease-in-out;
-
-    &:hover {
-        background-color: #f1f1f1;
-        border-color: #667788;
-    }
-
-    &:focus {
-        background-color: #272727;
-        border-color: #b0ff00;
-        box-shadow: 0 0 5px rgba(0, 0, 0, 0.2);
-    }
-
-    &.invalid {
-        border-color: #ff0000;
-        background-color: #f00;
-    }
-
-    /* Animações */
-    &.entering {
-        animation: slide-in 0.3s ease-in-out forwards;
-    }
-`
-
-const Form = styled.div`
-    display:flex;
-    flex-direction: column;
-    gap: 10px;
-`
 const CarteiraContent: React.FC = () =>{
     const { state } = useLocation()
     const user = state?.user    
     const navigate = useNavigate()
     const [isModalOpen, setIsModalOpen] = useState(false) 
-    
+    const idUser = user.id
+
     const [formData, setFormData] = useState({
-      wallet_id: user.id, 
+      wallet_id: idUser,
       titulo: '',
       valor: '',
       observacao: '',
       categoria: '',
       fonte: '',
       data: ''
-    });
+    })
 
     const openModal = () => {
       setIsModalOpen(true)
@@ -179,7 +143,7 @@ const CarteiraContent: React.FC = () =>{
       setIsModalOpen(false)
       // Limpar o formulário ou fazer outras ações necessárias ao fechar o modal
       setFormData({
-        wallet_id: '',
+        wallet_id: idUser,
         titulo: '',
         valor: '',
         observacao: '',
@@ -188,6 +152,23 @@ const CarteiraContent: React.FC = () =>{
         data: ''
       })
     }
+
+    const walletUser = async () => {
+      try {
+        const response = await fetch(`http://localhost:3333/walletUser/${idUser}`);
+        if (response.ok) {
+          const data = await response.json();
+          console.log("Retorno", data);
+        } else {
+          console.error("Erro na resposta da requisição:", response.status);
+        }
+      } catch (error) {
+        console.error("Erro ao buscar carteira:", error);
+      }
+    }
+    useEffect(() => {
+      walletUser()
+    }, [])
 
     const adicionarTransacao = async () => {
       try{
@@ -198,14 +179,22 @@ const CarteiraContent: React.FC = () =>{
           },
           body: JSON.stringify(formData),
       })
+        if(response.ok){
+          toast.success('Ativo cadastrado !')
+        } else {
+          toast.error('Erro ao cadastrar !')
+          console.log("erro na Requisição: ", user)
+        }
 
       } catch (erro) {
         console.log("Erro ao Adicionar Transação")
+        toast.error('Erro ao cadastrar ativo!')
       }
     }
 
     const onSubmit = async () => {
       await adicionarTransacao()
+      
       closeModal()
     }
 

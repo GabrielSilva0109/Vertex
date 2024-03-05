@@ -37,17 +37,18 @@ interface ModalProps {
     display: flex;
     justify-content: center;
     align-items: center;
-  `;
+  `
   
   const ModalContent = styled.div`
-    background: white;
+    background: #515151;
     padding: 20px;
     border-radius: 10px;
   `
 
-
   const Form = styled.div`
-  
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
   `
 
   const Modal: React.FC<ModalProps> = ({ isOpen, onClose, onSubmit, formData, setFormData }) => {
