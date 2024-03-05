@@ -125,6 +125,8 @@ const CarteiraContent: React.FC = () =>{
     const [isModalOpen, setIsModalOpen] = useState(false) 
     const idUser = user.id
     const [IdWallet, setIdWallet] = useState('')
+    const dataAtual = new Date()
+    const dataFormatada = `${dataAtual.getFullYear()}-${dataAtual.getMonth() + 1}-${dataAtual.getDate()}`
 
     const [formData, setFormData] = useState({
       wallet_id: IdWallet,
@@ -132,7 +134,8 @@ const CarteiraContent: React.FC = () =>{
       valor: '',
       observacao: '',
       categoria: '',
-      fonte: ''
+      fonte: '',
+      data: dataFormatada
     })
 
     const openModal = () => {
@@ -148,7 +151,8 @@ const CarteiraContent: React.FC = () =>{
         valor: '',
         observacao: '',
         categoria: '',
-        fonte: ''
+        fonte: '',
+        data: dataFormatada
       })
     }
 
@@ -158,7 +162,6 @@ const CarteiraContent: React.FC = () =>{
         if (response.ok) {
           const data = await response.json()
           setIdWallet(data.id)
-          console.log("Retorno", data)
         } else {
           console.error("Erro na resposta da requisição:", response.status)
         }
@@ -173,18 +176,19 @@ const CarteiraContent: React.FC = () =>{
 
     const adicionarTransacao = async () => {
       try{
+        await walletUser();
         const response = await fetch('http://localhost:3333/ativo', {
           method: 'POST',
           headers: {
               'Content-Type': 'application/json',
           },
-          body: JSON.stringify(formData),
+          body: JSON.stringify({...formData, wallet_id: IdWallet}),
       })
         if(response.ok){
           toast.success('Ativo cadastrado !')
         } else {
           toast.error('Erro ao Requisição do ATIVO  !')
-          console.log("erro na Requisição do ATIVO ", setIdWallet)
+          console.log("erro na Requisição do ATIVO ", formData)
         }
 
       } catch (erro) {
@@ -195,7 +199,6 @@ const CarteiraContent: React.FC = () =>{
 
     const onSubmit = async () => {
       await adicionarTransacao()
-      
       closeModal()
     }
 
@@ -205,7 +208,7 @@ const CarteiraContent: React.FC = () =>{
           <Main>
             <h1>Extrato</h1>
             <Extrato>
-            
+
             </Extrato>
           </Main>
         </LeftContainer>
