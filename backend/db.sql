@@ -18,19 +18,26 @@ CREATE TABLE wallets (
     saldo DECIMAL(10, 2) DEFAULT 0.00
 );
 
-CREATE TABLE ativo (
+CREATE TABLE ativos (
     id INT NOT NULL PRIMARY KEY AUTO_INCREMENT,
-    wallet_id INT REFERENCES wallet(id),
-    nome VARCHAR(255) NOT NULL,
+    wallet_id INT,
+    titulo VARCHAR(255) NOT NULL,
     valor DECIMAL(10, 2) NOT NULL,
-    quantidade INT NOT NULL,
-    corretora VARCHAR(255)
+    observacao VARCHAR(255),
+    categoria VARCHAR(255),
+    fonte VARCHAR(255),
+    data DATE,
+    FOREIGN KEY (wallet_id) REFERENCES wallets(id)
 );
 
-CREATE TABLE despesa (
+CREATE TABLE despesas (
     id INT NOT NULL PRIMARY KEY AUTO_INCREMENT,
-    wallet_id INT REFERENCES wallet(id),
-    nome VARCHAR(255) NOT NULL,
+    wallet_id INT,
+    titulo VARCHAR(255) NOT NULL,
     valor DECIMAL(10, 2) NOT NULL,
-    categoria VARCHAR(255)
+    observacao VARCHAR(255),
+    categoria VARCHAR(255),
+    fonte VARCHAR(255),
+    data DATE,
+    FOREIGN KEY (wallet_id) REFERENCES wallets(id)
 );

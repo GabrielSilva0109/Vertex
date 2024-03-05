@@ -1,6 +1,7 @@
 import React, { ChangeEvent, useState } from "react"
 import { useLocation, useNavigate } from "react-router-dom"
 import styled from "styled-components"
+import Modal from "./Modal"
 
 const Container = styled.div`
   display: flex;
@@ -44,7 +45,7 @@ const Main = styled.main`
   box-shadow: 10px 10px 10px rgba(12, 12, 10, 0.2); 
 `
 
-const BtnAtivo = styled.button`
+export const BtnAtivo = styled.button`
   background: #b0ff00;
   width: 200px;
   padding: 12px;
@@ -61,7 +62,7 @@ const BtnAtivo = styled.button`
   }
 `
 
-const BtnDespesa = styled.button`
+export const BtnDespesa = styled.button`
   background: white;
   padding: 12px;
   width: 200px;
@@ -158,7 +159,7 @@ const CarteiraContent: React.FC = () =>{
     const { state } = useLocation()
     const user = state?.user    
     const navigate = useNavigate()
-    const [isModalOpen, setIsModalOpen] = useNavigate(false) 
+    const [isModalOpen, setIsModalOpen] = useState(false) 
     
     const [formData, setFormData] = useState({
       wallet_id: user.id, 
@@ -171,12 +172,11 @@ const CarteiraContent: React.FC = () =>{
     });
 
     const openModal = () => {
-      setIsModalOpen(true);
-    };
+      setIsModalOpen(true)
+    }
   
     const closeModal = () => {
-      setIsModalOpen(false);
-      setError('');
+      setIsModalOpen(false)
       // Limpar o formulário ou fazer outras ações necessárias ao fechar o modal
       setFormData({
         wallet_id: '',
@@ -186,8 +186,8 @@ const CarteiraContent: React.FC = () =>{
         categoria: '',
         fonte: '',
         data: ''
-      });
-    };
+      })
+    }
 
     const adicionarTransacao = async () => {
       try{
@@ -204,6 +204,11 @@ const CarteiraContent: React.FC = () =>{
       }
     }
 
+    const onSubmit = async () => {
+      await adicionarTransacao()
+      closeModal()
+    }
+
     return(
         <Container>
         <LeftContainer>  
@@ -212,8 +217,6 @@ const CarteiraContent: React.FC = () =>{
             <Extrato>
             
             </Extrato>
-            
-            
           </Main>
         </LeftContainer>
   
@@ -223,11 +226,17 @@ const CarteiraContent: React.FC = () =>{
             <h4>
                 {user.name}
             </h4>
-
             <p>{user.email}</p>
             <p>{user.cpf}</p>
             <BtnAtivo onClick={openModal}>Adicionar Ativo</BtnAtivo>
             <BtnDespesa onClick={openModal}>Adicionar Despesa</BtnDespesa>
+            <Modal
+                isOpen={isModalOpen}
+                onClose={closeModal}
+                onSubmit={onSubmit}
+                formData={formData}
+                setFormData={setFormData}
+              />
           </BoxRight>
         </RightContainer>
       </Container>

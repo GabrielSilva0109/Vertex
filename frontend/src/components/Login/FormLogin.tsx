@@ -27,7 +27,7 @@ const Box = styled.div`
     margin: 10px;
 `
 
-const Input = styled.input`
+export const Input = styled.input`
     background-color: #e1e1e1;
     color: black;
     font-family: "Roboto", sans-serif;
