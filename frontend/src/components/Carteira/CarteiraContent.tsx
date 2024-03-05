@@ -139,6 +139,22 @@ const CarteiraContent: React.FC = () =>{
       data: dataFormatada
     })
 
+    const [isDespesa, setIsDespesa] = useState(false);
+
+    const handleCheckboxChange = () => {
+      setIsDespesa((prevValue) => !prevValue);
+    }
+
+    
+    const onSubmit = async () => {
+      if (isDespesa) {
+        await adicionarDespesa();
+      } else {
+        await adicionarAtivo();
+      }
+      closeModal();
+    }
+
     const openModal = () => {
       setIsModalOpen(true)
     }
@@ -220,10 +236,62 @@ const CarteiraContent: React.FC = () =>{
       }
     }
 
-    const onSubmit = async () => {
-      await adicionarAtivo()
-      closeModal()
-    }
+    //const onSubmit = async () => {
+    //  await adicionarAtivo()
+    //  closeModal()
+   // }
+
+    const adicionarDespesa = async () => {
+      try {
+        await walletUser();
+  
+        if (saldo === null) {
+          toast.error("Erro ao obter o saldo!");
+          return;
+        }
+  
+        const novoSaldo = saldo - parseFloat(formData.valor); // Subtrai o valor da despesa
+  
+        const saldoAtualizadoResponse = await fetch(
+          `http://localhost:3333/wallet/${IdWallet}`,
+          {
+            method: "PUT",
+            headers: {
+              "Content-Type": "application/json",
+            },
+            body: JSON.stringify({ saldo: novoSaldo }),
+          }
+        );
+  
+        if (!saldoAtualizadoResponse.ok) {
+          toast.error("Erro ao atualizar saldo!");
+          return;
+        }
+  
+        const response = await fetch("http://localhost:3333/despesa", {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify({ ...formData, wallet_id: IdWallet }),
+        });
+  
+        if (response.ok) {
+          toast.success("Despesa cadastrada !");
+        } else {
+          toast.error("Erro na Requisição da DESPESA  !");
+          console.log("erro na Requisição da DESPESA ", formData);
+        }
+      } catch (erro) {
+        console.log("Erro ao Adicionar Despesa");
+        toast.error("Erro ao cadastrar despesa!");
+      }
+    };
+  
+   // const onSubmitDespesa = async () => {
+     // await adicionarDespesa();
+     // closeModal();
+    //};
 
     return(
         <Container>
@@ -244,14 +312,15 @@ const CarteiraContent: React.FC = () =>{
             </h4>
             <p>{user.email}</p>
             <p>{user.cpf}</p>
-            <BtnAtivo onClick={openModal}>Adicionar Ativo</BtnAtivo>
-            <BtnDespesa onClick={openModal}>Adicionar Despesa</BtnDespesa>
+            <BtnAtivo onClick={openModal}>Adicionar Transação</BtnAtivo>
             <Modal
                 isOpen={isModalOpen}
                 onClose={closeModal}
                 onSubmit={onSubmit}
                 formData={formData}
                 setFormData={setFormData}
+                isDespesa={isDespesa}
+                onCheckboxChange={handleCheckboxChange}
               />
           </BoxRight>
         </RightContainer>
