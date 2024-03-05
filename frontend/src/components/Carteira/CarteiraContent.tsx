@@ -176,7 +176,7 @@ const CarteiraContent: React.FC = () =>{
       walletUser()
     }, [])
 
-    const adicionarTransacao = async () => {
+    const adicionarAtivo = async () => {
       try{
         await walletUser()
 
@@ -221,7 +221,7 @@ const CarteiraContent: React.FC = () =>{
     }
 
     const onSubmit = async () => {
-      await adicionarTransacao()
+      await adicionarAtivo()
       closeModal()
     }
 
