@@ -4,6 +4,7 @@ import userRoutes from './routes/UserRoutes'
 import walletRoutes from './routes/WalletRoutes'
 import ativoRoutes from './routes/AtivoRoutes'
 import despesaRoutes from './routes/DespesaRoutes'
+
 const app = express()
 const port = 3333
 

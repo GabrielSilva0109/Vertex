@@ -1,7 +1,7 @@
 import { db } from "../db"
 import { Request, Response } from 'express'
 
-// Retorna todos os ATIVOS
+// Retorna todos os DESPESAS
 export const getDespesas = async (req: Request, res: Response) => {
     const q = "SELECT * FROM despesas;";  
     db.query(q, (erro, data) => {
@@ -10,7 +10,7 @@ export const getDespesas = async (req: Request, res: Response) => {
     });
 }
 
-// Retorna ATIVO por ID
+// Retorna DESPESA por ID
 export const getDespesaById = async (req: Request, res: Response) => {
     const q = "SELECT * FROM despesas WHERE `id`=?;"
 
@@ -20,7 +20,7 @@ export const getDespesaById = async (req: Request, res: Response) => {
     });
 }
 
-// Cria o ATIVO
+// Cria o DESPESA
 export const createDespesa = async (req: Request, res: Response) => {
     const { wallet_id, titulo, valor, observacao, categoria, fonte, data } = req.body; 
 
@@ -28,14 +28,14 @@ export const createDespesa = async (req: Request, res: Response) => {
         return res.status(400).json({ erro: "Campos Obrigatórios!" });
     }
 
-    const q = "INSERT INTO despesas(`wallet_id`, `titulo`, `valor`, `observacao`, `categoria`, `fonte`, `data`) VALUES (?,?,?,?,?,?,?);";  // Alteração do nome da tabela para 'ativos'
+    const q = "INSERT INTO despesas(`wallet_id`, `titulo`, `valor`, `observacao`, `categoria`, `fonte`, `data`) VALUES (?,?,?,?,?,?,?);"
     db.query(q, [wallet_id, titulo, valor, observacao, categoria, fonte, data], (erro, data) => {
         if (erro) return res.status(500).json({ erro: "Erro ao Cadastrar a Despesa" });
         return res.status(201).json("Despesa Cadastrada!");
     });
 }
 
-// Atualiza o ATIVO
+// Atualiza o DESPESA
 export const updateDespesa = async (req: Request, res: Response) => {
     const despesaId = req.params.id;
     const { titulo, valor, observacao, categoria, fonte, data } = req.body;  
@@ -57,18 +57,18 @@ export const updateDespesa = async (req: Request, res: Response) => {
 
     db.query(q, [...Object.values(req.body).filter(value => value !== undefined), despesaId], (erro, data) => {
         if (erro) return res.status(500).json({ erro: "Erro ao Atualizar a Despesa" })
-        return res.status(200).json("Ativo Atualizado!")
+        return res.status(200).json("Despesa Atualizada!")
     });
 }
 
 // Excluir o ATIVO
 export const deleteDespesa = async (req: Request, res: Response) => {
-    const ativoId = req.params.id;
+    const despesaId = req.params.id;
 
-    const q = "DELETE FROM ativos WHERE id=?;";  // Alteração do nome da tabela para 'ativos'
+    const q = "DELETE FROM despesas WHERE id=?;"
 
-    db.query(q, [ativoId], (erro, data) => {
-        if (erro) return res.status(500).json({ erro: "Erro ao Excluir o Ativo" });
-        return res.status(200).json("Ativo Excluído!");
+    db.query(q, [despesaId], (erro, data) => {
+        if (erro) return res.status(500).json({ erro: "Erro ao Excluir o Desesa" });
+        return res.status(200).json("Despesa Excluída!");
     });
 }
