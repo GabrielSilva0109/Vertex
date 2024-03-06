@@ -292,7 +292,7 @@ const CarteiraContent: React.FC = () =>{
         const despesasResponse = await fetch(`http://localhost:3333/despesasWallet/${IdWallet}`)
   
         if (!ativosResponse.ok || !despesasResponse.ok) {
-          toast.error("Erro ao obter transações do extrato!");
+          toast.error("Erro ao obter transações do extrato!")
           return;
         }
   
