@@ -348,22 +348,55 @@ const CarteiraContent: React.FC = () =>{
 
     const deleteTransacao = async (transacaoId: number) => {
       try {
-        
-        const response = await fetch(`http://localhost:3333/ativo/${transacaoId}`, {
+        const response = await fetch(`http://localhost:3333/ativo/${transacaoId}`);
+        const transacao: Transacao = await response.json();
+    
+        if (!response.ok) {
+          toast.error("Erro ao buscar transação para excluir!");
+          return;
+        }
+    
+        // Saldo original da transação
+        const valorTransacao = transacao.valor;
+    
+        // Verifica se é ativo ou despesa
+        const isAtivo = transacao.categoria === "ativo";
+    
+        // Atualiza o saldo da carteira revertendo a transação
+        const novoSaldo = saldo !== null ? (isAtivo ? saldo - valorTransacao : saldo + valorTransacao) : 0;
+    
+        // Atualiza o saldo na API
+        const saldoAtualizadoResponse = await fetch(`http://localhost:3333/wallet/${IdWallet}`, {
+          method: "PUT",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify({ saldo: novoSaldo }),
+        });
+    
+        if (!saldoAtualizadoResponse.ok) {
+          toast.error("Erro ao reverter saldo!");
+          return;
+        }
+    
+        // Exclui a transação após reverter o saldo
+        const deleteResponse = await fetch(`http://localhost:3333/ativo/${transacaoId}`, {
           method: "DELETE",
-        })
-  
-        if (response.ok) {
-          toast.success("Transação excluída com sucesso!")
-          await getExtrato()
+        });
+    
+        if (deleteResponse.ok) {
+          toast.success("Transação excluída com sucesso!");
+          await getExtrato();
         } else {
-          toast.error("Erro ao excluir transação!")
+          toast.error("Erro ao excluir transação!");
         }
       } catch (error) {
-        console.error("Erro ao excluir transação:", error)
-        toast.error("Erro ao excluir transação!")
+        console.error("Erro ao excluir transação:", error);
+        toast.error("Erro ao excluir transação!");
       }
-    }
+    };
+    
+    
 
     const fetchData = async () => {
       try {
