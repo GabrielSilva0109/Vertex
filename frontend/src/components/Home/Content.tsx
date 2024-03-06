@@ -187,7 +187,7 @@ const Content: React.FC = () =>{
     const [isLoading, setIsLoading] = useState<boolean>(false)//lembrar de trocar apos a API AÇÔES
     const user = state?.user
 
-  const fetchSaldo = async (userId: number) => {
+    const fetchSaldo = async (userId: number) => {
     try {
       const response = await fetch(`http://localhost:3333/walletUser/${userId}`);
       

@@ -20,6 +20,16 @@ export const getAtivoById = async (req: Request, res: Response) => {
     });
 }
 
+// Retorna ATIVOS por ID da WALLET
+export const getAtivosByWalletId = async (req: Request, res: Response) => {
+    const q = "SELECT * FROM Ativos WHERE `wallet_id`=?"
+
+    db.query(q, [req.params.id], (erro, data) => {
+        if(erro) return res.status(500).json({erro: "Erro ao trazer os Ativos dessa Wallet"})
+        return res.status(200).json(data)
+    })
+}
+
 // Cria o ATIVO
 export const createAtivo = async (req: Request, res: Response) => {
     const { wallet_id, titulo, valor, observacao, categoria, fonte, data } = req.body; 

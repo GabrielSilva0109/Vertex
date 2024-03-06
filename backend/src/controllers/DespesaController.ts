@@ -20,6 +20,16 @@ export const getDespesaById = async (req: Request, res: Response) => {
     });
 }
 
+// Retorna DESPESAS por ID da WALLET
+export const getDespesasByWalletId = async (req: Request, res: Response) => {
+    const q = "SELECT * FROM despesas WHERE `wallet_id`=?"
+
+    db.query(q, [req.params.id], (erro, data) => {
+        if(erro) return res.status(500).json({erro: "Erro ao trazer as Despesas dessa Wallet"})
+        return res.status(200).json(data)
+    })
+}
+
 // Cria o DESPESA
 export const createDespesa = async (req: Request, res: Response) => {
     const { wallet_id, titulo, valor, observacao, categoria, fonte, data } = req.body; 

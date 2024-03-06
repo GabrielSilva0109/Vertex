@@ -118,6 +118,14 @@ const ImgPerfil = styled.div`
   }
 `
 
+interface Transacao {
+  id: number;
+  titulo: string;
+  valor: number;
+  data: string; 
+  
+}
+
 const CarteiraContent: React.FC = () =>{
     const { state } = useLocation()
     const user = state?.user    
@@ -128,7 +136,7 @@ const CarteiraContent: React.FC = () =>{
     const dataAtual = new Date()
     const dataFormatada = `${dataAtual.getFullYear()}-${dataAtual.getMonth() + 1}-${dataAtual.getDate()}`
     const [saldo, setSaldo] = useState<number | null>(null)
-
+    const [extrato, setExtrato] = useState<Transacao[] | []>([])
     const [formData, setFormData] = useState({
       wallet_id: IdWallet,
       titulo: '',
@@ -138,13 +146,12 @@ const CarteiraContent: React.FC = () =>{
       fonte: '',
       data: dataFormatada
     })
+    const [isDespesa, setIsDespesa] = useState(false)
 
-    const [isDespesa, setIsDespesa] = useState(false);
 
     const handleCheckboxChange = () => {
       setIsDespesa((prevValue) => !prevValue);
     }
-
     
     const onSubmit = async () => {
       if (isDespesa) {
@@ -187,10 +194,6 @@ const CarteiraContent: React.FC = () =>{
         console.error("Erro ao buscar carteira:", error)
       }
     }
-
-    useEffect(() => {
-      walletUser()
-    }, [])
 
     const adicionarAtivo = async () => {
       try{
@@ -235,11 +238,6 @@ const CarteiraContent: React.FC = () =>{
         toast.error('Erro ao cadastrar ativo!')
       }
     }
-
-    //const onSubmit = async () => {
-    //  await adicionarAtivo()
-    //  closeModal()
-   // }
 
     const adicionarDespesa = async () => {
       try {
@@ -286,12 +284,47 @@ const CarteiraContent: React.FC = () =>{
         console.log("Erro ao Adicionar Despesa");
         toast.error("Erro ao cadastrar despesa!");
       }
-    };
+    }
+
+    const getExtrato = async () => {
+      try {
+        const ativosResponse = await fetch(`http://localhost:3333/ativosWallet/${IdWallet}`);
+        const despesasResponse = await fetch(`http://localhost:3333/despesasWallet/${IdWallet}`);
   
-   // const onSubmitDespesa = async () => {
-     // await adicionarDespesa();
-     // closeModal();
-    //};
+        if (!ativosResponse.ok || !despesasResponse.ok) {
+          toast.error("Erro ao obter transações do extrato!");
+          return;
+        }
+  
+        const ativos = await ativosResponse.json()
+        const despesas = await despesasResponse.json()
+  
+        const todasTransacoes: Transacao[] = [...ativos, ...despesas]
+
+      // Ordene as transações por data
+      todasTransacoes.sort((a, b) => {
+        const dateA = new Date(a.data).getTime();
+        const dateB = new Date(b.data).getTime();
+
+        if (dateA < dateB) {
+          return 1;
+        } else if (dateA > dateB) {
+          return -1;
+        } else {
+          return 0;
+        }
+        });
+  
+        setExtrato(todasTransacoes);
+      } catch (error) {
+        console.error("Erro ao obter extrato:", error);
+      }
+    }
+
+    useEffect(() => {
+      walletUser()
+      getExtrato()
+    }, [])
 
     return(
         <Container>
@@ -299,7 +332,13 @@ const CarteiraContent: React.FC = () =>{
           <Main>
             <h1>Extrato</h1>
             <Extrato>
-
+              {extrato.map((transacao) => (
+                <div key={transacao.id}>
+                  <p>{transacao.titulo}</p>
+                  <p>{transacao.valor}</p>
+                  <p>{transacao.data}</p>
+                </div>
+              ))}
             </Extrato>
           </Main>
         </LeftContainer>
