@@ -104,7 +104,27 @@ const BoxRight = styled.div`
 `
 
 const Extrato =  styled.div`
+  width: 90%;
+  overflow-y: auto;
+  scrollbar-width: thin;
+  scrollbar-color: transparent transparent;
+  &::-webkit-scrollbar-thumb {
+    background-color: transparent; 
+    border-radius: 10px;
+  }
 `
+
+const ExtratoItem = styled.div`
+  display: flex;
+  justify-content: space-between;
+  padding: 0px 15px;
+  margin: 5px;
+  background-color: gray;
+  border-radius: 8px;
+  color: white;
+  font-weight: bold;
+`
+
 
 const ImgPerfil = styled.div`
   width: 150px;
@@ -122,8 +142,10 @@ interface Transacao {
   id: number;
   titulo: string;
   valor: number;
-  data: string; 
-  
+  observacao: string
+  categoria: string
+  fonte: string
+  data: string 
 }
 
 const CarteiraContent: React.FC = () =>{
@@ -292,12 +314,11 @@ const CarteiraContent: React.FC = () =>{
 
     const getExtrato = async () => {
       try {
-        console.log("Aqui esta o ID" , IdWallet)
         const ativosResponse = await fetch(`http://localhost:3333/ativosWallet/${IdWallet}`)
         const despesasResponse = await fetch(`http://localhost:3333/despesasWallet/${IdWallet}`)
   
-        const ativos = await ativosResponse.json()
-        const despesas = await despesasResponse.json()
+        const ativos =  (await ativosResponse.json()).map((ativo: any) => ({ ...ativo, categoria: 'ativo'}))
+        const despesas = (await despesasResponse.json()).map((despesa: any) => ({...despesa, categoria: 'despesa'}))
   
         const todasTransacoes: Transacao[] = [...ativos, ...despesas]
 
@@ -343,13 +364,17 @@ const CarteiraContent: React.FC = () =>{
             <h1>Extrato</h1>
             <Extrato>
               {extrato.map((transacao) => (
-                <div key={transacao.id}>
+                <ExtratoItem key={transacao.id}>
                   <p>{transacao.titulo}</p>
                   <p>{transacao.valor}</p>
+                  <p>{transacao.observacao}</p>
+                  <p>{transacao.categoria}</p>
+                  <p>{transacao.fonte}</p>
                   <p>{transacao.data}</p>
-                </div>
+                </ExtratoItem>
               ))}
             </Extrato>
+
           </Main>
         </LeftContainer>
   
