@@ -348,7 +348,11 @@ const CarteiraContent: React.FC = () =>{
 
     const deleteTransacao = async (transacaoId: number) => {
       try {
-        const response = await fetch(`http://localhost:3333/ativo/${transacaoId}`);
+        const urlAtivoDelete = `http://localhost:3333/ativo/${transacaoId}`; // URL para ativos
+        const urlDespesaDelete = `http://localhost:3333/despesa/${transacaoId}`; // URL para despesas
+    
+        // Obtém os dados da transação
+        const response = await fetch(urlAtivoDelete);
         const transacao: Transacao = await response.json();
     
         if (!response.ok) {
@@ -380,7 +384,7 @@ const CarteiraContent: React.FC = () =>{
         }
     
         // Exclui a transação após reverter o saldo
-        const deleteResponse = await fetch(`http://localhost:3333/ativo/${transacaoId}`, {
+        const deleteResponse = await fetch(isAtivo ? urlAtivoDelete : urlDespesaDelete, {
           method: "DELETE",
         });
     
