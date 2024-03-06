@@ -117,6 +117,7 @@ const Extrato =  styled.div`
 const ExtratoItem = styled.div`
   display: flex;
   justify-content: space-between;
+  align-items: center;
   padding: 0px 15px;
   margin: 5px;
   background-color: gray;
@@ -138,6 +139,9 @@ const ImgPerfil = styled.div`
   }
 `
 
+const BtnDelete = styled.button`
+  height: 50%;
+`
 interface Transacao {
   id: number;
   titulo: string;
@@ -342,6 +346,25 @@ const CarteiraContent: React.FC = () =>{
       }
     }
 
+    const deleteTransacao = async (transacaoId: number) => {
+      try {
+        
+        const response = await fetch(`http://localhost:3333/ativo/${transacaoId}`, {
+          method: "DELETE",
+        })
+  
+        if (response.ok) {
+          toast.success("Transação excluída com sucesso!")
+          await getExtrato()
+        } else {
+          toast.error("Erro ao excluir transação!")
+        }
+      } catch (error) {
+        console.error("Erro ao excluir transação:", error)
+        toast.error("Erro ao excluir transação!")
+      }
+    }
+
     const fetchData = async () => {
       try {
         await walletUser();
@@ -349,7 +372,7 @@ const CarteiraContent: React.FC = () =>{
       } catch (error) {
         console.error("Erro ao carregar dados:", error);
       }
-    };
+    }
   
     useEffect(() => {
       fetchData()
@@ -371,10 +394,13 @@ const CarteiraContent: React.FC = () =>{
                   <p>{transacao.categoria}</p>
                   <p>{transacao.fonte}</p>
                   <p>{transacao.data}</p>
+                  <div>
+                    <BtnDelete>Editar</BtnDelete>
+                    <BtnDelete onClick={() => deleteTransacao(transacao.id)}>Excluir</BtnDelete>
+                  </div>
                 </ExtratoItem>
               ))}
             </Extrato>
-
           </Main>
         </LeftContainer>
   
