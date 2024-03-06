@@ -189,10 +189,12 @@ const CarteiraContent: React.FC = () =>{
           setSaldo(data.saldo)
         } else {
           console.error("Erro na resposta da requisição:", response.status)
+          toast.error("Deu ERRADO o Id Wallet")
         }
       } catch (error) {
         console.error("Erro ao buscar carteira:", error)
       }
+      
     }
 
     const adicionarAtivo = async () => {
@@ -228,6 +230,7 @@ const CarteiraContent: React.FC = () =>{
       })
         if(response.ok){
           toast.success('Ativo cadastrado !')
+          await getExtrato()
         } else {
           toast.error('Erro ao Requisição do ATIVO  !')
           console.log("erro na Requisição do ATIVO ", formData)
@@ -276,6 +279,7 @@ const CarteiraContent: React.FC = () =>{
   
         if (response.ok) {
           toast.success("Despesa cadastrada !");
+          await getExtrato()
         } else {
           toast.error("Erro na Requisição da DESPESA  !");
           console.log("erro na Requisição da DESPESA ", formData);
@@ -288,13 +292,9 @@ const CarteiraContent: React.FC = () =>{
 
     const getExtrato = async () => {
       try {
+        console.log("Aqui esta o ID" , IdWallet)
         const ativosResponse = await fetch(`http://localhost:3333/ativosWallet/${IdWallet}`)
         const despesasResponse = await fetch(`http://localhost:3333/despesasWallet/${IdWallet}`)
-  
-        if (!ativosResponse.ok || !despesasResponse.ok) {
-          toast.error("Erro ao obter transações do extrato!")
-          return;
-        }
   
         const ativos = await ativosResponse.json()
         const despesas = await despesasResponse.json()
@@ -321,10 +321,20 @@ const CarteiraContent: React.FC = () =>{
       }
     }
 
+    const fetchData = async () => {
+      try {
+        await walletUser();
+        await getExtrato();
+      } catch (error) {
+        console.error("Erro ao carregar dados:", error);
+      }
+    };
+  
     useEffect(() => {
-      walletUser()
-      getExtrato()
-    }, [])
+      fetchData()
+    }, [IdWallet])
+    
+    
 
     return(
         <Container>
