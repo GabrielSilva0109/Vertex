@@ -15,6 +15,7 @@ import cardano from '../Sections/img/cardano.svg'
 import eth from '../Sections/img/eth.svg'
 import solana from '../Sections/img/solana.png'
 import xrp from '../Sections/img/xrp.svg'
+import Grafico from "../Graficos/Grafico"
 
 const Container = styled.div`
   display: flex;
@@ -69,7 +70,9 @@ const Box = styled.div`
 
 const Main = styled.main`
   display: flex;
-  justify-content: center;
+  justify-content: start;
+  flex-direction: column;
+  align-items: center;
   background: #2C2C2C;
   width: 100%;
   height: 100%;
@@ -280,10 +283,9 @@ const Content: React.FC = () =>{
 
         <Main>
           <h1>Carteira gráfico</h1>
-          
+          <Grafico />
         </Main>
       </LeftContainer>
-
       <RightContainer>
         <BoxRight>
             <Title>

@@ -237,7 +237,7 @@ svg {
   width: 25px;
   height: 1.5px;
   position: absolute;
-  bottom: 19px;
+  bottom: 10px;
   left: -5px;
   background-color: white;
   border-radius: 2px;
@@ -249,7 +249,7 @@ svg {
 
 &:hover::after {
   transform: scaleX(1);
-  left: 0px;
+  left: -7.5px;
   transform-origin: right;
 }
 `
