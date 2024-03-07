@@ -346,61 +346,15 @@ const CarteiraContent: React.FC = () =>{
       }
     }
 
-    const deleteTransacao = async (transacaoId: number) => {
+    const deleteTransacao = async (transacaoId: number, categoria: string) => {
       try {
-        const urlAtivoDelete = `http://localhost:3333/ativo/${transacaoId}`; // URL para ativos
-        const urlDespesaDelete = `http://localhost:3333/despesa/${transacaoId}`; // URL para despesas
-    
-        // Obtém os dados da transação
-        const response = await fetch(urlAtivoDelete);
-        const transacao: Transacao = await response.json();
-    
-        if (!response.ok) {
-          toast.error("Erro ao buscar transação para excluir!");
-          return;
-        }
-    
-        // Saldo original da transação
-        const valorTransacao = transacao.valor;
-    
-        // Verifica se é ativo ou despesa
-        const isAtivo = transacao.categoria === "ativo";
-    
-        // Atualiza o saldo da carteira revertendo a transação
-        const novoSaldo = saldo !== null ? (isAtivo ? saldo - valorTransacao : saldo + valorTransacao) : 0;
-    
-        // Atualiza o saldo na API
-        const saldoAtualizadoResponse = await fetch(`http://localhost:3333/wallet/${IdWallet}`, {
-          method: "PUT",
-          headers: {
-            "Content-Type": "application/json",
-          },
-          body: JSON.stringify({ saldo: novoSaldo }),
-        });
-    
-        if (!saldoAtualizadoResponse.ok) {
-          toast.error("Erro ao reverter saldo!");
-          return;
-        }
-    
-        // Exclui a transação após reverter o saldo
-        const deleteResponse = await fetch(isAtivo ? urlAtivoDelete : urlDespesaDelete, {
-          method: "DELETE",
-        });
-    
-        if (deleteResponse.ok) {
-          toast.success("Transação excluída com sucesso!");
-          await getExtrato();
-        } else {
-          toast.error("Erro ao excluir transação!");
-        }
+        console.log('ID da transação:', transacaoId);
+        console.log('Categoria da transação:', categoria);
       } catch (error) {
-        console.error("Erro ao excluir transação:", error);
-        toast.error("Erro ao excluir transação!");
+        console.error('Erro ao excluir transação:', error);
+        toast.error('Erro ao excluir transação');
       }
-    };
-    
-    
+    }
 
     const fetchData = async () => {
       try {
@@ -433,7 +387,7 @@ const CarteiraContent: React.FC = () =>{
                   <p>{transacao.data}</p>
                   <div>
                     <BtnDelete>Editar</BtnDelete>
-                    <BtnDelete onClick={() => deleteTransacao(transacao.id)}>Excluir</BtnDelete>
+                    <BtnDelete onClick={() => deleteTransacao(transacao.id,  transacao.categoria)}>Excluir</BtnDelete>
                   </div>
                 </ExtratoItem>
               ))}
