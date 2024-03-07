@@ -348,27 +348,27 @@ const CarteiraContent: React.FC = () =>{
 
     const deleteTransacao = async (transacaoId: number, categoria: string, valor: number) => {
       try {
-        let url;
+        let url
         if (categoria === 'ativo') {
-          url = `http://localhost:3333/ativo/${transacaoId}`;
+          url = `http://localhost:3333/ativo/${transacaoId}`
         } else if (categoria === 'despesa') {
-          url = `http://localhost:3333/despesa/${transacaoId}`;
+          url = `http://localhost:3333/despesa/${transacaoId}`
         } else {
-          console.warn('Categoria desconhecida:', categoria);
-          return;
+          console.warn('Categoria desconhecida:', categoria)
+          return
         }
     
         // Antes de excluir a transação, obtenha o saldo atual da carteira da API
-        const walletResponse = await fetch(`http://localhost:3333/wallet/${IdWallet}`);
+        const walletResponse = await fetch(`http://localhost:3333/wallet/${IdWallet}`)
         if (!walletResponse.ok) {
-          toast.error("Erro ao obter o saldo!");
-          return;
+          toast.error("Erro ao obter o saldo!")
+          return
         }
     
-        const walletData = await walletResponse.json();
-        const saldoAnterior = walletData.saldo;
+        const walletData = await walletResponse.json()
+        const saldoAnterior = walletData.saldo
     
-        let novoSaldo;
+        let novoSaldo
     
         // Adiciona o valor da transação ao saldo para despesas
         if (categoria === 'despesa') {
@@ -378,7 +378,6 @@ const CarteiraContent: React.FC = () =>{
           novoSaldo = saldoAnterior - valor
         }
     
-        // Atualiza o saldo na API
         const saldoAtualizadoResponse = await fetch(
           `http://localhost:3333/wallet/${IdWallet}`,
           {
@@ -388,11 +387,11 @@ const CarteiraContent: React.FC = () =>{
             },
             body: JSON.stringify({ saldo: novoSaldo }),
           }
-        );
+        )
     
         if (!saldoAtualizadoResponse.ok) {
-          toast.error("Erro ao atualizar saldo!");
-          return;
+          toast.error("Erro ao atualizar saldo!")
+          return
         }
     
         // Exclui a transação
@@ -401,21 +400,19 @@ const CarteiraContent: React.FC = () =>{
         });
     
         if (!response.ok) {
-          toast.error(`Erro ao excluir ${categoria}!`);
-          return;
+          toast.error(`Erro ao excluir ${categoria}!`)
+          return
         } else {
-          toast.success(`Transação Excluída !!`);
+          toast.success(`Transação Excluída !!`)
         }
     
         // Atualiza o extrato após a exclusão
-        await getExtrato();
+        await getExtrato()
       } catch (error) {
-        console.error(`Erro ao excluir ${categoria}:`, error);
-        toast.error(`Erro ao excluir ${categoria}`);
+        console.error(`Erro ao excluir ${categoria}:`, error)
+        toast.error(`Erro ao excluir ${categoria}`)
       }
     }
-    
-    
       
     const fetchData = async () => {
       try {
