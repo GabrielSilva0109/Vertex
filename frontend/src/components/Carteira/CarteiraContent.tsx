@@ -114,7 +114,7 @@ const Extrato =  styled.div`
   }
 `
 
-const ExtratoItem = styled.div`
+const ExtratoItem = styled.div<{categoria: string}>`
   display: flex;
   justify-content: space-between;
   align-items: center;
@@ -124,8 +124,10 @@ const ExtratoItem = styled.div`
   border-radius: 8px;
   color: white;
   font-weight: bold;
-`
 
+  background-color: ${(props) =>
+    props.categoria === 'ativo' ? '#4CAF50' : props.categoria === 'despesa' ? '#FF5733' : 'gray'};
+`
 
 const ImgPerfil = styled.div`
   width: 150px;
@@ -142,6 +144,7 @@ const ImgPerfil = styled.div`
 const BtnDelete = styled.button`
   height: 50%;
 `
+
 interface Transacao {
   id: number;
   titulo: string;
@@ -174,6 +177,14 @@ const CarteiraContent: React.FC = () =>{
     })
     const [isDespesa, setIsDespesa] = useState(false)
 
+    const formatarData = (data: string): string => {
+      const dataObj = new Date(data)
+      const dia = String(dataObj.getDate()).padStart(2, '0')
+      const mes = String(dataObj.getMonth() + 1).padStart(2, '0')
+      const ano = dataObj.getFullYear()
+    
+      return `${dia}/${mes}/${ano}`
+    }
 
     const handleCheckboxChange = () => {
       setIsDespesa((prevValue) => !prevValue);
@@ -434,13 +445,13 @@ const CarteiraContent: React.FC = () =>{
             <h1>Extrato</h1>
             <Extrato>
               {extrato.map((transacao) => (
-                <ExtratoItem key={transacao.id}>
+                <ExtratoItem key={transacao.id} categoria={transacao.categoria}>
                   <p>{transacao.titulo}</p>
                   <p>{transacao.valor}</p>
                   <p>{transacao.observacao}</p>
                   <p>{transacao.categoria}</p>
                   <p>{transacao.fonte}</p>
-                  <p>{transacao.data}</p>
+                  <p>{formatarData(transacao.data)}</p>
                   <div>
                     <BtnDelete>Editar</BtnDelete>
                     <BtnDelete onClick={() => deleteTransacao(transacao.id,  transacao.categoria, transacao.valor)}>Excluir</BtnDelete>
