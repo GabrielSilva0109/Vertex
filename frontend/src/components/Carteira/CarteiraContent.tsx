@@ -348,13 +348,44 @@ const CarteiraContent: React.FC = () =>{
 
     const deleteTransacao = async (transacaoId: number, categoria: string) => {
       try {
-        console.log('ID da transação:', transacaoId);
-        console.log('Categoria da transação:', categoria);
+        if (categoria === 'ativo') {
+          const urlAtivoDelete = `http://localhost:3333/ativo/${transacaoId}`;
+          const response = await fetch(urlAtivoDelete, {
+            method: 'DELETE',
+          });
+    
+          if (response.ok) {
+            toast.success("Transação Excluida! ATIVO")
+            return
+          } else {
+            toast.error("Erro ao Excluir! ATIVO")
+          }
+
+        } else if (categoria === 'despesa') {
+          const urlDespesaDelete = `http://localhost:3333/despesa/${transacaoId}`;
+          const response = await fetch(urlDespesaDelete, {
+            method: 'DELETE',
+          });
+    
+          if (response.ok) {
+            toast.success("Transação Excluida! DESPESA")
+            return
+          } else {
+            toast.error("Erro ao Excluir! DESPESA")
+          }
+
+        } else {
+          console.warn('Categoria desconhecida:', categoria);
+        }
+    
+        
       } catch (error) {
         console.error('Erro ao excluir transação:', error);
         toast.error('Erro ao excluir transação');
       }
-    }
+    };
+    
+    
 
     const fetchData = async () => {
       try {
