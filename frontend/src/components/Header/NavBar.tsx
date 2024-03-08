@@ -106,7 +106,7 @@ const NavBar: React.FC<{user?: any}> = ({user}) => {
                         Carteira
                     </Navigation>
                     <Navigation to={`/Investimentos`} {...(user ? { state: { user } } : {})}>
-                        Investimentos
+                        Investimento
                     </Navigation>
                     <Navigation to={`/noticias`} {...(user ? { state: { user } } : {})}>
                         Noticias
