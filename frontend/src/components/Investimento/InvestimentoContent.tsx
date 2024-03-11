@@ -203,7 +203,7 @@ const InvestimentoContent: React.FC = () => {
         <BoxRight>
             <h1>Carteira</h1>
             <CircleGrafico />
-          <MiniBox style={{ marginTop: '-120px' }}>
+          <MiniBox style={{ marginTop: '-50px' }}>
             <h3>Saldo</h3>
             <h3>R${saldo}</h3>
           </MiniBox>
