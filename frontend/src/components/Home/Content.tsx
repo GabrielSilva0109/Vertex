@@ -191,25 +191,25 @@ const Content: React.FC = () =>{
     const user = state?.user
 
     const fetchSaldo = async (userId: number) => {
-    try {
-      const response = await fetch(`http://localhost:3333/walletUser/${userId}`);
-      
-      if (!response.ok) {
-        console.error(`Erro na requisição: ${response.status} - ${response.statusText}`);
-        return;
-      }
+      try {
+        const response = await fetch(`http://localhost:3333/walletUser/${userId}`);
+        
+        if (!response.ok) {
+          console.error(`Erro na requisição: ${response.status} - ${response.statusText}`);
+          return 
+        }
 
-      const data = await response.json();
+        const data = await response.json();
 
-      if (data && data.saldo !== undefined) {
-        setSaldo(data.saldo);
-      } else {
-        console.error(`Resposta inesperada do servidor: ${JSON.stringify(data)}`);
+        if (data && data.saldo !== undefined) {
+          setSaldo(data.saldo);
+        } else {
+          console.error(`Resposta inesperada do servidor: ${JSON.stringify(data)}`)
+        }
+      } catch (error) {
+        console.error("Erro ao buscar saldo:", error)
       }
-    } catch (error) {
-      console.error("Erro ao buscar saldo:", error);
     }
-  }
 
   useEffect(() => {
     if (user && user.id) {
