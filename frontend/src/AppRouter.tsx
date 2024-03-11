@@ -6,6 +6,7 @@ import { ToastContainer } from 'react-toastify'
 import 'react-toastify/dist/ReactToastify.css'
 import Home from './components/Home/Home'
 import Carteira from './components/Carteira/Carteira'
+import Investimento from './components/Investimento/Invetimento';
 
 const AppRouter: React.FC = () => {
   return (
@@ -15,7 +16,7 @@ const AppRouter: React.FC = () => {
         <Route path="/login" element={<LoginPage />} />
         <Route path="/home" element={<Home />} />
         <Route path="/carteira" element={<Carteira />} />
-        <Route path="/Investimentos" element={<Carteira />} />
+        <Route path="/Investimentos" element={<Investimento />} />
         <Route path="/noticias" element={<Carteira />} />
       </Routes>
       <ToastContainer />
