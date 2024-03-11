@@ -5,7 +5,7 @@ import Modal from "./Modal"
 import { toast } from 'react-toastify'
 import 'react-toastify/dist/ReactToastify.css'
 
-const Container = styled.div`
+export const Container = styled.div`
   display: flex;
   background: rgb(28, 28, 30);
   width: 100%;
@@ -17,7 +17,7 @@ const Container = styled.div`
   }
 `
 
-const LeftContainer = styled.div`
+export const LeftContainer = styled.div`
   flex: 3; 
   border-radius: 10px;
   margin:10px;
@@ -26,7 +26,7 @@ const LeftContainer = styled.div`
   align-items: center;
 `
 
-const RightContainer = styled.div`
+export const RightContainer = styled.div`
   flex: 1;
   border-radius: 10px;
   margin: 10px;
@@ -35,7 +35,7 @@ const RightContainer = styled.div`
   flex-direction: column;
 `
 
-const Main = styled.main`
+export const Main = styled.main`
   display: flex;
   justify-content: start;
   align-items: center;
@@ -81,7 +81,7 @@ export const BtnDespesa = styled.button`
   }
 `
 
-const BoxRight = styled.div`
+export const BoxRight = styled.div`
   height: 100%;
   border-radius: 1rem;
   background-image: linear-gradient(43deg, #cdcdcd 0%, #bfc1c1b3 46%, #8f8f8f 100%);

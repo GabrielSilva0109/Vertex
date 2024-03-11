@@ -2,6 +2,7 @@ import React, { useEffect } from  'react'
 import NavBar from '../Header/NavBar'
 import { toast } from 'react-toastify'
 import { useLocation, useNavigate } from 'react-router-dom'
+import InvestimentoContent from './InvestimentoContent'
 
 
 const Investimento: React.FC = () => {
