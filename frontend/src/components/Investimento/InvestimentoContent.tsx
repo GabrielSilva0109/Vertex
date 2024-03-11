@@ -56,6 +56,7 @@ const BtnOpen = styled.button<{ isOpen: boolean }>`
   display: flex;
   align-items: center;
   justify-content: center;
+  margin-right: 10px;
   color: white;
   font-size: 1.2em;
   font-weight: bold;
@@ -87,6 +88,23 @@ const SubTitle = styled.h1<{ borderColor: string }>`
   margin:0px;
 `
 
+const BtnAtivo = styled.button`
+  background: #b0ff00;
+  width: 92%;
+  height: 50px;
+  padding: 5px;
+  border-radius: 15px;
+  color: black;
+  font-size: 1rem;
+  font-weight: bold;
+  border: none;
+  cursor: pointer;
+  text-decoration: none;
+
+  &:hover {
+      background: #d3fd74;
+  }
+`
 
 const InvestimentoContent: React.FC = () => {
   const { state } = useLocation();
@@ -211,7 +229,9 @@ const InvestimentoContent: React.FC = () => {
             <h3>Saldo</h3>
             <h3>R${saldo}</h3>
           </MiniBox>
+          <BtnAtivo>Adicionar Ativo</BtnAtivo>
         </BoxRight>
+        
       </RightContainer>
     </Container>
   );
