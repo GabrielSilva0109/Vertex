@@ -167,7 +167,7 @@ const InvestimentoContent: React.FC = () => {
                 {expandedBoxes.acoes ? '-' : '+'}
               </BtnOpen>
             </Top>
-            {expandedBoxes.acoes && <Acoes />}
+            {expandedBoxes.acoes && <Acoes />}r
           </ExpandedBox>
 
           <ExpandedBox isOpen={expandedBoxes.cryptomoedas}>

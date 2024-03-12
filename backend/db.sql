@@ -41,3 +41,15 @@ CREATE TABLE despesas (
     data DATE,
     FOREIGN KEY (wallet_id) REFERENCES wallets(id)
 );
+
+CREATE TABLE investimentos (
+    id INT NOT NULL PRIMARY KEY AUTO_INCREMENT,
+    wallet_id INT,
+    titulo VARCHAR(255) NOT NULL,
+    valor DECIMAL(10, 2) NOT NULL,
+    quantidade DECIMAL(10, 2) NOT NULL,
+    observacao VARCHAR(255),
+    categoria ENUM("Ação", "Crypto", "Moeda", "FIIs", "Renda Fixa", "Poupança"),
+    data DATE,
+    FOREIGN KEY (wallet_id) REFERENCES wallets(id)
+);
