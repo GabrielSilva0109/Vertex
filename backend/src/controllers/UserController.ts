@@ -47,7 +47,7 @@ export const createUser = (req: Request, res: Response) => {
         if (erro) return res.status(500).json({ erro: 'Erro ao Cadastrar Usuário' })
 
         // Recupera o ID do usuário recém-criado
-        const userId = data.insertId;
+        const userId = data.insertId
 
         // Gera um número randômico de 5 caracteres para a conta
         const contaNumber = generateRandomNumber()
