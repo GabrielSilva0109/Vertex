@@ -1,4 +1,5 @@
 import React from  'react'
+import { useLocation, useNavigate } from 'react-router-dom'
 import styled from 'styled-components'
 
 const Container = styled.div`
@@ -14,6 +15,11 @@ const Container = styled.div`
 `
 
 const NoticiasContent: React.FC = () => {
+  const { state } = useLocation()
+  const user = state?.user
+  const navigate = useNavigate()
+
+  
     return (
         <Container>
 
