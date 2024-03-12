@@ -2,19 +2,19 @@ import React, { useEffect, useState } from 'react';
 import { BarChart, Bar, XAxis, YAxis, CartesianGrid, Tooltip, Legend, ResponsiveContainer } from 'recharts';
 
 interface Ativo {
-  titulo: string;
-  valor: number;
+  titulo: string
+  valor: number
 }
 
 interface Despesa {
-  titulo: string;
+  titulo: string
   valorDespesa: number;
 }
 
 const Grafico: React.FC = () => {
   const [ativos, setAtivos] = useState<Ativo[]>([]);
   const [despesas, setDespesas] = useState<Despesa[]>([]);
-
+  
   useEffect(() => {
     fetch('http://localhost:3333/ativos')
       .then((response) => response.json())

@@ -185,6 +185,7 @@ const Loader = styled.div`
 const Content: React.FC = () =>{
     const [ cryptoData, setCryptoData] = useState<any[]>([])
     const [ saldo, setSaldo] = useState<number>(0)
+    const [ walletId, setWalletId] = useState<number>(0)
     const { state } = useLocation()
     const [isLoadingCrypto, setIsLoadingCrypto] = useState<boolean>(true)
     const [isLoading, setIsLoading] = useState<boolean>(false)//lembrar de trocar apos a API AÇÔES
@@ -198,11 +199,11 @@ const Content: React.FC = () =>{
           console.error(`Erro na requisição: ${response.status} - ${response.statusText}`);
           return 
         }
-
         const data = await response.json();
 
         if (data && data.saldo !== undefined) {
-          setSaldo(data.saldo);
+          setSaldo(data.saldo)
+          setWalletId(data.id)
         } else {
           console.error(`Resposta inesperada do servidor: ${JSON.stringify(data)}`)
         }

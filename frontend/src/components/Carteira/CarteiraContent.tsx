@@ -539,10 +539,10 @@ const CarteiraContent: React.FC = () =>{
       
     const fetchData = async () => {
       try {
-        await walletUser();
-        await getExtrato();
+        await walletUser()
+        await getExtrato()
       } catch (error) {
-        console.error("Erro ao carregar dados:", error);
+        console.error("Erro ao carregar dados:", error)
       }
     }
   

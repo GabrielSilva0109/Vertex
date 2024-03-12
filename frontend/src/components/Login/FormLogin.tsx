@@ -190,8 +190,7 @@ const FormLogin: React.FC = () => {
             })
     
             if (response.ok) {
-                const userData = await response.json();
-                console.log('Informações do usuário recebidas do servidor:', userData)
+                const userData = await response.json()
     
                 if (userData) {
                     // Redirecionar para a página home com as informações do usuário
