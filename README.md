@@ -128,15 +128,27 @@ npm start
 ```
 O aplicativo frontend estará disponível em http://localhost:3000.
 
-## API
-A API oferece os seguintes endpoints:
+## APIs
+As APIs oferecem os seguintes endpoints:
+
+User
 ```
-GET /tasks: Retorna todas as tarefas.
-GET /task/:id Retorna tarefas por ID.
-POST /task: Cria uma nova tarefa.
-PUT /task/:id: Atualiza uma tarefa existente.
-DELETE /task/:id: Exclui uma tarefa existente.
+GET /users: Retorna todas os Usuarios.
+GET /user/:id Retorna Usuario por ID.
+POST /user: Cria um novo Usuario.
+PUT /user/:id: Atualiza os dados do usuario.
+DELETE /user/:id: Exclui o Usuario.
 ```
+
+Wallet
+```
+GET /wallets: Retorna todas as Wallets.
+GET /wallet/:id Retorna Wallet por ID.
+POST /wallet: Cria uma nova Wallet.
+PUT /wallet/:id: Atualiza os dados da Wallet.
+DELETE /wallet/:id: Exclui a Wallet.
+```
+
 ## Tecnologias Utilizadas
 
 ReactJS
