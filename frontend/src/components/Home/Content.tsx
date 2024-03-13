@@ -208,7 +208,7 @@ const Content: React.FC = () =>{
           setWalletId(data.id)
           setAtivos(data.ativos)
           setDespesas(data.despesas)
-          const novoSaldo = data.ativos + data.despesas
+          const novoSaldo = data.ativos - data.despesas
           setSaldo(novoSaldo)
         } else {
           console.error(`Resposta inesperada do servidor: ${JSON.stringify(data)}`)
