@@ -51,6 +51,7 @@ const Top = styled.div`
   display: flex;
   justify-content: space-between;
   width: 100%;
+  gap: 5px;
 `
 
 const Box = styled.div`
@@ -185,6 +186,8 @@ const Loader = styled.div`
 const Content: React.FC = () =>{
     const [ cryptoData, setCryptoData] = useState<any[]>([])
     const [ saldo, setSaldo] = useState<number>(0)
+    const [ ativos, setAtivos] = useState<number>(0)
+    const [ despesas, setDespesas] = useState<number>(0)
     const [ walletId, setWalletId] = useState<number>(0)
     const { state } = useLocation()
     const [isLoadingCrypto, setIsLoadingCrypto] = useState<boolean>(true)
@@ -202,8 +205,10 @@ const Content: React.FC = () =>{
         const data = await response.json();
 
         if (data && data.saldo !== undefined) {
-          setSaldo(data.saldo)
           setWalletId(data.id)
+          setSaldo(data.saldo)
+          setAtivos(data.ativos)
+          setDespesas(data.despesas)
         } else {
           console.error(`Resposta inesperada do servidor: ${JSON.stringify(data)}`)
         }
@@ -264,11 +269,20 @@ const Content: React.FC = () =>{
           </Box>
           <Box>
             <Title>
-              <Icon src={iconInvestimento} />
-              Investimento
-            </Title>
-            <Info style={{color: 'white'}}>
+                <Icon src={iconInvestimento} />
+                Investimentos
+            </Title>                        
+            <Info style={{color: "white"}}>
               R${saldo.toFixed(2)}
+            </Info>
+          </Box>
+          <Box>
+            <Title>
+            <Icon src={iconSaldo} />
+              Ativos
+            </Title>
+            <Info >
+              R${ativos.toFixed(2)}
             </Info>
           </Box>
           <Box>
@@ -277,7 +291,7 @@ const Content: React.FC = () =>{
               Despesa
             </Title>
             <Info style={{color: 'red'}}>
-              R${saldo.toFixed(2)}
+              R${despesas.toFixed(2)}
             </Info>
           </Box>
         </Top>
