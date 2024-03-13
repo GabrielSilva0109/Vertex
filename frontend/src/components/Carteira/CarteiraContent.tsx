@@ -393,15 +393,15 @@ const CarteiraContent: React.FC = () =>{
 
     const adicionarDespesa = async () => {
       try {
-        await walletUser();
+        await walletUser()
   
         if (saldo === null) {
-          toast.error("Erro ao obter o saldo!");
+          toast.error("Erro ao obter o saldo!")
           return;
         }
   
-        const novoSaldo = saldo - parseFloat(formData.valor); // Subtrai o valor da despesa
-  
+        const novoSaldo = saldo - parseFloat(formData.valor)
+
         const saldoAtualizadoResponse = await fetch(
           `http://localhost:3333/wallet/${IdWallet}`,
           {
@@ -411,7 +411,7 @@ const CarteiraContent: React.FC = () =>{
             },
             body: JSON.stringify({ saldo: novoSaldo }),
           }
-        );
+        )
   
         if (!saldoAtualizadoResponse.ok) {
           toast.error("Erro ao atualizar saldo!");
@@ -424,14 +424,14 @@ const CarteiraContent: React.FC = () =>{
             "Content-Type": "application/json",
           },
           body: JSON.stringify({ ...formData, wallet_id: IdWallet }),
-        });
+        })
   
         if (response.ok) {
-          toast.success("Despesa cadastrada !");
+          toast.success("Despesa cadastrada !")
           await getExtrato()
         } else {
-          toast.error("Erro na Requisição da DESPESA  !");
-          console.log("erro na Requisição da DESPESA ", formData);
+          toast.error("Erro na Requisição da DESPESA  !")
+          console.log("erro na Requisição da DESPESA ", formData)
         }
       } catch (erro) {
         console.log("Erro ao Adicionar Despesa");

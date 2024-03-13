@@ -14,7 +14,9 @@ CREATE TABLE wallets (
     id INT NOT NULL PRIMARY KEY AUTO_INCREMENT,
     user_id INT REFERENCES users(id),
     conta VARCHAR(20) UNIQUE,
-    saldo DECIMAL(10, 2) DEFAULT 0.00
+    saldo DECIMAL(10, 2) DEFAULT 0.00,
+    ativos DECIMAL(10, 2) DEFAULT 0.00,
+    despesas DECIMAL(10, 2) DEFAULT 0.00
 );
 
 CREATE TABLE ativos (
