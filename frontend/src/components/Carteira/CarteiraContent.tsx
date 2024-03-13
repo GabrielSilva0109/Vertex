@@ -274,6 +274,8 @@ const CarteiraContent: React.FC = () =>{
     const dataAtual = new Date()
     const dataFormatada = `${dataAtual.getFullYear()}-${dataAtual.getMonth() + 1}-${dataAtual.getDate()}`
     const [saldo, setSaldo] = useState<number | null>(null)
+    const [ativos, setAtivos] = useState<number | null>(null)
+    const [despesas, setDespesas] = useState<number | null>(null)
     const [extrato, setExtrato] = useState<Transacao[] | []>([])
     const [formData, setFormData] = useState({
       wallet_id: IdWallet,
@@ -336,6 +338,8 @@ const CarteiraContent: React.FC = () =>{
           const data = await response.json()
           setIdWallet(data.id)
           setSaldo(data.saldo)
+          setAtivos(data.ativos)
+          setDespesas(data.despesas)
         } else {
           console.error("Erro na resposta da requisição:", response.status)
           toast.error("Deu ERRADO o Id Wallet")
@@ -350,19 +354,19 @@ const CarteiraContent: React.FC = () =>{
       try{
         await walletUser()
 
-        if (saldo === null) {
-          toast.error("Erro ao obter o saldo!");
+        if (ativos === null) {
+          toast.error("Erro ao obter o saldo!")
           return
         }
 
-        const novoSaldo = saldo + parseFloat(formData.valor);
+        const novosAtivos = ativos + parseFloat(formData.valor);
 
         const saldoAtualizadoResponse = await fetch(`http://localhost:3333/wallet/${IdWallet}`, {
           method: "PUT",
           headers: {
             "Content-Type": "application/json",
           },
-          body: JSON.stringify({ saldo: novoSaldo }),
+          body: JSON.stringify({ ativos: novosAtivos }),
         });
 
         if (!saldoAtualizadoResponse.ok) {
@@ -395,12 +399,12 @@ const CarteiraContent: React.FC = () =>{
       try {
         await walletUser()
   
-        if (saldo === null) {
+        if (despesas === null) {
           toast.error("Erro ao obter o saldo!")
           return;
         }
   
-        const novoSaldo = saldo - parseFloat(formData.valor)
+        const novoDespesas = despesas - parseFloat(formData.valor)
 
         const saldoAtualizadoResponse = await fetch(
           `http://localhost:3333/wallet/${IdWallet}`,
@@ -409,7 +413,7 @@ const CarteiraContent: React.FC = () =>{
             headers: {
               "Content-Type": "application/json",
             },
-            body: JSON.stringify({ saldo: novoSaldo }),
+            body: JSON.stringify({ despesas: novoDespesas }),
           }
         )
   
