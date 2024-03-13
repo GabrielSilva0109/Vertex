@@ -202,7 +202,7 @@ const Content: React.FC = () =>{
           console.error(`Erro na requisição: ${response.status} - ${response.statusText}`);
           return 
         }
-        const data = await response.json();
+        const data = await response.json()
 
         if (data && data.saldo !== undefined) {
           setWalletId(data.id)

@@ -4,6 +4,7 @@ import styled from "styled-components"
 import Modal from "./Modal"
 import { toast } from 'react-toastify'
 import 'react-toastify/dist/ReactToastify.css'
+import { Info, MiniBox } from "../Investimento/InvestimentoContent"
 
 export const Container = styled.div`
   display: flex;
@@ -253,6 +254,7 @@ svg {
   transform-origin: right;
 }
 `
+
 
 interface Transacao {
   id: number;
@@ -620,11 +622,22 @@ const CarteiraContent: React.FC = () =>{
         <RightContainer>
           <BoxRight>
           <ImgPerfil></ImgPerfil>
-            <h4>
-                {user.name}
-            </h4>
-            <p>{user.email}</p>
-            <p>{user.cpf}</p>
+            <h4>{user.name}</h4>
+            <MiniBox>
+              <Info>
+                <h3>Saldo</h3><h4>R${saldo}</h4>   
+              </Info>
+              <Info>
+                <h3>Ativos</h3><h4>R${ativos}</h4>   
+              </Info>
+              <Info>
+                <h3>Despesas</h3><h4>R${despesas}</h4>   
+              </Info>
+              <Info>
+                <h3>Investimento</h3><h4>R${saldo}</h4>   
+              </Info>
+            </MiniBox>
+            
             <BtnAtivo onClick={openModal}>Adicionar Transação</BtnAtivo>
             <Modal
                 isOpen={isModalOpen}

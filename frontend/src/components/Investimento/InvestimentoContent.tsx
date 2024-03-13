@@ -6,11 +6,17 @@ import Acoes from './Classes/Acoes';
 import CircleGrafico from '../Graficos/CircleGrafico';
 import ModalInvestimento from './ModalInvestimento';
 
-const MiniBox = styled.div`
+export const MiniBox = styled.div`
   background: black;
   width: 90%;
   padding: 5px;
   border-radius: 15px;
+`
+
+export const Info = styled.div`
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
 `
 
 const Container = styled.div`
@@ -168,7 +174,7 @@ const InvestimentoContent: React.FC = () => {
                 {expandedBoxes.acoes ? '-' : '+'}
               </BtnOpen>
             </Top>
-            {expandedBoxes.acoes && <Acoes />}r
+            {expandedBoxes.acoes && <Acoes />}
           </ExpandedBox>
 
           <ExpandedBox isOpen={expandedBoxes.cryptomoedas}>
@@ -223,12 +229,16 @@ const InvestimentoContent: React.FC = () => {
             <h1>Carteira</h1>
             <CircleGrafico />
           <MiniBox style={{ marginTop: '-50px' }}>
-            <h3>Saldo</h3>
+            <Info>
+            <h3>Valor Aplicado</h3>
             <h3>R${saldo}</h3>
+            </Info>
           </MiniBox>
           <MiniBox>
-            <h3>Saldo</h3>
+          <Info>
+            <h3>Valor Atual</h3>
             <h3>R${saldo}</h3>
+            </Info>
           </MiniBox>
           <BtnAtivo>Adicionar Ativo</BtnAtivo>
         </BoxRight>
