@@ -4,6 +4,7 @@ import { useLocation, useNavigate } from 'react-router-dom';
 import styled from 'styled-components';
 import Acoes from './Classes/Acoes';
 import CircleGrafico from '../Graficos/CircleGrafico';
+import ModalInvestimento from './ModalInvestimento';
 
 const MiniBox = styled.div`
   background: black;
@@ -107,10 +108,10 @@ const BtnAtivo = styled.button`
 `
 
 const InvestimentoContent: React.FC = () => {
-  const { state } = useLocation();
-  const user = state?.user;
-  const navigate = useNavigate();
-  const [saldo, setSaldo] = useState<number>(0);
+  const { state } = useLocation()
+  const user = state?.user
+  const navigate = useNavigate()
+  const [saldo, setSaldo] = useState<number>(0)
   const [expandedBoxes, setExpandedBoxes] = useState<{ [key: string]: boolean }>({
     acoes: false,
     cryptomoedas: false,
@@ -118,7 +119,7 @@ const InvestimentoContent: React.FC = () => {
     fundosImobiliarios: false,
     rendaFixa: false,
     poupanca: false,
-  });
+  })
 
   const colors = ['#b0ff00', '#005954', '#338b85', '#ffcc00', '#9ce0db', '#4f46e5']
 
@@ -231,7 +232,6 @@ const InvestimentoContent: React.FC = () => {
           </MiniBox>
           <BtnAtivo>Adicionar Ativo</BtnAtivo>
         </BoxRight>
-        
       </RightContainer>
     </Container>
   );
