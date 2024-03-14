@@ -1,7 +1,7 @@
 import React, { ChangeEvent, useEffect, useState } from "react"
 import { useLocation, useNavigate } from "react-router-dom"
 import styled from "styled-components"
-import Modal from "./Modal"
+import Modal from "./ModalCarteira"
 import { toast } from 'react-toastify'
 import 'react-toastify/dist/ReactToastify.css'
 import { Info, MiniBox } from "../Investimento/InvestimentoContent"
@@ -298,6 +298,7 @@ const CarteiraContent: React.FC = () =>{
     
       return `${dia}/${mes}/${ano}`
     }
+
     const formatarSaldo = (saldo: number): string => {
       return saldo.toFixed(2)
     }

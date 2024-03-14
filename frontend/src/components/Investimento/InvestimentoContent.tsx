@@ -4,6 +4,7 @@ import { useLocation, useNavigate } from 'react-router-dom'
 import styled from 'styled-components'
 import Acoes from './Classes/Acoes'
 import CircleGrafico from '../Graficos/CircleGrafico'
+import Modal from './ModalInvestimento'
 
 export const MiniBox = styled.div`
   background: black;
@@ -126,6 +127,18 @@ const InvestimentoContent: React.FC = () => {
     poupanca: false,
   })
 
+   // Estado para controlar a exibição do modal
+   const [modalOpen, setModalOpen] = useState(false);
+
+   const openModal = () => {
+     setModalOpen(true);
+   };
+ 
+ 
+   const closeModal = () => {
+     setModalOpen(false);
+   };
+
   const colors = ['#b0ff00', '#005954', '#338b85', '#ffcc00', '#9ce0db', '#4f46e5']
 
   const toggleExpandedBox = (boxKey: string) => {
@@ -239,7 +252,15 @@ const InvestimentoContent: React.FC = () => {
               <h3>R${saldo}</h3>
             </Info>
           </MiniBox>
-          <BtnAtivo>Adicionar Ativo</BtnAtivo>
+          
+          <BtnAtivo onClick={openModal}>Adicionar Ativo</BtnAtivo>
+            {/* Renderizar o modal se modalOpen for true */}
+            {modalOpen && (
+              <Modal onClose={closeModal}>
+                <h2>Conteúdo do Modal</h2>
+                <p>Aqui você pode adicionar o conteúdo do seu modal.</p>
+              </Modal>
+            )}
         </BoxRight>
       </RightContainer>
     </Container>

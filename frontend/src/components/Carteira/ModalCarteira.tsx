@@ -41,13 +41,13 @@ const ModalContainer = styled.div`
   align-items: center;
 `
 
-const ModalContent = styled.div`
+export const ModalContent = styled.div`
   background: #515151;
   padding: 20px;
   border-radius: 10px;
 `
 
-const Form = styled.div`
+export const Form = styled.div`
   display: flex;
   flex-direction: column;
   gap: 10px;
