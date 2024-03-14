@@ -1,10 +1,9 @@
-import React, { useEffect, useState } from 'react';
-import { BoxRight, LeftContainer, RightContainer } from '../Carteira/CarteiraContent';
-import { useLocation, useNavigate } from 'react-router-dom';
-import styled from 'styled-components';
-import Acoes from './Classes/Acoes';
-import CircleGrafico from '../Graficos/CircleGrafico';
-import ModalInvestimento from './ModalInvestimento';
+import React, { useEffect, useState } from 'react'
+import { BoxRight, LeftContainer, RightContainer } from '../Carteira/CarteiraContent'
+import { useLocation, useNavigate } from 'react-router-dom'
+import styled from 'styled-components'
+import Acoes from './Classes/Acoes'
+import CircleGrafico from '../Graficos/CircleGrafico'
 
 export const MiniBox = styled.div`
   background: black;
@@ -134,7 +133,7 @@ const InvestimentoContent: React.FC = () => {
       ...prevBoxes,
       [boxKey]: !prevBoxes[boxKey],
     }));
-  };
+  }
 
   const fetchSaldo = async (userId: number) => {
     try {
@@ -167,7 +166,7 @@ const InvestimentoContent: React.FC = () => {
     <Container>
       <LeftContainer>
         <Main>
-        <ExpandedBox isOpen={expandedBoxes.acoes}>
+          <ExpandedBox isOpen={expandedBoxes.acoes}>
             <Top isOpen={expandedBoxes.acoes} color={colors[0]}>
               <SubTitle borderColor="#b0ff00">Ações</SubTitle>
               <BtnOpen isOpen={expandedBoxes.acoes} onClick={() => toggleExpandedBox('acoes')}>
@@ -230,21 +229,21 @@ const InvestimentoContent: React.FC = () => {
             <CircleGrafico />
           <MiniBox style={{ marginTop: '-50px' }}>
             <Info>
-            <h3>Valor Aplicado</h3>
-            <h3>R${saldo}</h3>
+              <h3>Valor Aplicado</h3>
+              <h3>R${saldo}</h3>
             </Info>
           </MiniBox>
           <MiniBox>
-          <Info>
-            <h3>Valor Atual</h3>
-            <h3>R${saldo}</h3>
+            <Info>
+              <h3>Valor Atual</h3>
+              <h3>R${saldo}</h3>
             </Info>
           </MiniBox>
           <BtnAtivo>Adicionar Ativo</BtnAtivo>
         </BoxRight>
       </RightContainer>
     </Container>
-  );
-};
+  )
+}
 
 export default InvestimentoContent;

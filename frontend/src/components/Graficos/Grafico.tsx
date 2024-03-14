@@ -31,7 +31,6 @@ const CustomTooltip = ({ active, payload, label }: any) => {
   return null
 }
 
-
 const Grafico: React.FC<GraficoProps> = ({ walletId }) => {
   const [data, setData] = useState<any[]>([])
 
