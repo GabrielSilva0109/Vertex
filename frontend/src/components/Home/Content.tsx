@@ -299,9 +299,9 @@ const Content: React.FC = () =>{
 
         <Main>
           <h1>Carteira gráfico</h1>
-          <Grafico />
+          <Grafico walletId={walletId} />
         </Main>
-      </LeftContainer>
+      </LeftContainer> 
       <RightContainer>
         <BoxRight>
             <Title>
