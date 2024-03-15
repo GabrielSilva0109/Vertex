@@ -218,42 +218,42 @@ const Content: React.FC = () =>{
       }
     }
 
-  useEffect(() => {
-    if (user && user.id) {
-      fetchSaldo(user.id)
-      fetchCryptoData()
-      const intervalId = setInterval(fetchCryptoData, 20000)
+    useEffect(() => {
+      if (user && user.id) {
+        fetchSaldo(user.id)
+        fetchCryptoData()
+        const intervalId = setInterval(fetchCryptoData, 20000)
 
-     return () => clearInterval(intervalId)
-    }
-  }, [user])
-
-  const fetchCryptoData = async () => {
-    try {
-      setIsLoadingCrypto(true)
-      const response = await axios.get(
-        "https://api.coingecko.com/api/v3/coins/markets",
-        {
-          params: {
-            vs_currency: "usd",
-            ids: "bitcoin,ethereum,binancecoin,cardano,solana,ripple",
-            order: "market_cap_desc",
-            per_page: 100,
-            page: 1,
-            sparkline: false,
-            price_change_percentage: "1h,24h,7d",
-          },
-        }
-      )
-
-      if (response.status === 200) {
-        setCryptoData(response.data)
+      return () => clearInterval(intervalId)
       }
-      setIsLoadingCrypto(false)
-    } catch (error) {
-      console.error("Erro ao buscar dados de criptomoedas:", error)
-    } 
-  }  
+    }, [user])
+
+    const fetchCryptoData = async () => {
+      try {
+        setIsLoadingCrypto(true)
+        const response = await axios.get(
+          "https://api.coingecko.com/api/v3/coins/markets",
+          {
+            params: {
+              vs_currency: "usd",
+              ids: "bitcoin,ethereum,binancecoin,cardano,solana,ripple",
+              order: "market_cap_desc",
+              per_page: 100,
+              page: 1,
+              sparkline: false,
+              price_change_percentage: "1h,24h,7d",
+            },
+          }
+        )
+
+        if (response.status === 200) {
+          setCryptoData(response.data)
+        }
+        setIsLoadingCrypto(false)
+      } catch (error) {
+        console.error("Erro ao buscar dados de criptomoedas:", error)
+      } 
+    }  
 
   return (
     <Container>
