@@ -30,7 +30,7 @@ interface ModalProps {
 }
 
 
-const ModalInvestimento: React.FC<ModalProps> = ({ onClose, walletId }) => {
+const ModalInvestimento: React.FC<ModalProps> = ({ onClose, walletId, onSubmit }) => {
   const [titulo, setTitulo] = useState('');
   const [valor, setValor] = useState('');
   const [quantidade, setQuantidade] = useState('');

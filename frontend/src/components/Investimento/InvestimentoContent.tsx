@@ -165,7 +165,7 @@ const InvestimentoContent: React.FC = () => {
 
       if (data && data.saldo !== undefined) {
         setSaldo(data.saldo)
-        setWallet_id(data.wallet_id)
+        setWallet_id(data.id)
       } else {
         console.error(`Resposta inesperada do servidor: ${JSON.stringify(data)}`);
       }
@@ -173,10 +173,9 @@ const InvestimentoContent: React.FC = () => {
       console.error("Erro ao buscar saldo:", error)
     }
   }
-  
+
   const handleSubmit = async (requestData: any) => {
     try {
-      await fetchSaldo()
 
       const response = await fetch('http://localhost:3333/investimento', {
         method: 'POST',
