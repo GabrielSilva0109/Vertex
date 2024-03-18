@@ -5,6 +5,8 @@ import styled from 'styled-components'
 import Acoes from './Classes/Acoes'
 import CircleGrafico from '../Graficos/CircleGrafico'
 import Modal from './ModalInvestimento'
+import { toast } from 'react-toastify'
+import 'react-toastify/dist/ReactToastify.css'
 
 export const MiniBox = styled.div`
   background: black;
