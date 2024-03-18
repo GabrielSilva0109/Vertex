@@ -109,4 +109,4 @@ const Modal: React.FC<ModalProps> = ({ isOpen, onClose, onSubmit, formData, setF
   )
 }
 
-export default Modal;
+export default Modal

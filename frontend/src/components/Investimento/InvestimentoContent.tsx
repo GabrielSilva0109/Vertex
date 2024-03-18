@@ -7,6 +7,7 @@ import CircleGrafico from '../Graficos/CircleGrafico'
 import Modal from './ModalInvestimento'
 import { toast } from 'react-toastify'
 import 'react-toastify/dist/ReactToastify.css'
+import ModalInvestimento from './ModalInvestimento'
 
 export const MiniBox = styled.div`
   background: black;
@@ -118,8 +119,10 @@ const BtnAtivo = styled.button`
 const InvestimentoContent: React.FC = () => {
   const { state } = useLocation()
   const user = state?.user
+  const userId = user.id
   const navigate = useNavigate()
   const [saldo, setSaldo] = useState<number>(0)
+  const [wallet_id, setWallet_id] = useState<number>(0)
   const [expandedBoxes, setExpandedBoxes] = useState<{ [key: string]: boolean }>({
     acoes: false,
     cryptomoedas: false,
@@ -161,7 +164,8 @@ const InvestimentoContent: React.FC = () => {
       const data = await response.json();
 
       if (data && data.saldo !== undefined) {
-        setSaldo(data.saldo);
+        setSaldo(data.saldo)
+        setWallet_id(data.wallet_id)
       } else {
         console.error(`Resposta inesperada do servidor: ${JSON.stringify(data)}`);
       }
@@ -169,6 +173,30 @@ const InvestimentoContent: React.FC = () => {
       console.error("Erro ao buscar saldo:", error)
     }
   }
+  
+  const handleSubmit = async (requestData: any) => {
+    try {
+      await fetchSaldo()
+
+      const response = await fetch('http://localhost:3333/investimento', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(requestData),
+      });
+
+      if (!response.ok) {
+        throw new Error('Erro ao adicionar ativo');
+      }
+      console.log('Ativo adicionado com sucesso');
+      closeModal()
+    } catch (error) {
+      console.error('Erro ao adicionar ativo:', error);
+    }
+  }
+
+  
 
   useEffect(() => {
     if (user && user.id) {
@@ -256,10 +284,7 @@ const InvestimentoContent: React.FC = () => {
           
           <BtnAtivo onClick={openModal}>Adicionar Ativo</BtnAtivo>
             {modalOpen && (
-              <Modal onClose={closeModal}>
-                <h2>Conteúdo do Modal</h2>
-                <p>Aqui você pode adicionar o conteúdo do seu modal.</p>
-              </Modal>
+              <ModalInvestimento onClose={closeModal} walletId={wallet_id} onSubmit={handleSubmit} />
             )}
         </BoxRight>
       </RightContainer>
