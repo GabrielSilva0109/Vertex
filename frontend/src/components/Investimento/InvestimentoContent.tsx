@@ -176,21 +176,22 @@ const InvestimentoContent: React.FC = () => {
 
   const handleSubmit = async (requestData: any) => {
     try {
-
       const response = await fetch('http://localhost:3333/investimento', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
         },
         body: JSON.stringify(requestData),
-      });
+      })
 
       if (!response.ok) {
         throw new Error('Erro ao adicionar ativo');
+      } else {
+        toast.success("Ativo Cadastrado!")
       }
-      console.log('Ativo adicionado com sucesso');
       closeModal()
     } catch (error) {
+      toast.error("Erro ao Cadastrar!")
       console.error('Erro ao adicionar ativo:', error);
     }
   }

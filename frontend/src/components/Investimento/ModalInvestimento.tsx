@@ -17,7 +17,7 @@ const ModalOverlay = styled.div`
 `;
 
 const ModalContent = styled.div`
-  background-color: white;
+  background-color: gray;
   padding: 20px;
   border-radius: 10px;
 `
@@ -29,6 +29,47 @@ interface ModalProps {
   children?: React.ReactNode
 }
 
+const Select = styled.select`
+    background-color: #e1e1e1;
+    color: black;
+    font-family: "Roboto", sans-serif;
+    font-weight: 400;
+    font-size: 16px;
+    padding: 12px 16px;
+    border-radius: 8px;
+    border: 1px solid #b0ff00;
+    outline: none;
+    transition: all 0.3s ease-in-out;
+
+    &:hover {
+        background-color: #f1f1f1;
+        border-color: #667788;
+    }
+
+    &:focus {
+        background-color: #272727;
+        border-color: #b0ff00;
+        box-shadow: 0 0 5px rgba(0, 0, 0, 0.2);
+    }
+
+    &.invalid {
+        border-color: #ff0000;
+        background-color: #f00;
+    }
+
+    /* Animações */
+    &.entering {
+        animation: slide-in 0.3s ease-in-out forwards;
+    }
+`
+
+const Option = styled.option`
+  background-color: #f1f1f1;
+  color: black;
+  font-family: "Roboto", sans-serif;
+  font-weight: 400;
+  font-size: 16px;
+`
 
 const ModalInvestimento: React.FC<ModalProps> = ({ onClose, walletId, onSubmit }) => {
   const [titulo, setTitulo] = useState('');
@@ -50,7 +91,7 @@ const ModalInvestimento: React.FC<ModalProps> = ({ onClose, walletId, onSubmit }
     };
   
     // Imprimir a requisição no console.log
-    console.log('Requisição:', requestData);
+    console.log('Requisição:', requestData)
   
     try {
       const response = await fetch('http://localhost:3333/investimento', {
@@ -79,7 +120,7 @@ const ModalInvestimento: React.FC<ModalProps> = ({ onClose, walletId, onSubmit }
           <Input type='text' placeholder='Ativo' value={titulo} onChange={(e) => setTitulo(e.target.value)} />
           <Input type='number' placeholder='Valor' value={valor} onChange={(e) => setValor(e.target.value)} />
           <Input type='number' placeholder='Quantidade' value={quantidade} onChange={(e) => setQuantidade(e.target.value)} />
-          <select id="categoria" value={categoria} onChange={(e) => setCategoria(e.target.value)}>
+          <Select id="categoria" value={categoria} onChange={(e) => setCategoria(e.target.value)}>
             <option value="">Selecione uma categoria</option>
             <option value="Ação">Ações</option>
             <option value="Crypto">Crypto</option>
@@ -87,7 +128,7 @@ const ModalInvestimento: React.FC<ModalProps> = ({ onClose, walletId, onSubmit }
             <option value="FIIs">FIIs</option>
             <option value="Renda Fixa">Renda Fixa</option>
             <option value="Poupança">Poupança</option>
-          </select>
+          </Select>
           <Input type='date' placeholder='Data' value={data} onChange={(e) => setData(e.target.value)} />
           <BtnAtivo onClick={handleSubmit} type="submit">Adicionar</BtnAtivo>
           <BtnDespesa onClick={onClose}>Fechar</BtnDespesa>
