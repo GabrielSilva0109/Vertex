@@ -1,26 +1,24 @@
-import React, { useEffect, useState } from 'react'
-import { BoxRight, LeftContainer, RightContainer } from '../Carteira/CarteiraContent'
-import { useLocation, useNavigate } from 'react-router-dom'
-import styled from 'styled-components'
-import Acoes from './Classes/Acoes'
-import CircleGrafico from '../Graficos/CircleGrafico'
-import Modal from './ModalInvestimento'
-import { toast } from 'react-toastify'
-import 'react-toastify/dist/ReactToastify.css'
-import ModalInvestimento from './ModalInvestimento'
+import React, { useEffect, useState } from 'react';
+import { BoxRight, LeftContainer, RightContainer } from '../Carteira/CarteiraContent';
+import { useLocation, useNavigate } from 'react-router-dom';
+import styled from 'styled-components';
+import CircleGrafico from '../Graficos/CircleGrafico';
+import ModalInvestimento from './ModalInvestimento';
+import { toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
 export const MiniBox = styled.div`
   background: black;
   width: 90%;
   padding: 5px;
   border-radius: 15px;
-`
+`;
 
 export const Info = styled.div`
   display: flex;
   align-items: center;
   justify-content: space-between;
-`
+`;
 
 const Container = styled.div`
   display: flex;
@@ -32,19 +30,19 @@ const Container = styled.div`
   @media (max-width: 768px) {
     flex-direction: column;
   }
-`
+`;
 
 const Main = styled.main`
   display: flex;
-  
   align-items: center;
   flex-direction: column;
-  background: #2C2C2C;
+  background: #2c2c2c;
   width: 100%;
   height: 100%;
   border-radius: 30px;
   box-shadow: 10px 10px 10px rgba(12, 12, 10, 0.2);
-`
+`;
+
 const ExpandedBox = styled.div<{ isOpen: boolean }>`
   background: gray;
   width: 95%;
@@ -57,7 +55,7 @@ const ExpandedBox = styled.div<{ isOpen: boolean }>`
   transition: height 0.3s;
   display: block;
   align-items: start;
-`
+`;
 
 const BtnOpen = styled.button<{ isOpen: boolean }>`
   background-color: ${(props) => (props.isOpen ? 'rgb(60, 60, 60)' : 'rgb(46, 46, 46)')};
@@ -72,7 +70,7 @@ const BtnOpen = styled.button<{ isOpen: boolean }>`
   font-weight: bold;
   border: none;
   width: 30px;
-    height: 30px;
+  height: 30px;
   &:hover {
     background-color: ${(props) => (props.isOpen ? 'rgb(60, 60, 60)' : 'rgb(75, 75, 75)')};
   }
@@ -80,23 +78,23 @@ const BtnOpen = styled.button<{ isOpen: boolean }>`
   &:active {
     background-color: ${(props) => (props.isOpen ? 'rgb(60, 60, 60)' : 'black')};
   }
-`
+`;
 
-const Top = styled.div<{ isOpen: boolean, color: string }>`
+const Top = styled.div<{ isOpen: boolean; color: string }>`
   display: flex;
   align-items: ${(props) => (props.isOpen ? 'flex-start' : 'center')};
   justify-content: space-between;
   width: 100%;
   padding-right: 10px;
   margin-top: 10px;
-`
+`;
 
 const SubTitle = styled.h1<{ borderColor: string }>`
-  color: white; 
+  color: white;
   border-left: 4px solid ${(props) => props.borderColor};
-  padding-left: 10px; 
-  margin:0px;
-`
+  padding-left: 10px;
+  margin: 0px;
+`;
 
 const BtnAtivo = styled.button`
   background: #b0ff00;
@@ -112,17 +110,24 @@ const BtnAtivo = styled.button`
   text-decoration: none;
 
   &:hover {
-      background: #d3fd74;
+    background: #d3fd74;
   }
-`
+`;
+
+interface Investimento {
+  id: number;
+  categoria: string;
+}
 
 const InvestimentoContent: React.FC = () => {
-  const { state } = useLocation()
-  const user = state?.user
-  const userId = user.id
-  const navigate = useNavigate()
-  const [saldo, setSaldo] = useState<number>(0)
-  const [wallet_id, setWallet_id] = useState<number>(0)
+  const { state } = useLocation();
+  const user = state?.user;
+  const userId = user.id;
+  const navigate = useNavigate();
+  const [saldo, setSaldo] = useState<number>(0);
+  const [wallet_id, setWallet_id] = useState<number>(0);
+  const [investimentosAcoes, setInvestimentosAcoes] = useState<any[]>([]);
+  const [investimentosCryptomoedas, setInvestimentosCryptomoedas] = useState<any[]>([]);
   const [expandedBoxes, setExpandedBoxes] = useState<{ [key: string]: boolean }>({
     acoes: false,
     cryptomoedas: false,
@@ -130,27 +135,25 @@ const InvestimentoContent: React.FC = () => {
     fundosImobiliarios: false,
     rendaFixa: false,
     poupanca: false,
-  })
+  });
+  const [modalOpen, setModalOpen] = useState(false);
 
-   // Estado para controlar a exibição do modal
-   const [modalOpen, setModalOpen] = useState(false);
+  const openModal = () => {
+    setModalOpen(true)
+  };
 
-   const openModal = () => {
-     setModalOpen(true)
-   }
- 
-   const closeModal = () => {
-     setModalOpen(false)
-   }
+  const closeModal = () => {
+    setModalOpen(false);
+  };
 
-  const colors = ['#b0ff00', '#005954', '#338b85', '#ffcc00', '#9ce0db', '#4f46e5']
+  const colors = ['#b0ff00', '#005954', '#338b85', '#ffcc00', '#9ce0db', '#4f46e5'];
 
   const toggleExpandedBox = (boxKey: string) => {
     setExpandedBoxes((prevBoxes) => ({
       ...prevBoxes,
       [boxKey]: !prevBoxes[boxKey],
     }));
-  }
+  };
 
   const fetchSaldo = async (userId: number) => {
     try {
@@ -164,15 +167,15 @@ const InvestimentoContent: React.FC = () => {
       const data = await response.json();
 
       if (data && data.saldo !== undefined) {
-        setSaldo(data.saldo)
-        setWallet_id(data.id)
+        setSaldo(data.saldo);
+        setWallet_id(data.id);
       } else {
         console.error(`Resposta inesperada do servidor: ${JSON.stringify(data)}`);
       }
     } catch (error) {
-      console.error("Erro ao buscar saldo:", error)
+      console.error("Erro ao buscar saldo:", error);
     }
-  }
+  };
 
   const handleSubmit = async (requestData: any) => {
     try {
@@ -182,50 +185,102 @@ const InvestimentoContent: React.FC = () => {
           'Content-Type': 'application/json',
         },
         body: JSON.stringify(requestData),
-      })
+      });
 
       if (!response.ok) {
-        throw new Error('Erro ao adicionar ativo');
+        throw new Error('Erro ao adicionar ativo')
       } else {
         toast.success("Ativo Cadastrado!")
+        await fetchInvestimentos(wallet_id)
+        fetchSaldo(userId);
       }
-      closeModal()
+      closeModal();
     } catch (error) {
-      toast.error("Erro ao Cadastrar!")
+      toast.error("Erro ao Cadastrar!");
       console.error('Erro ao adicionar ativo:', error);
     }
   }
 
-  
+  const fetchInvestimentos = async (walletId: number) => {
+    try {
+      const response = await fetch(`http://localhost:3333/walletInvestimentos/${walletId}`);
+      
+      if (!response.ok) {
+        throw new Error(`Erro na requisição: ${response.status} - ${response.statusText}`);
+      }
+      
+      const data = await response.json();
+      
+      // Filtrar os investimentos por categoria
+      const investimentosAcoes = data.filter((investimento: Investimento) => investimento.categoria === 'Ação');
+      const investimentosCryptomoedas = data.filter((investimento: Investimento) => investimento.categoria === 'Crypto');
+      
+      // Atualizar os estados com os investimentos filtrados
+      setInvestimentosAcoes(investimentosAcoes);
+      setInvestimentosCryptomoedas(investimentosCryptomoedas);
+      // Adicione mais estados conforme necessário para outras categorias
+      
+      console.log('Investimentos da AÇÔES:', investimentosAcoes);
+      console.log('Investimentos da CRYPTP:', investimentosCryptomoedas);
+    } catch (error) {
+      console.error("Erro ao buscar os investimentos da carteira:", error);
+    }
+  };
 
   useEffect(() => {
     if (user && user.id) {
-      fetchSaldo(user.id)
+      fetchSaldo(user.id);
+      fetchInvestimentos(wallet_id);
     }
-  }, [user])
+  }, [user, wallet_id]);
 
   return (
     <Container>
       <LeftContainer>
         <Main>
-          <ExpandedBox isOpen={expandedBoxes.acoes}>
-            <Top isOpen={expandedBoxes.acoes} color={colors[0]}>
-              <SubTitle borderColor="#b0ff00">Ações</SubTitle>
-              <BtnOpen isOpen={expandedBoxes.acoes} onClick={() => toggleExpandedBox('acoes')}>
-                {expandedBoxes.acoes ? '-' : '+'}
-              </BtnOpen>
-            </Top>
-            {expandedBoxes.acoes && <Acoes />}
-          </ExpandedBox>
+        <ExpandedBox isOpen={expandedBoxes.acoes}>
+          <Top isOpen={expandedBoxes.acoes} color={colors[0]}>
+            <SubTitle borderColor="#b0ff00">Ações</SubTitle>
+            <BtnOpen isOpen={expandedBoxes.acoes} onClick={() => toggleExpandedBox('acoes')}>
+              {expandedBoxes.acoes ? '-' : '+'}
+            </BtnOpen>
+          </Top>
+          {expandedBoxes.acoes && (
+            <div>
+              {investimentosAcoes.map((investimento, index) => (
+                <div key={index}>
+                  <p>{investimento.titulo}</p>
+                  <p>Quantidade: {investimento.quantidade}</p>
+                  <p>Valor: R${investimento.valor}</p>
+                  {/* Adicione mais informações se necessário */}
+                </div>
+              ))}
+            </div>
+          )}
+        </ExpandedBox>
 
-          <ExpandedBox isOpen={expandedBoxes.cryptomoedas}>
-            <Top isOpen={expandedBoxes.cryptomoedas} color={colors[1]}>
-              <SubTitle borderColor='#005954'>Cryptomoedas</SubTitle>
-              <BtnOpen isOpen={expandedBoxes.cryptomoedas} onClick={() => toggleExpandedBox('cryptomoedas')}>
-                {expandedBoxes.cryptomoedas ? '-' : '+'}
-              </BtnOpen>
-            </Top>
-          </ExpandedBox>
+
+        <ExpandedBox isOpen={expandedBoxes.cryptomoedas}>
+          <Top isOpen={expandedBoxes.cryptomoedas} color={colors[1]}>
+            <SubTitle borderColor='#005954'>Cryptomoedas</SubTitle>
+            <BtnOpen isOpen={expandedBoxes.cryptomoedas} onClick={() => toggleExpandedBox('cryptomoedas')}>
+              {expandedBoxes.cryptomoedas ? '-' : '+'}
+            </BtnOpen>
+          </Top>
+          {expandedBoxes.cryptomoedas && (
+            <div>
+              {investimentosCryptomoedas.map((investimento, index) => (
+                <div key={index}>
+                  <p>{investimento.titulo}</p>
+                  <p>Quantidade: {investimento.quantidade}</p>
+                  <p>Valor: R${investimento.valor}</p>
+                  {/* Adicione mais informações se necessário */}
+                </div>
+              ))}
+            </div>
+          )}
+        </ExpandedBox>
+
 
           <ExpandedBox isOpen={expandedBoxes.moedas}>
             <Top isOpen={expandedBoxes.moedas} color={colors[2]}>
@@ -292,4 +347,4 @@ const InvestimentoContent: React.FC = () => {
   )
 }
 
-export default InvestimentoContent;
+export default InvestimentoContent
