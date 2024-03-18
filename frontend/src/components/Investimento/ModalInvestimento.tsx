@@ -1,8 +1,8 @@
-import React from 'react';
-import styled from 'styled-components';
-import { Form, ModalContent } from '../Carteira/ModalCarteira';
-import { BtnAtivo, BtnDespesa } from '../Carteira/CarteiraContent';
-import { Input } from '../Login/FormLogin';
+import React, { useState } from 'react'
+import styled from 'styled-components'
+import { Form, ModalContent } from '../Carteira/ModalCarteira'
+import { BtnAtivo, BtnDespesa } from '../Carteira/CarteiraContent'
+import { Input } from '../Login/FormLogin'
 
 const ModalOverlay = styled.div`
   position: fixed;
@@ -33,21 +33,64 @@ const ModalCloseButton = styled.button`
 
 interface ModalProps {
   onClose: () => void
-  children?: React.ReactNode; // Definindo children como opcional
+  children?: React.ReactNode
 }
 
 const Modal: React.FC<ModalProps> = ({ onClose, children}) => {
+
+  const [ativo, setAtivo] = useState('')
+  const [valor, setValor] = useState('')
+  const [quantidade, setQuantidade] = useState('')
+  const [categoria, setCategoria] = useState('')
+  const [data, setData] = useState('')
+
+  const handleSubmit = async (event: React.FormEvent) => {
+    event.preventDefault()
+
+    try {
+      const response = await fetch('http://localhost:3333/investimento', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({
+          ativo,
+          valor,
+          quantidade,
+          categoria,
+          data,
+        }),
+      });
+
+      if (!response.ok) {
+        throw new Error('Erro ao adicionar ativo')
+      }
+      console.log('Ativo adicionado com sucesso')
+      onClose(); // Fechar o modal após o sucesso do envio
+    } catch (error) {
+      console.error('Erro ao adicionar ativo:', error)
+    }
+  }
+
   return (
     <ModalOverlay>
       <ModalContent>
           <Form>
-            <h1>Seila</h1>
-            <Input type='text' placeholder='Ativo'/>
-            <Input type='number' placeholder='Valor'/>
-            <Input type='number' placeholder='Quantidade'/>
-            <Input placeholder='Categoria'/>
-            <Input type='date' placeholder='Data'/>
-            <BtnAtivo>Adicionar</BtnAtivo>
+            <h1>Investimento</h1>
+            <Input type='text' placeholder='Ativo' value={ativo} onChange={(e) => setAtivo(e.target.value)} />
+            <Input type='number' placeholder='Valor' value={valor} onChange={(e) => setValor(e.target.value)} />
+            <Input type='number' placeholder='Quantidade' value={quantidade} onChange={(e) => setQuantidade(e.target.value)} />
+            <select id="categoria" value={categoria} onChange={(e) => setCategoria(e.target.value)}>
+              <option value="">Selecione uma categoria</option>
+              <option value="Ações">Ações</option>
+              <option value="Crypto">Crypto</option>
+              <option value="Moeda">Moeda</option>
+              <option value="FIIs">FIIs</option>
+              <option value="Renda Fixa">Renda Fixa</option>
+              <option value="Poupança">Poupança</option>
+            </select>
+            <Input type='date' placeholder='Data' value={data} onChange={(e) => setData(e.target.value)} />
+            <BtnAtivo type="submit">Adicionar</BtnAtivo>
             <BtnDespesa onClick={onClose}>Fechar</BtnDespesa>
           </Form>
       </ModalContent>

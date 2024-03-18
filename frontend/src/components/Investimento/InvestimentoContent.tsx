@@ -131,13 +131,12 @@ const InvestimentoContent: React.FC = () => {
    const [modalOpen, setModalOpen] = useState(false);
 
    const openModal = () => {
-     setModalOpen(true);
-   };
- 
+     setModalOpen(true)
+   }
  
    const closeModal = () => {
-     setModalOpen(false);
-   };
+     setModalOpen(false)
+   }
 
   const colors = ['#b0ff00', '#005954', '#338b85', '#ffcc00', '#9ce0db', '#4f46e5']
 
@@ -254,7 +253,6 @@ const InvestimentoContent: React.FC = () => {
           </MiniBox>
           
           <BtnAtivo onClick={openModal}>Adicionar Ativo</BtnAtivo>
-            {/* Renderizar o modal se modalOpen for true */}
             {modalOpen && (
               <Modal onClose={closeModal}>
                 <h2>Conteúdo do Modal</h2>
