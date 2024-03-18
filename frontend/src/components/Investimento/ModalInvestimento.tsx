@@ -1,7 +1,8 @@
 import React from 'react';
 import styled from 'styled-components';
 import { Form, ModalContent } from '../Carteira/ModalCarteira';
-import { BtnDespesa } from '../Carteira/CarteiraContent';
+import { BtnAtivo, BtnDespesa } from '../Carteira/CarteiraContent';
+import { Input } from '../Login/FormLogin';
 
 const ModalOverlay = styled.div`
   position: fixed;
@@ -35,13 +36,18 @@ interface ModalProps {
   children?: React.ReactNode; // Definindo children como opcional
 }
 
-const Modal: React.FC<ModalProps> = ({ onClose, children }) => {
+const Modal: React.FC<ModalProps> = ({ onClose, children}) => {
   return (
     <ModalOverlay>
       <ModalContent>
           <Form>
             <h1>Seila</h1>
-            
+            <Input type='text' placeholder='Ativo'/>
+            <Input type='number' placeholder='Valor'/>
+            <Input type='number' placeholder='Quantidade'/>
+            <Input placeholder='Categoria'/>
+            <Input type='date' placeholder='Data'/>
+            <BtnAtivo>Adicionar</BtnAtivo>
             <BtnDespesa onClick={onClose}>Fechar</BtnDespesa>
           </Form>
       </ModalContent>
