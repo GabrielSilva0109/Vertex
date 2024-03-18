@@ -1,6 +1,7 @@
 import React from 'react';
 import styled from 'styled-components';
 import { Form, ModalContent } from '../Carteira/ModalCarteira';
+import { BtnDespesa } from '../Carteira/CarteiraContent';
 
 const ModalOverlay = styled.div`
   position: fixed;
@@ -30,7 +31,7 @@ const ModalCloseButton = styled.button`
 `
 
 interface ModalProps {
-  onClose: () => void;
+  onClose: () => void
   children?: React.ReactNode; // Definindo children como opcional
 }
 
@@ -40,7 +41,8 @@ const Modal: React.FC<ModalProps> = ({ onClose, children }) => {
       <ModalContent>
           <Form>
             <h1>Seila</h1>
-            <button onClick={onClose}>X</button>
+            
+            <BtnDespesa onClick={onClose}>Fechar</BtnDespesa>
           </Form>
       </ModalContent>
       
