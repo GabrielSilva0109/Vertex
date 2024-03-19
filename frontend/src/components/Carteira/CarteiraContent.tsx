@@ -452,7 +452,6 @@ const CarteiraContent: React.FC = () =>{
       }
     }
     
-
     const getExtrato = async () => {
       try {
         const ativosResponse = await fetch(`http://localhost:3333/ativosWallet/${IdWallet}`)
