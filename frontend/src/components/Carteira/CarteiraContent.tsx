@@ -548,7 +548,7 @@ const CarteiraContent: React.FC = () =>{
         toast.error(`Erro ao excluir ${categoria}`);
       }
     }
-      
+
     const fetchData = async () => {
       try {
         await walletUser()
