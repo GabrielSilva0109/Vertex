@@ -18,7 +18,7 @@ export const Info = styled.div`
   display: flex;
   align-items: center;
   justify-content: space-between;
-`;
+`
 
 const Container = styled.div`
   display: flex;
@@ -30,7 +30,7 @@ const Container = styled.div`
   @media (max-width: 768px) {
     flex-direction: column;
   }
-`;
+`
 
 const Main = styled.main`
   display: flex;
@@ -41,7 +41,7 @@ const Main = styled.main`
   height: 100%;
   border-radius: 30px;
   box-shadow: 10px 10px 10px rgba(12, 12, 10, 0.2);
-`;
+`
 
 const ExpandedBox = styled.div<{ isOpen: boolean }>`
   background: gray;
@@ -49,13 +49,13 @@ const ExpandedBox = styled.div<{ isOpen: boolean }>`
   padding: 5px;
   border-radius: 15px;
   margin-top: 15px;
-  height: ${(props) => (props.isOpen ? '500px' : '65px')};
+  height: ${(props) => (props.isOpen ? '400px' : '65px')};
   min-height: 65px;
   overflow: hidden;
   transition: height 0.3s;
   display: block;
   align-items: start;
-`;
+`
 
 const BtnOpen = styled.button<{ isOpen: boolean }>`
   background-color: ${(props) => (props.isOpen ? 'rgb(60, 60, 60)' : 'rgb(46, 46, 46)')};
@@ -78,7 +78,7 @@ const BtnOpen = styled.button<{ isOpen: boolean }>`
   &:active {
     background-color: ${(props) => (props.isOpen ? 'rgb(60, 60, 60)' : 'black')};
   }
-`;
+`
 
 const Top = styled.div<{ isOpen: boolean; color: string }>`
   display: flex;
@@ -87,14 +87,14 @@ const Top = styled.div<{ isOpen: boolean; color: string }>`
   width: 100%;
   padding-right: 10px;
   margin-top: 10px;
-`;
+`
 
 const SubTitle = styled.h1<{ borderColor: string }>`
   color: white;
   border-left: 4px solid ${(props) => props.borderColor};
   padding-left: 10px;
   margin: 0px;
-`;
+`
 
 const BtnAtivo = styled.button`
   background: #b0ff00;
@@ -112,12 +112,27 @@ const BtnAtivo = styled.button`
   &:hover {
     background: #d3fd74;
   }
-`;
+`
 
 interface Investimento {
   id: number;
   categoria: string;
 }
+
+const Investimento = styled.div`
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 0px 15px;
+  margin: 5px;
+  background-color: gray;
+  border-radius: 8px;
+  color: white;
+  font-weight: bold;
+  background:#005954;
+  color: black;
+`
+
 
 const InvestimentoContent: React.FC = () => {
   const { state } = useLocation();
@@ -140,11 +155,11 @@ const InvestimentoContent: React.FC = () => {
 
   const openModal = () => {
     setModalOpen(true)
-  };
+  }
 
   const closeModal = () => {
     setModalOpen(false);
-  };
+  }
 
   const colors = ['#b0ff00', '#005954', '#338b85', '#ffcc00', '#9ce0db', '#4f46e5'];
 
@@ -152,8 +167,8 @@ const InvestimentoContent: React.FC = () => {
     setExpandedBoxes((prevBoxes) => ({
       ...prevBoxes,
       [boxKey]: !prevBoxes[boxKey],
-    }));
-  };
+    }))
+  }
 
   const fetchSaldo = async (userId: number) => {
     try {
@@ -175,7 +190,7 @@ const InvestimentoContent: React.FC = () => {
     } catch (error) {
       console.error("Erro ao buscar saldo:", error);
     }
-  };
+  }
 
   const handleSubmit = async (requestData: any) => {
     try {
@@ -232,7 +247,7 @@ const InvestimentoContent: React.FC = () => {
       fetchSaldo(user.id);
       fetchInvestimentos(wallet_id);
     }
-  }, [user, wallet_id]);
+  }, [user, wallet_id])
 
   return (
     <Container>
@@ -248,12 +263,12 @@ const InvestimentoContent: React.FC = () => {
           {expandedBoxes.acoes && (
             <div>
               {investimentosAcoes.map((investimento, index) => (
-                <div key={index}>
+                <Investimento key={index}>
                   <p>{investimento.titulo}</p>
                   <p>Quantidade: {investimento.quantidade}</p>
                   <p>Valor: R${investimento.valor}</p>
-                  {/* Adicione mais informações se necessário */}
-                </div>
+                  
+                </Investimento>
               ))}
             </div>
           )}
@@ -270,12 +285,12 @@ const InvestimentoContent: React.FC = () => {
           {expandedBoxes.cryptomoedas && (
             <div>
               {investimentosCryptomoedas.map((investimento, index) => (
-                <div key={index}>
+                <Investimento key={index}>
                   <p>{investimento.titulo}</p>
                   <p>Quantidade: {investimento.quantidade}</p>
                   <p>Valor: R${investimento.valor}</p>
                   {/* Adicione mais informações se necessário */}
-                </div>
+                </Investimento>
               ))}
             </div>
           )}

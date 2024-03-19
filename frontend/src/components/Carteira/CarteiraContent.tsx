@@ -5,8 +5,6 @@ import Modal from "./ModalCarteira"
 import { toast } from 'react-toastify'
 import 'react-toastify/dist/ReactToastify.css'
 import { Info, MiniBox } from "../Investimento/InvestimentoContent"
-import { fetchAtivos, fetchDespesas } from "../Home/Content"
-
 
 export const Container = styled.div`
   display: flex;
