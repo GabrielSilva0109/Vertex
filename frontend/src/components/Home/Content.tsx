@@ -194,22 +194,18 @@ const Content: React.FC = () =>{
     const [isLoading, setIsLoading] = useState<boolean>(false)//lembrar de trocar apos a API AÇÔES
     const user = state?.user
 
-    const fetchSaldo = async (userId: number) => {
+    const fetchWallet = async (userId: number) => {
       try {
         const response = await fetch(`http://localhost:3333/walletUser/${userId}`);
-        
         if (!response.ok) {
           console.error(`Erro na requisição: ${response.status} - ${response.statusText}`);
           return 
         }
+
         const data = await response.json()
 
         if (data && data.saldo !== undefined) {
           setWalletId(data.id)
-          setAtivos(data.ativos)
-          setDespesas(data.despesas)
-          const novoSaldo = data.ativos - data.despesas
-          setSaldo(novoSaldo)
         } else {
           console.error(`Resposta inesperada do servidor: ${JSON.stringify(data)}`)
         }
@@ -218,15 +214,55 @@ const Content: React.FC = () =>{
       }
     }
 
-    useEffect(() => {
-      if (user && user.id) {
-        fetchSaldo(user.id)
-        fetchCryptoData()
-        const intervalId = setInterval(fetchCryptoData, 20000)
+    const fetchAtivos = async (userId: number) => {
+      try {
+        await fetchWallet(userId)
 
-      return () => clearInterval(intervalId)
+        const response = await fetch(`http://localhost:3333/ativosWallet/${walletId}`)
+        
+        if (!response.ok) {
+          console.error(`Erro na requisição ATIVOS: ${response.status} - ${response.statusText}`)
+          return 
+        }
+
+        const data = await response.json()
+    
+        if (data && data.length > 0) {
+          // Somando os valores dos ativos
+          const totalAtivos = data.reduce((total: number, ativo: any) => total + ativo.valor, 0)
+          setAtivos(totalAtivos)
+        } else {
+          console.error(`Resposta inesperada do servidor: ${JSON.stringify(data)}`)
+        }
+      } catch (error) {
+        console.error("Erro ao buscar ativos:", error)
       }
-    }, [user])
+    }
+
+    const fetchDespesas = async(userId: number) =>{
+      try {
+        await fetchWallet(userId)
+
+        const response = await fetch(`http://localhost:3333/despesasWallet/${walletId}`)
+        
+        if (!response.ok) {
+          console.error(`Erro na requisição DESPESAS: ${response.status} - ${response.statusText}`)
+          return 
+        }
+
+        const data = await response.json()
+    
+        if (data && data.length > 0) {
+          // Somando os valores das despesas
+          const totalDespesas = data.reduce((total: number, despesa: any) => total + despesa.valor, 0)
+          setDespesas(totalDespesas)
+        } else {
+          console.error(`Resposta inesperada do servidor: ${JSON.stringify(data)}`)
+        }
+      } catch (error) {
+        console.error("Erro ao buscar ativos:", error)
+      }
+    }
 
     const fetchCryptoData = async () => {
       try {
@@ -254,6 +290,24 @@ const Content: React.FC = () =>{
         console.error("Erro ao buscar dados de criptomoedas:", error)
       } 
     }  
+
+    useEffect(() => {
+      if (user && user.id) {
+        fetchWallet(user.id)
+        fetchCryptoData()
+        fetchAtivos(walletId)
+        fetchDespesas(walletId)
+        const intervalId = setInterval(fetchCryptoData, 20000)
+
+      return () => clearInterval(intervalId)
+      }
+    }, [user, walletId])
+
+    // Atualiza o saldo quando os valores de ativos e despesas mudam
+    useEffect(() => {
+      setSaldo(ativos - despesas)
+    }, [ativos, despesas])
+
 
   return (
     <Container>
