@@ -354,35 +354,7 @@ const CarteiraContent: React.FC = () =>{
     }
 
     const adicionarAtivo = async () => {
-      try {
-        // Busca os valores atuais de ativos e saldo
-        await walletUser()
-    
-        if (ativos === null || saldo === null) {
-          toast.error("Erro ao obter o saldo ou os ativos!");
-          return;
-        }
-    
-        // Calcula o novo valor de ativos
-        const novosAtivos = ativos + parseFloat(formData.valor);
-    
-        // Calcula o novo saldo
-        const novoSaldo = saldo + parseFloat(formData.valor);
-    
-        // Atualiza o saldo na carteira
-        const saldoAtualizadoResponse = await fetch(`http://localhost:3333/wallet/${IdWallet}`, {
-          method: "PUT",
-          headers: {
-            "Content-Type": "application/json",
-          },
-          body: JSON.stringify({ ativos: novosAtivos, saldo: novoSaldo }), // Atualiza também o saldo
-        });
-    
-        if (!saldoAtualizadoResponse.ok) {
-          toast.error("Erro ao atualizar saldo!");
-          return;
-        }
-    
+      try {    
         // Cadastra a transação
         const response = await fetch('http://localhost:3333/ativo', {
           method: 'POST',
@@ -393,10 +365,10 @@ const CarteiraContent: React.FC = () =>{
         });
     
         if(response.ok){
-          toast.success('Ativo cadastrado !');
+          toast.success('Ativo cadastrado !')
           await getExtrato();
         } else {
-          toast.error('Erro ao fazer requisição para cadastrar o ativo!');
+          toast.error('Erro ao fazer requisição para cadastrar o ativo!')
         }
       } catch (error) {
         console.error("Erro ao adicionar ativo:", error);
@@ -405,32 +377,7 @@ const CarteiraContent: React.FC = () =>{
     }
     
     const adicionarDespesa = async () => {
-      try {
-        // Busca os valores atuais de ativos e despesas
-        await walletUser()
-    
-        if (despesas === null) {
-          toast.error("Erro ao obter o saldo!")
-          return
-        }
-    
-        // Calcula o novo valor de despesas
-        const novoDespesas = despesas + parseFloat(formData.valor)
-    
-        // Atualiza o saldo na carteira
-        const saldoAtualizadoResponse = await fetch(`http://localhost:3333/wallet/${IdWallet}`, {
-          method: "PUT",
-          headers: {
-            "Content-Type": "application/json",
-          },
-          body: JSON.stringify({ despesas: novoDespesas }),
-        })
-    
-        if (!saldoAtualizadoResponse.ok) {
-          toast.error("Erro ao atualizar saldo!")
-          return
-        }
-    
+      try {   
         // Cadastra a transação
         const response = await fetch("http://localhost:3333/despesa", {
           method: "POST",
@@ -518,26 +465,6 @@ const CarteiraContent: React.FC = () =>{
           return
         } else {
           toast.success(`Transação Excluída !!`)
-        }
-    
-        // Calcula o novo valor da coluna
-        const novoValor = colunaAtual - valor
-    
-        // Atualiza a coluna na carteira
-        const saldoAtualizadoResponse = await fetch(
-          `http://localhost:3333/wallet/${IdWallet}`,
-          {
-            method: 'PUT',
-            headers: {
-              'Content-Type': 'application/json',
-            },
-            body: JSON.stringify({ [colunaAPI]: novoValor }),
-          }
-        );
-    
-        if (!saldoAtualizadoResponse.ok) {
-          toast.error(`Erro ao atualizar ${colunaAPI}!`);
-          return;
         }
     
         // Atualiza o extrato após a exclusão
