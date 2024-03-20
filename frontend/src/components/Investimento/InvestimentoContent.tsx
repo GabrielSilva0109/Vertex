@@ -134,14 +134,16 @@ interface Investimento {
 }
 
 const InvestimentoContent: React.FC = () => {
-  const { state } = useLocation();
-  const user = state?.user;
-  const userId = user.id;
-  const navigate = useNavigate();
-  const [saldo, setSaldo] = useState<number>(0);
-  const [wallet_id, setWallet_id] = useState<number>(0);
-  const [investimentosAcoes, setInvestimentosAcoes] = useState<any[]>([]);
-  const [investimentosCryptomoedas, setInvestimentosCryptomoedas] = useState<any[]>([]);
+  const { state } = useLocation()
+  const user = state?.user
+  const userId = user.id
+  const navigate = useNavigate()
+  const [saldo, setSaldo] = useState<number>(0)
+  const [wallet_id, setWallet_id] = useState<number>(0)
+  const [investimentoAdicionado, setInvestimentoAdicionado] = useState(false)
+  const [investimentosAcoes, setInvestimentosAcoes] = useState<any[]>([])
+  const [investimentosCryptomoedas, setInvestimentosCryptomoedas] = useState<any[]>([])
+  const colors = ['#b0ff00', '#005954', '#338b85', '#ffcc00', '#9ce0db', '#4f46e5']
   const [expandedBoxes, setExpandedBoxes] = useState<{ [key: string]: boolean }>({
     acoes: false,
     cryptomoedas: false,
@@ -149,8 +151,8 @@ const InvestimentoContent: React.FC = () => {
     fundosImobiliarios: false,
     rendaFixa: false,
     poupanca: false,
-  });
-  const [modalOpen, setModalOpen] = useState(false);
+  })
+  const [modalOpen, setModalOpen] = useState(false)
 
   const openModal = () => {
     setModalOpen(true)
@@ -159,8 +161,6 @@ const InvestimentoContent: React.FC = () => {
   const closeModal = () => {
     setModalOpen(false);
   }
-
-  const colors = ['#b0ff00', '#005954', '#338b85', '#ffcc00', '#9ce0db', '#4f46e5'];
 
   const toggleExpandedBox = (boxKey: string) => {
     setExpandedBoxes((prevBoxes) => ({
@@ -191,30 +191,6 @@ const InvestimentoContent: React.FC = () => {
     }
   }
 
-  const handleSubmit = async (requestData: any) => {
-    try {
-      const response = await fetch('http://localhost:3333/investimento', {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify(requestData),
-      });
-
-      if (!response.ok) {
-        throw new Error('Erro ao adicionar ativo')
-      } else {
-        toast.success("Ativo Cadastradossss!")
-        await fetchInvestimentos(wallet_id)
-        fetchSaldo(userId)
-        closeModal()
-      }
-    } catch (error) {
-      toast.error("Erro ao Cadastrar!")
-      console.error('Erro ao adicionar ativo:', error)
-    }
-  }
-
   const fetchInvestimentos = async (walletId: number) => {
     try {
       const response = await fetch(`http://localhost:3333/walletInvestimentos/${walletId}`);
@@ -242,7 +218,6 @@ const InvestimentoContent: React.FC = () => {
       console.error("Erro ao buscar os investimentos da carteira:", error)
     }
   }
-  
 
   useEffect(() => {
     if (user && user.id) {
@@ -250,8 +225,6 @@ const InvestimentoContent: React.FC = () => {
       fetchInvestimentos(wallet_id)
     }
   }, [user, wallet_id])
-
-  const [investimentoAdicionado, setInvestimentoAdicionado] = useState(false);
 
   useEffect(() => {
     if (investimentoAdicionado) {

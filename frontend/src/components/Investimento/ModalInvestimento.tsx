@@ -141,4 +141,4 @@ const ModalInvestimento: React.FC<ModalProps> = ({ onClose, walletId, onSubmit, 
   )
 }
 
-export default ModalInvestimento;
+export default ModalInvestimento
