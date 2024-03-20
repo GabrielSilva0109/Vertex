@@ -140,6 +140,7 @@ const InvestimentoContent: React.FC = () => {
   const navigate = useNavigate()
   const [saldo, setSaldo] = useState<number>(0)
   const [wallet_id, setWallet_id] = useState<number>(0)
+  const [totalInvestido, setTotalInvestido] = useState<number>(0)
   const [investimentoAdicionado, setInvestimentoAdicionado] = useState(false)
   const [investimentosAcoes, setInvestimentosAcoes] = useState<any[]>([])
   const [investimentosCryptomoedas, setInvestimentosCryptomoedas] = useState<any[]>([])
@@ -186,8 +187,8 @@ const InvestimentoContent: React.FC = () => {
       const data = await response.json();
 
       if (data && data.saldo !== undefined) {
-        setSaldo(data.saldo);
-        setWallet_id(data.id);
+        setSaldo(data.saldo)
+        setWallet_id(data.id)
       } else {
         console.error(`Resposta inesperada do servidor: ${JSON.stringify(data)}`);
       }
@@ -204,7 +205,14 @@ const InvestimentoContent: React.FC = () => {
         throw new Error(`Erro na requisição: ${response.status} - ${response.statusText}`);
       }
       
-      const data = await response.json();
+      const data = await response.json()
+      let total = 0
+
+      data.forEach((investimento: any) => {
+        total += investimento.valor;
+      })
+
+      setTotalInvestido(total)
       
       // Atualizar os estados com os investimentos filtrados
       const investimentosAcoes = data.filter((investimento: Investimento) => investimento.categoria === 'Ação')
@@ -381,7 +389,7 @@ const InvestimentoContent: React.FC = () => {
           <MiniBox style={{ marginTop: '-50px' }}>
             <Info>
               <h3>Valor Aplicado</h3>
-              <h3>R${saldo}</h3>
+              <h3>R${totalInvestido}</h3>
             </Info>
           </MiniBox>
           <MiniBox>

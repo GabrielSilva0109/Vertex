@@ -189,6 +189,7 @@ const Content: React.FC = () =>{
     const [ ativos, setAtivos] = useState<number>(0)
     const [ despesas, setDespesas] = useState<number>(0)
     const [ walletId, setWalletId] = useState<number>(0)
+    const [totalInvestido, setTotalInvestido] = useState<number>(0)
     const { state } = useLocation()
     const [isLoadingCrypto, setIsLoadingCrypto] = useState<boolean>(true)
     const [isLoading, setIsLoading] = useState<boolean>(false)//lembrar de trocar apos a API AÇÔES
@@ -289,7 +290,29 @@ const Content: React.FC = () =>{
       } catch (error) {
         console.error("Erro ao buscar dados de criptomoedas:", error)
       } 
-    }  
+    }
+
+    const fetchInvestimentos = async (walletId: number) => {
+      try {
+        const response = await fetch(`http://localhost:3333/walletInvestimentos/${walletId}`);
+        
+        if (!response.ok) {
+          throw new Error(`Erro na requisição: ${response.status} - ${response.statusText}`);
+        }
+        
+        const data = await response.json()
+        let total = 0
+  
+        data.forEach((investimento: any) => {
+          total += investimento.valor;
+        })
+  
+        setTotalInvestido(total)
+      } catch (error) {
+        console.error("Erro ao buscar os investimentos da carteira:", error)
+      }
+    }
+  
 
     useEffect(() => {
       if (user && user.id) {
@@ -297,6 +320,7 @@ const Content: React.FC = () =>{
         fetchCryptoData()
         fetchAtivos(walletId)
         fetchDespesas(walletId)
+        fetchInvestimentos(walletId)
         const intervalId = setInterval(fetchCryptoData, 20000)
 
       return () => clearInterval(intervalId)
@@ -328,7 +352,7 @@ const Content: React.FC = () =>{
                 Investimentos
             </Title>                        
             <Info style={{color: "white"}}>
-              R${saldo.toFixed(2)}
+              R${totalInvestido.toFixed(2)}
             </Info>
           </Box>
           <Box>
