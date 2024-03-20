@@ -143,6 +143,11 @@ const InvestimentoContent: React.FC = () => {
   const [investimentoAdicionado, setInvestimentoAdicionado] = useState(false)
   const [investimentosAcoes, setInvestimentosAcoes] = useState<any[]>([])
   const [investimentosCryptomoedas, setInvestimentosCryptomoedas] = useState<any[]>([])
+  const [investimentosMoedas, setInvestimentosMoedas] = useState<any[]>([])
+  const [investimentosFiis, setInvestimentosFiis] = useState<any[]>([])
+  const [investimentosRendaFixa, setInvestimentosRendaFixa] = useState<any[]>([])
+  const [investimentosPoupanca, setInvestimentosPoupanca] = useState<any[]>([])
+  
   const colors = ['#b0ff00', '#005954', '#338b85', '#ffcc00', '#9ce0db', '#4f46e5']
   const [expandedBoxes, setExpandedBoxes] = useState<{ [key: string]: boolean }>({
     acoes: false,
@@ -204,16 +209,21 @@ const InvestimentoContent: React.FC = () => {
       // Atualizar os estados com os investimentos filtrados
       const investimentosAcoes = data.filter((investimento: Investimento) => investimento.categoria === 'Ação')
       const investimentosCryptomoedas = data.filter((investimento: Investimento) => investimento.categoria === 'Crypto')
-      
+      const investimentoMoedas = data.filter((investimento: Investimento) => investimento.categoria === 'Moeda')
+      const investimentoFiis = data.filter((investimento: Investimento) => investimento.categoria === 'FIIs')
+      const investimentoRendaFixa = data.filter((investimento: Investimento) => investimento.categoria === 'Renda Fixa')
+      const investimentoPoupanca = data.filter((investimento: Investimento) => investimento.categoria === 'Poupança')
+
       // Adicione mais estados conforme necessário para outras categorias
       setInvestimentosAcoes(investimentosAcoes)
       setInvestimentosCryptomoedas(investimentosCryptomoedas)
+      setInvestimentosMoedas(investimentoMoedas)
+      setInvestimentosFiis(investimentoFiis)
+      setInvestimentosRendaFixa(investimentoRendaFixa)
+      setInvestimentosPoupanca(investimentoPoupanca)
       
       // Fechar o modal após a atualização dos investimentos
       closeModal()
-      
-      console.log('Investimentos da AÇÔES:', investimentosAcoes)
-      console.log('Investimentos da CRYPTP:', investimentosCryptomoedas)
     } catch (error) {
       console.error("Erro ao buscar os investimentos da carteira:", error)
     }
@@ -258,7 +268,6 @@ const InvestimentoContent: React.FC = () => {
           )}
         </ExpandedBox>
 
-
         <ExpandedBox isOpen={expandedBoxes.cryptomoedas}>
           <Top isOpen={expandedBoxes.cryptomoedas} color={colors[1]}>
             <SubTitle borderColor='#005954'>Cryptomoedas</SubTitle>
@@ -280,41 +289,74 @@ const InvestimentoContent: React.FC = () => {
           )}
         </ExpandedBox>
 
-
-          <ExpandedBox isOpen={expandedBoxes.moedas}>
+        <ExpandedBox isOpen={expandedBoxes.moedas}>
             <Top isOpen={expandedBoxes.moedas} color={colors[2]}>
               <SubTitle borderColor="#0030bf">Moedas</SubTitle>
               <BtnOpen isOpen={expandedBoxes.moedas} onClick={() => toggleExpandedBox('moedas')}>
                 {expandedBoxes.moedas ? '-' : '+'}
               </BtnOpen>
             </Top>
-          </ExpandedBox>
+            {expandedBoxes.moedas && (
+              <div>
+                {investimentosMoedas.map((investimento, index) => (
+                  <Investimento key={index}>
+                  <p>{investimento.titulo}</p>
+                  <p>Quantidade: {investimento.quantidade}</p>
+                  <p>Valor: R${investimento.valor}</p>
+                  
+                  </Investimento>
+                ))}
+              </div>
+            )}
+        </ExpandedBox>
 
-          <ExpandedBox isOpen={expandedBoxes.fundosImobiliarios}>
-            <Top isOpen={expandedBoxes.fundosImobiliarios} color={colors[3]}>
+        <ExpandedBox isOpen={expandedBoxes.fundosImobiliarios}>
+          <Top isOpen={expandedBoxes.fundosImobiliarios} color={colors[3]}>
               <SubTitle borderColor="#ffcc00">Fundos Imobiliários</SubTitle>
               <BtnOpen isOpen={expandedBoxes.fundosImobiliarios} onClick={() => toggleExpandedBox('fundosImobiliarios')}>
                 {expandedBoxes.fundosImobiliarios ? '-' : '+'}
               </BtnOpen>
-            </Top>
-          </ExpandedBox>
+          </Top>
+          {expandedBoxes.fundosImobiliarios && (
+            <div>
+              {investimentosFiis.map((investimento, index) => (
+                <Investimento key={index}>
+                  <p>{investimento.titulo}</p>
+                  <p>Quantidade: {investimento.quantidade}</p>
+                  <p>Valor: R${investimento.valor}</p>    
+                </Investimento>
+                ))}
+            </div>
+          )}
+        </ExpandedBox>
 
           <ExpandedBox isOpen={expandedBoxes.rendaFixa}>
             <Top isOpen={expandedBoxes.rendaFixa} color={colors[4]}>
-              <SubTitle borderColor="#9ce0db">Renda Fixa</SubTitle>
-              <BtnOpen isOpen={expandedBoxes.rendaFixa} onClick={() => toggleExpandedBox('rendaFixa')}>
-                {expandedBoxes.rendaFixa ? '-' : '+'}
-              </BtnOpen>
+                <SubTitle borderColor="#9ce0db">Renda Fixa</SubTitle>
+                <BtnOpen isOpen={expandedBoxes.rendaFixa} onClick={() => toggleExpandedBox('rendaFixa')}>
+                  {expandedBoxes.rendaFixa ? '-' : '+'}
+                </BtnOpen>
             </Top>
+            {expandedBoxes.rendaFixa && (
+              <div>
+                {investimentosRendaFixa.map((investimento, index) => (
+                  <Investimento key={index}>
+                  <p>{investimento.titulo}</p>
+                  <p>Quantidade: {investimento.quantidade}</p>
+                  <p>Valor: R${investimento.valor}</p>    
+                </Investimento>
+                ))}
+              <div/>
+            )}
           </ExpandedBox>
 
           <ExpandedBox isOpen={expandedBoxes.poupanca}>
-            <Top isOpen={expandedBoxes.poupanca} color={colors[5]}>
-              <SubTitle borderColor="#4f46e5">Poupança</SubTitle>
-              <BtnOpen isOpen={expandedBoxes.poupanca} onClick={() => toggleExpandedBox('poupanca')}>
-                {expandedBoxes.poupanca ? '-' : '+'}
-              </BtnOpen>
-            </Top>
+              <Top isOpen={expandedBoxes.poupanca} color={colors[5]}>
+                <SubTitle borderColor="#4f46e5">Poupança</SubTitle>
+                <BtnOpen isOpen={expandedBoxes.poupanca} onClick={() => toggleExpandedBox('poupanca')}>
+                  {expandedBoxes.poupanca ? '-' : '+'}
+                </BtnOpen>
+              </Top>
           </ExpandedBox>
         </Main>
       </LeftContainer>
