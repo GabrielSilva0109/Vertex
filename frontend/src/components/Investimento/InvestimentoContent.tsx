@@ -240,6 +240,7 @@ const InvestimentoContent: React.FC = () => {
     if (investimentoAdicionado) {
       fetchInvestimentos(wallet_id)
       closeModal()
+      setInvestimentoAdicionado(false)
     }
   }, [investimentoAdicionado, fetchInvestimentos, closeModal])
 
@@ -247,88 +248,88 @@ const InvestimentoContent: React.FC = () => {
     <Container>
       <LeftContainer>
         <Main>
-        <ExpandedBox isOpen={expandedBoxes.acoes}>
-          <Top isOpen={expandedBoxes.acoes} color={colors[0]}>
-            <SubTitle borderColor="#b0ff00">Ações</SubTitle>
-            <BtnOpen isOpen={expandedBoxes.acoes} onClick={() => toggleExpandedBox('acoes')}>
-              {expandedBoxes.acoes ? '-' : '+'}
-            </BtnOpen>
-          </Top>
-          {expandedBoxes.acoes && (
-            <div>
-              {investimentosAcoes.map((investimento, index) => (
-                <Investimento key={index}>
-                  <p>{investimento.titulo}</p>
-                  <p>Quantidade: {investimento.quantidade}</p>
-                  <p>Valor: R${investimento.valor}</p>
-                  
-                </Investimento>
-              ))}
-            </div>
-          )}
-        </ExpandedBox>
-
-        <ExpandedBox isOpen={expandedBoxes.cryptomoedas}>
-          <Top isOpen={expandedBoxes.cryptomoedas} color={colors[1]}>
-            <SubTitle borderColor='#005954'>Cryptomoedas</SubTitle>
-            <BtnOpen isOpen={expandedBoxes.cryptomoedas} onClick={() => toggleExpandedBox('cryptomoedas')}>
-              {expandedBoxes.cryptomoedas ? '-' : '+'}
-            </BtnOpen>
-          </Top>
-          {expandedBoxes.cryptomoedas && (
-            <div>
-              {investimentosCryptomoedas.map((investimento, index) => (
-                <Investimento key={index}>
-                  <p>{investimento.titulo}</p>
-                  <p>Quantidade: {investimento.quantidade}</p>
-                  <p>Valor: R${investimento.valor}</p>
-                  {/* Adicione mais informações se necessário */}
-                </Investimento>
-              ))}
-            </div>
-          )}
-        </ExpandedBox>
-
-        <ExpandedBox isOpen={expandedBoxes.moedas}>
-            <Top isOpen={expandedBoxes.moedas} color={colors[2]}>
-              <SubTitle borderColor="#0030bf">Moedas</SubTitle>
-              <BtnOpen isOpen={expandedBoxes.moedas} onClick={() => toggleExpandedBox('moedas')}>
-                {expandedBoxes.moedas ? '-' : '+'}
+          <ExpandedBox isOpen={expandedBoxes.acoes}>
+            <Top isOpen={expandedBoxes.acoes} color={colors[0]}>
+              <SubTitle borderColor="#b0ff00">Ações</SubTitle>
+              <BtnOpen isOpen={expandedBoxes.acoes} onClick={() => toggleExpandedBox('acoes')}>
+                {expandedBoxes.acoes ? '-' : '+'}
               </BtnOpen>
             </Top>
-            {expandedBoxes.moedas && (
+            {expandedBoxes.acoes && (
               <div>
-                {investimentosMoedas.map((investimento, index) => (
+                {investimentosAcoes.map((investimento, index) => (
                   <Investimento key={index}>
-                  <p>{investimento.titulo}</p>
-                  <p>Quantidade: {investimento.quantidade}</p>
-                  <p>Valor: R${investimento.valor}</p>
-                  
+                    <p>{investimento.titulo}</p>
+                    <p>Quantidade: {investimento.quantidade}</p>
+                    <p>Valor: R${investimento.valor}</p>
+                    
                   </Investimento>
                 ))}
               </div>
             )}
-        </ExpandedBox>
+          </ExpandedBox>
 
-        <ExpandedBox isOpen={expandedBoxes.fundosImobiliarios}>
-          <Top isOpen={expandedBoxes.fundosImobiliarios} color={colors[3]}>
-              <SubTitle borderColor="#ffcc00">Fundos Imobiliários</SubTitle>
-              <BtnOpen isOpen={expandedBoxes.fundosImobiliarios} onClick={() => toggleExpandedBox('fundosImobiliarios')}>
-                {expandedBoxes.fundosImobiliarios ? '-' : '+'}
+          <ExpandedBox isOpen={expandedBoxes.cryptomoedas}>
+            <Top isOpen={expandedBoxes.cryptomoedas} color={colors[1]}>
+              <SubTitle borderColor='#005954'>Cryptomoedas</SubTitle>
+              <BtnOpen isOpen={expandedBoxes.cryptomoedas} onClick={() => toggleExpandedBox('cryptomoedas')}>
+                {expandedBoxes.cryptomoedas ? '-' : '+'}
               </BtnOpen>
-          </Top>
-          {expandedBoxes.fundosImobiliarios && (
-            <div>
-              {investimentosFiis.map((investimento, index) => (
-                <Investimento key={index}>
-                  <p>{investimento.titulo}</p>
-                  <p>Quantidade: {investimento.quantidade}</p>
-                  <p>Valor: R${investimento.valor}</p>    
-                </Investimento>
+            </Top>
+            {expandedBoxes.cryptomoedas && (
+              <div>
+                {investimentosCryptomoedas.map((investimento, index) => (
+                  <Investimento key={index}>
+                    <p>{investimento.titulo}</p>
+                    <p>Quantidade: {investimento.quantidade}</p>
+                    <p>Valor: R${investimento.valor}</p>
+                    {/* Adicione mais informações se necessário */}
+                  </Investimento>
                 ))}
-            </div>
-          )}
-        </ExpandedBox>
+              </div>
+            )}
+          </ExpandedBox>
+
+          <ExpandedBox isOpen={expandedBoxes.moedas}>
+              <Top isOpen={expandedBoxes.moedas} color={colors[2]}>
+                <SubTitle borderColor="#0030bf">Moedas</SubTitle>
+                <BtnOpen isOpen={expandedBoxes.moedas} onClick={() => toggleExpandedBox('moedas')}>
+                  {expandedBoxes.moedas ? '-' : '+'}
+                </BtnOpen>
+              </Top>
+              {expandedBoxes.moedas && (
+                <div>
+                  {investimentosMoedas.map((investimento, index) => (
+                    <Investimento key={index}>
+                    <p>{investimento.titulo}</p>
+                    <p>Quantidade: {investimento.quantidade}</p>
+                    <p>Valor: R${investimento.valor}</p>
+                    
+                    </Investimento>
+                  ))}
+                </div>
+              )}
+          </ExpandedBox>
+
+          <ExpandedBox isOpen={expandedBoxes.fundosImobiliarios}>
+            <Top isOpen={expandedBoxes.fundosImobiliarios} color={colors[3]}>
+                <SubTitle borderColor="#ffcc00">Fundos Imobiliários</SubTitle>
+                <BtnOpen isOpen={expandedBoxes.fundosImobiliarios} onClick={() => toggleExpandedBox('fundosImobiliarios')}>
+                  {expandedBoxes.fundosImobiliarios ? '-' : '+'}
+                </BtnOpen>
+            </Top>
+            {expandedBoxes.fundosImobiliarios && (
+              <div>
+                {investimentosFiis.map((investimento, index) => (
+                  <Investimento key={index}>
+                    <p>{investimento.titulo}</p>
+                    <p>Quantidade: {investimento.quantidade}</p>
+                    <p>Valor: R${investimento.valor}</p>    
+                  </Investimento>
+                  ))}
+              </div>
+            )}
+          </ExpandedBox>
 
           <ExpandedBox isOpen={expandedBoxes.rendaFixa}>
             <Top isOpen={expandedBoxes.rendaFixa} color={colors[4]}>
@@ -337,17 +338,17 @@ const InvestimentoContent: React.FC = () => {
                   {expandedBoxes.rendaFixa ? '-' : '+'}
                 </BtnOpen>
             </Top>
-            {expandedBoxes.rendaFixa && (
-              <div>
-                {investimentosRendaFixa.map((investimento, index) => (
-                  <Investimento key={index}>
-                  <p>{investimento.titulo}</p>
-                  <p>Quantidade: {investimento.quantidade}</p>
-                  <p>Valor: R${investimento.valor}</p>    
-                </Investimento>
-                ))}
-              <div/>
-            )}
+                {expandedBoxes.rendaFixa && (
+                <div>
+                  {investimentosRendaFixa.map((investimento, index) => (
+                    <Investimento key={index}>
+                      <p>{investimento.titulo}</p>
+                      <p>Quantidade: {investimento.quantidade}</p>
+                      <p>Valor: R${investimento.valor}</p>    
+                    </Investimento>
+                    ))}
+                </div>
+              )}
           </ExpandedBox>
 
           <ExpandedBox isOpen={expandedBoxes.poupanca}>
@@ -357,7 +358,19 @@ const InvestimentoContent: React.FC = () => {
                   {expandedBoxes.poupanca ? '-' : '+'}
                 </BtnOpen>
               </Top>
+              {expandedBoxes.poupanca && (
+                <div>
+                  {investimentosPoupanca.map((investimento, index) => (
+                    <Investimento key={index}>
+                      <p>{investimento.titulo}</p>
+                      <p>Quantidade: {investimento.quantidade}</p>
+                      <p>Valor: R${investimento.valor}</p>    
+                    </Investimento>
+                    ))}
+                </div>
+              )}
           </ExpandedBox>
+
         </Main>
       </LeftContainer>
 
