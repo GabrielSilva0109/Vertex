@@ -12,7 +12,7 @@ export const MiniBox = styled.div`
   width: 90%;
   padding: 5px;
   border-radius: 15px;
-`;
+`
 
 export const Info = styled.div`
   display: flex;
@@ -114,25 +114,24 @@ const BtnAtivo = styled.button`
   }
 `
 
+const Investimento = styled.div`
+display: flex;
+justify-content: space-between;
+align-items: center;
+padding: 0px 15px;
+margin: 5px;
+background-color: gray;
+border-radius: 8px;
+color: white;
+font-weight: bold;
+background:#005954;
+color: black;
+`
+
 interface Investimento {
   id: number;
   categoria: string;
 }
-
-const Investimento = styled.div`
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  padding: 0px 15px;
-  margin: 5px;
-  background-color: gray;
-  border-radius: 8px;
-  color: white;
-  font-weight: bold;
-  background:#005954;
-  color: black;
-`
-
 
 const InvestimentoContent: React.FC = () => {
   const { state } = useLocation();
@@ -227,25 +226,25 @@ const InvestimentoContent: React.FC = () => {
       const data = await response.json();
       
       // Filtrar os investimentos por categoria
-      const investimentosAcoes = data.filter((investimento: Investimento) => investimento.categoria === 'Ação');
-      const investimentosCryptomoedas = data.filter((investimento: Investimento) => investimento.categoria === 'Crypto');
+      const investimentosAcoes = data.filter((investimento: Investimento) => investimento.categoria === 'Ação')
+      const investimentosCryptomoedas = data.filter((investimento: Investimento) => investimento.categoria === 'Crypto')
       
       // Atualizar os estados com os investimentos filtrados
-      setInvestimentosAcoes(investimentosAcoes);
-      setInvestimentosCryptomoedas(investimentosCryptomoedas);
+      setInvestimentosAcoes(investimentosAcoes)
+      setInvestimentosCryptomoedas(investimentosCryptomoedas)
       // Adicione mais estados conforme necessário para outras categorias
       
-      console.log('Investimentos da AÇÔES:', investimentosAcoes);
-      console.log('Investimentos da CRYPTP:', investimentosCryptomoedas);
+      console.log('Investimentos da AÇÔES:', investimentosAcoes)
+      console.log('Investimentos da CRYPTP:', investimentosCryptomoedas)
     } catch (error) {
-      console.error("Erro ao buscar os investimentos da carteira:", error);
+      console.error("Erro ao buscar os investimentos da carteira:", error)
     }
-  };
+  }
 
   useEffect(() => {
     if (user && user.id) {
-      fetchSaldo(user.id);
-      fetchInvestimentos(wallet_id);
+      fetchSaldo(user.id)
+      fetchInvestimentos(wallet_id)
     }
   }, [user, wallet_id])
 
