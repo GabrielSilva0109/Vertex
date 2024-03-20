@@ -204,14 +204,14 @@ const InvestimentoContent: React.FC = () => {
       if (!response.ok) {
         throw new Error('Erro ao adicionar ativo')
       } else {
-        toast.success("Ativo Cadastrado!")
+        toast.success("Ativo Cadastradossss!")
         await fetchInvestimentos(wallet_id)
-        fetchSaldo(userId);
+        fetchSaldo(userId)
+        closeModal()
       }
-      closeModal();
     } catch (error) {
-      toast.error("Erro ao Cadastrar!");
-      console.error('Erro ao adicionar ativo:', error);
+      toast.error("Erro ao Cadastrar!")
+      console.error('Erro ao adicionar ativo:', error)
     }
   }
 
@@ -225,14 +225,16 @@ const InvestimentoContent: React.FC = () => {
       
       const data = await response.json();
       
-      // Filtrar os investimentos por categoria
+      // Atualizar os estados com os investimentos filtrados
       const investimentosAcoes = data.filter((investimento: Investimento) => investimento.categoria === 'Ação')
       const investimentosCryptomoedas = data.filter((investimento: Investimento) => investimento.categoria === 'Crypto')
       
-      // Atualizar os estados com os investimentos filtrados
+      // Adicione mais estados conforme necessário para outras categorias
       setInvestimentosAcoes(investimentosAcoes)
       setInvestimentosCryptomoedas(investimentosCryptomoedas)
-      // Adicione mais estados conforme necessário para outras categorias
+      
+      // Fechar o modal após a atualização dos investimentos
+      closeModal()
       
       console.log('Investimentos da AÇÔES:', investimentosAcoes)
       console.log('Investimentos da CRYPTP:', investimentosCryptomoedas)
@@ -240,6 +242,7 @@ const InvestimentoContent: React.FC = () => {
       console.error("Erro ao buscar os investimentos da carteira:", error)
     }
   }
+  
 
   useEffect(() => {
     if (user && user.id) {
@@ -247,6 +250,15 @@ const InvestimentoContent: React.FC = () => {
       fetchInvestimentos(wallet_id)
     }
   }, [user, wallet_id])
+
+  const [investimentoAdicionado, setInvestimentoAdicionado] = useState(false);
+
+  useEffect(() => {
+    if (investimentoAdicionado) {
+      fetchInvestimentos(wallet_id)
+      closeModal()
+    }
+  }, [investimentoAdicionado, fetchInvestimentos, closeModal])
 
   return (
     <Container>
@@ -353,7 +365,14 @@ const InvestimentoContent: React.FC = () => {
           
           <BtnAtivo onClick={openModal}>Adicionar Ativo</BtnAtivo>
             {modalOpen && (
-              <ModalInvestimento onClose={closeModal} walletId={wallet_id} onSubmit={handleSubmit} />
+              <ModalInvestimento
+              onClose={closeModal}
+              walletId={wallet_id}
+              onSubmit={(requestData: any) => {
+                setInvestimentoAdicionado(true);
+              } } fetchInvestimentos={function (): void {
+                throw new Error('Function not implemented.');
+              } }            />
             )}
         </BoxRight>
       </RightContainer>

@@ -3,6 +3,15 @@ import styled from 'styled-components';
 import { Form } from '../Carteira/ModalCarteira';
 import { BtnAtivo, BtnDespesa } from '../Carteira/CarteiraContent';
 import { Input } from '../Login/FormLogin';
+import { toast } from 'react-toastify';
+
+interface ModalProps {
+  onClose: () => void
+  walletId: number
+  onSubmit: (requestData: any) => void
+  fetchInvestimentos: () => void
+  children?: React.ReactNode
+}
 
 const ModalOverlay = styled.div`
   position: fixed;
@@ -14,20 +23,13 @@ const ModalOverlay = styled.div`
   display: flex;
   align-items: center;
   justify-content: center;
-`;
+`
 
 const ModalContent = styled.div`
   background-color: gray;
   padding: 20px;
   border-radius: 10px;
 `
-
-interface ModalProps {
-  onClose: () => void
-  walletId: number
-  onSubmit: (requestData: any) => void
-  children?: React.ReactNode
-}
 
 const Select = styled.select`
     background-color: #e1e1e1;
@@ -71,7 +73,7 @@ const Option = styled.option`
   font-size: 16px;
 `
 
-const ModalInvestimento: React.FC<ModalProps> = ({ onClose, walletId, onSubmit }) => {
+const ModalInvestimento: React.FC<ModalProps> = ({ onClose, walletId, onSubmit, fetchInvestimentos }) => {
   const [titulo, setTitulo] = useState('');
   const [valor, setValor] = useState('');
   const [quantidade, setQuantidade] = useState('');
@@ -79,7 +81,7 @@ const ModalInvestimento: React.FC<ModalProps> = ({ onClose, walletId, onSubmit }
   const [data, setData] = useState('');
 
   const handleSubmit = async (event: React.FormEvent) => {
-    event.preventDefault();
+    event.preventDefault()
     
     const requestData = {
       wallet_id: walletId, 
@@ -88,7 +90,7 @@ const ModalInvestimento: React.FC<ModalProps> = ({ onClose, walletId, onSubmit }
       quantidade,
       categoria,
       data,
-    };
+    }
   
     // Imprimir a requisição no console.log
     console.log('Requisição:', requestData)
@@ -100,17 +102,18 @@ const ModalInvestimento: React.FC<ModalProps> = ({ onClose, walletId, onSubmit }
           'Content-Type': 'application/json',
         },
         body: JSON.stringify(requestData), 
-      });
+      })
   
       if (!response.ok) {
-        throw new Error('Erro ao adicionar ativo');
+        throw new Error('Erro ao adicionar ativo')
+      } else {
+        toast.success('Ativo Cadastrado!')
+        onSubmit(requestData)
       }
-      console.log('Ativo adicionado com sucesso');
-      onClose(); // Fechar o modal após o sucesso do envio
     } catch (error) {
-      console.error('Erro ao adicionar ativo:', error);
+      console.error('Erro ao adicionar ativo:', error)
     }
-  };
+  }
   
   return (
     <ModalOverlay>
