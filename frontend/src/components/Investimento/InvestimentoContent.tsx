@@ -6,6 +6,7 @@ import CircleGrafico from '../Graficos/CircleGrafico'
 import ModalInvestimento from './ModalInvestimento'
 import { toast } from 'react-toastify'
 import 'react-toastify/dist/ReactToastify.css'
+import { error } from 'console'
 
 export const MiniBox = styled.div`
   background: black;
@@ -372,6 +373,29 @@ const InvestimentoContent: React.FC = () => {
       await fetchInvestimentos(wallet_id);
     } catch (error) {
       console.error("Erro ao excluir o investimento:", error)
+    }
+  }
+
+  const editInvestimento = async (investimentoId: number, novosDados: any) => {
+    try {
+      const response = await fetch(`http://localhost:3333/investimento/${investimentoId}`, {
+        method: "PUT",
+        headers: {
+          "Conten-Type": "application/json"
+        },
+        body: JSON.stringify(novosDados)
+      })
+
+      if(!response.ok) {
+        throw new Error(`Erro na requisição: ${response.status} - ${response.statusText}`);
+      }
+
+      toast.success('Investimento atualizado com sucesso!')
+
+      await fetchInvestimentos(wallet_id)
+
+    } catch (error){
+      console.log('Erro ao editar o Investimento', error)
     }
   }
 
