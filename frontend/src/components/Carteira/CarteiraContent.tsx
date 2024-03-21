@@ -154,9 +154,9 @@ const BtnDelete = styled.button`
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  width: 40px;
-  height: 40px;
-  border-radius: 15px;
+  width: 35px;
+  height: 35px;
+  border-radius: 10px;
   background-color: rgb(255, 0, 0);
   cursor: pointer;
   border: none;
@@ -171,11 +171,11 @@ const BtnDelete = styled.button`
   }
 
   .bin-bottom {
-    width: 15px;
+    width: 12px;
   }
 
   .bin-top {
-    width: 17px;
+    width: 15px;
     transform-origin: right;
     transition-duration: 0.3s;
   }
@@ -186,9 +186,9 @@ const BtnDelete = styled.button`
 `
 
 const BtnEdit = styled.button`
-width: 40px;
-height: 40px;
-border-radius: 15px;
+width: 35px;
+height: 35px;
+border-radius: 10px;
 border: none;
 background-color: #2c2c2c;
 display: flex;
@@ -222,7 +222,7 @@ transition: all 0.3s;
 }
 
 svg {
-  height: 17px;
+  height: 15px;
   fill: white;
   z-index: 3;
   transition: all 0.2s;
