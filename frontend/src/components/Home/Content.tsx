@@ -117,6 +117,7 @@ const Title = styled.h1`
 
 const Icon = styled.img`
   width: 35px;
+  border-radius: 50%;
 `
 
 const CryptoPrice = styled.div`

@@ -269,8 +269,7 @@ const InvestimentoContent: React.FC = () => {
                   <Investimento key={index}>
                     <p>{investimento.titulo}</p>
                     <p>Quantidade: {investimento.quantidade}</p>
-                    <p>Valor: R${investimento.valor}</p>
-                    
+                    <p>Valor: R${investimento.valor}</p>                    
                   </Investimento>
                 ))}
               </div>
