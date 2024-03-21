@@ -51,10 +51,17 @@ const ExpandedBox = styled.div<{ isOpen: boolean }>`
   margin-top: 15px;
   height: ${(props) => (props.isOpen ? '400px' : '65px')};
   min-height: 65px;
-  overflow: hidden;
+  overflow: ${(props) => (props.isOpen ? 'auto' : 'hidden')}; 
+  max-height: 400px; // Define a altura máxima como 400px
   transition: height 0.3s;
   display: block;
   align-items: start;
+  &::-webkit-scrollbar {
+    width: 0px;
+  }
+
+  scrollbar-width: none;
+
 `
 
 const BtnOpen = styled.button<{ isOpen: boolean }>`
@@ -124,7 +131,7 @@ background-color: gray;
 border-radius: 8px;
 color: white;
 font-weight: bold;
-background:#005954;
+background:#bfc1c1;
 color: black;
 `
 
