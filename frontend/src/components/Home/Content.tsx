@@ -294,10 +294,10 @@ const Content: React.FC = () =>{
 
     const fetchInvestimentos = async (walletId: number) => {
       try {
-        const response = await fetch(`http://localhost:3333/walletInvestimentos/${walletId}`);
+        const response = await fetch(`http://localhost:3333/walletInvestimentos/${walletId}`)
         
         if (!response.ok) {
-          throw new Error(`Erro na requisição: ${response.status} - ${response.statusText}`);
+          throw new Error(`Erro na requisição: ${response.status} - ${response.statusText}`)
         }
         
         const data = await response.json()
@@ -437,5 +437,5 @@ function getCryptoIcon(cryptoId: string): string {
       default:
         return ""
     }
-  }
+}
   

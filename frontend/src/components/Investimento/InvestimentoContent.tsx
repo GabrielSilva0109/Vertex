@@ -1,11 +1,11 @@
-import React, { useEffect, useState } from 'react';
-import { BoxRight, LeftContainer, RightContainer } from '../Carteira/CarteiraContent';
-import { useLocation, useNavigate } from 'react-router-dom';
-import styled from 'styled-components';
-import CircleGrafico from '../Graficos/CircleGrafico';
-import ModalInvestimento from './ModalInvestimento';
-import { toast } from 'react-toastify';
-import 'react-toastify/dist/ReactToastify.css';
+import React, { useEffect, useState } from 'react'
+import { BoxRight, LeftContainer, RightContainer } from '../Carteira/CarteiraContent'
+import { useLocation, useNavigate } from 'react-router-dom'
+import styled from 'styled-components'
+import CircleGrafico from '../Graficos/CircleGrafico'
+import ModalInvestimento from './ModalInvestimento'
+import { toast } from 'react-toastify'
+import 'react-toastify/dist/ReactToastify.css'
 
 export const MiniBox = styled.div`
   background: black;
@@ -199,10 +199,10 @@ const InvestimentoContent: React.FC = () => {
 
   const fetchInvestimentos = async (walletId: number) => {
     try {
-      const response = await fetch(`http://localhost:3333/walletInvestimentos/${walletId}`);
+      const response = await fetch(`http://localhost:3333/walletInvestimentos/${walletId}`)
       
       if (!response.ok) {
-        throw new Error(`Erro na requisição: ${response.status} - ${response.statusText}`);
+        throw new Error(`Erro na requisição: ${response.status} - ${response.statusText}`)
       }
       
       const data = await response.json()
