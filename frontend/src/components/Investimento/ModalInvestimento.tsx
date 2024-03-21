@@ -8,6 +8,7 @@ import { toast } from 'react-toastify';
 interface ModalProps {
   onClose: () => void
   walletId: number
+  investimento?: any
   onSubmit: (requestData: any) => void
   fetchInvestimentos: () => void
   children?: React.ReactNode
