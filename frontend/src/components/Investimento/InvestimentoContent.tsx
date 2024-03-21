@@ -358,8 +358,20 @@ const InvestimentoContent: React.FC = () => {
   }
 
   const deleteInvestimento = async (investimentoId: number) => {
-    try{
-      
+    try {
+      const response = await fetch(`http://localhost:3333/investimento/${investimentoId}`, {
+        method: "DELETE"
+      });
+      const data = await response.json();
+  
+      if (!response.ok) {
+        toast.error('Erro ao Deletar o Investimento!')
+      } else {
+        toast.success('Investimento Excluído!')
+      }
+      await fetchInvestimentos(wallet_id);
+    } catch (error) {
+      console.error("Erro ao excluir o investimento:", error)
     }
   }
 
