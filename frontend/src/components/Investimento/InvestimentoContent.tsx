@@ -512,7 +512,7 @@ const InvestimentoContent: React.FC = () => {
                   <Investimento key={index}>
                     <p>{investimento.titulo}</p>
                     <p>Quantidade: {investimento.quantidade}</p>
-                    <p>Valor:  ddR${investimento.valor}</p>
+                    <p>Valor: R${investimento.valor}</p>
                     <Btns>
                     <BtnEdit onClick={openModal} >
                       <svg height="1em" viewBox="0 0 512 512">
