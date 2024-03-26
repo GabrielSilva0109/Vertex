@@ -255,7 +255,6 @@ svg {
 }
 `
 
-
 interface Transacao {
   id: number;
   titulo: string;
@@ -470,8 +469,8 @@ const CarteiraContent: React.FC = () =>{
         // Atualiza o extrato após a exclusão
         await getExtrato();
       } catch (error) {
-        console.error(`Erro ao excluir ${categoria}:`, error);
-        toast.error(`Erro ao excluir ${categoria}`);
+        console.error(`Erro ao excluir ${categoria}:`, error)
+        toast.error(`Erro ao excluir ${categoria}`)
       }
     }
 

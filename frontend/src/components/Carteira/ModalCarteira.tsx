@@ -1,7 +1,7 @@
-import React from 'react';
-import styled from 'styled-components';
-import { BtnAtivo, BtnDespesa } from './CarteiraContent';
-import { Input } from '../Login/FormLogin';
+import React from 'react'
+import styled from 'styled-components'
+import { BtnAtivo, BtnDespesa } from './CarteiraContent'
+import { Input } from '../Login/FormLogin'
 
 interface ModalProps {
   isOpen: boolean;
@@ -73,8 +73,8 @@ const Modal: React.FC<ModalProps> = ({ isOpen, onClose, onSubmit, formData, setF
             value={formData.valor}
             onChange={(e) => setFormData({ ...formData, valor: e.target.value })}
             onBlur={(e) => {
-              const formattedValue = parseFloat(e.target.value).toFixed(2);
-              setFormData({ ...formData, valor: formattedValue });
+              const formattedValue = parseFloat(e.target.value).toFixed(2)
+              setFormData({ ...formData, valor: formattedValue })
             }}
           />
           <Input
