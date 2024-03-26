@@ -439,4 +439,3 @@ function getCryptoIcon(cryptoId: string): string {
         return ""
     }
 }
-  

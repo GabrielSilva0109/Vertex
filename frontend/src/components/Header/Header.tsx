@@ -99,7 +99,6 @@ const Header: React.FC = () => {
                 </NavLinks>
                 <BtnLogin  to="/login" >Login</BtnLogin>
             </Nav>
-            
         </HeaderStyle>
     )
 }
