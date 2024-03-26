@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import styled from 'styled-components';
 import { Form } from '../Carteira/ModalCarteira';
 import { BtnAtivo, BtnDespesa } from '../Carteira/CarteiraContent';
@@ -75,39 +75,46 @@ const Option = styled.option`
 `
 
 const ModalEdit: React.FC<ModalProps> = ({ onClose, walletId, onSubmit, fetchInvestimentos, investimento }) => {
-    const [valor, setValor] = useState('')
-    const [quantidade, setQuantidade] = useState('')
-  
-    React.useEffect(() => {
-      if (investimento) {
-        setValor(investimento.valor.toString())
-        setQuantidade(investimento.quantidade.toString())
-      }
-    }, [investimento])
-  
+    const [valor, setValor] = useState('');
+    const [quantidade, setQuantidade] = useState('');
+
+    useEffect(() => {
+        // Se o investimento existir, atualize os estados com as informações dele
+        if (investimento) {
+            setValor(investimento.valor);
+            setQuantidade(investimento.quantidade.toString());
+        }
+    }, [investimento]);
+
     const handleSubmit = () => {
-      const requestData = {
-        walletId: walletId,
-        valor: valor,
-        quantidade: quantidade,
-      }
-      onSubmit(requestData);
-    }
-  
+        const requestData = {
+            walletId: walletId,
+            valor: valor,
+            quantidade: quantidade,
+        };
+        onSubmit(requestData);
+    };
+
     return (
-      <ModalOverlay>
-        <ModalContent>
-          <Form>
-            <h1>Atualizar</h1>
-            <label>Valor: {investimento?.valor}</label>
-            <Input type='number' placeholder='Valor' value={valor} onChange={(e) => setValor(e.target.value)} />
-            <label>Quantidade: {investimento?.quantidade}</label>
-            <Input type='number' placeholder='Quantidade' value={quantidade} onChange={(e) => setQuantidade(e.target.value)} />
-            <BtnAtivo onClick={handleSubmit} type="submit">Atualizar</BtnAtivo>
-            <BtnDespesa onClick={onClose}>Fechar</BtnDespesa>
-          </Form>
-        </ModalContent>
-      </ModalOverlay>
-    )
-  }
+        <ModalOverlay>
+            <ModalContent>
+                <Form>
+                    <h1>Atualizar</h1>
+                    <label>Valor: {investimento?.valor}</label>
+                    {/* Input para editar o valor */}
+                    <Input type="number" placeholder="Valor" value={valor} onChange={(e) => setValor(e.target.value)} />
+                    {/* Label com informação da quantidade */}
+                    <label>Quantidade: {investimento?.quantidade}</label>
+                    {/* Input para editar a quantidade */}
+                    <Input type="number" placeholder="Quantidade" value={quantidade} onChange={(e) => setQuantidade(e.target.value)} />
+                    {/* Botões para submeter e fechar */}
+                    <BtnAtivo onClick={handleSubmit} type="submit">Atualizar</BtnAtivo>
+                    <BtnDespesa onClick={onClose}>Fechar</BtnDespesa>
+                </Form>
+            </ModalContent>
+        </ModalOverlay>
+    );
+};
+
+
 export default ModalEdit;
