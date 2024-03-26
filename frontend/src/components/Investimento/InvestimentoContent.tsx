@@ -271,7 +271,8 @@ const InvestimentoContent: React.FC = () => {
   const [investimentosRendaFixa, setInvestimentosRendaFixa] = useState<any[]>([])
   const [investimentosPoupanca, setInvestimentosPoupanca] = useState<any[]>([])
   const [investimentoSelecionado, setInvestimentoSelecionado] = useState<any>(null)
-  
+  const [acaoTotal, setAcaoTotal] = useState<any>(null)
+
   const colors = ['#b0ff00', '#005954', '#338b85', '#ffcc00', '#9ce0db', '#4f46e5']
   const [expandedBoxes, setExpandedBoxes] = useState<{ [key: string]: boolean }>({
     acoes: false,
@@ -415,6 +416,9 @@ const InvestimentoContent: React.FC = () => {
     }
   }
 
+  const somaTotalAcao = (quantidade: number, valor:number) => {
+    return quantidade * valor
+  }
 
   useEffect(() => {
     if (user && user.id) {
@@ -449,7 +453,7 @@ const InvestimentoContent: React.FC = () => {
                     <p>{investimento.titulo}</p>
                     <p>Quantidade: {investimento.quantidade}</p>
                     <p>Valor: R${investimento.valor}</p>
-
+                    <p>Total: R${somaTotalAcao(investimento.quantidade, investimento.valor)}</p>
                     <Btns>
                     <BtnEdit onClick={() => openModalEdit(investimento)}>
                        <svg height="1em" viewBox="0 0 512 512">
@@ -526,6 +530,7 @@ const InvestimentoContent: React.FC = () => {
                     <p>{investimento.titulo}</p>
                     <p>Quantidade: {investimento.quantidade}</p>
                     <p>Valor: R${investimento.valor}</p>
+                    <p>Total: R${somaTotalAcao(investimento.quantidade, investimento.valor)}</p>
                     <Btns>
                     <BtnEdit onClick={openModalEdit} >
                       <svg height="1em" viewBox="0 0 512 512">
@@ -592,6 +597,7 @@ const InvestimentoContent: React.FC = () => {
                     <p>{investimento.titulo}</p>
                     <p>Quantidade: {investimento.quantidade}</p>
                     <p>Valor: R${investimento.valor}</p>
+                    <p>Total: R${somaTotalAcao(investimento.quantidade, investimento.valor)}</p>
                     <Btns>
                     <BtnEdit onClick={openModal} >
                       <svg height="1em" viewBox="0 0 512 512">
