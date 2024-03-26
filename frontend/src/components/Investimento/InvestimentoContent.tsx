@@ -398,11 +398,12 @@ const InvestimentoContent: React.FC = () => {
   
       if (!response.ok) {
         throw new Error(`Erro na requisição: ${response.status} - ${response.statusText}`);
+        console.log('Atualização erro', response)
       }
   
-      toast.success('Investimento atualizado com sucesso!');
+      toast.success('Investimento atualizado com sucesso!')
   
-      // Feche o modal após a atualização do investimento
+      
       closeEditModal();
   
       // Atualize a lista de investimentos após a atualização bem-sucedida

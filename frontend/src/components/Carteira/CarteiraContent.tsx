@@ -458,7 +458,7 @@ const CarteiraContent: React.FC = () =>{
         // Exclui a transação
         const response = await fetch(url, {
           method: 'DELETE',
-        });
+        })
     
         if (!response.ok) {
           toast.error(`Erro ao excluir ${categoria}!`)
