@@ -1,9 +1,9 @@
-import React, { useEffect, useState } from 'react';
-import styled from 'styled-components';
-import { Form } from '../Carteira/ModalCarteira';
-import { BtnAtivo, BtnDespesa } from '../Carteira/CarteiraContent';
-import { Input } from '../Login/FormLogin';
-import { toast } from 'react-toastify';
+import React, { useEffect, useState } from 'react'
+import styled from 'styled-components'
+import { Form } from '../Carteira/ModalCarteira'
+import { BtnAtivo, BtnDespesa } from '../Carteira/CarteiraContent'
+import { Input } from '../Login/FormLogin'
+import { toast } from 'react-toastify'
 
 interface ModalProps {
     onClose: () => void
