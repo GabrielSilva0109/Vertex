@@ -664,6 +664,7 @@ const InvestimentoContent: React.FC = () => {
                     <p>{investimento.titulo}</p>
                     <p>Quantidade: {investimento.quantidade}</p>
                     <p>Valor: R${investimento.valor}</p>
+                    <p>Total: R${somaTotalAcao(investimento.quantidade, investimento.valor)}</p>
                     <Btns>
                     <BtnEdit onClick={openModal} >
                       <svg height="1em" viewBox="0 0 512 512">
@@ -730,6 +731,7 @@ const InvestimentoContent: React.FC = () => {
                       <p>{investimento.titulo}</p>
                       <p>Quantidade: {investimento.quantidade}</p>
                       <p>Valor: R${investimento.valor}</p>
+                      <p>Total: R${somaTotalAcao(investimento.quantidade, investimento.valor)}</p>
                       <Btns>
                     <BtnEdit onClick={openModal} >
                       <svg height="1em" viewBox="0 0 512 512">
@@ -796,6 +798,7 @@ const InvestimentoContent: React.FC = () => {
                       <p>{investimento.titulo}</p>
                       <p>Quantidade: {investimento.quantidade}</p>
                       <p>Valor: R${investimento.valor}</p>
+                      <p>Total: R${somaTotalAcao(investimento.quantidade, investimento.valor)}</p>
                       <Btns>
                     <BtnEdit onClick={openModal} >
                       <svg height="1em" viewBox="0 0 512 512">
@@ -847,7 +850,6 @@ const InvestimentoContent: React.FC = () => {
                 </div>
               )}
           </ExpandedBox>
-
         </Main>
       </LeftContainer>
 
