@@ -74,49 +74,40 @@ const Option = styled.option`
   font-size: 16px;
 `
 
-const ModalEdit: React.FC<ModalProps> = ({ onClose, walletId, onSubmit, fetchInvestimentos }) => {
-  const [titulo, setTitulo] = useState('')
-  const [valor, setValor] = useState('')
-  const [quantidade, setQuantidade] = useState('')
-  const [categoria, setCategoria] = useState('')
-  const [data, setData] = useState('')
-
-  const handleSubmit = () => {
-    const requestData = {
-      walletId: walletId,
-      titulo: titulo,
-      valor: valor,
-      quantidade: quantidade,
-      categoria: categoria,
-      data: data
-    }
-    onSubmit(requestData)
-  }
+const ModalEdit: React.FC<ModalProps> = ({ onClose, walletId, onSubmit, fetchInvestimentos, investimento }) => {
+    const [valor, setValor] = useState('')
+    const [quantidade, setQuantidade] = useState('')
   
-  return (
-    <ModalOverlay>
-      <ModalContent>
-        <Form>
-          <h1>Atualizar</h1>
-          <Input type='text' placeholder='Ativo' value={titulo} onChange={(e) => setTitulo(e.target.value)} />
-          <Input type='number' placeholder='Valor' value={valor} onChange={(e) => setValor(e.target.value)} />
-          <Input type='number' placeholder='Quantidade' value={quantidade} onChange={(e) => setQuantidade(e.target.value)} />
-          <Select id="categoria" value={categoria} onChange={(e) => setCategoria(e.target.value)}>
-            <option value="">Selecione uma categoria</option>
-            <option value="Ação">Ações</option>
-            <option value="Crypto">Crypto</option>
-            <option value="Moeda">Moeda</option>
-            <option value="FIIs">FIIs</option>
-            <option value="Renda Fixa">Renda Fixa</option>
-            <option value="Poupança">Poupança</option>
-          </Select>
-          <Input type='date' placeholder='Data' value={data} onChange={(e) => setData(e.target.value)} />
-          
-          <BtnDespesa onClick={onClose}>Fechar</BtnDespesa>
-        </Form>
-      </ModalContent>
-    </ModalOverlay>
-  )
-}
-
-export default ModalEdit
+    React.useEffect(() => {
+      if (investimento) {
+        setValor(investimento.valor.toString())
+        setQuantidade(investimento.quantidade.toString())
+      }
+    }, [investimento])
+  
+    const handleSubmit = () => {
+      const requestData = {
+        walletId: walletId,
+        valor: valor,
+        quantidade: quantidade,
+      }
+      onSubmit(requestData);
+    }
+  
+    return (
+      <ModalOverlay>
+        <ModalContent>
+          <Form>
+            <h1>Atualizar</h1>
+            <label>Valor: {investimento?.valor}</label>
+            <Input type='number' placeholder='Valor' value={valor} onChange={(e) => setValor(e.target.value)} />
+            <label>Quantidade: {investimento?.quantidade}</label>
+            <Input type='number' placeholder='Quantidade' value={quantidade} onChange={(e) => setQuantidade(e.target.value)} />
+            <BtnAtivo onClick={handleSubmit} type="submit">Atualizar</BtnAtivo>
+            <BtnDespesa onClick={onClose}>Fechar</BtnDespesa>
+          </Form>
+        </ModalContent>
+      </ModalOverlay>
+    )
+  }
+export default ModalEdit;
