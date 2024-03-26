@@ -92,7 +92,7 @@ const ModalEdit: React.FC<ModalProps> = ({ onClose, walletId, onSubmit, fetchInv
             valor: valor,
             quantidade: quantidade,
         }
-        onSubmit(requestData);
+        onSubmit(requestData)
     }
 
     return (
@@ -113,8 +113,8 @@ const ModalEdit: React.FC<ModalProps> = ({ onClose, walletId, onSubmit, fetchInv
                 </Form>
             </ModalContent>
         </ModalOverlay>
-    );
-};
+    )
+}
 
 
-export default ModalEdit;
+export default ModalEdit
