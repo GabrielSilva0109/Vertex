@@ -81,19 +81,19 @@ const ModalEdit: React.FC<ModalProps> = ({ onClose, walletId, onSubmit, fetchInv
     useEffect(() => {
         // Se o investimento existir, atualize os estados com as informações dele
         if (investimento) {
-            setValor(investimento.valor);
-            setQuantidade(investimento.quantidade.toString());
+            setValor(investimento.valor)
+            setQuantidade(investimento.quantidade.toString())
         }
-    }, [investimento]);
+    }, [investimento])
 
     const handleSubmit = () => {
         const requestData = {
             walletId: walletId,
             valor: valor,
             quantidade: quantidade,
-        };
+        }
         onSubmit(requestData);
-    };
+    }
 
     return (
         <ModalOverlay>
@@ -101,13 +101,13 @@ const ModalEdit: React.FC<ModalProps> = ({ onClose, walletId, onSubmit, fetchInv
                 <Form>
                     <h1>Atualizar</h1>
                     <label>Valor: {investimento?.valor}</label>
-                    {/* Input para editar o valor */}
+                    
                     <Input type="number" placeholder="Valor" value={valor} onChange={(e) => setValor(e.target.value)} />
-                    {/* Label com informação da quantidade */}
+                    
                     <label>Quantidade: {investimento?.quantidade}</label>
-                    {/* Input para editar a quantidade */}
+                    
                     <Input type="number" placeholder="Quantidade" value={quantidade} onChange={(e) => setQuantidade(e.target.value)} />
-                    {/* Botões para submeter e fechar */}
+                    
                     <BtnAtivo onClick={handleSubmit} type="submit">Atualizar</BtnAtivo>
                     <BtnDespesa onClick={onClose}>Fechar</BtnDespesa>
                 </Form>
