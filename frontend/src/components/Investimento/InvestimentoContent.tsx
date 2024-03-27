@@ -9,6 +9,12 @@ import { toast } from 'react-toastify'
 import 'react-toastify/dist/ReactToastify.css'
 import { error } from 'console'
 
+
+interface Investimento {
+  id: number;
+  categoria: string;
+}
+
 export const MiniBox = styled.div`
   background: black;
   width: 90%;
@@ -136,11 +142,6 @@ font-weight: bold;
 background:#bfc1c1;
 color: black;
 `
-
-interface Investimento {
-  id: number;
-  categoria: string;
-}
 
 const Btns = styled.div`
   display: flex;
