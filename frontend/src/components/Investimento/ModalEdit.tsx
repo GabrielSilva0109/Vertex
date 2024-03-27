@@ -75,17 +75,13 @@ const Option = styled.option`
 `
 
 const ModalEdit: React.FC<ModalProps> = ({ onClose, walletId, onSubmit, fetchInvestimentos, investimento }) => {
-    const [valor, setValor] = useState('');
-    const [quantidade, setQuantidade] = useState('');
+    const [valor, setValor] = useState('')
+    const [quantidade, setQuantidade] = useState('')
 
     useEffect(() => {
-        // Se o investimento existir, atualize os estados com as informações dele
-        if (investimento) {
-            setValor(investimento.valor)
-            setQuantidade(investimento.quantidade.toString())
-        }
+       
     }, [investimento])
-
+    
     const handleSubmit = () => {
         const requestData = {
             walletId: walletId,

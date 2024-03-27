@@ -391,30 +391,33 @@ const InvestimentoContent: React.FC = () => {
 
   const editInvestimento = async (investimentoId: number, novosDados: any) => {
     try {
-      const response = await fetch(`http://localhost:3333/investimento/${investimentoId}`, {
-        method: 'PUT',
-        headers: {
-          'Content-Type': 'application/json'
-        },
-        body: JSON.stringify(novosDados)
-      });
-  
-      if (!response.ok) {
-        throw new Error(`Erro na requisição: ${response.status} - ${response.statusText}`);
-        console.log('Atualização erro', response)
-      }
-  
-      toast.success('Investimento atualizado com sucesso!')
-  
-      
-      closeModalEdit()
-  
-      // Atualize a lista de investimentos após a atualização bem-sucedida
-      await fetchInvestimentos(wallet_id);
+        const response = await fetch(`http://localhost:3333/investimento/${investimentoId}`, {
+            method: 'PUT',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify(novosDados)
+        });
+
+        if (!response.ok) {
+            throw new Error(`Erro na requisição: ${response.status} - ${response.statusText}`);
+            console.log('Atualização erro', response);
+        } else {
+            // Imprimir o corpo da resposta
+            const responseBody = await response.json()
+            
+            console.log("UPDATE", responseBody);
+        }
+
+        toast.success('Investimento atualizado com sucesso!');
+
+        closeModalEdit();
+
+        await fetchInvestimentos(wallet_id);
     } catch (error) {
-      console.error('Erro ao editar o investimento:', error);
+        console.error('Erro ao editar o investimento:', error);
     }
-  }
+};
 
   const somaTotalAcao = (quantidade: number, valor:number) => {
     return quantidade * valor
@@ -467,7 +470,7 @@ const InvestimentoContent: React.FC = () => {
                         onClose={closeModalEdit}
                         walletId={wallet_id}
                         onSubmit={(requestData: any) => {
-                          setInvestimentoAdicionado(true);
+                          editInvestimento(wallet_id, requestData)
                         } } fetchInvestimentos={function (): void {
                           throw new Error('Function not implemented.');
                         } }/>
