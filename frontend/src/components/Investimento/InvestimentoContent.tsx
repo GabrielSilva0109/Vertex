@@ -542,6 +542,16 @@ const InvestimentoContent: React.FC = () => {
                         ></path>
                       </svg>
                     </BtnEdit>
+                    {modalOpenEdit && (
+                      <ModalEdit
+                        onClose={closeModalEdit}
+                        walletId={wallet_id}
+                        onSubmit={(requestData: any) => {
+                          editInvestimento(investimento.id, requestData)
+                        } } fetchInvestimentos={function (): void {
+                          throw new Error('Function not implemented.');
+                        } }/>
+                      )}
                     <BtnDelete onClick={() => deleteInvestimento(investimento.id)}>
                     <svg
                           className="bin-top"
@@ -609,6 +619,16 @@ const InvestimentoContent: React.FC = () => {
                         ></path>
                       </svg>
                     </BtnEdit>
+                    {modalOpenEdit && (
+                      <ModalEdit
+                        onClose={closeModalEdit}
+                        walletId={wallet_id}
+                        onSubmit={(requestData: any) => {
+                          editInvestimento(investimento.id, requestData)
+                        } } fetchInvestimentos={function (): void {
+                          throw new Error('Function not implemented.');
+                        } }/>
+                      )}
                     <BtnDelete onClick={() => deleteInvestimento(investimento.id)}>
                     <svg
                           className="bin-top"
@@ -676,6 +696,16 @@ const InvestimentoContent: React.FC = () => {
                         ></path>
                       </svg>
                     </BtnEdit>
+                    {modalOpenEdit && (
+                      <ModalEdit
+                        onClose={closeModalEdit}
+                        walletId={wallet_id}
+                        onSubmit={(requestData: any) => {
+                          editInvestimento(investimento.id, requestData)
+                        } } fetchInvestimentos={function (): void {
+                          throw new Error('Function not implemented.');
+                        } }/>
+                      )}
                     <BtnDelete onClick={() => deleteInvestimento(investimento.id)}>
                     <svg
                           className="bin-top"
