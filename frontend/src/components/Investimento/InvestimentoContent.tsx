@@ -403,7 +403,10 @@ const InvestimentoContent: React.FC = () => {
             throw new Error(`Erro na requisição: ${response.status} - ${response.statusText}`);
             console.log('Atualização erro', response);
         } else {
-            console.log("UPDATE", response.body)
+            // Imprimir o corpo da resposta
+            const responseBody = await response.json()
+            
+            console.log("UPDATE", novosDados)
         }
 
         toast.success('Investimento atualizado com sucesso!');

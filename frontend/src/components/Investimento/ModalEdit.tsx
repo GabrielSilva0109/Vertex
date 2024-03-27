@@ -84,12 +84,12 @@ const ModalEdit: React.FC<ModalProps> = ({ onClose, walletId, onSubmit, fetchInv
     
     const handleSubmit = () => {
         const requestData = {
-            walletId: walletId,
             valor: valor,
             quantidade: quantidade,
-        }
-        onSubmit(requestData)
-    }
+        };
+        onSubmit(requestData);
+    };
+    
 
     return (
         <ModalOverlay>
