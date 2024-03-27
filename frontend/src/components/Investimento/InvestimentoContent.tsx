@@ -403,10 +403,7 @@ const InvestimentoContent: React.FC = () => {
             throw new Error(`Erro na requisição: ${response.status} - ${response.statusText}`);
             console.log('Atualização erro', response);
         } else {
-            // Imprimir o corpo da resposta
-            const responseBody = await response.json()
-            
-            console.log("UPDATE", responseBody);
+            console.log("UPDATE", response.body)
         }
 
         toast.success('Investimento atualizado com sucesso!');
@@ -470,7 +467,7 @@ const InvestimentoContent: React.FC = () => {
                         onClose={closeModalEdit}
                         walletId={wallet_id}
                         onSubmit={(requestData: any) => {
-                          editInvestimento(wallet_id, requestData)
+                          editInvestimento(investimento.id, requestData)
                         } } fetchInvestimentos={function (): void {
                           throw new Error('Function not implemented.');
                         } }/>
