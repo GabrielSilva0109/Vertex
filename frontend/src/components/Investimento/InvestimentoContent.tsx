@@ -272,7 +272,6 @@ const InvestimentoContent: React.FC = () => {
   const [investimentosPoupanca, setInvestimentosPoupanca] = useState<any[]>([])
   const [investimentoSelecionado, setInvestimentoSelecionado] = useState<any>(null)
   const [acaoTotal, setAcaoTotal] = useState<any>(null)
-
   const colors = ['#b0ff00', '#005954', '#338b85', '#ffcc00', '#9ce0db', '#4f46e5']
   const [expandedBoxes, setExpandedBoxes] = useState<{ [key: string]: boolean }>({
     acoes: false,
