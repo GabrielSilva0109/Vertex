@@ -11,8 +11,9 @@ import { error } from 'console'
 
 
 interface Investimento {
-  id: number;
-  categoria: string;
+  id: number
+  categoria: string
+  valor: number
 }
 
 export const MiniBox = styled.div`
@@ -285,6 +286,13 @@ const InvestimentoContent: React.FC = () => {
   const [modalOpen, setModalOpen] = useState(false)
   const [modalOpenEdit, setModalOpenEdit] = useState(false)
 
+  const [porcentagemAcoes, setPorcentagemAcoes] = useState<number>(0);
+  const [porcentagemCryptomoedas, setPorcentagemCryptomoedas] = useState<number>(0);
+  const [porcentagemMoedas, setPorcentagemMoedas] = useState<number>(0);
+  const [porcentagemFiis, setPorcentagemFiis] = useState<number>(0);
+  const [porcentagemRendaFixa, setPorcentagemRenda] = useState<number>(0);
+  const [porcentagemPoupanca, setPorcentagemPoupanca] = useState<number>(0);
+
   const openModal = () => {
     setModalOpen(true)
   }
@@ -340,13 +348,13 @@ const InvestimentoContent: React.FC = () => {
         throw new Error(`Erro na requisição: ${response.status} - ${response.statusText}`)
       }
       
-      const data = await response.json()
+      const data: Investimento[] = await response.json()
       let total = 0
-
-      data.forEach((investimento: any) => {
+  
+      data.forEach((investimento: Investimento) => {
         total += investimento.valor;
       })
-
+  
       setTotalInvestido(total)
       
       // Atualizar os estados com os investimentos filtrados
@@ -364,6 +372,22 @@ const InvestimentoContent: React.FC = () => {
       setInvestimentosFiis(investimentoFiis)
       setInvestimentosRendaFixa(investimentoRendaFixa)
       setInvestimentosPoupanca(investimentoPoupanca)
+  
+      // Calcular porcentagem de cada categoria de investimento
+      const porcentagemAcoes = (investimentosAcoes.reduce((acc, investimento) => acc + investimento.valor, 0) / total) * 100;
+      const porcentagemCryptomoedas = (investimentosCryptomoedas.reduce((acc, investimento) => acc + investimento.valor, 0) / total) * 100;
+      const porcentagemMoedas = (investimentoMoedas.reduce((acc, investimento) => acc + investimento.valor, 0) / total) * 100;
+      const porcentagemFiis = (investimentoFiis.reduce((acc, investimento) => acc + investimento.valor, 0) / total) * 100;
+      const porcentagemRendaFixa = (investimentoRendaFixa.reduce((acc, investimento) => acc + investimento.valor, 0) / total) * 100;
+      const porcentagemPoupanca = (investimentoPoupanca.reduce((acc, investimento) => acc + investimento.valor, 0) / total) * 100;
+  
+      // Atualizar os estados das porcentagens de investimento
+      setPorcentagemAcoes(porcentagemAcoes)
+      setPorcentagemCryptomoedas(porcentagemCryptomoedas)
+      setPorcentagemMoedas(porcentagemMoedas)
+      setPorcentagemFiis(porcentagemFiis)
+      setPorcentagemRenda(porcentagemRendaFixa)
+      setPorcentagemPoupanca(porcentagemPoupanca)
       
       // Fechar o modal após a atualização dos investimentos
       closeModal()
@@ -418,7 +442,7 @@ const InvestimentoContent: React.FC = () => {
     } catch (error) {
         console.error('Erro ao editar o investimento:', error);
     }
-};
+  }
 
   const somaTotalAcao = (quantidade: number, valor:number) => {
     return quantidade * valor
@@ -929,7 +953,15 @@ const InvestimentoContent: React.FC = () => {
       <RightContainer>
         <BoxRight>
             <h1>Carteira</h1>
-            <CircleGrafico />
+            <CircleGrafico 
+                porcentagemAcoes={porcentagemAcoes}
+                porcentagemCrypto={porcentagemCryptomoedas}
+                porcentagemMoedas={porcentagemMoedas}
+                porcentagemFiis={porcentagemFiis}
+                porcentagemRendaFixa={porcentagemRendaFixa}
+                porcentagemPoupanca={porcentagemPoupanca}
+              />
+
           <MiniBox style={{ marginTop: '-50px' }}>
             <Info>
               <h3>Valor Aplicado</h3>

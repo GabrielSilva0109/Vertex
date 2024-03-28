@@ -1,32 +1,43 @@
 import React, { useState } from 'react';
 import { PieChart, Pie, Cell, ResponsiveContainer, Tooltip } from 'recharts';
 
-interface Data {
-  name: string;
-  value: number;
-}
-
-const data: Data[] = [
-  { name: 'Acoes', value: 400 },
-  { name: 'Crypto', value: 600 },
-  { name: 'Moedas', value: 200 },
-  { name: 'Fundos', value: 300 },
-  { name: 'RendaFixa', value: 200 },
-  { name: 'Poupanca', value: 100 },
-];
-
-const COLORS = ['#b0ff00', '#005954', '#338b85', '#0030bf', '#9ce0db', '#4f46e5'];
-
 interface HoveredData {
   name: string;
   value: number;
   percentage: string;
 }
 
-const CircleGrafico: React.FC = () => {
+interface CircleGraficoProps {
+  porcentagemAcoes: number;
+  porcentagemCrypto: number;
+  porcentagemMoedas: number;
+  porcentagemFiis: number;
+  porcentagemRendaFixa: number;
+  porcentagemPoupanca: number;
+}
+
+const COLORS = ['#b0ff00', '#005954', '#338b85', '#0030bf', '#9ce0db', '#4f46e5'];
+
+const CircleGrafico: React.FC<CircleGraficoProps> = ({
+  porcentagemAcoes,
+  porcentagemCrypto,
+  porcentagemMoedas,
+  porcentagemFiis,
+  porcentagemRendaFixa,
+  porcentagemPoupanca
+}) => {
   const [hoveredData, setHoveredData] = useState<HoveredData | null>(null);
 
-  const handleMouseEnter = (data: Data, index: number) => {
+  const data = [
+    { name: 'Ações', value: porcentagemAcoes },
+    { name: 'Crypto', value: porcentagemCrypto },
+    { name: 'Moedas', value: porcentagemMoedas },
+    { name: 'FIIs', value: porcentagemFiis },
+    { name: 'Renda Fixa', value: porcentagemRendaFixa },
+    { name: 'Poupança', value: porcentagemPoupanca }
+  ];
+
+  const handleMouseEnter = (data: any, index: number) => {
     setHoveredData({
       name: data.name,
       value: data.value,
@@ -73,7 +84,7 @@ const CircleGrafico: React.FC = () => {
         </div>
       )}
     </div>
-  );
-};
+  )
+}
 
 export default CircleGrafico;
