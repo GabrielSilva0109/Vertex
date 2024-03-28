@@ -290,7 +290,7 @@ const InvestimentoContent: React.FC = () => {
   const [porcentagemCryptomoedas, setPorcentagemCryptomoedas] = useState<number>(0);
   const [porcentagemMoedas, setPorcentagemMoedas] = useState<number>(0);
   const [porcentagemFiis, setPorcentagemFiis] = useState<number>(0);
-  const [porcentagemRendaFixa, setPorcentagemRenda] = useState<number>(0);
+  const [porcentagemRendaFixa, setPorcentagemRendaFixa] = useState<number>(0);
   const [porcentagemPoupanca, setPorcentagemPoupanca] = useState<number>(0);
 
   const openModal = () => {
@@ -364,7 +364,7 @@ const InvestimentoContent: React.FC = () => {
       const investimentoFiis = data.filter((investimento: Investimento) => investimento.categoria === 'FIIs')
       const investimentoRendaFixa = data.filter((investimento: Investimento) => investimento.categoria === 'Renda Fixa')
       const investimentoPoupanca = data.filter((investimento: Investimento) => investimento.categoria === 'Poupança')
-
+  
       // Adicione mais estados conforme necessário para outras categorias
       setInvestimentosAcoes(investimentosAcoes)
       setInvestimentosCryptomoedas(investimentosCryptomoedas)
@@ -374,20 +374,28 @@ const InvestimentoContent: React.FC = () => {
       setInvestimentosPoupanca(investimentoPoupanca)
   
       // Calcular porcentagem de cada categoria de investimento
-      const porcentagemAcoes = (investimentosAcoes.reduce((acc, investimento) => acc + investimento.valor, 0) / total) * 100;
-      const porcentagemCryptomoedas = (investimentosCryptomoedas.reduce((acc, investimento) => acc + investimento.valor, 0) / total) * 100;
-      const porcentagemMoedas = (investimentoMoedas.reduce((acc, investimento) => acc + investimento.valor, 0) / total) * 100;
-      const porcentagemFiis = (investimentoFiis.reduce((acc, investimento) => acc + investimento.valor, 0) / total) * 100;
-      const porcentagemRendaFixa = (investimentoRendaFixa.reduce((acc, investimento) => acc + investimento.valor, 0) / total) * 100;
-      const porcentagemPoupanca = (investimentoPoupanca.reduce((acc, investimento) => acc + investimento.valor, 0) / total) * 100;
+      const porcentagemAcoes = ((investimentosAcoes.reduce((acc, investimento) => acc + investimento.valor, 0) / total) * 100).toFixed(2);
+      const porcentagemCryptomoedas = ((investimentosCryptomoedas.reduce((acc, investimento) => acc + investimento.valor, 0) / total) * 100).toFixed(2);
+      const porcentagemMoedas = ((investimentoMoedas.reduce((acc, investimento) => acc + investimento.valor, 0) / total) * 100).toFixed(2);
+      const porcentagemFiis = ((investimentoFiis.reduce((acc, investimento) => acc + investimento.valor, 0) / total) * 100).toFixed(2);
+      const porcentagemRendaFixa = ((investimentoRendaFixa.reduce((acc, investimento) => acc + investimento.valor, 0) / total) * 100).toFixed(2);
+      const porcentagemPoupanca = ((investimentoPoupanca.reduce((acc, investimento) => acc + investimento.valor, 0) / total) * 100).toFixed(2);
+  
+      // Converter porcentagens para números
+      const porcentagemAcoesNumber = parseFloat(porcentagemAcoes)
+      const porcentagemCryptomoedasNumber = parseFloat(porcentagemCryptomoedas)
+      const porcentagemMoedasNumber = parseFloat(porcentagemMoedas)
+      const porcentagemFiisNumber = parseFloat(porcentagemFiis)
+      const porcentagemRendaFixaNumber = parseFloat(porcentagemRendaFixa)
+      const porcentagemPoupancaNumber = parseFloat(porcentagemPoupanca)
   
       // Atualizar os estados das porcentagens de investimento
-      setPorcentagemAcoes(porcentagemAcoes)
-      setPorcentagemCryptomoedas(porcentagemCryptomoedas)
-      setPorcentagemMoedas(porcentagemMoedas)
-      setPorcentagemFiis(porcentagemFiis)
-      setPorcentagemRenda(porcentagemRendaFixa)
-      setPorcentagemPoupanca(porcentagemPoupanca)
+      setPorcentagemAcoes(porcentagemAcoesNumber);
+      setPorcentagemCryptomoedas(porcentagemCryptomoedasNumber);
+      setPorcentagemMoedas(porcentagemMoedasNumber);
+      setPorcentagemFiis(porcentagemFiisNumber);
+      setPorcentagemRendaFixa(porcentagemRendaFixaNumber);
+      setPorcentagemPoupanca(porcentagemPoupancaNumber);
       
       // Fechar o modal após a atualização dos investimentos
       closeModal()
@@ -395,6 +403,7 @@ const InvestimentoContent: React.FC = () => {
       console.error("Erro ao buscar os investimentos da carteira:", error)
     }
   }
+  
 
   const deleteInvestimento = async (investimentoId: number) => {
     try {
