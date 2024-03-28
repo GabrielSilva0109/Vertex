@@ -4,8 +4,6 @@ import { useLocation, useNavigate } from "react-router-dom"
 import { toast } from "react-toastify"
 import Content from "./CarteiraContent"
 
-
-
 const Carteira: React.FC = () => {
     const { state } = useLocation()
     const user = state?.user    
@@ -17,7 +15,7 @@ const Carteira: React.FC = () => {
             toast.warning("Faça o login para acessar a página Carteira.")
             await navigate('/login')
         }
-      };
+      }
 
     useEffect(() => {
         redirectToLogin()
