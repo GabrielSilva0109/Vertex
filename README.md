@@ -148,6 +148,14 @@ POST /wallet: Cria uma nova Wallet.
 PUT /wallet/:id: Atualiza os dados da Wallet.
 DELETE /wallet/:id: Exclui a Wallet.
 ```
+Wallet
+```
+GET /wallets: Retorna todas as Wallets.
+GET /wallet/:id Retorna Wallet por ID.
+POST /wallet: Cria uma nova Wallet.
+PUT /wallet/:id: Atualiza os dados da Wallet.
+DELETE /wallet/:id: Exclui a Wallet.
+```
 
 ## Tecnologias Utilizadas
 
