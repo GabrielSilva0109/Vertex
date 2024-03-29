@@ -142,19 +142,19 @@ DELETE /user/:id: Exclui o Usuario.
 
 Wallet
 ```
-GET /wallets: Retorna todas as Wallets.
-GET /wallet/:id Retorna Wallet por ID.
-POST /wallet: Cria uma nova Wallet.
-PUT /wallet/:id: Atualiza os dados da Wallet.
-DELETE /wallet/:id: Exclui a Wallet.
+GET /wallets - Retorna todas as Wallets.
+GET /wallet/:id - Retorna Wallet por ID.
+POST /wallet - Cria uma nova Wallet.
+PUT /wallet/:id - Atualiza os dados da Wallet.
+DELETE /wallet/:id - Exclui a Wallet.
 ```
 Ativo
 ```
-GET /ativos: Retorna todas os Ativos.
-GET /ativo/:id Retorna Ativo por ID.
-POST /wallet: Cria uma nova Wallet.
-PUT /wallet/:id: Atualiza os dados da Wallet.
-DELETE /wallet/:id: Exclui a Wallet.
+GET /ativos - Retorna todas os Ativos.
+GET /ativo/:id - Retorna Ativo por ID.
+POST /ativo - Cria um novo Ativo.
+PUT /ativo/:id - Atualiza os dados do Ativo.
+DELETE /ativo/:id - Exclui o Ativo.
 ```
 
 ## Tecnologias Utilizadas
