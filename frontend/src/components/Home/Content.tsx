@@ -21,7 +21,7 @@ const Container = styled.div`
   display: flex;
   background: rgb(28, 28, 30);
   width: 100%;
-  height: 100vh;
+  
   color: white;
 
   @media (max-width: 768px) {
@@ -49,9 +49,13 @@ const RightContainer = styled.div`
 
 const Top = styled.div`
   display: flex;
-  justify-content: space-between;
   width: 100%;
   gap: 5px;
+
+  @media (max-width: 768px) {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+  }
 `
 
 const Box = styled.div`
@@ -67,6 +71,10 @@ const Box = styled.div`
   justify-content: space-evenly;
   overflow: hidden;
   transition: all 0.6s cubic-bezier(0.23, 1, 0.320, 1);
+
+  @media (max-width: 768px) {
+    width: auto;
+  }
 `
 
 const Main = styled.main`

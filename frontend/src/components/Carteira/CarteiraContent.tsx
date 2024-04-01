@@ -115,8 +115,8 @@ const Extrato =  styled.div`
   }
 `
 
-const ExtratoItem = styled.div<{categoria: string}>`
-  display: flex;
+const ExtratoItem = styled.div<{ categoria: string }>`
+  display: flex; /* Alterado para flex */
   justify-content: space-between;
   align-items: center;
   padding: 0px 15px;
@@ -125,9 +125,23 @@ const ExtratoItem = styled.div<{categoria: string}>`
   border-radius: 8px;
   color: white;
   font-weight: bold;
-
   background-color: ${(props) =>
-    props.categoria === 'ativo' ? '#4CAF50' : props.categoria === 'despesa' ? '#FF5733' : 'gray'};
+    props.categoria === 'ativo'
+      ? '#4CAF50'
+      : props.categoria === 'despesa'
+      ? '#FF5733'
+      : 'gray'};
+    
+`
+
+const Dados = styled.p`
+    min-width: 50px;
+`
+
+const DadosData = styled.p`
+  @media (max-width: 768px) {
+    display:none;
+  }
 `
 
 const ImgPerfil = styled.div`
@@ -185,75 +199,6 @@ const BtnDelete = styled.button`
   }
 `
 
-const BtnEdit = styled.button`
-width: 35px;
-height: 35px;
-border-radius: 10px;
-border: none;
-background-color: #2c2c2c;
-display: flex;
-align-items: center;
-justify-content: center;
-box-shadow: 0px 5px 10px rgba(0, 0, 0, 0.123);
-cursor: pointer;
-position: relative;
-overflow: hidden;
-transition: all 0.3s;
-
-&::before {
-  content: "";
-  width: 200%;
-  height: 200%;
-  background-color: rgb(102, 102, 141);
-  position: absolute;
-  z-index: 1;
-  transform: scale(0);
-  transition: all 0.3s;
-  border-radius: 50%;
-  filter: blur(10px);
-}
-
-&:hover::before {
-  transform: scale(1);
-}
-
-&:hover {
-  box-shadow: 0px 5px 10px rgba(0, 0, 0, 0.336);
-}
-
-svg {
-  height: 15px;
-  fill: white;
-  z-index: 3;
-  transition: all 0.2s;
-  transform-origin: bottom;
-}
-
-&:hover svg {
-  transform: rotate(-15deg) translateX(5px);
-}
-
-&::after {
-  content: "";
-  width: 25px;
-  height: 1.5px;
-  position: absolute;
-  bottom: 10px;
-  left: -5px;
-  background-color: white;
-  border-radius: 2px;
-  z-index: 2;
-  transform: scaleX(0);
-  transform-origin: left;
-  transition: transform 0.5s ease-out;
-}
-
-&:hover::after {
-  transform: scaleX(1);
-  left: -7.5px;
-  transform-origin: right;
-}
-`
 
 interface Transacao {
   id: number;
@@ -495,11 +440,11 @@ const CarteiraContent: React.FC = () =>{
             <Extrato>
               {extrato.map((transacao) => (
                 <ExtratoItem key={transacao.id} categoria={transacao.categoria}>
-                  <p>{transacao.titulo}</p>
-                  <p>R${formatarSaldo(transacao.valor)}</p>
-                  <p>{transacao.observacao}</p>
-                  <p>{transacao.fonte}</p>
-                  <p>{formatarData(transacao.data)}</p>
+                  <Dados>{transacao.titulo}</Dados>
+                  <Dados>R${formatarSaldo(transacao.valor)}</Dados>
+                  <Dados>{transacao.observacao}</Dados>
+                  <Dados>{transacao.fonte}</Dados>
+                  <DadosData>{formatarData(transacao.data)}</DadosData>
                   <Btns>
                     <BtnDelete onClick={() => deleteTransacao(transacao.id,  transacao.categoria, transacao.valor)}>
                     <svg
