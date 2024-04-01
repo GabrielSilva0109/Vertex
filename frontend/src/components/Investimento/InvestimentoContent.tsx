@@ -403,7 +403,6 @@ const InvestimentoContent: React.FC = () => {
       console.error("Erro ao buscar os investimentos da carteira:", error)
     }
   }
-  
 
   const deleteInvestimento = async (investimentoId: number) => {
     try {
@@ -714,7 +713,7 @@ const InvestimentoContent: React.FC = () => {
                           )}
                     </Btns>        
                     </Investimento>
-                  ))}SS
+                  ))}
                 </div>
               )}
           </ExpandedBox>
