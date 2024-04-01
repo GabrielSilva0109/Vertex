@@ -18,6 +18,7 @@ const Container = styled.div`
 const BoxCrypto = styled.div`
   display: flex;
   justify-content: center;
+  align-items: center;
   margin-left: 30px;
   border-radius: 20px;
   width: 70%;
@@ -37,19 +38,26 @@ const Text = styled.p`
   font-size: 0.8rem;
 `
 
-const ButtonContainer = styled.div`
-  display: flex;
-  gap: 10px;
-  margin-top: 10px;
-`
-
 const Button = styled.button`
-  background-color: #007bff;
-  color: white;
-  padding: 10px 20px;
-  border: none;
-  border-radius: 5px;
+  background-color: #1c1c1e ;
+  border-radius: 50px;
   cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin: 10px;
+  color: white;
+  font-size: 1.2em;
+  font-weight: bold;
+  border: none;
+  width: 30px;
+  height: 30px;
+
+  &:hover {
+    background-color: white;
+  }
+
+
 `
 
 const NoticiasContent: React.FC = () => {
@@ -81,7 +89,10 @@ const NoticiasContent: React.FC = () => {
   return (
     <Container>
       <BoxCrypto>
+        <div>
         <Button onClick={handlePrevious} disabled={startIndex === 0}>-</Button>
+        </div>
+        
           {noticias.slice(startIndex, startIndex + 3).map((noticia: any, index: number) => (
             <Item key={index}>
               <h4>{noticia.title}</h4>
@@ -89,7 +100,9 @@ const NoticiasContent: React.FC = () => {
               <a href={noticia.url} target="_blank" rel="noopener noreferrer">Leia mais</a>
             </Item>
           ))}
-        <Button onClick={handleNext} disabled={startIndex + 3 >= noticias.length}>+</Button>
+        <div>
+          <Button onClick={handleNext} disabled={startIndex + 3 >= noticias.length}>+</Button>
+        </div>
       </BoxCrypto>
     </Container>
   ) 
