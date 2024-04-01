@@ -19,7 +19,7 @@ interface Investimento {
 export const MiniBox = styled.div`
   background: black;
   width: 90%;
-  padding: 5px;
+  padding: 0px 5px;
   border-radius: 15px;
 `
 

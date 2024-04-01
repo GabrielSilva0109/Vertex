@@ -105,6 +105,7 @@ export const BoxRight = styled.div`
 `
 
 const Extrato =  styled.div`
+  padding-bottom: 20px;
   width: 90%;
   overflow-y: auto;
   scrollbar-width: thin;
@@ -198,7 +199,6 @@ const BtnDelete = styled.button`
     transform: rotate(45deg);
   }
 `
-
 
 interface Transacao {
   id: number;
@@ -434,93 +434,79 @@ const CarteiraContent: React.FC = () =>{
     
     return(
         <Container>
-        <LeftContainer>  
-          <Main>
-            <h1>Extrato</h1>
-            <Extrato>
-              {extrato.map((transacao) => (
-                <ExtratoItem key={transacao.id} categoria={transacao.categoria}>
-                  <Dados>{transacao.titulo}</Dados>
-                  <Dados>R${formatarSaldo(transacao.valor)}</Dados>
-                  <Dados>{transacao.observacao}</Dados>
-                  <Dados>{transacao.fonte}</Dados>
-                  <DadosData>{formatarData(transacao.data)}</DadosData>
-                  <Btns>
-                    <BtnDelete onClick={() => deleteTransacao(transacao.id,  transacao.categoria, transacao.valor)}>
-                    <svg
-                          className="bin-top"
-                          viewBox="0 0 39 7"
-                          fill="none"
-                          xmlns="http://www.w3.org/2000/svg"
-                        >
-                          <line y1="5" x2="39" y2="5" stroke="white" stroke-width="4"></line>
-                          <line
-                            x1="12"
-                            y1="1.5"
-                            x2="26.0357"
-                            y2="1.5"
-                            stroke="white"
-                            stroke-width="3"
-                          ></line>
-                        </svg>
-                        <svg
-                          className="bin-bottom"
-                          viewBox="0 0 33 39"
-                          fill="none"
-                          xmlns="http://www.w3.org/2000/svg"
-                        >
-                          <mask id="path-1-inside-1_8_19" fill="white">
+          <RightContainer>
+            <BoxRight>
+            <ImgPerfil></ImgPerfil>
+              <h4>{user.name}</h4>
+
+              <BtnAtivo onClick={openModal}>Adicionar Transação</BtnAtivo>
+              <Modal
+                  isOpen={isModalOpen}
+                  onClose={closeModal}
+                  onSubmit={onSubmit}
+                  formData={formData}
+                  setFormData={setFormData}
+                  isDespesa={isDespesa}
+                  onCheckboxChange={handleCheckboxChange}
+                />
+            </BoxRight>
+          </RightContainer>
+
+          <LeftContainer>  
+            <Main>
+              <h1>Extrato</h1>
+              <Extrato>
+                {extrato.map((transacao) => (
+                  <ExtratoItem key={transacao.id} categoria={transacao.categoria}>
+                    <Dados>{transacao.titulo}</Dados>
+                    <Dados>R${formatarSaldo(transacao.valor)}</Dados>
+                    <Dados>{transacao.observacao}</Dados>
+                    <Dados>{transacao.fonte}</Dados>
+                    <DadosData>{formatarData(transacao.data)}</DadosData>
+                    <Btns>
+                      <BtnDelete onClick={() => deleteTransacao(transacao.id,  transacao.categoria, transacao.valor)}>
+                      <svg
+                            className="bin-top"
+                            viewBox="0 0 39 7"
+                            fill="none"
+                            xmlns="http://www.w3.org/2000/svg"
+                          >
+                            <line y1="5" x2="39" y2="5" stroke="white" stroke-width="4"></line>
+                            <line
+                              x1="12"
+                              y1="1.5"
+                              x2="26.0357"
+                              y2="1.5"
+                              stroke="white"
+                              stroke-width="3"
+                            ></line>
+                          </svg>
+                          <svg
+                            className="bin-bottom"
+                            viewBox="0 0 33 39"
+                            fill="none"
+                            xmlns="http://www.w3.org/2000/svg"
+                          >
+                            <mask id="path-1-inside-1_8_19" fill="white">
+                              <path
+                                d="M0 0H33V35C33 37.2091 31.2091 39 29 39H4C1.79086 39 0 37.2091 0 35V0Z"
+                              ></path>
+                            </mask>
                             <path
-                              d="M0 0H33V35C33 37.2091 31.2091 39 29 39H4C1.79086 39 0 37.2091 0 35V0Z"
+                              d="M0 0H33H0ZM37 35C37 39.4183 33.4183 43 29 43H4C-0.418278 43 -4 39.4183 -4 35H4H29H37ZM4 43C-0.418278 43 -4 39.4183 -4 35V0H4V35V43ZM37 0V35C37 39.4183 33.4183 43 29 43V35V0H37Z"
+                              fill="white"
+                              mask="url(#path-1-inside-1_8_19)"
                             ></path>
-                          </mask>
-                          <path
-                            d="M0 0H33H0ZM37 35C37 39.4183 33.4183 43 29 43H4C-0.418278 43 -4 39.4183 -4 35H4H29H37ZM4 43C-0.418278 43 -4 39.4183 -4 35V0H4V35V43ZM37 0V35C37 39.4183 33.4183 43 29 43V35V0H37Z"
-                            fill="white"
-                            mask="url(#path-1-inside-1_8_19)"
-                          ></path>
-                          <path d="M12 6L12 29" stroke="white" stroke-width="4"></path>
-                          <path d="M21 6V29" stroke="white" stroke-width="4"></path>
-                        </svg>
-                    </BtnDelete>
-                  </Btns>
-                </ExtratoItem>
-              ))}
-            </Extrato>
-          </Main>
-        </LeftContainer>
-  
-        <RightContainer>
-          <BoxRight>
-          <ImgPerfil></ImgPerfil>
-            <h4>{user.name}</h4>
-            <MiniBox>
-              <Info>
-                <h3>Saldo</h3><h4>R${saldo}</h4>   
-              </Info>
-              <Info>
-                <h3>Ativos</h3><h4>R${ativos}</h4>   
-              </Info>
-              <Info>
-                <h3>Despesas</h3><h4>R${despesas}</h4>   
-              </Info>
-              <Info>
-                <h3>Investimento</h3><h4>R${saldo}</h4>   
-              </Info>
-            </MiniBox>
-            
-            <BtnAtivo onClick={openModal}>Adicionar Transação</BtnAtivo>
-            <Modal
-                isOpen={isModalOpen}
-                onClose={closeModal}
-                onSubmit={onSubmit}
-                formData={formData}
-                setFormData={setFormData}
-                isDespesa={isDespesa}
-                onCheckboxChange={handleCheckboxChange}
-              />
-          </BoxRight>
-        </RightContainer>
+                            <path d="M12 6L12 29" stroke="white" stroke-width="4"></path>
+                            <path d="M21 6V29" stroke="white" stroke-width="4"></path>
+                          </svg>
+                      </BtnDelete>
+                    </Btns>
+                  </ExtratoItem>
+                ))}
+              </Extrato>
+            </Main>
+          </LeftContainer>
       </Container>
     )
 }
