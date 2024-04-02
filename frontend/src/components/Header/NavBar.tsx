@@ -94,7 +94,7 @@ const NavBar: React.FC<{user?: any}> = ({user}) => {
         <Nav>
             <TitleBank>
                 <Icon>$</Icon>                
-                <h1>Vertex Bank</h1>
+                <h1>Vertex </h1>
             </TitleBank>
 
             <Links>

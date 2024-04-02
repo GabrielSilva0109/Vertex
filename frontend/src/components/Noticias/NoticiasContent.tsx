@@ -155,10 +155,15 @@ const Box = styled.div`
   display: flex;
   align-items: center;
   width: 300px;
+  
 `
 
 const ImgMark = styled.img`
   max-width: 100%;
+
+  @media (max-width: 768px) {
+    display: none;
+  }
 `
 
 const NoticiasContent: React.FC = () => {
