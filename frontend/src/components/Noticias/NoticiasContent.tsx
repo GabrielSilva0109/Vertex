@@ -199,7 +199,7 @@ const NoticiasContent: React.FC = () => {
       if (response.ok) {
         const data = await response.json();
         const filteredData = {
-          USD: data.rates.USD,
+          USD: data.rates.USD, 
           EUR: data.rates.EUR,
           BRL: data.rates.BRL,
           JPY: data.rates.JPY,
