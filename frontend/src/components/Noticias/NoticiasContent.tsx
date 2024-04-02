@@ -25,7 +25,6 @@ const BoxCrypto = styled.div`
   width: 70%;
   background: #2C2C2C;
   height: 400px;
-  margin-bottom: 10px;
 
   @media (max-width: 768px) {
     margin-left: 0;
@@ -143,18 +142,24 @@ const Button = styled.button`
 
 const CurrencySlide = styled.div`
   display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  background-color: #2C2C2C;
-  border-radius: 10px;
-  height: 100px;
+  background-color: black;
+  margin: 10px;
+  gap: 10px;
 `
 
-const StyledSlider = styled(Slider)`
-  max-width: 100%; // Ou o tamanho desejado
-`;
+const SlideBar = styled.div`
+  margin: 0px;
+  padding: 0px;
 
+`
+
+const PriceItems = styled.div`
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  gap: 10px;
+`
 
 const NoticiasContent: React.FC = () => {
   const [noticiasGerais, setNoticiasGerais] = useState([])
@@ -190,7 +195,19 @@ const NoticiasContent: React.FC = () => {
         const response = await fetch('https://open.er-api.com/v6/latest/USD');
         if (response.ok) {
           const data = await response.json();
-          setCurrencyData(data.rates);
+          const filteredData = {
+            USD: data.rates.USD,
+            EUR: data.rates.EUR,
+            BRL: data.rates.BRL,
+            JPY: data.rates.JPY,
+            AUD: data.rates.AUD,
+            CHF: data.rates.CHF,
+            CAD: data.rates.CAD,
+            CNY: data.rates.CNY,
+            HKD: data.rates.HKD,
+            SEK: data.rates.SEK,
+          };
+          setCurrencyData(filteredData);
         } else {
           throw new Error('Failed to fetch currency data');
         }
@@ -198,18 +215,29 @@ const NoticiasContent: React.FC = () => {
         console.error('Error fetching currency data:', error);
       }
     };
+  
+    fetchCurrencyData()
+  }, [])
+  
 
-    fetchCurrencyData();
-  }, []);
-
+  const CustomPrevArrow = (props: any) => {
+    return <></>
+  }
+  
+  const CustomNextArrow = (props: any) => {
+    return <></>
+  }
+  
   const settings = {
     dots: false,
     infinite: true,
-    speed: 500,
-    slidesToShow: 3,
+    speed: 9000,
+    slidesToShow: 7,
     slidesToScroll: 1,
     autoplay: true,
-    autoplaySpeed: 2000,
+    autoplaySpeed: 1,
+    prevArrow: <CustomPrevArrow />, 
+    nextArrow: <CustomNextArrow />, 
   }
 
   useEffect(() => {
@@ -253,18 +281,21 @@ const NoticiasContent: React.FC = () => {
           <Button onClick={handleNextGerais} disabled={startIndexGerais + 3 >= noticiasGerais.length}>+</Button>
         </div>
       </BoxCrypto>
-          <div>
-          {currencyData && (
-        <Slider style={{ maxWidth: '100%' }} {...settings}>
-          {Object.entries(currencyData).map(([currencyCode, rate]) => (
+      
+      <SlideBar>
+        {currencyData && (
+          <Slider {...settings} >
+            {Object.entries(currencyData).map(([currencyCode, rate]) => (
               <CurrencySlide key={currencyCode}>
-                <h2>{currencyCode}</h2>
-                
+                <PriceItems> 
+                  <h3>{currencyCode}</h3>
+                  <p>R$ {parseFloat(String(rate)).toFixed(2)}</p>
+                </PriceItems>
               </CurrencySlide>
             ))}
-        </Slider>
-      )}
-          </div>
+          </Slider>
+        )}
+      </SlideBar>
       <BoxAcoes>
         <div>
           <Button onClick={handlePreviousCrypto} disabled={startIndexCrypto === 0}>-</Button>
