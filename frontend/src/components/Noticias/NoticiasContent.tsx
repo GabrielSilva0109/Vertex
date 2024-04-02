@@ -1,6 +1,10 @@
-import React, { useEffect, useState } from 'react';
-import { useLocation } from 'react-router-dom';
-import styled from 'styled-components';
+import React, { useEffect, useState } from 'react'
+import { useLocation } from 'react-router-dom'
+import styled from 'styled-components'
+import Slider from 'react-slick'
+import 'slick-carousel/slick/slick.css'
+import 'slick-carousel/slick/slick-theme.css'
+
 
 const Container = styled.div`
   display: flex;
@@ -38,7 +42,6 @@ const BoxAcoes = styled.div`
   width: 70%;
   background: #b0ff00;
   height: 400px;
-  margin-left: 370px;
 
   @media (max-width: 768px) {
     margin-left: 0;
@@ -138,11 +141,27 @@ const Button = styled.button`
   }
 `
 
+const CurrencySlide = styled.div`
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  background-color: #2C2C2C;
+  border-radius: 10px;
+  height: 100px;
+`
+
+const StyledSlider = styled(Slider)`
+  max-width: 100%; // Ou o tamanho desejado
+`;
+
+
 const NoticiasContent: React.FC = () => {
   const [noticiasGerais, setNoticiasGerais] = useState([])
   const [noticiasCrypto, setNoticiasCrypto] = useState([])
   const [startIndexGerais, setStartIndexGerais] = useState(0)
   const [startIndexCrypto, setStartIndexCrypto] = useState(0)
+  const [currencyData, setCurrencyData] = useState<any>(null)
 
   async function fetchNoticiasGerais() {
     try {
@@ -165,9 +184,34 @@ const NoticiasContent: React.FC = () => {
     
   }
 
-  async function fetchPriceSheres(price:number) {
-    
+  useEffect(() => {
+    const fetchCurrencyData = async () => {
+      try {
+        const response = await fetch('https://open.er-api.com/v6/latest/USD');
+        if (response.ok) {
+          const data = await response.json();
+          setCurrencyData(data.rates);
+        } else {
+          throw new Error('Failed to fetch currency data');
+        }
+      } catch (error) {
+        console.error('Error fetching currency data:', error);
+      }
+    };
+
+    fetchCurrencyData();
+  }, []);
+
+  const settings = {
+    dots: false,
+    infinite: true,
+    speed: 500,
+    slidesToShow: 3,
+    slidesToScroll: 1,
+    autoplay: true,
+    autoplaySpeed: 2000,
   }
+
   useEffect(() => {
     fetchNoticiasGerais()
     fetchNoticiasCrypto()
@@ -209,7 +253,18 @@ const NoticiasContent: React.FC = () => {
           <Button onClick={handleNextGerais} disabled={startIndexGerais + 3 >= noticiasGerais.length}>+</Button>
         </div>
       </BoxCrypto>
-
+          <div>
+          {currencyData && (
+        <Slider style={{ maxWidth: '100%' }} {...settings}>
+          {Object.entries(currencyData).map(([currencyCode, rate]) => (
+              <CurrencySlide key={currencyCode}>
+                <h2>{currencyCode}</h2>
+                
+              </CurrencySlide>
+            ))}
+        </Slider>
+      )}
+          </div>
       <BoxAcoes>
         <div>
           <Button onClick={handlePreviousCrypto} disabled={startIndexCrypto === 0}>-</Button>
