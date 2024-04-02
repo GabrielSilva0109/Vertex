@@ -135,7 +135,6 @@ const CurrencySlide = styled.div`
 const SlideBar = styled.div`
   margin: 0px;
   padding: 0px;
-
 `
 
 const PriceItems = styled.div`
@@ -194,36 +193,31 @@ const NoticiasContent: React.FC = () => {
     
   }
 
-  useEffect(() => {
-    const fetchCurrencyData = async () => {
-      try {
-        const response = await fetch('https://open.er-api.com/v6/latest/USD');
-        if (response.ok) {
-          const data = await response.json();
-          const filteredData = {
-            USD: data.rates.USD,
-            EUR: data.rates.EUR,
-            BRL: data.rates.BRL,
-            JPY: data.rates.JPY,
-            AUD: data.rates.AUD,
-            CHF: data.rates.CHF,
-            CAD: data.rates.CAD,
-            CNY: data.rates.CNY,
-            HKD: data.rates.HKD,
-            SEK: data.rates.SEK,
-          };
-          setCurrencyData(filteredData);
-        } else {
-          throw new Error('Failed to fetch currency data');
-        }
-      } catch (error) {
-        console.error('Error fetching currency data:', error);
+  const fetchCurrencyData = async () => {
+    try {
+      const response = await fetch('https://open.er-api.com/v6/latest/USD');
+      if (response.ok) {
+        const data = await response.json();
+        const filteredData = {
+          USD: data.rates.USD,
+          EUR: data.rates.EUR,
+          BRL: data.rates.BRL,
+          JPY: data.rates.JPY,
+          AUD: data.rates.AUD,
+          CHF: data.rates.CHF,
+          CAD: data.rates.CAD,
+          CNY: data.rates.CNY,
+          HKD: data.rates.HKD,
+          SEK: data.rates.SEK,
+        };
+        setCurrencyData(filteredData);
+      } else {
+        throw new Error('Failed to fetch currency data');
       }
-    };
-  
-    fetchCurrencyData()
-  }, [])
-  
+    } catch (error) {
+      console.error('Error fetching currency data:', error);
+    }
+  }  
 
   const CustomPrevArrow = (props: any) => {
     return <></>
@@ -248,6 +242,7 @@ const NoticiasContent: React.FC = () => {
   useEffect(() => {
     fetchNoticiasGerais()
     fetchNoticiasCrypto()
+    fetchCurrencyData()
   }, [])
 
   const handleNextGerais = () => {
