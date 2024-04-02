@@ -127,8 +127,13 @@ No diretório frontend, execute o seguinte comando:
 npm start
 ```
 O aplicativo frontend estará disponível em http://localhost:3000.
+## APIs Usadas
+1-Coincheko - Forcece preço e demais informações sobre Cryptoativos.
+2-NewAPI - Fornece noticias sobre finanças e tecnologia.
+3-Alpha Vantage - Forcese Preço e demais informações sobre Ações, ETFs, FIIs e Moedas.
 
-## APIs
+
+## Backend API
 As APIs oferecem os seguintes endpoints:
 
 User
@@ -139,7 +144,6 @@ POST /user: Cria um novo Usuario.
 PUT /user/:id: Atualiza os dados do usuario.
 DELETE /user/:id: Exclui o Usuario.
 ```
-
 Wallet
 ```
 GET /wallets - Retorna todas as Wallets.
@@ -160,8 +164,10 @@ DELETE /ativo/:id - Exclui o Ativo.
 ## Tecnologias Utilizadas
 
 ReactJS
-Styled-components
 Node.js
 Express
-MySql
+MySQL
+Recharts Graficos
+Styled-components
+
 
