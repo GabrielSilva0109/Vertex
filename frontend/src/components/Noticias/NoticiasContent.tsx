@@ -144,27 +144,31 @@ const NoticiasContent: React.FC = () => {
   const [startIndexGerais, setStartIndexGerais] = useState(0)
   const [startIndexCrypto, setStartIndexCrypto] = useState(0)
 
+  async function fetchNoticiasGerais() {
+    try {
+      const response = await fetch("https://newsapi.org/v2/everything?q=apple&language=pt&apiKey=3ba975a9509b47f9958e5534f814dec7")
+      const data = await response.json()
+      setNoticiasGerais(data.articles)
+    } catch (error) {
+      console.error('Erro ao buscar notícias gerais:', error)
+    }
+  }
+
+  async function fetchNoticiasCrypto() {
+    try {
+      const response = await fetch("https://newsapi.org/v2/everything?q=Crypto&language=pt&apiKey=3ba975a9509b47f9958e5534f814dec7")
+      const data = await response.json()
+      setNoticiasCrypto(data.articles)
+    } catch (error) {
+      console.error('Erro ao buscar notícias sobre criptomoedas:', error)
+    }
+    
+  }
+
+  async function fetchPriceSheres(price:number) {
+    
+  }
   useEffect(() => {
-    async function fetchNoticiasGerais() {
-      try {
-        const response = await fetch("https://newsapi.org/v2/everything?q=apple&language=pt&apiKey=3ba975a9509b47f9958e5534f814dec7")
-        const data = await response.json()
-        setNoticiasGerais(data.articles)
-      } catch (error) {
-        console.error('Erro ao buscar notícias gerais:', error)
-      }
-    }
-
-    async function fetchNoticiasCrypto() {
-      try {
-        const response = await fetch("https://newsapi.org/v2/everything?q=Crypto&language=pt&apiKey=3ba975a9509b47f9958e5534f814dec7")
-        const data = await response.json()
-        setNoticiasCrypto(data.articles)
-      } catch (error) {
-        console.error('Erro ao buscar notícias sobre criptomoedas:', error)
-      }
-    }
-
     fetchNoticiasGerais()
     fetchNoticiasCrypto()
   }, [])
