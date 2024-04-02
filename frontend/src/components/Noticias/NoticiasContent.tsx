@@ -4,7 +4,8 @@ import styled from 'styled-components'
 import Slider from 'react-slick'
 import 'slick-carousel/slick/slick.css'
 import 'slick-carousel/slick/slick-theme.css'
-
+import world from "../Sections/img/world.png"
+import crypto from '../Sections/img/crypto.png'
 
 const Container = styled.div`
   display: flex;
@@ -16,7 +17,7 @@ const Container = styled.div`
   color: white;
 `
 
-const BoxCrypto = styled.div`
+const BoxNews = styled.div`
   display: flex;
   justify-content: center;
   align-items: center;
@@ -25,23 +26,6 @@ const BoxCrypto = styled.div`
   width: 70%;
   background: #2C2C2C;
   height: 400px;
-
-  @media (max-width: 768px) {
-    margin-left: 0;
-    width: 100%;
-  }
-`
-
-const BoxAcoes = styled.div`
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  margin-left: 30px;
-  border-radius: 20px;
-  width: 70%;
-  background: #b0ff00;
-  height: 400px;
-  margin-left: 370px;
 
   @media (max-width: 768px) {
     margin-left: 0;
@@ -161,15 +145,20 @@ const PriceItems = styled.div`
   text-align: center;
   gap: 10px;
 `
+
 const Main = styled.div`
   display: flex;
   gap: 40px;
 `
 
 const Box = styled.div`
-  background: white;
-  border-radius: 20px;
+  display: flex;
+  align-items: center;
   width: 300px;
+`
+
+const ImgMark = styled.img`
+  max-width: 100%;
 `
 
 const NoticiasContent: React.FC = () => {
@@ -181,7 +170,7 @@ const NoticiasContent: React.FC = () => {
 
   async function fetchNoticiasGerais() {
     try {
-      const response = await fetch("https://newsapi.org/v2/everything?q=apple&language=pt&apiKey=3ba975a9509b47f9958e5534f814dec7")
+      const response = await fetch("https://newsapi.org/v2/everything?q=tecnologia&language=pt&apiKey=3ba975a9509b47f9958e5534f814dec7")
       const data = await response.json()
       setNoticiasGerais(data.articles)
     } catch (error) {
@@ -275,7 +264,7 @@ const NoticiasContent: React.FC = () => {
   return (
     <Container>
       <Main>
-        <BoxCrypto>
+        <BoxNews>
           <div>
             <Button onClick={handlePreviousGerais} disabled={startIndexGerais === 0}>-</Button>
           </div>
@@ -292,9 +281,9 @@ const NoticiasContent: React.FC = () => {
           <div>
             <Button onClick={handleNextGerais} disabled={startIndexGerais + 3 >= noticiasGerais.length}>+</Button>
           </div>
-        </BoxCrypto>
+        </BoxNews>
         <Box>
-            a
+            <ImgMark src={world} />
         </Box>
       </Main>
       
@@ -313,24 +302,31 @@ const NoticiasContent: React.FC = () => {
           </Slider>
         )}
       </SlideBar>
-      <BoxAcoes>
-        <div>
-          <Button onClick={handlePreviousCrypto} disabled={startIndexCrypto === 0}>-</Button>
-        </div>
-        
-        {noticiasCrypto.slice(startIndexCrypto, startIndexCrypto + 3).map((noticia: any, index: number) => (
-          <Item key={index}>
-            <Image src={noticia.urlToImage} alt="Imagem da notícia" />
-            <Title>{noticia.title}</Title>
-            <Description>{noticia.description}</Description>
-            <CustomLink href={noticia.url} target="_blank" rel="noopener noreferrer">Leia mais</CustomLink>
-          </Item>
-        ))}
-        
-        <div>
-          <Button onClick={handleNextCrypto} disabled={startIndexCrypto + 3 >= noticiasCrypto.length}>+</Button>
-        </div>
-      </BoxAcoes>
+
+      <Main>
+        <Box>
+          <ImgMark src={crypto} style={{ marginLeft: "20px" }} />
+        </Box>
+        <BoxNews style={{background: "#b0ff00"}}>
+          <div>
+            <Button onClick={handlePreviousCrypto} disabled={startIndexCrypto === 0}>-</Button>
+          </div>
+          
+          {noticiasCrypto.slice(startIndexCrypto, startIndexCrypto + 3).map((noticia: any, index: number) => (
+            <Item key={index}>
+              <Image src={noticia.urlToImage} alt="Imagem da notícia" />
+              <Title>{noticia.title}</Title>
+              <Description>{noticia.description}</Description>
+              <CustomLink href={noticia.url} target="_blank" rel="noopener noreferrer">Leia mais</CustomLink>
+            </Item>
+          ))}
+          
+          <div>
+            <Button onClick={handleNextCrypto} disabled={startIndexCrypto + 3 >= noticiasCrypto.length}>+</Button>
+          </div>
+        </BoxNews> 
+      </Main>
+      
     </Container>
   ) 
 }
