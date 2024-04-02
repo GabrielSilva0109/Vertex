@@ -41,6 +41,7 @@ const BoxAcoes = styled.div`
   width: 70%;
   background: #b0ff00;
   height: 400px;
+  margin-left: 370px;
 
   @media (max-width: 768px) {
     margin-left: 0;
@@ -160,6 +161,16 @@ const PriceItems = styled.div`
   text-align: center;
   gap: 10px;
 `
+const Main = styled.div`
+  display: flex;
+  gap: 40px;
+`
+
+const Box = styled.div`
+  background: white;
+  border-radius: 20px;
+  width: 300px;
+`
 
 const NoticiasContent: React.FC = () => {
   const [noticiasGerais, setNoticiasGerais] = useState([])
@@ -263,24 +274,30 @@ const NoticiasContent: React.FC = () => {
 
   return (
     <Container>
-      <BoxCrypto>
-        <div>
-          <Button onClick={handlePreviousGerais} disabled={startIndexGerais === 0}>-</Button>
-        </div>
-        
-        {noticiasGerais.slice(startIndexGerais, startIndexGerais + 3).map((noticia: any, index: number) => (
-          <Item key={index}>
-            <Image src={noticia.urlToImage} alt="Imagem da notícia" />
-            <Title>{noticia.title}</Title>
-            <Description>{noticia.description}</Description>
-            <CustomLink href={noticia.url} target="_blank" rel="noopener noreferrer">Leia mais</CustomLink>
-          </Item>
-        ))}
-        
-        <div>
-          <Button onClick={handleNextGerais} disabled={startIndexGerais + 3 >= noticiasGerais.length}>+</Button>
-        </div>
-      </BoxCrypto>
+      <Main>
+        <BoxCrypto>
+          <div>
+            <Button onClick={handlePreviousGerais} disabled={startIndexGerais === 0}>-</Button>
+          </div>
+          
+          {noticiasGerais.slice(startIndexGerais, startIndexGerais + 3).map((noticia: any, index: number) => (
+            <Item key={index}>
+              <Image src={noticia.urlToImage} alt="Imagem da notícia" />
+              <Title>{noticia.title}</Title>
+              <Description>{noticia.description}</Description>
+              <CustomLink href={noticia.url} target="_blank" rel="noopener noreferrer">Leia mais</CustomLink>
+            </Item>
+          ))}
+          
+          <div>
+            <Button onClick={handleNextGerais} disabled={startIndexGerais + 3 >= noticiasGerais.length}>+</Button>
+          </div>
+        </BoxCrypto>
+        <Box>
+            a
+        </Box>
+      </Main>
+      
       
       <SlideBar>
         {currencyData && (
