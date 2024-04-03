@@ -192,6 +192,11 @@ const Loader = styled.div`
   }
 `
 
+const Acoes = styled.div`
+  display: flex;
+  align-items: center;
+  gap: 10px;
+`
 const Content: React.FC = () =>{
     const [ cryptoData, setCryptoData] = useState<any[]>([])
     const [ saldo, setSaldo] = useState<number>(0)
@@ -203,6 +208,7 @@ const Content: React.FC = () =>{
     const [isLoadingCrypto, setIsLoadingCrypto] = useState<boolean>(true)
     const [isLoading, setIsLoading] = useState<boolean>(false)//lembrar de trocar apos a API AÇÔES
     const user = state?.user
+    const [apple, setApple] = useState<number>(0)
 
     const fetchWallet = async (userId: number) => {
       try {
@@ -322,10 +328,10 @@ const Content: React.FC = () =>{
       }
     }
 
-    const fetchAcoes = async () => {
+    const fetchApple = async () => {
       try{
         const ApiKey = "co6mvr9r01qj6a5mbgl0co6mvr9r01qj6a5mbglg"
-        const symbol = "GOOD"
+        const symbol = "AAPL"
         const response = await fetch(`https://finnhub.io/api/v1/quote?symbol=${symbol}&token=${ApiKey}`)
 
         if(!response.ok){
@@ -333,7 +339,8 @@ const Content: React.FC = () =>{
           return
         }
         const data = await response.json()
-        console.log("Preço das ações:", data.c);
+        console.log("Retorno APPLE", data)
+        setApple(data.c)
 
       } catch (erro) {
         
@@ -348,7 +355,7 @@ const Content: React.FC = () =>{
         fetchAtivos(walletId)
         fetchDespesas(walletId)
         fetchInvestimentos(walletId)
-        fetchAcoes()
+        fetchApple()
         const intervalId = setInterval(fetchCryptoData, 20000)
 
       return () => clearInterval(intervalId)
@@ -409,11 +416,8 @@ const Content: React.FC = () =>{
         </Main>
       </LeftContainer>
       
-      <RightContainer>
-        
-          
-        <BoxRight>
-        
+      <RightContainer>          
+        <BoxRight>        
           <Title>
             <Icon src={iconBitcoin} />
             Crypto
@@ -437,12 +441,17 @@ const Content: React.FC = () =>{
             ))}
           </CryptoPrice>
         </BoxRight>
+
         <BoxRight>
             <Title>
               <Icon src={iconAcoes} />
               Ações
             </Title>
-            
+            <Acoes>
+              <h3>APPLE</h3>
+              <p>{apple}</p>
+
+            </Acoes>
           </BoxRight>
       </RightContainer>
     </Container>
