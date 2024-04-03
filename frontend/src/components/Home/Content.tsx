@@ -209,6 +209,11 @@ const Content: React.FC = () =>{
     const [isLoading, setIsLoading] = useState<boolean>(false)//lembrar de trocar apos a API AÇÔES
     const user = state?.user
     const [apple, setApple] = useState<number>(0)
+    const [amazon, setAmazon] = useState<number>(0)
+    const [google, setGoogle] = useState<number>(0)
+    const [microsoft, setMicrosoft] = useState<number>(0)
+    const [tesla, setTesla] = useState<number>(0)
+
 
     const fetchWallet = async (userId: number) => {
       try {
@@ -346,7 +351,82 @@ const Content: React.FC = () =>{
         
       }
     }
-  
+
+    const fetchAmazon = async () => {
+      try{
+        const ApiKey = "co6mvr9r01qj6a5mbgl0co6mvr9r01qj6a5mbglg"
+        const symbol = "AMZN"
+        const response = await fetch(`https://finnhub.io/api/v1/quote?symbol=${symbol}&token=${ApiKey}`)
+
+        if(!response.ok){
+          console.log("Erro ao trazer preço das ações")
+          return
+        }
+        const data = await response.json()
+        console.log("Retorno Amazon", data)
+        setAmazon(data.c)
+
+      } catch (erro) {
+        
+      }
+    }
+
+    const fetchMicrosoft = async () => {
+      try{
+        const ApiKey = "co6mvr9r01qj6a5mbgl0co6mvr9r01qj6a5mbglg"
+        const symbol = "MSFT"
+        const response = await fetch(`https://finnhub.io/api/v1/quote?symbol=${symbol}&token=${ApiKey}`)
+
+        if(!response.ok){
+          console.log("Erro ao trazer preço das ações")
+          return
+        }
+        const data = await response.json()
+        console.log("Retorno Amazon", data)
+        setMicrosoft(data.c)
+
+      } catch (erro) {
+        
+      }
+    }
+
+    const fetchGoogle = async () => {
+      try{
+        const ApiKey = "co6mvr9r01qj6a5mbgl0co6mvr9r01qj6a5mbglg"
+        const symbol = "GOOGL"
+        const response = await fetch(`https://finnhub.io/api/v1/quote?symbol=${symbol}&token=${ApiKey}`)
+
+        if(!response.ok){
+          console.log("Erro ao trazer preço das ações")
+          return
+        }
+        const data = await response.json()
+        console.log("Retorno GOOGLE", data)
+        setGoogle(data.c)
+
+      } catch (erro) {
+        
+      }
+    }
+
+    const fetchTesla = async () => {
+      try{
+        const ApiKey = "co6mvr9r01qj6a5mbgl0co6mvr9r01qj6a5mbglg"
+        const symbol = "TSLA"
+        const response = await fetch(`https://finnhub.io/api/v1/quote?symbol=${symbol}&token=${ApiKey}`)
+
+        if(!response.ok){
+          console.log("Erro ao trazer preço das ações")
+          return
+        }
+        const data = await response.json()
+        console.log("Retorno TESLA", data)
+        setTesla(data.c)
+
+      } catch (erro) {
+        
+      }
+    }
 
     useEffect(() => {
       if (user && user.id) {
@@ -356,6 +436,11 @@ const Content: React.FC = () =>{
         fetchDespesas(walletId)
         fetchInvestimentos(walletId)
         fetchApple()
+        fetchAmazon()
+        fetchGoogle()
+        fetchMicrosoft()
+        fetchTesla()
+
         const intervalId = setInterval(fetchCryptoData, 20000)
 
       return () => clearInterval(intervalId)
@@ -448,8 +533,27 @@ const Content: React.FC = () =>{
               Ações
             </Title>
             <Acoes>
-              <h3>APPLE</h3>
+              <h3>Apple</h3>
               <p>{apple}</p>
+            </Acoes>
+            <Acoes>
+              <h3>Amazon</h3>
+              <p>{amazon}</p>
+
+            </Acoes>
+            <Acoes>
+              <h3>Google</h3>
+              <p>{google}</p>
+
+            </Acoes>
+            <Acoes>
+              <h3>Microsoft</h3>
+              <p>{microsoft}</p>
+
+            </Acoes>
+            <Acoes>
+              <h3>Tesla</h3>
+              <p>{tesla}</p>
 
             </Acoes>
           </BoxRight>
