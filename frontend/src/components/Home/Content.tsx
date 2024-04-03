@@ -219,6 +219,8 @@ const Content: React.FC = () =>{
     const [isLoadingCrypto, setIsLoadingCrypto] = useState<boolean>(true)
     const [isLoading, setIsLoading] = useState<boolean>(false)//lembrar de trocar apos a API AÇÔES
     const user = state?.user
+
+    //Teste antes de achar uma API para fazer varias requisições Gratuitas
     const [apple, setApple] = useState<number>(0)
     const [amazon, setAmazon] = useState<number>(0)
     const [google, setGoogle] = useState<number>(0)
