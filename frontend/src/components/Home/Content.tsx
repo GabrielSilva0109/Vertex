@@ -204,6 +204,10 @@ const Acoes = styled.div`
   margin: 0px;
   padding: 0px;
 `
+
+const ImgAcoes = styled.img`
+  width: 30px;
+`
 const Content: React.FC = () =>{
     const [ cryptoData, setCryptoData] = useState<any[]>([])
     const [ saldo, setSaldo] = useState<number>(0)
@@ -540,29 +544,30 @@ const Content: React.FC = () =>{
               Ações
             </Title>
             <Acoes>
-              <img src={appleIcon}/>
+              <ImgAcoes src={appleIcon}/>
               <h3>Apple</h3>
               <p>{apple}</p>
             </Acoes>
             <Acoes>
-              <img src={amazonIcon}/>
+              <ImgAcoes src={amazonIcon}/>
               <h3>Amazon</h3>
               <p>{amazon}</p>
 
             </Acoes>
             <Acoes>
-              <img src={googleIcon}/>
+              <ImgAcoes src={googleIcon}/>
               <h3>Google</h3>
               <p>{google}</p>
 
             </Acoes>
             <Acoes>
-              <img src={microsoftIcon}/>
+              <ImgAcoes src={microsoftIcon}/>
               <h3>Microsoft</h3>
               <p>{microsoft}</p>
 
             </Acoes>
             <Acoes>
+              <ImgAcoes src={teslaIcon}/>
               <h3>Tesla</h3>
               <p>{tesla}</p>
             </Acoes>
