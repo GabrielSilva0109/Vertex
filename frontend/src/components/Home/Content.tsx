@@ -16,6 +16,7 @@ import eth from '../Sections/img/eth.svg'
 import solana from '../Sections/img/solana.png'
 import xrp from '../Sections/img/xrp.svg'
 import Grafico from "../Graficos/Grafico"
+import appleIcon from '../Sections/img/apple.png'
 
 const Container = styled.div`
   display: flex;
@@ -196,6 +197,8 @@ const Acoes = styled.div`
   display: flex;
   align-items: center;
   gap: 10px;
+  margin: 0px;
+  padding: 0px;
 `
 const Content: React.FC = () =>{
     const [ cryptoData, setCryptoData] = useState<any[]>([])
@@ -533,6 +536,7 @@ const Content: React.FC = () =>{
               Ações
             </Title>
             <Acoes>
+              <img src={appleIcon}/>
               <h3>Apple</h3>
               <p>{apple}</p>
             </Acoes>
@@ -554,7 +558,6 @@ const Content: React.FC = () =>{
             <Acoes>
               <h3>Tesla</h3>
               <p>{tesla}</p>
-
             </Acoes>
           </BoxRight>
       </RightContainer>
