@@ -17,6 +17,10 @@ import solana from '../Sections/img/solana.png'
 import xrp from '../Sections/img/xrp.svg'
 import Grafico from "../Graficos/Grafico"
 import appleIcon from '../Sections/img/apple.png'
+import amazonIcon from '../Sections/img/amazonIcon.png'
+import googleIcon from '../Sections/img/googleIcon.png'
+import microsoftIcon from '../Sections/img/microsoftIcon.png'
+import teslaIcon from '../Sections/img/teslaIcon.png'
 
 const Container = styled.div`
   display: flex;
@@ -541,16 +545,19 @@ const Content: React.FC = () =>{
               <p>{apple}</p>
             </Acoes>
             <Acoes>
+              <img src={amazonIcon}/>
               <h3>Amazon</h3>
               <p>{amazon}</p>
 
             </Acoes>
             <Acoes>
+              <img src={googleIcon}/>
               <h3>Google</h3>
               <p>{google}</p>
 
             </Acoes>
             <Acoes>
+              <img src={microsoftIcon}/>
               <h3>Microsoft</h3>
               <p>{microsoft}</p>
 
