@@ -193,7 +193,7 @@ const FormCadastro: React.FC<{ onBackToLogin: () => void }> = ({ onBackToLogin }
    
     return (
         <Box>
-            <h1>Cadastro</h1>
+            <h1>Cadastro </h1>
             <Input placeholder='Nome' type="text" name='name' value={formData.name} onChange={handleInputChange} />
             <Input placeholder='Email' type="text" name='email' value={formData.email} onChange={handleInputChange}/>
             <Input placeholder='CPF' type="text" name='cpf' value={formData.cpf} onChange={handleInputChange}/>
