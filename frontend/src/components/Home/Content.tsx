@@ -321,6 +321,24 @@ const Content: React.FC = () =>{
         console.error("Erro ao buscar os investimentos da carteira:", error)
       }
     }
+
+    const fetchAcoes = async () => {
+      try{
+        const ApiKey = "co6mvr9r01qj6a5mbgl0co6mvr9r01qj6a5mbglg"
+        const symbol = "GOOD"
+        const response = await fetch(`https://finnhub.io/api/v1/quote?symbol=${symbol}&token=${ApiKey}`)
+
+        if(!response.ok){
+          console.log("Erro ao trazer preço das ações")
+          return
+        }
+        const data = await response.json()
+        console.log("Preço das ações:", data.c);
+
+      } catch (erro) {
+        
+      }
+    }
   
 
     useEffect(() => {
@@ -330,6 +348,7 @@ const Content: React.FC = () =>{
         fetchAtivos(walletId)
         fetchDespesas(walletId)
         fetchInvestimentos(walletId)
+        fetchAcoes()
         const intervalId = setInterval(fetchCryptoData, 20000)
 
       return () => clearInterval(intervalId)
