@@ -407,15 +407,11 @@ const Content: React.FC = () =>{
           <h1>Carteira gráfico</h1>
           <Grafico walletId={walletId} />
         </Main>
-      </LeftContainer> 
+      </LeftContainer>
+      
       <RightContainer>
-        <BoxRight>
-            <Title>
-              <Icon src={iconAcoes} />
-              Ações
-            </Title>
-            
-          </BoxRight>
+        
+          
         <BoxRight>
         
           <Title>
@@ -441,6 +437,13 @@ const Content: React.FC = () =>{
             ))}
           </CryptoPrice>
         </BoxRight>
+        <BoxRight>
+            <Title>
+              <Icon src={iconAcoes} />
+              Ações
+            </Title>
+            
+          </BoxRight>
       </RightContainer>
     </Container>
   )
