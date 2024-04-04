@@ -96,7 +96,7 @@ const Main = styled.main`
 `
 
 const BoxRight = styled.div`
-  padding: 5px;
+  padding: 10px;
   height: 48%;
   border-radius: 1rem;
   box-shadow: rgba(0, 0, 0, 0.17) 0px 0px 25px 0px inset, rgba(0, 0, 0, 0.15) 0px 0px 30px 0px inset, rgba(0, 0, 0, 0.1) 0px 0px 40px 0px inset, rgba(0, 0, 0, 0.06) 0px 0px 1px 0px, rgba(0, 0, 0, 0.09) 0px 0px 2px 0px, rgba(0, 0, 0, 0.09) 0px 0px 4px 0px, rgba(0, 0, 0, 0.09) 0px 0px 8px 0px, rgba(0, 0, 0, 0.09) 0px 0px 16px 0px, rgba(0, 0, 0, 0.09) 0px 0px 32px 0px;
@@ -560,10 +560,14 @@ const Content: React.FC = () =>{
             {cryptoData.map((crypto) => (
               <Crypto key={crypto.id}>
                 <Icon src={getCryptoIcon(crypto.id)} />
-                <span>{crypto.id.toUpperCase()}: ${crypto.current_price}</span>
+                <AcoesA>
+                <span>{crypto.id.toUpperCase()} </span>
+                <span> ${crypto.current_price} </span>
                 <CryptoPriceChange positive={crypto.price_change_percentage_24h >= 0}>
                   {crypto.price_change_percentage_24h.toFixed(2)}%
                 </CryptoPriceChange>
+                </AcoesA>
+                
               </Crypto>
             ))}
           </CryptoPrice>
@@ -621,7 +625,6 @@ const Content: React.FC = () =>{
             <Acoes style={{marginTop: "-15px"}}>
               <ImgAcoes src={teslaIcon}/>
               <AcoesA>
-
               <h3>Tesla</h3>
               <h4>${tesla.toFixed(2)}</h4>
               <CryptoPriceChange positive={teslaVari >= 0}>
