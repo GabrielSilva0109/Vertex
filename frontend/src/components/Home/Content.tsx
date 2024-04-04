@@ -548,30 +548,30 @@ const Content: React.FC = () =>{
             <Acoes>
               <ImgAcoes src={appleIcon}/>
               <h3>Apple</h3>
-              <p>{apple}</p>
+              <h4>{apple}</h4>
             </Acoes>
             <Acoes style={{marginTop: "-15px"}}>
               <ImgAcoes src={amazonIcon}/>
               <h3>Amazon</h3>
-              <p>{amazon}</p>
+              <h4>{amazon}</h4>
 
             </Acoes>
             <Acoes style={{marginTop: "-15px"}}>
               <ImgAcoes src={googleIcon}/>
               <h3>Google</h3>
-              <p>{google}</p>
+              <h4>{google}</h4>
 
             </Acoes>
             <Acoes style={{marginTop: "-15px"}}>
               <ImgAcoes src={microsoftIcon}/>
               <h3>Microsoft</h3>
-              <p>{microsoft}</p>
+              <h4>{microsoft}</h4>
 
             </Acoes>
             <Acoes style={{marginTop: "-15px"}}>
               <ImgAcoes src={teslaIcon}/>
               <h3>Tesla</h3>
-              <p>{tesla}</p>
+              <h4>{tesla}</h4>
             </Acoes>
           </BoxRight>
       </RightContainer>
