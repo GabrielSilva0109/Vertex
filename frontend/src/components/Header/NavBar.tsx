@@ -88,13 +88,17 @@ const Sign = styled.div`
     }
 `
 
+const UserName = styled.h1`
+    color: #bbbbbb;
+`
 
 const NavBar: React.FC<{user?: any}> = ({user}) => {
     return (
         <Nav>
             <TitleBank>
-                <Icon>$</Icon>                
-                <h1>Vertex </h1>
+                <h1>Vertex</h1>
+                <Icon>&nbsp;&nbsp;$&nbsp;</Icon>                
+                <UserName>{user.name}</UserName>
             </TitleBank>
 
             <Links>

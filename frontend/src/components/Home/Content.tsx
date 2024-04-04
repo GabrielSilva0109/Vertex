@@ -99,9 +99,7 @@ const BoxRight = styled.div`
   padding: 5px;
   height: 48%;
   border-radius: 1rem;
-  background-color: ;
-  background-image: linear-gradient(43deg, #cdcdcd 0%, #bfc1c1b3 46%, #8f8f8f 100%);
-  box-shadow: rgba(0, 0, 0, 0.17) 0px -23px 25px 0px inset, rgba(0, 0, 0, 0.15) 0px -36px 30px 0px inset, rgba(0, 0, 0, 0.1) 0px -79px 40px 0px inset, rgba(0, 0, 0, 0.06) 0px 2px 1px, rgba(0, 0, 0, 0.09) 0px 4px 2px, rgba(0, 0, 0, 0.09) 0px 8px 4px, rgba(0, 0, 0, 0.09) 0px 16px 8px, rgba(0, 0, 0, 0.09) 0px 32px 16px;
+  box-shadow: rgba(0, 0, 0, 0.17) 0px 0px 25px 0px inset, rgba(0, 0, 0, 0.15) 0px 0px 30px 0px inset, rgba(0, 0, 0, 0.1) 0px 0px 40px 0px inset, rgba(0, 0, 0, 0.06) 0px 0px 1px 0px, rgba(0, 0, 0, 0.09) 0px 0px 2px 0px, rgba(0, 0, 0, 0.09) 0px 0px 4px 0px, rgba(0, 0, 0, 0.09) 0px 0px 8px 0px, rgba(0, 0, 0, 0.09) 0px 0px 16px 0px, rgba(0, 0, 0, 0.09) 0px 0px 32px 0px;
 
   overflow: auto;
   -ms-overflow-style: none;
@@ -548,30 +546,30 @@ const Content: React.FC = () =>{
             <Acoes>
               <ImgAcoes src={appleIcon}/>
               <h3>Apple</h3>
-              <h4>{apple}</h4>
+              <h4>${apple}</h4>
             </Acoes>
             <Acoes style={{marginTop: "-15px"}}>
               <ImgAcoes src={amazonIcon}/>
               <h3>Amazon</h3>
-              <h4>{amazon}</h4>
+              <h4>${amazon}</h4>
 
             </Acoes>
             <Acoes style={{marginTop: "-15px"}}>
               <ImgAcoes src={googleIcon}/>
               <h3>Google</h3>
-              <h4>{google}</h4>
+              <h4>${google}</h4>
 
             </Acoes>
             <Acoes style={{marginTop: "-15px"}}>
               <ImgAcoes src={microsoftIcon}/>
               <h3>Microsoft</h3>
-              <h4>{microsoft}</h4>
+              <h4>${microsoft}</h4>
 
             </Acoes>
             <Acoes style={{marginTop: "-15px"}}>
               <ImgAcoes src={teslaIcon}/>
               <h3>Tesla</h3>
-              <h4>{tesla}</h4>
+              <h4>${tesla}</h4>
             </Acoes>
           </BoxRight>
       </RightContainer>
