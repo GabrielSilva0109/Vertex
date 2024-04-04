@@ -203,6 +203,16 @@ const Acoes = styled.div`
   padding: 0px;
 `
 
+const AcoesA = styled.div`
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr;
+  width: 100%;
+  align-items: center;
+  gap: 10px;
+  margin: 0px;
+  padding: 0px;
+`
+
 const ImgAcoes = styled.img`
   width: 30px;
 `
@@ -220,11 +230,15 @@ const Content: React.FC = () =>{
 
     //Teste antes de achar uma API para fazer varias requisições Gratuitas
     const [apple, setApple] = useState<number>(0)
+    const [appleVari, setAppleVari] = useState<number>(0)
     const [amazon, setAmazon] = useState<number>(0)
+    const [amazonVari, setAmazonVari] = useState<number>(0)
     const [google, setGoogle] = useState<number>(0)
+    const [googleVari, setGoogleVari] = useState<number>(0)
     const [microsoft, setMicrosoft] = useState<number>(0)
+    const [microsoftVari, setMicrosoftVari] = useState<number>(0)
     const [tesla, setTesla] = useState<number>(0)
-
+    const [teslaVari, setTeslaVari] = useState<number>(0)
 
     const fetchWallet = async (userId: number) => {
       try {
@@ -355,9 +369,11 @@ const Content: React.FC = () =>{
           return
         }
         const data = await response.json()
-        console.log("Retorno APPLE", data)
+        const previousPrice = data.pc
+        const currentPrice = data.c
+        const priceChangePercentage = ((currentPrice - previousPrice) / previousPrice) * 100;
         setApple(data.c)
-
+        setAppleVari(priceChangePercentage)
       } catch (erro) {
         
       }
@@ -374,9 +390,11 @@ const Content: React.FC = () =>{
           return
         }
         const data = await response.json()
-        console.log("Retorno Amazon", data)
+        const previousPrice = data.pc
+        const currentPrice = data.c
+        const priceChangePercentage = ((currentPrice - previousPrice) / previousPrice) * 100;
         setAmazon(data.c)
-
+        setAmazonVari(priceChangePercentage)
       } catch (erro) {
         
       }
@@ -393,9 +411,12 @@ const Content: React.FC = () =>{
           return
         }
         const data = await response.json()
-        console.log("Retorno Amazon", data)
-        setMicrosoft(data.c)
+        const previousPrice = data.pc
+        const currentPrice = data.c
+        const priceChangePercentage = ((currentPrice - previousPrice) / previousPrice) * 100;
 
+        setMicrosoft(data.c)
+        setMicrosoftVari(priceChangePercentage)
       } catch (erro) {
         
       }
@@ -412,33 +433,43 @@ const Content: React.FC = () =>{
           return
         }
         const data = await response.json()
-        console.log("Retorno GOOGLE", data)
-        setGoogle(data.c)
 
+        const previousPrice = data.pc
+        const currentPrice = data.c
+        const priceChangePercentage = ((currentPrice - previousPrice) / previousPrice) * 100;
+        
+        setGoogle(data.c)
+        setGoogleVari(priceChangePercentage)
       } catch (erro) {
         
       }
     }
 
     const fetchTesla = async () => {
-      try{
-        const ApiKey = "co6mvr9r01qj6a5mbgl0co6mvr9r01qj6a5mbglg"
-        const symbol = "TSLA"
-        const response = await fetch(`https://finnhub.io/api/v1/quote?symbol=${symbol}&token=${ApiKey}`)
-
-        if(!response.ok){
-          console.log("Erro ao trazer preço das ações")
-          return
+      try {
+        const ApiKey = "co6mvr9r01qj6a5mbgl0co6mvr9r01qj6a5mbglg";
+        const symbol = "TSLA";
+        const response = await fetch(`https://finnhub.io/api/v1/quote?symbol=${symbol}&token=${ApiKey}`);
+    
+        if (!response.ok) {
+          console.log("Erro ao trazer preço das ações");
+          return;
         }
-        const data = await response.json()
-        console.log("Retorno TESLA", data)
-        setTesla(data.c)
+    
+        const data = await response.json();
 
-      } catch (erro) {
-        
+        const previousPrice = data.pc
+        const currentPrice = data.c
+        const priceChangePercentage = ((currentPrice - previousPrice) / previousPrice) * 100;
+    
+        setTesla(data.c); // Define o preço atual das ações
+        setTeslaVari(priceChangePercentage); // Define a variação percentual nas últimas 24 horas
+    
+      } catch (error) {
+        console.error("Ocorreu um erro ao obter os dados:", error);
       }
     }
-
+    
     useEffect(() => {
       if (user && user.id) {
         fetchWallet(user.id)
@@ -545,31 +576,58 @@ const Content: React.FC = () =>{
             </Title>
             <Acoes>
               <ImgAcoes src={appleIcon}/>
-              <h3>Apple</h3>
-              <h4>${apple}</h4>
+              <AcoesA>
+                <h3>Apple</h3>
+                <h4>${apple.toFixed(2)}</h4>
+                <CryptoPriceChange positive={appleVari >= 0}>
+                <h4>{appleVari.toFixed(2)}%</h4>
+                </CryptoPriceChange>
+              </AcoesA>
+              
             </Acoes>
             <Acoes style={{marginTop: "-15px"}}>
               <ImgAcoes src={amazonIcon}/>
-              <h3>Amazon</h3>
-              <h4>${amazon}</h4>
-
+              
+              <AcoesA>
+                <h3>Amazon</h3>
+                <h4>${amazon}</h4>
+                <CryptoPriceChange positive={amazonVari >= 0}>
+                  <h4>{amazonVari.toFixed(2)}%</h4>
+                </CryptoPriceChange>
+              </AcoesA>
+              
             </Acoes>
             <Acoes style={{marginTop: "-15px"}}>
               <ImgAcoes src={googleIcon}/>
-              <h3>Google</h3>
-              <h4>${google}</h4>
-
+              <AcoesA>
+                <h3>Google</h3>
+                <h4>${google}</h4>
+                <CryptoPriceChange positive={googleVari >= 0}>
+                  <h4>{googleVari.toFixed(2)}%</h4>
+                </CryptoPriceChange>
+              </AcoesA>
+              
             </Acoes>
             <Acoes style={{marginTop: "-15px"}}>
               <ImgAcoes src={microsoftIcon}/>
-              <h3>Microsoft</h3>
-              <h4>${microsoft}</h4>
-
+              <AcoesA>
+                <h3>Microsoft</h3>
+                <h4>${microsoft}</h4>
+                <CryptoPriceChange positive={microsoftVari >= 0}>
+                  <h4>{microsoftVari.toFixed(2)}%</h4>
+                </CryptoPriceChange>
+              </AcoesA>
             </Acoes>
             <Acoes style={{marginTop: "-15px"}}>
               <ImgAcoes src={teslaIcon}/>
+              <AcoesA>
+
               <h3>Tesla</h3>
-              <h4>${tesla}</h4>
+              <h4>${tesla.toFixed(2)}</h4>
+              <CryptoPriceChange positive={teslaVari >= 0}>
+                <h4>{teslaVari.toFixed(2)}%</h4>
+              </CryptoPriceChange>
+              </AcoesA>
             </Acoes>
           </BoxRight>
       </RightContainer>
