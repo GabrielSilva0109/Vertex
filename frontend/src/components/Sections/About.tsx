@@ -30,7 +30,7 @@ const About: React.FC = () => {
         <Container>
             <Card>
                 <Title>
-                  Vertex
+                  Vertexs
                 </Title>
             </Card>
         </Container>
