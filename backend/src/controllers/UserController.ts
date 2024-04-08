@@ -143,3 +143,22 @@ export const loginUser = async (req: Request, res: Response) => {
         res.status(500).json({ message: 'Erro interno do servidor' })
     }
 }
+
+// Adiciona Foto de Perfil
+export const updateUserPicture = (req: Request, res: Response) => {
+    const userId = req.params.id;
+    const { picture } = req.body;
+
+    if (!picture) {
+        return res.status(400).json({ error: 'Nenhuma imagem fornecida' })
+    }
+
+    const q = `UPDATE users SET picture=? WHERE id=?`
+    const values = [picture, userId]
+
+    db.query(q, values, (erro, data) => {
+        if (erro) return res.status(500).json({ erro: 'Erro ao Atualizar Foto do Usuário' })
+
+        return res.status(200).json('Foto do Usuário Atualizada!!')
+    })
+}
