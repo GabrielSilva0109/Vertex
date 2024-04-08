@@ -199,6 +199,16 @@ const BtnDelete = styled.button`
   }
 `
 
+const BoxInfo = styled.div`
+  display: flex;
+  flex-direction: column;
+  align-items: start;
+  justify-content: start;
+  width: 100%;
+  padding-left: 20px;
+  
+`
+
 interface Transacao {
   id: number;
   titulo: string;
@@ -437,9 +447,14 @@ const CarteiraContent: React.FC = () =>{
         <Container>
           <RightContainer>
             <BoxRight>
-            <ImgPerfil></ImgPerfil>
-              <h4>{user.name}</h4>
-              
+              <h1>{user.name}</h1>
+              <BoxInfo>
+              <label >Email </label>
+              <h4>{user.email}</h4>
+              <label >CPF </label>
+              <h4>{user.cpf}</h4>
+
+              </BoxInfo>
 
               <BtnAtivo onClick={openModal}>Adicionar Transação</BtnAtivo>
               <Modal
