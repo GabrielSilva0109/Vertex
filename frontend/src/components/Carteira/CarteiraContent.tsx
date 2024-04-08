@@ -199,6 +199,9 @@ const BtnDelete = styled.button`
   }
 `
 
+const BtnAdd = styled.button`
+
+`
 interface Transacao {
   id: number;
   titulo: string;
@@ -426,7 +429,27 @@ const CarteiraContent: React.FC = () =>{
         console.error("Erro ao carregar dados:", error)
       }
     }
+
+    const addPicture = async () => {
+      try {
+        const response = await fetch(`http://localhost:3333/userPicture/${idUser}`, {
+          method: 'PUT',
+          headers: {
+            'Content-Type': 'application/json',
+          },
+          body: JSON.stringify({ picture: 'DATA_DA_IMAGEM' }), 
+        });
+    
+        if (!response.ok) {
+          throw new Error('Erro ao adicionar foto');
+        }
   
+      } catch (error) {
+        console.error('Erro ao Adicionar Foto', error)
+        
+      }
+    }
+    
     useEffect(() => {
       fetchData()
     }, [IdWallet])
@@ -437,6 +460,7 @@ const CarteiraContent: React.FC = () =>{
             <BoxRight>
             <ImgPerfil></ImgPerfil>
               <h4>{user.name}</h4>
+              <BtnAdd onClick={addPicture}>Adicionar Foto</BtnAdd>
 
               <BtnAtivo onClick={openModal}>Adicionar Transação</BtnAtivo>
               <Modal
