@@ -19,6 +19,7 @@
     "cors": "^2.8.5",
     "express": "^4.19.2",
     "google-auth-library": "^9.7.0",
+    "multer": "^1.4.5-lts.1",
     "mysql": "^2.18.1",
     "serverless": "^3.38.0",
     "ts-node": "^10.9.2",
@@ -26,6 +27,7 @@
   },
   "devDependencies": {
     "@types/cors": "^2.8.17",
+    "@types/multer": "^1.4.11",
     "@types/mysql": "^2.15.25"
   }
 }
