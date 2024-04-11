@@ -89,15 +89,9 @@ const CircleGrafico: React.FC<CircleGraficoProps> = ({
           <Tooltip content={<CustomTooltip />} />
         </PieChart>
       </ResponsiveContainer>
-      {hoveredData && (
-        <div>
-          <p>{hoveredData.name}</p>
-          <p>Valor: {hoveredData.value}</p>
-          <p>Porcentagem: {hoveredData.percentage}</p>
-        </div>
-      )}
+      
     </div>
-  );
-};
+  )
+}
 
 export default CircleGrafico;
