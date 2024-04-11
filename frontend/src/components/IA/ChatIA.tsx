@@ -111,7 +111,7 @@ const Chat: React.FC = () => {
             <h1>Chat IA</h1>
 
             <InputWrapper>
-                <Input placeholder="Digite sua mensagem..."/>
+                <Input placeholder="Digite sua mensagem.."/>
                 <SendButton><SendIcon /></SendButton>
             </InputWrapper>
         </ChatBox>
