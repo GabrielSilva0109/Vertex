@@ -12,9 +12,7 @@ const slideIn = keyframes`
 `;
 
 const BoxChat = styled.div`
-    position: relative;
     display: flex;
-    flex-direction: column;
     align-items: center;
     justify-content: center;
     width: 45px;
@@ -22,6 +20,7 @@ const BoxChat = styled.div`
     border: none;
     border-radius: 50%;
     cursor: pointer;
+    position: relative;
     overflow: hidden;
     transition-duration: 0.3s;
     box-shadow: 2px 2px 10px rgba(0, 0, 0, 0.199);
@@ -31,72 +30,70 @@ const BoxChat = styled.div`
 
 const Img = styled.img`
     width: 35px;
-`;
+`
 
 const ChatBox = styled.div`
     position: absolute;
-    bottom: calc(100% + 10px);
-    right: 0;
+    top: 70px;
+    bottom: 20px;
+    right: 20px;
     width: 300px;
     height: 500px;
-    background: #0f172a;
+    background: #bebebf;
     color: black;
     border: none;
     border-radius: 5px;
     z-index: 9999;
     animation: ${slideIn} 0.4s ease forwards;
-    transform: translateY(-100%);
-`;
+    transform: translateY(100%);
+`
 
 const InputWrapper = styled.div`
     width: 100%;
     padding: 10px;
     box-sizing: border-box;
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-`;
+    margin-top: 370px;
+    position: relative;
+    display: flex; 
+`
 
 const Input = styled.input`
-    width: calc(100% - 80px); /* Ajuste para acomodar o botão */
-    height: 40px;
+    width: calc(100% - 60px); 
+    height: 30px;
     padding: 5px 10px;
     border: none;
-    border-radius: 20px;
+    border-radius: 20px 0px 0px 20px;
     outline: none;
     background-color: #f5f5f5;
     color: #333;
     font-size: 14px;
-`;
+`
 
-const Button = styled.button`
-    width: 60px;
+const SendButton = styled.button`
+    width: 40px;
     height: 40px;
     border: none;
-    border-radius: 20px;
     background-color: #007bff;
     color: white;
-    font-size: 14px;
+    border-radius: 0 20px 20px 0;
     cursor: pointer;
-    transition: background-color 0.3s ease;
+    transition: background-color 0.3s;
+    outline: none;
 
     &:hover {
         background-color: #0056b3;
     }
-`;
+`
 
-// Chat component
+
 const Chat: React.FC = () => {
-    const sendMessage = () => {
-        // Aqui você pode adicionar a lógica para enviar a mensagem
-        console.log("Mensagem enviada");
-    };
-
     return (
         <ChatBox>
+            <h1>Chat IA</h1>
+
             <InputWrapper>
                 <Input placeholder="Digite sua mensagem..."/>
-                <Button onClick={sendMessage}>Enviar</Button>
+                <SendButton>Enviar</SendButton>
             </InputWrapper>
         </ChatBox>
     );
@@ -114,8 +111,8 @@ const ChatIA: React.FC = () => {
         <>
             <BoxChat onClick={toggleChat}>
                 <Img src={iconIA}/>
-                {isChatOpen && <Chat />}
             </BoxChat>
+            {isChatOpen && <Chat />}
         </>
     );
 };
