@@ -35,7 +35,7 @@ const CircleGrafico: React.FC<CircleGraficoProps> = ({
     { name: 'FIIs', value: porcentagemFiis },
     { name: 'Renda Fixa', value: porcentagemRendaFixa },
     { name: 'Poupança', value: porcentagemPoupanca }
-  ];
+  ]
 
   const handleMouseEnter = (data: any, index: number) => {
     setHoveredData({
@@ -60,10 +60,10 @@ const CircleGrafico: React.FC<CircleGraficoProps> = ({
         <div style={{ backgroundColor: '#2C2C2C',borderRadius: "10px", padding: '5px', border: 'none' }}>
           <p>{`${data.name} ${data.value}%`}</p>
         </div>
-      );
+      )
     }
 
-    return null;
+    return null
   }
 
   return (
@@ -89,9 +89,8 @@ const CircleGrafico: React.FC<CircleGraficoProps> = ({
           <Tooltip content={<CustomTooltip />} />
         </PieChart>
       </ResponsiveContainer>
-      
     </div>
   )
 }
 
-export default CircleGrafico;
+export default CircleGrafico
