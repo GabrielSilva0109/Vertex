@@ -106,6 +106,11 @@ const SendIcon = () => (
 )
 
 const Chat: React.FC = () => {
+    const [inputText, setInputText] = useState("");
+    const [chatHistory, setChatHistory] = useState<string[]>([]);
+
+
+
     return (
         <ChatBox>
             <h1>Chat IA</h1>
