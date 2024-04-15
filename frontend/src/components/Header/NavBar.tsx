@@ -1,7 +1,6 @@
 import React from 'react'
 import styled from 'styled-components'
 import { Link } from 'react-router-dom'
-import ChatIA from '../IA/ChatIA'
 
 const Nav = styled.div`
     background: rgb(28, 28, 30);
@@ -125,8 +124,6 @@ const NavBar: React.FC<{user?: any}> = ({user}) => {
             </Links>
 
             <Btns >
-                <ChatIA />
-
                 <Config>
                     <BtnSair to="/login">
                         <Sign>
