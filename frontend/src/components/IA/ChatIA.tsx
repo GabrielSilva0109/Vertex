@@ -109,7 +109,36 @@ const Chat: React.FC = () => {
     const [inputText, setInputText] = useState("");
     const [chatHistory, setChatHistory] = useState<string[]>([]);
 
+    const sendMessage = async () => {
+        if (inputText.trim() === "") return;
 
+        // Enviar a entrada do usuário para a API da OpenAI
+        try {
+            const response = await axios.post(
+                "https://api.openai.com/v1/completions",
+                {
+                    model: "text-davinci-003",
+                    prompt: inputText,
+                    max_tokens: 100
+                },
+                {
+                    headers: {
+                        Authorization: "Bearer SUA_CHAVE_API_OPENAI",
+                        "Content-Type": "application/json"
+                    }
+                }
+            );
+
+            // Adicionar a resposta da OpenAI ao histórico de bate-papo
+            const chatResponse = response.data.choices[0].text.trim()
+            setChatHistory(prevChatHistory => [...prevChatHistory, inputText, chatResponse])
+
+            // Limpar o campo de entrada
+            setInputText("")
+        } catch (error) {
+            console.error("Erro ao enviar mensagem para a OpenAI:", error)
+        }
+    }
 
     return (
         <ChatBox>
