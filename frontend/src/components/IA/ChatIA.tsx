@@ -127,7 +127,7 @@ const Chat: React.FC = () => {
                         "Content-Type": "application/json"
                     }
                 }
-            );
+            )
 
             // Adicionar a resposta da OpenAI ao histórico de bate-papo
             const chatResponse = response.data.choices[0].text.trim()
@@ -153,11 +153,11 @@ const Chat: React.FC = () => {
 }
 
 const ChatIA: React.FC = () => {
-    const [isChatOpen, setIsChatOpen] = useState(false);
+    const [isChatOpen, setIsChatOpen] = useState(false)
 
     const toggleChat = () => {
-        setIsChatOpen(!isChatOpen);
-    };
+        setIsChatOpen(!isChatOpen)
+    }
 
     return (
         <>
@@ -166,7 +166,7 @@ const ChatIA: React.FC = () => {
             </BoxChat>
             {isChatOpen && <Chat />}
         </>
-    );
-};
+    )
+}
 
-export default ChatIA;
+export default ChatIA
