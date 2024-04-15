@@ -1,8 +1,7 @@
-import React, { useState } from "react";
-import styled, { keyframes } from "styled-components";
-import iconIA from '../Sections/img/IconChat.png';
+import React, { useState } from "react"
+import styled, { keyframes } from "styled-components"
+import iconIA from '../Sections/img/IconChat.png'
 import axios from "axios"
-
 
 const slideIn = keyframes`
     0% {
