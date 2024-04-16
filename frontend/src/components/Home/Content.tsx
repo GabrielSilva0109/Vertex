@@ -50,6 +50,20 @@ const RightContainer = styled.div`
   gap: 10px;
   display: flex;
   flex-direction: column;
+
+  ::after {
+    content: "";
+    background-color: #fab5704c;
+    position: absolute;
+  }
+  
+  ::before {
+    border-radius: 50%;
+    width: 6rem;
+    height: 6rem;
+    top: 30%;
+    right: 7%;
+  }
 `
 
 const Top = styled.div`
@@ -103,7 +117,7 @@ const BoxRight = styled.div`
   box-shadow: 0 0 10px rgba(0,0,0,0.25);
   backdrop-filter: blur(10px);
   border-radius: 8px;
-  
+
   overflow: auto;
   -ms-overflow-style: none;
   &::-webkit-scrollbar {
