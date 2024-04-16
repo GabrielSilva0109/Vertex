@@ -479,7 +479,8 @@ const CarteiraContent: React.FC = () =>{
                 {extrato.map((transacao, index) => (
                   <ExtratoItem key={transacao.id} categoria={transacao.categoria} lastItem={index === extrato.length - 1}>
                     <Dados>{transacao.titulo}</Dados>
-                    <Dados>{transacao.observacao}</Dados>
+                    <Dados>{transacao.fonte}</Dados>
+                    <Dados>{transacao.fonte}</Dados>
                     <DadosData>{formatarData(transacao.data)}</DadosData>
                     <Valor categoria={transacao.categoria}>R${formatarSaldo(transacao.valor)}</Valor>
                     <Btns>
