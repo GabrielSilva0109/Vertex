@@ -50,20 +50,6 @@ const RightContainer = styled.div`
   gap: 10px;
   display: flex;
   flex-direction: column;
-
-  ::after {
-    content: "";
-    background-color: #fab5704c;
-    position: absolute;
-  }
-  
-  ::before {
-    border-radius: 50%;
-    width: 6rem;
-    height: 6rem;
-    top: 30%;
-    right: 7%;
-  }
 `
 
 const Top = styled.div`
