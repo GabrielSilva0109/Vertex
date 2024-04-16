@@ -141,6 +141,16 @@ const Valor = styled.p<{ categoria: string }>`
         : 'gray'};
 `
 
+const Legenda = styled.div`
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 0px 15px;
+  margin: 5px;
+  font-weight: bold;
+  color: gray;
+`
+
 const DadosData = styled.p`
   @media (max-width: 768px) {
     display:none;
@@ -476,10 +486,11 @@ const CarteiraContent: React.FC = () =>{
             <Main>
               <h1>Extrato</h1>
               <Extrato>
+                
                 {extrato.map((transacao, index) => (
                   <ExtratoItem key={transacao.id} categoria={transacao.categoria} lastItem={index === extrato.length - 1}>
                     <Dados>{transacao.titulo}</Dados>
-                    <Dados>{transacao.fonte}</Dados>
+                    <Dados>{transacao.observacao}</Dados>
                     <Dados>{transacao.fonte}</Dados>
                     <DadosData>{formatarData(transacao.data)}</DadosData>
                     <Valor categoria={transacao.categoria}>R${formatarSaldo(transacao.valor)}</Valor>
