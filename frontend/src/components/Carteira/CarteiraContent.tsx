@@ -128,11 +128,11 @@ const ExtratoItem = styled.div<{ categoria: string; lastItem?: boolean }>`
 `
 
 const Dados = styled.p`
-    min-width: 50px;
+    width: 100px!important;
 `
 
 const Valor = styled.p<{ categoria: string }>`
-    min-width: 50px;
+  width: 100px!important;
     color: ${(props) =>
       props.categoria === 'ativo'
         ? '#b0ff00'
@@ -145,9 +145,10 @@ const Legenda = styled.div`
   display: flex;
   justify-content: space-between;
   align-items: center;
-  padding: 0px 15px;
+  padding: 0px 5px;
   margin: 5px;
   font-weight: bold;
+  font-size: 1.15rem;
   color: gray;
 `
 
@@ -486,7 +487,14 @@ const CarteiraContent: React.FC = () =>{
             <Main>
               <h1>Extrato</h1>
               <Extrato>
-                
+              <Legenda>
+                <Dados>Título</Dados>
+                <Dados style={{marginRight: '100px;'}}>Observação</Dados>
+                <Dados>Fonte</Dados>
+                <Dados>Data</Dados>
+                <Dados>Valor</Dados>
+                <Dados>&nbsp;</Dados>
+              </Legenda>
                 {extrato.map((transacao, index) => (
                   <ExtratoItem key={transacao.id} categoria={transacao.categoria} lastItem={index === extrato.length - 1}>
                     <Dados>{transacao.titulo}</Dados>
