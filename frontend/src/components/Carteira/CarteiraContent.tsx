@@ -115,27 +115,30 @@ const Extrato =  styled.div`
   }
 `
 
-const ExtratoItem = styled.div<{ categoria: string }>`
-  display: flex; /* Alterado para flex */
+const ExtratoItem = styled.div<{ categoria: string; lastItem?: boolean }>`
+  display: flex;
   justify-content: space-between;
   align-items: center;
   padding: 0px 15px;
   margin: 5px;
-  background-color: gray;
-  border-radius: 8px;
   color: white;
   font-weight: bold;
-  background-color: ${(props) =>
-    props.categoria === 'ativo'
-      ? '#4CAF50'
-      : props.categoria === 'despesa'
-      ? '#FF5733'
-      : 'gray'};
-    
+  color: white;
+  border-bottom: ${props => (props.lastItem ? 'none' : '1px solid gray')}; 
 `
 
 const Dados = styled.p`
     min-width: 50px;
+`
+
+const Valor = styled.p<{ categoria: string }>`
+    min-width: 50px;
+    color: ${(props) =>
+      props.categoria === 'ativo'
+        ? '#b0ff00'
+        : props.categoria === 'despesa'
+        ? '#ff2d00'
+        : 'gray'};
 `
 
 const DadosData = styled.p`
@@ -473,13 +476,12 @@ const CarteiraContent: React.FC = () =>{
             <Main>
               <h1>Extrato</h1>
               <Extrato>
-                {extrato.map((transacao) => (
-                  <ExtratoItem key={transacao.id} categoria={transacao.categoria}>
+                {extrato.map((transacao, index) => (
+                  <ExtratoItem key={transacao.id} categoria={transacao.categoria} lastItem={index === extrato.length - 1}>
                     <Dados>{transacao.titulo}</Dados>
-                    <Dados>R${formatarSaldo(transacao.valor)}</Dados>
                     <Dados>{transacao.observacao}</Dados>
-                    <Dados>{transacao.fonte}</Dados>
                     <DadosData>{formatarData(transacao.data)}</DadosData>
+                    <Valor categoria={transacao.categoria}>R${formatarSaldo(transacao.valor)}</Valor>
                     <Btns>
                       <BtnDelete onClick={() => deleteTransacao(transacao.id,  transacao.categoria, transacao.valor)}>
                       <svg
@@ -529,3 +531,4 @@ const CarteiraContent: React.FC = () =>{
 }
 
 export default CarteiraContent
+
