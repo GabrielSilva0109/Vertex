@@ -228,7 +228,7 @@ const FormLogin: React.FC = () => {
     const [loginData, setLoginData] = useState({cpf: '', password: ''})
     
     const toggleForm = () => {
-        setIsLoginForm(!isLoginForm);
+        setIsLoginForm(!isLoginForm)
     }
 
     const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
