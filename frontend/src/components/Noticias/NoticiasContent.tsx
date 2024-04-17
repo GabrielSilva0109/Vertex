@@ -180,7 +180,7 @@ const NoticiasContent: React.FC = () => {
       } catch (error) {
         console.error('Erro ao buscar notícias gerais:', error);
       }
-    };
+    }
 
     const fetchNoticiasCrypto = async () => {
       try {
@@ -221,23 +221,23 @@ const NoticiasContent: React.FC = () => {
     fetchNoticiasGerais();
     fetchNoticiasCrypto();
     fetchCurrencyData();
-  }, []);
+  }, [])
 
   const handleNextGerais = () => {
     setStartIndexGerais(startIndexGerais + 3);
-  };
+  }
 
   const handlePreviousGerais = () => {
     setStartIndexGerais(Math.max(0, startIndexGerais - 3));
-  };
+  }
 
   const handleNextCrypto = () => {
     setStartIndexCrypto(startIndexCrypto + 3);
-  };
+  }
 
   const handlePreviousCrypto = () => {
     setStartIndexCrypto(Math.max(0, startIndexCrypto - 3));
-  };
+  }
 
   const CustomPrevArrow = (props: any) => { return <></> } 
   const CustomNextArrow = (props: any) => { return <></> }
@@ -252,7 +252,7 @@ const NoticiasContent: React.FC = () => {
     autoplaySpeed: 1,
     prevArrow: <CustomPrevArrow />, 
     nextArrow: <CustomNextArrow />, 
-  };
+  }
 
   return (
     <Container>
@@ -298,7 +298,7 @@ const NoticiasContent: React.FC = () => {
               <Image src={noticia.urlToImage} alt="Imagem da notícia" />
               <Title>{noticia.title}</Title>
               <Description>{noticia.description}</Description>
-              <CustomLink href={noticia.url} target="_blank" rel="noopener noreferrer">Leia mais</CustomLink>
+              <CustomLink href={noticia.url} target="_blank" rel="noopener noreferrer">Ler mais</CustomLink>
             </Item>
           ))}
           <Button onClick={handleNextCrypto} disabled={startIndexCrypto + 3 >= noticiasCrypto.length}>+</Button>
