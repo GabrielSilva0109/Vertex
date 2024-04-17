@@ -1,10 +1,10 @@
-import React, { useEffect, useState } from 'react';
-import styled from 'styled-components';
-import Slider from 'react-slick';
-import 'slick-carousel/slick/slick.css';
-import 'slick-carousel/slick/slick-theme.css';
-import world from "../Sections/img/world.png";
-import crypto from '../Sections/img/crypto.png';
+import React, { useEffect, useState } from 'react'
+import styled from 'styled-components'
+import Slider from 'react-slick'
+import 'slick-carousel/slick/slick.css'
+import 'slick-carousel/slick/slick-theme.css'
+import world from "../Sections/img/world.png"
+import crypto from '../Sections/img/crypto.png'
 
 const Container = styled.div`
   display: flex;
@@ -14,7 +14,7 @@ const Container = styled.div`
   width: 100%;
   min-height: 100vh;
   color: white;
-`;
+`
 
 const BoxNews = styled.div`
   display: flex;
@@ -30,7 +30,7 @@ const BoxNews = styled.div`
     margin-left: 0;
     width: 100%;
   }
-`;
+`
 
 const Image = styled.img`
   width: 100%;
@@ -39,7 +39,7 @@ const Image = styled.img`
   border-top-right-radius: 30px;
   background: linear-gradient(#e66465, #9198e5);
   transition: height 0.3s ease;
-`;
+`
 
 const Item = styled.div`
   width: 30%;
@@ -55,13 +55,13 @@ const Item = styled.div`
   @media (max-width: 768px) {
     width: 90%;
   }
-`;
+`
 
 const Title = styled.h4`
   align-self: flex-start;
   padding: 0px 10px;
   font-size: 0.8rem;
-`;
+`
 
 const Description = styled.p`
   font-weight: bold;
@@ -92,7 +92,7 @@ const Description = styled.p`
   &::-webkit-scrollbar-thumb:hover {
     background: #555;
   }
-`;
+`
 
 const CustomLink = styled.a`
   color: black;
@@ -105,7 +105,7 @@ const CustomLink = styled.a`
   border-radius: 10px;
   margin-top: auto;
   margin-bottom: 10px;
-`;
+`
 
 const Button = styled.button`
   background-color: #1c1c1e;
@@ -123,19 +123,19 @@ const Button = styled.button`
     background-color: white;
     color: black;
   }
-`;
+`
 
 const CurrencySlide = styled.div`
   display: flex;
   background-color: black;
   margin: 10px;
   gap: 10px;
-`;
+`
 
 const SlideBar = styled.div`
   margin: 0px;
   padding: 0px;
-`;
+`
 
 const PriceItems = styled.div`
   display: flex;
@@ -143,18 +143,18 @@ const PriceItems = styled.div`
   justify-content: center;
   text-align: center;
   gap: 10px;
-`;
+`
 
 const Main = styled.div`
   display: flex;
   gap: 40px;
-`;
+`
 
 const Box = styled.div`
   display: flex;
   align-items: center;
   width: 300px;
-`;
+`
 
 const ImgMark = styled.img`
   max-width: 100%;
@@ -162,7 +162,7 @@ const ImgMark = styled.img`
   @media (max-width: 768px) {
     display: none;
   }
-`;
+`
 
 const NoticiasContent: React.FC = () => {
   const [noticiasGerais, setNoticiasGerais] = useState([]);
@@ -306,6 +306,6 @@ const NoticiasContent: React.FC = () => {
       </Main>
     </Container>
   );
-};
+}
 
 export default NoticiasContent;
