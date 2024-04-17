@@ -461,12 +461,12 @@ const CarteiraContent: React.FC = () =>{
         <Container>
           <RightContainer>
             <BoxRight>
-              <h1>{user.name}</h1>
+                <h1>{user.name}</h1>
               <BoxInfo>
-              <label >Email </label>
-              <h4>{user.email}</h4>
-              <label >CPF </label>
-              <h4>{user.cpf}</h4>
+                <label >Email </label>
+                <h4>{user.email}</h4>
+                <label >CPF </label>
+                <h4>{user.cpf}</h4>
 
               </BoxInfo>
 
@@ -551,4 +551,3 @@ const CarteiraContent: React.FC = () =>{
 }
 
 export default CarteiraContent
-

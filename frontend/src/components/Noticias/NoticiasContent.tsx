@@ -305,7 +305,7 @@ const NoticiasContent: React.FC = () => {
         </BoxNews> 
       </Main>
     </Container>
-  );
+  )
 }
 
-export default NoticiasContent;
+export default NoticiasContent

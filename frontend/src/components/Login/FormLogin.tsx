@@ -138,6 +138,22 @@ const BtnGoogle = styled.button`
     }
 `
 
+const BtnSenha = styled.button`
+    background: none;
+    border: none;
+    font-size: 0.875rem;
+    font-weight: 600;
+    color: black;
+    margin-top: 10px;
+    transition: 0.5s;
+    cursor: pointer;
+
+    &:hover {
+        transform: scale(1.125);
+        
+    }
+`
+
 const FormCadastro: React.FC<{ onBackToLogin: () => void }> = ({ onBackToLogin }) => {
     const [formData, setFormData] = useState({
         name: '',
@@ -262,6 +278,7 @@ const FormLogin: React.FC = () => {
                     <Input placeholder='Senha' type="password" name='password' value={loginData.password} onChange={handleInputChange}/>
                     <BtnLogin onClick={handleLoginClick}>Login</BtnLogin>
                     <BtnCadastro onClick={toggleForm}>Cadastrar</BtnCadastro>
+                    <BtnSenha>Esqueceu a senha?</BtnSenha>
                     {/*  
                     <BtnGoogle>
                         <svg xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="xMidYMid" viewBox="0 0 256 262">
