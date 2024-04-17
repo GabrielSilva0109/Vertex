@@ -1,11 +1,10 @@
-import React, { useEffect, useState } from 'react'
-import { useLocation } from 'react-router-dom'
-import styled from 'styled-components'
-import Slider from 'react-slick'
-import 'slick-carousel/slick/slick.css'
-import 'slick-carousel/slick/slick-theme.css'
-import world from "../Sections/img/world.png"
-import crypto from '../Sections/img/crypto.png'
+import React, { useEffect, useState } from 'react';
+import styled from 'styled-components';
+import Slider from 'react-slick';
+import 'slick-carousel/slick/slick.css';
+import 'slick-carousel/slick/slick-theme.css';
+import world from "../Sections/img/world.png";
+import crypto from '../Sections/img/crypto.png';
 
 const Container = styled.div`
   display: flex;
@@ -15,7 +14,7 @@ const Container = styled.div`
   width: 100%;
   min-height: 100vh;
   color: white;
-`
+`;
 
 const BoxNews = styled.div`
   display: flex;
@@ -31,7 +30,7 @@ const BoxNews = styled.div`
     margin-left: 0;
     width: 100%;
   }
-`
+`;
 
 const Image = styled.img`
   width: 100%;
@@ -40,7 +39,7 @@ const Image = styled.img`
   border-top-right-radius: 30px;
   background: linear-gradient(#e66465, #9198e5);
   transition: height 0.3s ease;
-`
+`;
 
 const Item = styled.div`
   width: 30%;
@@ -56,13 +55,13 @@ const Item = styled.div`
   @media (max-width: 768px) {
     width: 90%;
   }
-`
+`;
 
 const Title = styled.h4`
   align-self: flex-start;
   padding: 0px 10px;
   font-size: 0.8rem;
-`
+`;
 
 const Description = styled.p`
   font-weight: bold;
@@ -70,8 +69,8 @@ const Description = styled.p`
   font-size: 0.8rem;
   color: #999999;
   max-height: 100px;
-  overflow-y: auto; 
-  margin-bottom: 10px; 
+  overflow-y: auto;
+  margin-bottom: 10px;
 
   /* Estilos para o scrollbar */
   &::-webkit-scrollbar {
@@ -93,7 +92,7 @@ const Description = styled.p`
   &::-webkit-scrollbar-thumb:hover {
     background: #555;
   }
-`
+`;
 
 const CustomLink = styled.a`
   color: black;
@@ -106,10 +105,10 @@ const CustomLink = styled.a`
   border-radius: 10px;
   margin-top: auto;
   margin-bottom: 10px;
-`
+`;
 
 const Button = styled.button`
-  background-color: #1c1c1e ;
+  background-color: #1c1c1e;
   border-radius: 50px;
   cursor: pointer;
   margin: 10px;
@@ -122,20 +121,21 @@ const Button = styled.button`
 
   &:hover {
     background-color: white;
+    color: black;
   }
-`
+`;
 
 const CurrencySlide = styled.div`
   display: flex;
   background-color: black;
   margin: 10px;
   gap: 10px;
-`
+`;
 
 const SlideBar = styled.div`
   margin: 0px;
   padding: 0px;
-`
+`;
 
 const PriceItems = styled.div`
   display: flex;
@@ -143,19 +143,18 @@ const PriceItems = styled.div`
   justify-content: center;
   text-align: center;
   gap: 10px;
-`
+`;
 
 const Main = styled.div`
   display: flex;
   gap: 40px;
-`
+`;
 
 const Box = styled.div`
   display: flex;
   align-items: center;
   width: 300px;
-  
-`
+`;
 
 const ImgMark = styled.img`
   max-width: 100%;
@@ -163,70 +162,86 @@ const ImgMark = styled.img`
   @media (max-width: 768px) {
     display: none;
   }
-`
+`;
 
 const NoticiasContent: React.FC = () => {
-  const [noticiasGerais, setNoticiasGerais] = useState([])
-  const [noticiasCrypto, setNoticiasCrypto] = useState([])
-  const [startIndexGerais, setStartIndexGerais] = useState(0)
-  const [startIndexCrypto, setStartIndexCrypto] = useState(0)
-  const [currencyData, setCurrencyData] = useState<any>(null)
+  const [noticiasGerais, setNoticiasGerais] = useState([]);
+  const [noticiasCrypto, setNoticiasCrypto] = useState([]);
+  const [startIndexGerais, setStartIndexGerais] = useState(0);
+  const [startIndexCrypto, setStartIndexCrypto] = useState(0);
+  const [currencyData, setCurrencyData] = useState<any>(null);
 
-  async function fetchNoticiasGerais() {
-    try {
-      const response = await fetch("https://newsapi.org/v2/everything?q=tecnologia&language=pt&apiKey=3ba975a9509b47f9958e5534f814dec7")
-      const data = await response.json()
-      setNoticiasGerais(data.articles)
-    } catch (error) {
-      console.error('Erro ao buscar notícias gerais:', error)
-    }
-  }
-
-  async function fetchNoticiasCrypto() {
-    try {
-      const response = await fetch("https://newsapi.org/v2/everything?q=Crypto&language=pt&apiKey=3ba975a9509b47f9958e5534f814dec7")
-      const data = await response.json()
-      setNoticiasCrypto(data.articles)
-    } catch (error) {
-      console.error('Erro ao buscar notícias sobre criptomoedas:', error)
-    }
-    
-  }
-
-  const fetchCurrencyData = async () => {
-    try {
-      const response = await fetch('https://open.er-api.com/v6/latest/USD');
-      if (response.ok) {
+  useEffect(() => {
+    const fetchNoticiasGerais = async () => {
+      try {
+        const response = await fetch("https://newsapi.org/v2/everything?q=tecnologia&language=pt&apiKey=3ba975a9509b47f9958e5534f814dec7");
         const data = await response.json();
-        const filteredData = {
-          USD: data.rates.USD, 
-          EUR: data.rates.EUR,
-          BRL: data.rates.BRL,
-          JPY: data.rates.JPY,
-          AUD: data.rates.AUD,
-          CHF: data.rates.CHF,
-          CAD: data.rates.CAD,
-          CNY: data.rates.CNY,
-          HKD: data.rates.HKD,
-          SEK: data.rates.SEK,
-        };
-        setCurrencyData(filteredData);
-      } else {
-        throw new Error('Failed to fetch currency data');
+        setNoticiasGerais(data.articles);
+      } catch (error) {
+        console.error('Erro ao buscar notícias gerais:', error);
       }
-    } catch (error) {
-      console.error('Error fetching currency data:', error);
-    }
-  }  
+    };
 
-  const CustomPrevArrow = (props: any) => {
-    return <></>
-  }
-  
-  const CustomNextArrow = (props: any) => {
-    return <></>
-  }
-  
+    const fetchNoticiasCrypto = async () => {
+      try {
+        const response = await fetch("https://newsapi.org/v2/everything?q=Crypto&language=pt&apiKey=3ba975a9509b47f9958e5534f814dec7");
+        const data = await response.json();
+        setNoticiasCrypto(data.articles);
+      } catch (error) {
+        console.error('Erro ao buscar notícias sobre criptomoedas:', error);
+      }
+    };
+
+    const fetchCurrencyData = async () => {
+      try {
+        const response = await fetch('https://open.er-api.com/v6/latest/USD')
+        if (response.ok) {
+          const data = await response.json()
+          const filteredData = {
+            USD: data.rates.USD, 
+            EUR: data.rates.EUR,
+            BRL: data.rates.BRL,
+            JPY: data.rates.JPY,
+            AUD: data.rates.AUD,
+            CHF: data.rates.CHF,
+            CAD: data.rates.CAD,
+            CNY: data.rates.CNY,
+            HKD: data.rates.HKD,
+            SEK: data.rates.SEK,
+          };
+          setCurrencyData(filteredData);
+        } else {
+          throw new Error('Failed to fetch currency data');
+        }
+      } catch (error) {
+        console.error('Error fetching currency data:', error);
+      }
+    };
+
+    fetchNoticiasGerais();
+    fetchNoticiasCrypto();
+    fetchCurrencyData();
+  }, []);
+
+  const handleNextGerais = () => {
+    setStartIndexGerais(startIndexGerais + 3);
+  };
+
+  const handlePreviousGerais = () => {
+    setStartIndexGerais(Math.max(0, startIndexGerais - 3));
+  };
+
+  const handleNextCrypto = () => {
+    setStartIndexCrypto(startIndexCrypto + 3);
+  };
+
+  const handlePreviousCrypto = () => {
+    setStartIndexCrypto(Math.max(0, startIndexCrypto - 3));
+  };
+
+  const CustomPrevArrow = (props: any) => { return <></> } 
+  const CustomNextArrow = (props: any) => { return <></> }
+
   const settings = {
     dots: false,
     infinite: true,
@@ -237,38 +252,13 @@ const NoticiasContent: React.FC = () => {
     autoplaySpeed: 1,
     prevArrow: <CustomPrevArrow />, 
     nextArrow: <CustomNextArrow />, 
-  }
-
-  useEffect(() => {
-    fetchNoticiasGerais()
-    fetchNoticiasCrypto()
-    fetchCurrencyData()
-  }, [])
-
-  const handleNextGerais = () => {
-    setStartIndexGerais(startIndexGerais + 3)
-  }
-
-  const handlePreviousGerais = () => {
-    setStartIndexGerais(Math.max(0, startIndexGerais - 3))
-  }
-
-  const handleNextCrypto = () => {
-    setStartIndexCrypto(startIndexCrypto + 3)
-  }
-
-  const handlePreviousCrypto = () => {
-    setStartIndexCrypto(Math.max(0, startIndexCrypto - 3))
-  }
+  };
 
   return (
     <Container>
       <Main>
         <BoxNews>
-          <div>
-            <Button onClick={handlePreviousGerais} disabled={startIndexGerais === 0}>-</Button>
-          </div>
-          
+          <Button onClick={handlePreviousGerais} disabled={startIndexGerais === 0}>-</Button>
           {noticiasGerais.slice(startIndexGerais, startIndexGerais + 3).map((noticia: any, index: number) => (
             <Item key={index}>
               <Image src={noticia.urlToImage} alt="Imagem da notícia" />
@@ -277,17 +267,12 @@ const NoticiasContent: React.FC = () => {
               <CustomLink href={noticia.url} target="_blank" rel="noopener noreferrer">Leia mais</CustomLink>
             </Item>
           ))}
-          
-          <div>
-            <Button onClick={handleNextGerais} disabled={startIndexGerais + 3 >= noticiasGerais.length}>+</Button>
-          </div>
+          <Button onClick={handleNextGerais} disabled={startIndexGerais + 3 >= noticiasGerais.length}>+</Button>
         </BoxNews>
         <Box>
-            <ImgMark src={world} />
+          <ImgMark src={world} />
         </Box>
       </Main>
-      
-      
       <SlideBar>
         {currencyData && (
           <Slider {...settings} >
@@ -302,16 +287,12 @@ const NoticiasContent: React.FC = () => {
           </Slider>
         )}
       </SlideBar>
-
       <Main>
         <Box>
           <ImgMark src={crypto} style={{ marginLeft: "20px" }} />
         </Box>
         <BoxNews style={{background: "#b0ff00"}}>
-          <div>
-            <Button onClick={handlePreviousCrypto} disabled={startIndexCrypto === 0}>-</Button>
-          </div>
-          
+          <Button onClick={handlePreviousCrypto} disabled={startIndexCrypto === 0}>-</Button>
           {noticiasCrypto.slice(startIndexCrypto, startIndexCrypto + 3).map((noticia: any, index: number) => (
             <Item key={index}>
               <Image src={noticia.urlToImage} alt="Imagem da notícia" />
@@ -320,15 +301,11 @@ const NoticiasContent: React.FC = () => {
               <CustomLink href={noticia.url} target="_blank" rel="noopener noreferrer">Leia mais</CustomLink>
             </Item>
           ))}
-          
-          <div>
-            <Button onClick={handleNextCrypto} disabled={startIndexCrypto + 3 >= noticiasCrypto.length}>+</Button>
-          </div>
+          <Button onClick={handleNextCrypto} disabled={startIndexCrypto + 3 >= noticiasCrypto.length}>+</Button>
         </BoxNews> 
       </Main>
-      
     </Container>
-  ) 
-}
+  );
+};
 
-export default NoticiasContent
+export default NoticiasContent;
