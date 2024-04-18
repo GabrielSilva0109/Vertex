@@ -3,7 +3,7 @@ import { db } from '../db'
 import { error } from 'console'
 import bcrypt from 'bcrypt'
 import EmailController from './EmailController'
-import nodemailer from 'nodemailer';
+import nodemailer from 'nodemailer'
 
 const generateRandomNumber = () => {
     const randomNumber = Math.floor(10000 + Math.random() * 90000);
