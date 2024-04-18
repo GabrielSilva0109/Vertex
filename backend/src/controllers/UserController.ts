@@ -176,20 +176,19 @@ const sendWelcomeEmail = async (to: string) => {
             user: 'automacaobrame@gmail.com',
             pass: 'Brame2023@'
         }
-    });
+    })
 
     const mailOptions = {
         from: 'automacaobrame@gmail.com',
         to,
         subject: 'Bem-vindo ao Vertex!',
         text: 'Olá! Bem-vindo ao VertexBank! Estamos felizes por ter você como nosso novo usuário.'
-    };
+    }
 
     try {
         await transporter.sendMail(mailOptions)
         console.log('E-mail de boas-vindas enviado com sucesso para:', to)
     } catch (error) {
         console.error('Erro ao enviar e-mail de boas-vindas:', error)
-        
     }
 }
