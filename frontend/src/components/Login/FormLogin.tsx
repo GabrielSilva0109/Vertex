@@ -102,7 +102,6 @@ const BtnCadastro = styled.button`
     &:active {
         transform: scale(0.975);
     }
-  
 `
 
 const BtnGoogle = styled.button`
@@ -205,7 +204,6 @@ const FormCadastro: React.FC<{ onBackToLogin: () => void }> = ({ onBackToLogin }
             toast.error('Erro ao processar a requisição')
         }
     }
-
    
     return (
         <Box>
