@@ -27,10 +27,10 @@ class EmailController {
     try {
       // Envio do e-mail
       await transporter.sendMail(mailOptions);
-      res.status(200).send('E-mail enviado com sucesso!');
+      res.status(200).send('E-mail enviado com sucesso!')
     } catch (error) {
-      console.error('Erro ao enviar e-mail:', error);
-      res.status(500).send('Erro ao enviar e-mail');
+      console.error('Erro ao enviar e-mail:', error)
+      res.status(500).send('Erro ao enviar e-mail')
     }
   }
 }
