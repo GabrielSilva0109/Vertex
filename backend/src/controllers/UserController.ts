@@ -5,7 +5,6 @@ import bcrypt from 'bcrypt'
 import EmailController from './EmailController'
 import nodemailer from 'nodemailer';
 
-
 const generateRandomNumber = () => {
     const randomNumber = Math.floor(10000 + Math.random() * 90000);
     return randomNumber.toString();
