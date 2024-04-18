@@ -167,7 +167,6 @@ export const updateUserPicture = (req: Request, res: Response) => {
     })
 }
 
-
 // Cria uma função assíncrona para enviar o e-mail de boas-vindas
 const sendWelcomeEmail = async (to: string) => {
     const transporter = nodemailer.createTransport({
