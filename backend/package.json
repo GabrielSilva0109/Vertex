@@ -21,6 +21,7 @@
     "google-auth-library": "^9.7.0",
     "multer": "^1.4.5-lts.1",
     "mysql": "^2.18.1",
+    "nodemailer": "^6.9.13",
     "openai": "^4.33.1",
     "serverless": "^3.38.0",
     "ts-node": "^10.9.2",
