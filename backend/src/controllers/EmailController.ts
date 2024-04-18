@@ -1,5 +1,5 @@
-import { Request, Response } from 'express';
-import nodemailer from 'nodemailer';
+import { Request, Response } from 'express'
+import nodemailer from 'nodemailer'
 
 class EmailController {
   async sendEmail(req: Request, res: Response) {
@@ -11,14 +11,14 @@ class EmailController {
       port: 465,
       secure: true,
       auth: {
-        user: 'automacaobrame@gmail.com', // Insira seu endereço de e-mail do Gmail aqui
-        pass: 'Brame2023@' // Insira sua senha do Gmail aqui
+        user: 'automacaobrame@gmail.com', 
+        pass: 'Brame2023@'
       }
     });
 
-    // Opções do e-mail
+    
     const mailOptions = {
-      from: 'automacaobrame@gmail.com', // Seu endereço de e-mail
+      from: 'automacaobrame@gmail.com', 
       to,
       subject,
       text
