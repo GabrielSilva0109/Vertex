@@ -2,7 +2,7 @@ import { mailgunConfig } from '../mailGunConfig'
 import mailgun from 'mailgun-js'
 import { Request, Response } from "express"
 
-const mg = mailgun({apiKey: mailgunConfig.apiKey, domain: mailgunConfig.domain
+const mg = mailgun({apiKey: mailgunConfig.apiKey, domain: mailgunConfig.domain})
 
 export const sendEmailWelcome = (recipient: string) => {
     const subject = "Bem-vindo ao Vertex"

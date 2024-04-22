@@ -2,8 +2,7 @@ import { Request, Response } from 'express'
 import { db } from '../db'
 import { error } from 'console'
 import bcrypt from 'bcrypt'
-import EmailController from './EmailController'
-import nodemailer from 'nodemailer'
+import { sendEmailWelcome } from './EmailController'
 
 const generateRandomNumber = () => {
     const randomNumber = Math.floor(10000 + Math.random() * 90000);
@@ -60,9 +59,9 @@ export const createUser = (req: Request, res: Response) => {
                 return res.status(500).json({ error: 'Erro ao Criar Wallet para o Usuário' })
             }
 
-            await sendWelcomeEmail(email)
+            await sendEmailWelcome(email)
 
-            return res.status(201).json('Usuário e Wallet Criados!!');
+            return res.status(201).json('Usuário e Wallet Criados!!')
         })
     })
 }
@@ -164,29 +163,4 @@ export const updateUserPicture = (req: Request, res: Response) => {
 
         return res.status(200).json('Foto do Usuário Atualizada!!')
     })
-}
-
-// Cria uma função assíncrona para enviar o e-mail de boas-vindas
-const sendWelcomeEmail = async (to: string) => {
-    const transporter = nodemailer.createTransport({
-        service: 'Gmail',
-        auth: {
-            user: 'automacaobrame@gmail.com',
-            pass: 'Brame2023@'
-        }
-    })
-
-    const mailOptions = {
-        from: 'automacaobrame@gmail.com',
-        to,
-        subject: 'Bem-vindo ao Vertex!',
-        text: 'Olá! Bem-vindo ao VertexBank! Estamos felizes por ter você como nosso novo usuário.'
-    }
-
-    try {
-        await transporter.sendMail(mailOptions)
-        console.log('E-mail de boas-vindas enviado com sucesso para:', to)
-    } catch (error) {
-        console.error('Erro ao enviar e-mail de boas-vindas:', error)
-    }
 }
