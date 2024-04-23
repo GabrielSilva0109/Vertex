@@ -55,4 +55,3 @@ CREATE TABLE investimentos (
     FOREIGN KEY (wallet_id) REFERENCES wallets(id)
 );
 
-API key NewAPI = 3ba975a9509b47f9958e5534f814dec7

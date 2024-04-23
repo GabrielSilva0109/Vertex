@@ -2,7 +2,6 @@ import { Request, Response } from 'express'
 import { db } from '../db'
 import { error } from 'console'
 import bcrypt from 'bcrypt'
-import { sendEmailWelcome } from './EmailController'
 
 const generateRandomNumber = () => {
     const randomNumber = Math.floor(10000 + Math.random() * 90000);
@@ -58,8 +57,6 @@ export const createUser = (req: Request, res: Response) => {
             if (walletError) {
                 return res.status(500).json({ error: 'Erro ao Criar Wallet para o Usuário' })
             }
-
-            await sendEmailWelcome(email)
 
             return res.status(201).json('Usuário e Wallet Criados!!')
         })
