@@ -129,8 +129,12 @@ npm start
 O aplicativo frontend estará disponível em http://localhost:3000.
 ## APIs Usadas
 1-Coincheko - Forcece preço e demais informações sobre Cryptoativos.
+
 2-NewAPI - Fornece noticias sobre finanças e tecnologia.
+
 3-Alpha Vantage - Forcese Preço e demais informações sobre Ações, ETFs, FIIs e Moedas.
+
+4-Google OAuth - Fornecendo mais segurança a aplicação, envio de Emails, autenticação.
 
 
 ## Backend API
