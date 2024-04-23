@@ -142,7 +142,7 @@ As APIs oferecem os seguintes endpoints:
 
 User
 ```
-GET /users: Retorna todas os Usuarios.
+GET /users: Retorna todos os Usuarios.
 GET /user/:id Retorna Usuario por ID.
 POST /user: Cria um novo Usuario.
 PUT /user/:id: Atualiza os dados do usuario.
@@ -158,7 +158,7 @@ DELETE /wallet/:id - Exclui a Wallet.
 ```
 Ativo
 ```
-GET /ativos - Retorna todas os Ativos.
+GET /ativos - Retorna todos os Ativos.
 GET /ativo/:id - Retorna Ativo por ID.
 POST /ativo - Cria um novo Ativo.
 PUT /ativo/:id - Atualiza os dados do Ativo.
