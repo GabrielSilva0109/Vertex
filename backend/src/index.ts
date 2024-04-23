@@ -8,15 +8,14 @@ import ativoRoutes from './routes/AtivoRoutes'
 import despesaRoutes from './routes/DespesaRoutes'
 import investimentoRoutes from './routes/InvestimentoRoutes'
 
-dotenv.config();
+dotenv.config()
 
-const app = express();
-const port = 3333;
+const app = express()
+const port = 3333
 
-const CLIENT_ID = process.env.CLIENT_ID;
-const CLIENT_SECRET = process.env.CLIENT_SECRET;
-const REDIRECT_URI = 'http://localhost:3333/oauth2callback';
-
+const CLIENT_ID = process.env.CLIENT_ID
+const CLIENT_SECRET = process.env.CLIENT_SECRET
+const REDIRECT_URI = 'http://localhost:3333/oauth2callback'
 
 // Rotas principais
 app.get('/', (req, res) => {
