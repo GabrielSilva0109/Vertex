@@ -31,7 +31,7 @@ cd backend
 
 5. *Instale as dependências do backend:*
 ```
-npm install 
+npm install cors express google-auth 
 ```
 
 6. *Crie a table no MySQL*
