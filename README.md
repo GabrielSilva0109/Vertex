@@ -165,6 +165,15 @@ PUT /ativo/:id - Atualiza os dados do Ativo.
 DELETE /ativo/:id - Exclui o Ativo.
 ```
 
+Despesa
+```
+GET /despesas - Retorna todas as Despesas.
+GET /despesa/:id - Retorna Despesa por ID.
+POST /despesa - Cria uma nova Despesa.
+PUT /despesa/:id - Atualiza os dados da Despesa.
+DELETE /despesa/:id - Exclui a despesa.
+```
+
 ## Tecnologias Utilizadas
 
 ReactJS
