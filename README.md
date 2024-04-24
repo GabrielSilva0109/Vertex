@@ -18,7 +18,7 @@ Este projeto é um aplicativo simples de Dashborad desenvolvido Typescript com R
   - Google OAuth
   - Alpha Vantage
   - Coingecko
-  - Recharts
+  - NewAPI
     
 
 **Certifique-se de ter o Node.js instalado em sua máquina.**
@@ -146,6 +146,7 @@ No diretório frontend, execute o seguinte comando:
 npm start
 ```
 O aplicativo frontend estará disponível em http://localhost:3000.
+
 ## APIs Usadas
 1-Coincheko - Forcece preço e demais informações sobre Cryptoativos.
 
@@ -192,14 +193,3 @@ POST /despesa - Cria uma nova Despesa.
 PUT /despesa/:id - Atualiza os dados da Despesa.
 DELETE /despesa/:id - Exclui a despesa.
 ```
-
-## Tecnologias Utilizadas
-
-ReactJS
-Node.js
-Express
-MySQL
-Recharts Graficos
-Styled-components
-
-
