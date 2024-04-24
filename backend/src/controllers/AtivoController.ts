@@ -1,5 +1,5 @@
-import { db } from "../db";
-import { Request, Response } from 'express';
+import { db } from "../db"
+import { Request, Response } from 'express'
 
 // Retorna todos os ATIVOS
 export const getAtivos = async (req: Request, res: Response) => {
