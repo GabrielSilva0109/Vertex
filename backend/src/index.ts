@@ -17,6 +17,8 @@ const CLIENT_ID = process.env.CLIENT_ID
 const CLIENT_SECRET = process.env.CLIENT_SECRET
 const REDIRECT_URI = 'http://localhost:3333/oauth2callback'
 
+app.use(cors())
+
 // Rotas principais
 app.get('/', (req, res) => {
   res.send('Bem-vindo ao VertexBank!')
