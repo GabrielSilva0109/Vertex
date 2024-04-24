@@ -7,8 +7,7 @@ const db = mysql.createConnection({
     database: "vertex"
 })
 
-
-db.connect((erro) =>{
+db.connect((erro) => {
     if(erro){
         console.log("Erro Conection MySQL", erro)
         return
