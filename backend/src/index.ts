@@ -18,6 +18,7 @@ const CLIENT_SECRET = process.env.CLIENT_SECRET
 const REDIRECT_URI = 'http://localhost:3333/oauth2callback'
 
 app.use(cors())
+app.use(express.json())
 
 // Rotas principais
 app.get('/', (req, res) => {
