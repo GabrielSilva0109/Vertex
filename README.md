@@ -2,6 +2,25 @@
 
 Este projeto é um aplicativo simples de Dashborad desenvolvido Typescript com ReactJS para o frontend e Node com Express para o backend. Ele permite aos usuários gerenciar suas finanças.
 
+### Backend
+  - Node
+  - Express
+  - Typescript
+  - Cors
+
+### Frontend
+  - React
+  - Javascript
+  - Styled Components
+  - Recharts
+
+### APIs
+  - Google OAuth
+  - Alpha Vantage
+  - Coingecko
+  - Recharts
+    
+
 **Certifique-se de ter o Node.js instalado em sua máquina.**
 
 ## Como Começar
