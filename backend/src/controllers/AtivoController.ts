@@ -1,10 +1,10 @@
-import { db } from "../db"
+import { localDB } from "../db"
 import { Request, Response } from 'express'
 
 // Retorna todos os ATIVOS
 export const getAtivos = async (req: Request, res: Response) => {
     const q = "SELECT * FROM ativos;";  
-    db.query(q, (erro, data) => {
+    localDB.query(q, (erro, data) => {
         if (erro) return res.status(500).json({ erro: "Erro ao trazer os Ativos" });
         return res.status(200).json(data);
     });
@@ -14,7 +14,7 @@ export const getAtivos = async (req: Request, res: Response) => {
 export const getAtivoById = async (req: Request, res: Response) => {
     const q = "SELECT * FROM ativos WHERE `id`=?;"; 
 
-    db.query(q, [req.params.id], (erro, data) => {
+    localDB.query(q, [req.params.id], (erro, data) => {
         if (erro) return res.status(500).json({ erro: "Erro ao trazer Ativo por ID" });
         return res.status(200).json(data[0]);
     });
@@ -24,7 +24,7 @@ export const getAtivoById = async (req: Request, res: Response) => {
 export const getAtivosByWalletId = async (req: Request, res: Response) => {
     const q = "SELECT * FROM Ativos WHERE `wallet_id`=?"
 
-    db.query(q, [req.params.id], (erro, data) => {
+    localDB.query(q, [req.params.id], (erro, data) => {
         if(erro) return res.status(500).json({erro: "Erro ao trazer os Ativos dessa Wallet"})
         return res.status(200).json(data)
     })
@@ -39,7 +39,7 @@ export const createAtivo = async (req: Request, res: Response) => {
     }
 
     const q = "INSERT INTO ativos(`wallet_id`, `titulo`, `valor`, `observacao`, `categoria`, `fonte`, `data`) VALUES (?,?,?,?,?,?,?);";  // Alteração do nome da tabela para 'ativos'
-    db.query(q, [wallet_id, titulo, valor, observacao, categoria, fonte, data], (erro, data) => {
+    localDB.query(q, [wallet_id, titulo, valor, observacao, categoria, fonte, data], (erro, data) => {
         if (erro) return res.status(500).json({ erro: "Erro ao Cadastrar o Ativo" });
         return res.status(201).json("Cadastrado Ativo!");
     });
@@ -65,7 +65,7 @@ export const updateAtivo = async (req: Request, res: Response) => {
 
     const q = `UPDATE ativos SET ${setFields.join(", ")} WHERE id=?;`
 
-    db.query(q, [...Object.values(req.body).filter(value => value !== undefined), ativoId], (erro, data) => {
+    localDB.query(q, [...Object.values(req.body).filter(value => value !== undefined), ativoId], (erro, data) => {
         if (erro) return res.status(500).json({ erro: "Erro ao Atualizar o Ativo" })
         return res.status(200).json("Ativo Atualizado!")
     });
@@ -77,7 +77,7 @@ export const deleteAtivo = async (req: Request, res: Response) => {
 
     const q = "DELETE FROM ativos WHERE id=?;";  // Alteração do nome da tabela para 'ativos'
 
-    db.query(q, [ativoId], (erro, data) => {
+    localDB.query(q, [ativoId], (erro, data) => {
         if (erro) return res.status(500).json({ erro: "Erro ao Excluir o Ativo" });
         return res.status(200).json("Ativo Excluído!");
     });

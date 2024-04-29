@@ -1,10 +1,10 @@
-import { db } from "../db"
+import { localDB } from "../db"
 import { Request, Response } from 'express'
 
 // Retorna todos os DESPESAS
 export const getDespesas = async (req: Request, res: Response) => {
     const q = "SELECT * FROM despesas;";  
-    db.query(q, (erro, data) => {
+    localDB.query(q, (erro, data) => {
         if (erro) return res.status(500).json({ erro: "Erro ao trazer os Despesas" });
         return res.status(200).json(data);
     });
@@ -14,7 +14,7 @@ export const getDespesas = async (req: Request, res: Response) => {
 export const getDespesaById = async (req: Request, res: Response) => {
     const q = "SELECT * FROM despesas WHERE `id`=?;"
 
-    db.query(q, [req.params.id], (erro, data) => {
+    localDB.query(q, [req.params.id], (erro, data) => {
         if (erro) return res.status(500).json({ erro: "Erro ao trazer Ativo por ID" });
         return res.status(200).json(data[0]);
     });
@@ -24,7 +24,7 @@ export const getDespesaById = async (req: Request, res: Response) => {
 export const getDespesasByWalletId = async (req: Request, res: Response) => {
     const q = "SELECT * FROM despesas WHERE `wallet_id`=?"
 
-    db.query(q, [req.params.id], (erro, data) => {
+    localDB.query(q, [req.params.id], (erro, data) => {
         if(erro) return res.status(500).json({erro: "Erro ao trazer as Despesas dessa Wallet"})
         return res.status(200).json(data)
     })
@@ -39,7 +39,7 @@ export const createDespesa = async (req: Request, res: Response) => {
     }
 
     const q = "INSERT INTO despesas(`wallet_id`, `titulo`, `valor`, `observacao`, `categoria`, `fonte`, `data`) VALUES (?,?,?,?,?,?,?);"
-    db.query(q, [wallet_id, titulo, valor, observacao, categoria, fonte, data], (erro, data) => {
+    localDB.query(q, [wallet_id, titulo, valor, observacao, categoria, fonte, data], (erro, data) => {
         if (erro) return res.status(500).json({ erro: "Erro ao Cadastrar a Despesa" });
         return res.status(201).json("Despesa Cadastrada!");
     });
@@ -65,7 +65,7 @@ export const updateDespesa = async (req: Request, res: Response) => {
 
     const q = `UPDATE despesas SET ${setFields.join(", ")} WHERE id=?;`
 
-    db.query(q, [...Object.values(req.body).filter(value => value !== undefined), despesaId], (erro, data) => {
+    localDB.query(q, [...Object.values(req.body).filter(value => value !== undefined), despesaId], (erro, data) => {
         if (erro) return res.status(500).json({ erro: "Erro ao Atualizar a Despesa" })
         return res.status(200).json("Despesa Atualizada!")
     });
@@ -77,7 +77,7 @@ export const deleteDespesa = async (req: Request, res: Response) => {
 
     const q = "DELETE FROM despesas WHERE id=?;"
 
-    db.query(q, [despesaId], (erro, data) => {
+    localDB.query(q, [despesaId], (erro, data) => {
         if (erro) return res.status(500).json({ erro: "Erro ao Excluir o Desesa" });
         return res.status(200).json("Despesa Excluída!");
     });

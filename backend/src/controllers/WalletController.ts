@@ -1,12 +1,12 @@
 import { Request, Response } from 'express'
-import { db } from '../db'
+import { localDB } from '../db'
 import { error } from 'console'
 
 //Retorna todos os Wallets
 export const getWallets = (req: Request, res: Response) => {
     const q = "SELECT * FROM wallets;"
 
-    db.query(q, (error, data) => {
+    localDB.query(q, (error, data) => {
         if (error) return res.status(500).json({ error: 'Erro interno no servidor' })
 
         return res.status(200).json(data)
@@ -17,7 +17,7 @@ export const getWallets = (req: Request, res: Response) => {
 export const getWalletById = (req: Request, res:Response) => {
     const q = "SELECT * FROM wallets WHERE `id`=?;"
 
-    db.query(q, [req.params.id], (erro, data) =>{
+    localDB.query(q, [req.params.id], (erro, data) =>{
         if(erro) return res.status(500).json({erro: 'Erro ao encontrar Wallet'})
 
         return res.status(200).json(data[0])
@@ -27,7 +27,7 @@ export const getWalletById = (req: Request, res:Response) => {
 export const getWalletByIdUser = (req: Request, res: Response) => {
     const q = "SELECT * FROM wallets WHERE `user_id`=?;"
 
-    db.query(q, [req.params.id], (erro, data) => {
+    localDB.query(q, [req.params.id], (erro, data) => {
         if(erro) return res.status(500).json({erro: 'Erro ao encontrar a Wallet do Usuario'})
 
         return res.status(200).json(data[0])
@@ -44,7 +44,7 @@ export const createWallet = (req: Request, res: Response) => {
 
 
     const q = "INSERT INTO wallets (`user_id`, `conta`,`saldo`, `ativos`, `despesas`) VALUES (?,?,?,?,?);"
-    db.query(q, [user_id, conta, saldo, ativos, despesas], (erro, data) => {
+    localDB.query(q, [user_id, conta, saldo, ativos, despesas], (erro, data) => {
         if (erro) return res.status(500).json({ erro: 'Erro ao Criar Wallet' })
 
         return res.status(201).json('Wallet Criado!!')
@@ -81,7 +81,7 @@ export const updateWallet = (req: Request, res: Response) => {
 
     const updateQuery = `UPDATE wallets SET ${updateFields.join(', ')} WHERE id=?`
 
-    db.query(updateQuery, [...queryParams, walletId], (error, data) => {
+    localDB.query(updateQuery, [...queryParams, walletId], (error, data) => {
         if (error) {
             return res.status(500).json({ error: 'Erro ao atualizar os dados da Wallet.' })
         }
@@ -96,7 +96,7 @@ export const deleteWallet = (req: Request, res: Response) => {
     const walletId = req.params.id;
 
     const q = "DELETE FROM wallets WHERE `id`=?";
-    db.query(q, [walletId], (error, data) => {
+    localDB.query(q, [walletId], (error, data) => {
         if (error) return res.status(500).json({ error: 'Erro ao Deletar Wallet' });
 
         return res.status(200).json('Wallet Deletada!!');
