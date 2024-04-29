@@ -17,7 +17,7 @@ interface ModalProps {
     categoria: string;
     fonte: string;
     data: string;
-  };
+  }
   setFormData: React.Dispatch<React.SetStateAction<{
     wallet_id: string;
     titulo: string;
@@ -26,7 +26,7 @@ interface ModalProps {
     categoria: string;
     fonte: string;
     data: string;
-  }>>;
+  }>>
 }
 
 const ModalContainer = styled.div`
@@ -67,7 +67,7 @@ const CustomCheckbox = styled.input`
 `
 
 const CheckboxText = styled.span<{ isDespesa: boolean }>`
-  padding: 6px 12px;
+  padding: 6px 20px;
   background-color: ${props => (props.isDespesa ? '#ff5b5b' : '#b0ff00')};
   border-radius: 5px;
   font-weight: bold;
@@ -128,7 +128,7 @@ const Modal: React.FC<ModalProps> = ({ isOpen, onClose, onSubmit, formData, setF
         </Form>
       </ModalContent>
     </ModalContainer>
-  );
-};
+  )
+}
 
-export default Modal;
+export default Modal
