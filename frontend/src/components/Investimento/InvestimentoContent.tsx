@@ -52,7 +52,6 @@ const Main = styled.main`
 `
 
 const ExpandedBox = styled.div<{ isOpen: boolean }>`
-  
   width: 95%;
   padding: 5px;
   border-radius: 15px;
@@ -73,7 +72,7 @@ const ExpandedBox = styled.div<{ isOpen: boolean }>`
 `
 
 const BtnOpen = styled.button<{ isOpen: boolean }>`
-  background-color: ${(props) => (props.isOpen ? 'rgb(60, 60, 60)' : 'rgb(46, 46, 46)')};
+  background-color: ${(props) => (props.isOpen ? 'rgb(60, 60, 60)' : 'gray')};
   border-radius: 50px;
   cursor: pointer;
   display: flex;
