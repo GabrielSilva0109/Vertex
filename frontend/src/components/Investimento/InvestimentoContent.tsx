@@ -129,17 +129,14 @@ const BtnAtivo = styled.button`
 `
 
 const Investimento = styled.div`
-display: flex;
-justify-content: space-between;
-align-items: center;
-padding: 0px 15px;
-margin: 5px;
-background-color: gray;
-border-radius: 8px;
-color: white;
-font-weight: bold;
-background:#bfc1c1;
-color: black;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 0px 15px;
+  margin: 5px;
+  border-radius: 8px;
+  color: white;
+  font-weight: bold;
 `
 
 const Btns = styled.div`
