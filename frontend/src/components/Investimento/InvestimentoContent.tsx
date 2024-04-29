@@ -9,7 +9,6 @@ import { toast } from 'react-toastify'
 import 'react-toastify/dist/ReactToastify.css'
 import { error } from 'console'
 
-
 interface Investimento {
   id: number
   categoria: string
@@ -53,7 +52,7 @@ const Main = styled.main`
 `
 
 const ExpandedBox = styled.div<{ isOpen: boolean }>`
-  background: gray;
+  
   width: 95%;
   padding: 5px;
   border-radius: 15px;
