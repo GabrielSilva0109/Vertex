@@ -128,15 +128,15 @@ const BtnAtivo = styled.button`
   }
 `
 
-const Investimento = styled.div`
+const Investimento = styled.div<{lastItem?: boolean}>`
   display: flex;
   justify-content: space-between;
   align-items: center;
   padding: 0px 15px;
   margin: 5px;
-  border-radius: 8px;
-  color: white;
+  color: #e3e3e3;
   font-weight: bold;
+  border-bottom: ${props => (props.lastItem ? 'none' : '1px solid gray')}; 
 `
 
 const Btns = styled.div`
@@ -187,7 +187,7 @@ width: 35px;
 height: 35px;
 border-radius: 10px;
 border: none;
-background-color: #2c2c2c;
+background-color: #1c1c1e;
 display: flex;
 align-items: center;
 justify-content: center;
@@ -480,7 +480,7 @@ const InvestimentoContent: React.FC = () => {
             {expandedBoxes.acoes && (
               <div>
                 {investimentosAcoes.map((investimento, index) => (
-                  <Investimento key={index}>
+                  <Investimento key={index} lastItem={index === investimentosAcoes.length - 1}>
                     <p>{investimento.titulo}</p>
                     <p>Quantidade: {investimento.quantidade}</p>
                     <p>Valor: R${investimento.valor}</p>
@@ -545,12 +545,9 @@ const InvestimentoContent: React.FC = () => {
                           } }/>
                         )}
                     </Btns>
-                                   
                   </Investimento>
-                  
                 ))}
               </div>
-              
             )}
           </ExpandedBox>
 
@@ -564,7 +561,7 @@ const InvestimentoContent: React.FC = () => {
             {expandedBoxes.cryptomoedas && (
               <div>
                 {investimentosCryptomoedas.map((investimento, index) => (
-                  <Investimento key={index}>
+                  <Investimento key={index} lastItem={index === investimentosCryptomoedas.length - 1}>
                     <p>{investimento.titulo}</p>
                     <p>Quantidade: {investimento.quantidade}</p>
                     <p>Valor: R${investimento.valor}</p>
@@ -643,7 +640,7 @@ const InvestimentoContent: React.FC = () => {
               {expandedBoxes.moedas && (
                 <div>
                   {investimentosMoedas.map((investimento, index) => (
-                    <Investimento key={index}>
+                    <Investimento key={index} lastItem={index === investimentosMoedas.length - 1}>
                     <p>{investimento.titulo}</p>
                     <p>Quantidade: {investimento.quantidade}</p>
                     <p>Valor: R${investimento.valor}</p>
@@ -723,7 +720,7 @@ const InvestimentoContent: React.FC = () => {
             {expandedBoxes.fundosImobiliarios && (
               <div>
                 {investimentosFiis.map((investimento, index) => (
-                  <Investimento key={index}>
+                  <Investimento key={index} lastItem={index === investimentosFiis.length - 1}>
                     <p>{investimento.titulo}</p>
                     <p>Quantidade: {investimento.quantidade}</p>
                     <p>Valor: R${investimento.valor}</p>
@@ -801,7 +798,7 @@ const InvestimentoContent: React.FC = () => {
                 {expandedBoxes.rendaFixa && (
                 <div>
                   {investimentosRendaFixa.map((investimento, index) => (
-                    <Investimento key={index}>
+                    <Investimento key={index}  lastItem={index === investimentosRendaFixa.length - 1}>
                       <p>{investimento.titulo}</p>
                       <p>Quantidade: {investimento.quantidade}</p>
                       <p>Valor: R${investimento.valor}</p>
@@ -881,7 +878,7 @@ const InvestimentoContent: React.FC = () => {
               {expandedBoxes.poupanca && (
                 <div>
                   {investimentosPoupanca.map((investimento, index) => (
-                    <Investimento key={index}>
+                    <Investimento key={index} lastItem={index === investimentosPoupanca.length - 1}>
                       <p>{investimento.titulo}</p>
                       <p>Quantidade: {investimento.quantidade}</p>
                       <p>Valor: R${investimento.valor}</p>

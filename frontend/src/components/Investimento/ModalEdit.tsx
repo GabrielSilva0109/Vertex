@@ -74,6 +74,14 @@ const Option = styled.option`
   font-size: 16px;
 `
 
+const Info = styled.div`
+    display: flex;
+    justify-content: start;
+    align-items: start;
+    width: 100%;
+
+
+`
 const ModalEdit: React.FC<ModalProps> = ({ onClose, walletId, onSubmit, fetchInvestimentos, investimento }) => {
     const [valor, setValor] = useState('')
     const [quantidade, setQuantidade] = useState('')
@@ -87,20 +95,23 @@ const ModalEdit: React.FC<ModalProps> = ({ onClose, walletId, onSubmit, fetchInv
             valor: valor,
             quantidade: quantidade,
         };
-        onSubmit(requestData);
-    };
+        onSubmit(requestData)
+    }
     
-
     return (
         <ModalOverlay>
             <ModalContent>
                 <Form>
                     <h1>Atualizar</h1>
-                    <label>Valor: {investimento?.valor}</label>
+                    <Info style={{display: 'flex', justifyContent: 'start'}}>
+                        <label>Valor: {investimento?.valor}</label>
+                    </Info>
                     
                     <Input type="number" placeholder="Valor" value={valor} onChange={(e) => setValor(e.target.value)} />
                     
-                    <label>Quantidade: {investimento?.quantidade}</label>
+                    <Info>
+                        <label>Quantidade: {investimento?.quantidade}</label>
+                    </Info>
                     
                     <Input type="number" placeholder="Quantidade" value={quantidade} onChange={(e) => setQuantidade(e.target.value)} />
                     
@@ -111,6 +122,5 @@ const ModalEdit: React.FC<ModalProps> = ({ onClose, walletId, onSubmit, fetchInv
         </ModalOverlay>
     )
 }
-
 
 export default ModalEdit

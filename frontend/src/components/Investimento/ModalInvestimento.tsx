@@ -33,16 +33,17 @@ const ModalContent = styled.div`
 `
 
 const Select = styled.select`
-    background-color: #e1e1e1;
-    color: black;
-    font-family: "Roboto", sans-serif;
-    font-weight: 400;
-    font-size: 16px;
-    padding: 12px 16px;
-    border-radius: 8px;
-    border: 1px solid #b0ff00;
-    outline: none;
-    transition: all 0.3s ease-in-out;
+  max-width: 229px;
+  background-color: #e1e1e1;
+  color: black;
+  font-family: "Roboto", sans-serif;
+  font-weight: 400;
+  font-size: 16px;
+  padding: 12px 16px;
+  border-radius: 8px;
+  border: 1px solid #b0ff00;
+  outline: none;
+  transition: all 0.3s ease-in-out;
 
     &:hover {
         background-color: #f1f1f1;
@@ -133,7 +134,7 @@ const ModalInvestimento: React.FC<ModalProps> = ({ onClose, walletId, onSubmit, 
             <option value="Renda Fixa">Renda Fixa</option>
             <option value="Poupança">Poupança</option>
           </Select>
-          <Input type='date' placeholder='Data' value={data} onChange={(e) => setData(e.target.value)} />
+          <Input style={{width: '85%'}} type='date' placeholder='Data' value={data} onChange={(e) => setData(e.target.value)} />
           <BtnAtivo onClick={handleSubmit} type="submit">Adicionar</BtnAtivo>
           <BtnDespesa onClick={onClose}>Fechar</BtnDespesa>
         </Form>
