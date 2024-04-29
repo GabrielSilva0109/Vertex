@@ -55,6 +55,25 @@ export const Form = styled.div`
   align-items: center;
 `
 
+const CheckboxLabel = styled.label`
+  position: relative;
+
+  display: inline-block;
+`
+
+const CustomCheckbox = styled.input`
+  display: none;
+  
+`
+
+const CheckboxText = styled.span<{ isDespesa: boolean }>`
+  padding: 6px 12px;
+  background-color: ${props => (props.isDespesa ? '#ff5b5b' : '#b0ff00')};
+  border-radius: 5px;
+  font-weight: bold;
+  color: black;
+`
+
 const Modal: React.FC<ModalProps> = ({ isOpen, onClose, onSubmit, formData, setFormData, isDespesa, onCheckboxChange }) => {
   return (
     <ModalContainer style={{ display: isOpen ? 'flex' : 'none' }}>
@@ -73,8 +92,8 @@ const Modal: React.FC<ModalProps> = ({ isOpen, onClose, onSubmit, formData, setF
             value={formData.valor}
             onChange={(e) => setFormData({ ...formData, valor: e.target.value })}
             onBlur={(e) => {
-              const formattedValue = parseFloat(e.target.value).toFixed(2)
-              setFormData({ ...formData, valor: formattedValue })
+              const formattedValue = parseFloat(e.target.value).toFixed(2);
+              setFormData({ ...formData, valor: formattedValue });
             }}
           />
           <Input
@@ -95,18 +114,21 @@ const Modal: React.FC<ModalProps> = ({ isOpen, onClose, onSubmit, formData, setF
             value={formData.fonte}
             onChange={(e) => setFormData({ ...formData, fonte: e.target.value })}
           />
-          <Input
-            type="checkbox"
-            checked={isDespesa}
-            onChange={onCheckboxChange}
-          />
-          <label htmlFor="isDespesa">Despesa</label>
+          <CheckboxLabel>
+            <CustomCheckbox
+              type="checkbox"
+              id="inpLock"
+              checked={isDespesa}
+              onChange={onCheckboxChange}
+            />
+            <CheckboxText isDespesa={isDespesa}>{isDespesa ? 'Despesa' : 'Ativo'}</CheckboxText>
+          </CheckboxLabel>
           <BtnAtivo onClick={onSubmit}>Adicionar</BtnAtivo>
           <BtnDespesa onClick={onClose}>Fechar</BtnDespesa>
         </Form>
       </ModalContent>
     </ModalContainer>
-  )
-}
+  );
+};
 
-export default Modal
+export default Modal;
