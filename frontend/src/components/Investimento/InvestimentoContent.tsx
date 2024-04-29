@@ -56,11 +56,11 @@ const ExpandedBox = styled.div<{ isOpen: boolean }>`
   padding: 5px;
   border-radius: 15px;
   margin-top: 15px;
-  height: ${(props) => (props.isOpen ? '400px' : '65px')};
+  height: ${(props) => (props.isOpen ? '300px' : '65px')};
   min-height: 65px;
   overflow: ${(props) => (props.isOpen ? 'auto' : 'hidden')}; 
   max-height: 400px; // Define a altura máxima como 400px
-  transition: height 0.3s;
+  transition: 0.7s;
   display: block;
   align-items: start;
   &::-webkit-scrollbar {
