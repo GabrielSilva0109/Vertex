@@ -52,12 +52,12 @@ export const updateDespesa = async (req: Request, res: Response) => {
 
     // Construir a parte SET dinamicamente com base nos campos fornecidos pelo usuário
     const setFields = [];
-    if (titulo !== undefined) setFields.push("titulo=?");
-    if (valor !== undefined) setFields.push("valor=?");
-    if (observacao !== undefined) setFields.push("observacao=?");
-    if (categoria !== undefined) setFields.push("categoria=?");
-    if (fonte !== undefined) setFields.push("fonte=?");
-    if (data !== undefined) setFields.push("data=?");
+    if (titulo !== undefined) setFields.push("titulo=?")
+    if (valor !== undefined) setFields.push("valor=?")
+    if (observacao !== undefined) setFields.push("observacao=?")
+    if (categoria !== undefined) setFields.push("categoria=?")
+    if (fonte !== undefined) setFields.push("fonte=?")
+    if (data !== undefined) setFields.push("data=?")
 
     if (setFields.length === 0) {
         return res.status(400).json({ erro: "Nenhum campo fornecido para atualização" })
@@ -65,10 +65,10 @@ export const updateDespesa = async (req: Request, res: Response) => {
 
     const q = `UPDATE despesas SET ${setFields.join(", ")} WHERE id=?;`
 
-    localDB.query(q, [...Object.values(req.body).filter(value => value !== undefined), despesaId], (erro, data) => {
+    awsDB.query(q, [...Object.values(req.body).filter(value => value !== undefined), despesaId], (erro, data) => {
         if (erro) return res.status(500).json({ erro: "Erro ao Atualizar a Despesa" })
         return res.status(200).json("Despesa Atualizada!")
-    });
+    })
 }
 
 // Excluir o ATIVO
@@ -77,8 +77,8 @@ export const deleteDespesa = async (req: Request, res: Response) => {
 
     const q = "DELETE FROM despesas WHERE id=?;"
 
-    localDB.query(q, [despesaId], (erro, data) => {
-        if (erro) return res.status(500).json({ erro: "Erro ao Excluir o Desesa" });
-        return res.status(200).json("Despesa Excluída!");
-    });
+    awsDB.query(q, [despesaId], (erro, data) => {
+        if (erro) return res.status(500).json({ erro: "Erro ao Excluir o Desesa" })
+        return res.status(200).json("Despesa Excluída!")
+    })
 }

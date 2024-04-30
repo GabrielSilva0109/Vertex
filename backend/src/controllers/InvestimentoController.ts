@@ -1,10 +1,10 @@
-import { localDB } from "../db"
+import { localDB, awsDB } from "../db"
 import { Request, Response } from 'express'
 
 // Retorna todos os Investimentos
 export const getInvestimentos = async (req: Request, res: Response) => {
     const q = "SELECT * FROM investimentos;"  
-    localDB.query(q, (erro, data) => {
+    awsDB.query(q, (erro, data) => {
         if (erro) return res.status(500).json({ erro: "Erro ao trazer os Investimentos" })
         return res.status(200).json(data)
     })
@@ -14,7 +14,7 @@ export const getInvestimentos = async (req: Request, res: Response) => {
 export const getInvestimentoById = async (req: Request, res: Response) => {
     const q = "SELECT * FROM investimentos WHERE `id`=?;"
 
-    localDB.query(q, [req.params.id], (erro, data) => {
+    awsDB.query(q, [req.params.id], (erro, data) => {
         if (erro) return res.status(500).json({ erro: "Erro ao trazer Ativo por ID" })
         return res.status(200).json(data[0])
     })
@@ -24,7 +24,7 @@ export const getInvestimentoById = async (req: Request, res: Response) => {
 export const getInvestimentoByWalletId = async (req: Request, res: Response) => {
     const q = "SELECT * FROM investimentos WHERE `wallet_id`=?"
 
-    localDB.query(q, [req.params.id], (erro, data) => {
+    awsDB.query(q, [req.params.id], (erro, data) => {
         if(erro) return res.status(500).json({erro: "Erro ao trazer os Investimentos dessa Wallet"})
         return res.status(200).json(data)
     })
@@ -39,7 +39,7 @@ export const createInvestimento = async (req: Request, res: Response) => {
     }
 
     const q = "INSERT INTO investimentos(`wallet_id`, `titulo`, `valor`, `observacao`, `quantidade`, `categoria`, `data`) VALUES (?,?,?,?,?,?,?);"
-    localDB.query(q, [wallet_id, titulo, valor, observacao, quantidade, categoria, data], (erro, data) => {
+    awsDB.query(q, [wallet_id, titulo, valor, observacao, quantidade, categoria, data], (erro, data) => {
         if (erro) return res.status(500).json({ erro: "Erro ao Cadastrar o Investimento" })
         return res.status(201).json("Investimento Cadastrado!")
     })
@@ -65,7 +65,7 @@ export const updateInvestimento = async (req: Request, res: Response) => {
 
     const q = `UPDATE investimentos SET ${setFields.join(", ")} WHERE id=?;`
 
-    localDB.query(q, [...Object.values(req.body).filter(value => value !== undefined), ativoId], (erro, data) => {
+    awsDB.query(q, [...Object.values(req.body).filter(value => value !== undefined), ativoId], (erro, data) => {
         if (erro) return res.status(500).json({ erro: "Erro ao Atualizar o Investimento" })
         return res.status(200).json("Investimento Atualizado!")
     })
@@ -77,7 +77,7 @@ export const deleteInvestimento = async (req: Request, res: Response) => {
 
     const q = "DELETE FROM investimentos WHERE id=?;"
 
-    localDB.query(q, [ativoId], (erro, data) => {
+    awsDB.query(q, [ativoId], (erro, data) => {
         if (erro) return res.status(500).json({ erro: "Erro ao Excluir o Investimento " })
         return res.status(200).json("Investimento Excluído!")
     })
