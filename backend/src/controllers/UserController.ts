@@ -1,5 +1,5 @@
 import { Request, Response } from 'express'
-import { localDB } from '../db'
+import { localDB, awsDB } from '../db'
 import { error } from 'console'
 import bcrypt from 'bcrypt'
 
@@ -8,42 +8,40 @@ const generateRandomNumber = () => {
     return randomNumber.toString();
 }
 
-//Retorna todos os Usuarios
+//Return all Users
 export const getUsers = (req: Request, res: Response) => {
     const q = "SELECT * FROM users;"
 
-    localDB.query(q, (error, data) => {
-        if (error) return res.status(500).json({ error: 'Erro interno no servidor' })
-
+    awsDB.query(q, (error, data) => {
+        if (error) return res.status(500).json({ error: 'Erro in server AWS' })
         return res.status(200).json(data)
     })
 }
 
-//Retorna Usuario Por ID
+//Return one User for ID
 export const getUserById = (req: Request, res:Response) => {
     const q = "SELECT * FROM users WHERE `id`=?;"
 
-    localDB.query(q, [req.params.id], (erro, data) =>{
-        if(erro) return res.status(500).json({erro: 'Erro ao encontrar Usuario'})
-
+    awsDB.query(q, [req.params.id], (erro, data) =>{
+        if(erro) return res.status(500).json({erro: 'Erro get User for ID'})
         return res.status(200).json(data[0])
     })
 }
 
-// Cria um Usuario
+//Create a new User
 export const createUser = (req: Request, res: Response) => {
     const { name, password, email, birth, cpf, cep } = req.body
 
     if (!name || !password || !email) {
-        return res.status(400).json({ error: 'Campos Obrigatórios!' })
+        return res.status(400).json({ error: 'Required fields' })
     }
 
-    // Criptografa a senha antes de armazenar
+    //Cryptography for PASSWORD
     const hashedPassword = bcrypt.hashSync(password, 10)
 
     const q = "INSERT INTO users (`name`, `password`,`email`,`birth`, `cpf`, `cep`) VALUES (?,?,?,?,?,?);"
-    localDB.query(q, [name, hashedPassword, email, birth, cpf, cep], (erro, data) => {
-        if (erro) return res.status(500).json({ erro: 'Erro ao Cadastrar Usuário' })
+    awsDB.query(q, [name, hashedPassword, email, birth, cpf, cep], (erro, data) => {
+        if (erro) return res.status(500).json({ erro: 'Erro of Create a new USER' })
 
         // Recupera o ID do usuário recém-criado
         const userId = data.insertId
@@ -53,17 +51,17 @@ export const createUser = (req: Request, res: Response) => {
 
         // Cria uma wallet para o novo usuário
         const walletQuery = "INSERT INTO wallets (`user_id`, `conta`, `saldo`) VALUES (?,?,?);"
-        localDB.query(walletQuery, [userId, contaNumber, 0.00], async (walletError, walletData) => {
+        awsDB.query(walletQuery, [userId, contaNumber, 0.00], async (walletError, walletData) => {
             if (walletError) {
-                return res.status(500).json({ error: 'Erro ao Criar Wallet para o Usuário' })
+                return res.status(500).json({ error: 'Erro of create Wallet for User' })
             }
 
-            return res.status(201).json('Usuário e Wallet Criados!!')
+            return res.status(201).json('User and Wallet Created!!')
         })
     })
 }
 
-//Atualiza os dados do Usuario
+//Update data of User
 export const updateUser = (req: Request, res: Response) => {
     const userId = req.params.id;
     const { name, password, email, birth, cpf, cep, picture } = req.body;

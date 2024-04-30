@@ -1,10 +1,20 @@
 import mysql from 'mysql'
+require('dotenv').config()
+
+//LOCALHOST
+const userLocalhost = process.env.HOST
+const passwordLocalhost = process.env.PASSWORD
+
+//AWS
+const hostAWS = process.env.awsHOST
+const userAWS = process.env.awsUSER
+const passwordAWS = process.env.awsPASSWORD
 
 //Conection with LocalHost for TEST
 const localDB = mysql.createConnection({
     host: "localhost",
-    user: 'root',
-    password: 'root',
+    user: userLocalhost,
+    password: passwordLocalhost,
     database: "vertex"
 })
 
@@ -16,10 +26,11 @@ localDB.connect((erro) => {
     console.log("MySQL Connection Successfull!!")
 })
 
+//Conection with AWS Database SERVER
 const awsDB = mysql.createConnection({
-    host: "database-vertex.cnaask4oarv0.us-east-2.rds.amazonaws.com",
-    user: "adminG",
-    password: "Amora0109",
+    host: hostAWS,
+    user: userAWS,
+    password: passwordAWS,
     database: "vertex"
 })
 
