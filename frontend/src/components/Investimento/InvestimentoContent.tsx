@@ -315,7 +315,7 @@ const InvestimentoContent: React.FC = () => {
 
   const fetchSaldo = async (userId: number) => {
     try {
-      const response = await fetch(`http://localhost:3333/walletUser/${userId}`);
+      const response = await fetch(`http://localhost:3333/api/walletUser/${userId}`);
 
       if (!response.ok) {
         console.error(`Erro na requisição: ${response.status} - ${response.statusText}`);
@@ -337,7 +337,7 @@ const InvestimentoContent: React.FC = () => {
 
   const fetchInvestimentos = async (walletId: number) => {
     try {
-      const response = await fetch(`http://localhost:3333/walletInvestimentos/${walletId}`)
+      const response = await fetch(`http://localhost:3333/api/walletInvestimentos/${walletId}`)
       
       if (!response.ok) {
         throw new Error(`Erro na requisição: ${response.status} - ${response.statusText}`)
@@ -401,9 +401,10 @@ const InvestimentoContent: React.FC = () => {
 
   const deleteInvestimento = async (investimentoId: number) => {
     try {
-      const response = await fetch(`http://localhost:3333/investimento/${investimentoId}`, {
+      const response = await fetch(`http://localhost:3333/api/investimento/${investimentoId}`, {
         method: "DELETE"
-      });
+      })
+
       const data = await response.json();
   
       if (!response.ok) {
@@ -419,7 +420,7 @@ const InvestimentoContent: React.FC = () => {
 
   const editInvestimento = async (investimentoId: number, novosDados: any) => {
     try {
-        const response = await fetch(`http://localhost:3333/investimento/${investimentoId}`, {
+        const response = await fetch(`http://localhost:3333/api/investimento/${investimentoId}`, {
             method: 'PUT',
             headers: {
                 'Content-Type': 'application/json'
