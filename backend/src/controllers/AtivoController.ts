@@ -51,7 +51,7 @@ export const updateAtivo = async (req: Request, res: Response) => {
     const { titulo, valor, observacao, categoria, fonte, data } = req.body
 
     // Construir a parte SET dinamicamente com base nos campos fornecidos pelo usuário
-    const setFields = [];
+    const setFields = []
     if (titulo !== undefined) setFields.push("titulo=?")
     if (valor !== undefined) setFields.push("valor=?")
     if (observacao !== undefined) setFields.push("observacao=?")
@@ -75,7 +75,7 @@ export const updateAtivo = async (req: Request, res: Response) => {
 export const deleteAtivo = async (req: Request, res: Response) => {
     const ativoId = req.params.id
 
-    const q = "DELETE FROM ativos WHERE id=?;" // Alteração do nome da tabela para 'ativos'
+    const q = "DELETE FROM ativos WHERE id=?;"
 
     awsDB.query(q, [ativoId], (erro, data) => {
         if (erro) return res.status(500).json({ erro: "Erro ao Excluir o Ativo" })
