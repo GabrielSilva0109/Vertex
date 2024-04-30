@@ -482,20 +482,20 @@ const Content: React.FC = () =>{
       }
     }, [user, walletId])
 
-    // useEffect(() => {
-    //   if (user && user.id) {
-    //     fetchCryptoData()
-    //     fetchApple()
-    //     fetchAmazon()
-    //     fetchGoogle()
-    //     fetchMicrosoft()
-    //     fetchTesla()
+    useEffect(() => {
+      if (user && user.id) {
+        fetchCryptoData()
+        fetchApple()
+        fetchAmazon()
+        fetchGoogle()
+        fetchMicrosoft()
+        fetchTesla()
 
-    //     const intervalId = setInterval(fetchCryptoData, 20000)
+        const intervalId = setInterval(fetchCryptoData, 20000)
 
-    //   return () => clearInterval(intervalId)
-    //   }
-    // }, [user, walletId])
+      return () => clearInterval(intervalId)
+      }
+    }, [user, walletId])
 
     // Atualiza o saldo quando os valores de ativos e despesas mudam
     useEffect(() => {

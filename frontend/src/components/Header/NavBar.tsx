@@ -106,7 +106,6 @@ const NavBar: React.FC<{user?: any}> = ({user}) => {
         navigate('/login')
     }
 
-
     return (
         <Nav>
             <TitleBank>
