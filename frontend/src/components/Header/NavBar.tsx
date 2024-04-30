@@ -1,6 +1,6 @@
 import React from 'react'
 import styled from 'styled-components'
-import { Link } from 'react-router-dom'
+import { Link, useNavigate } from 'react-router-dom'
 
 const Nav = styled.div`
     background: rgb(28, 28, 30);
@@ -48,10 +48,10 @@ const Navigation = styled(Link)`
 `
 
 const Config = styled.div`
-
+ 
 `
 
-const BtnSair = styled(Link)`
+const BtnSair = styled.button`
     display: flex;
     align-items: center;
     justify-content: flex-start;
@@ -66,8 +66,6 @@ const BtnSair = styled(Link)`
     box-shadow: 2px 2px 10px rgba(0, 0, 0, 0.199);
     background-color: #b0ff00;
     text-decoration: none;
-    
-    
 `
 
 const Sign = styled.div`
@@ -98,6 +96,17 @@ const Btns = styled.div`
 `
 
 const NavBar: React.FC<{user?: any}> = ({user}) => {
+    const navigate = useNavigate()
+
+    const handleLogout = () => {
+        // Limpar o estado do usuário armazenado localmente, se necessário
+        localStorage.removeItem('user')
+
+        // Redirecionar para a página de login
+        navigate('/login')
+    }
+
+
     return (
         <Nav>
             <TitleBank>
@@ -125,7 +134,7 @@ const NavBar: React.FC<{user?: any}> = ({user}) => {
 
             <Btns >
                 <Config>
-                    <BtnSair to="/login">
+                    <BtnSair onClick={handleLogout}>
                         <Sign>
                             <svg viewBox="0 0 512 512">
                             <path

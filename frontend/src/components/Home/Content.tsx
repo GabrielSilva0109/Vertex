@@ -225,9 +225,9 @@ const Content: React.FC = () =>{
     const [ despesas, setDespesas] = useState<number>(0)
     const [ walletId, setWalletId] = useState<number>(0)
     const [totalInvestido, setTotalInvestido] = useState<number>(0)
-    const { state } = useLocation()
     const [isLoadingCrypto, setIsLoadingCrypto] = useState<boolean>(true)
     const [isLoading, setIsLoading] = useState<boolean>(false)//lembrar de trocar apos a API AÇÔES
+    const { state } = useLocation()
     const user = state?.user
 
     //Teste antes de achar uma API para fazer varias requisições Gratuitas
@@ -472,24 +472,30 @@ const Content: React.FC = () =>{
       }
     }
     
-    useEffect(() => {
-      if (user && user.id) {
+    useEffect(() => { 
+      if(user && user.id) {
         fetchWallet(user.id)
-        fetchCryptoData()
         fetchAtivos(walletId)
         fetchDespesas(walletId)
         fetchInvestimentos(walletId)
-        fetchApple()
-        fetchAmazon()
-        fetchGoogle()
-        fetchMicrosoft()
-        fetchTesla()
-
-        const intervalId = setInterval(fetchCryptoData, 20000)
-
-      return () => clearInterval(intervalId)
+        console.log("CArteira", user.id)
       }
     }, [user, walletId])
+
+    // useEffect(() => {
+    //   if (user && user.id) {
+    //     fetchCryptoData()
+    //     fetchApple()
+    //     fetchAmazon()
+    //     fetchGoogle()
+    //     fetchMicrosoft()
+    //     fetchTesla()
+
+    //     const intervalId = setInterval(fetchCryptoData, 20000)
+
+    //   return () => clearInterval(intervalId)
+    //   }
+    // }, [user, walletId])
 
     // Atualiza o saldo quando os valores de ativos e despesas mudam
     useEffect(() => {

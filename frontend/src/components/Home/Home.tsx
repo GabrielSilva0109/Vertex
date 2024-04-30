@@ -20,7 +20,7 @@ const Home: React.FC = () => {
         toast.warning("Faça o login para acessar a página Home.")
         await navigate('/login')
     }
-  };
+  }
 
   useEffect(() => {
     redirectToLogin()

@@ -44,9 +44,9 @@ const Grafico: React.FC<GraficoProps> = ({ walletId }) => {
 
   const fetchData = async () => {
     try {
-      const responseAtivos = await fetch(`http://localhost:3333/ativosWallet/${walletId}`)
-      const responseDespesas = await fetch(`http://localhost:3333/despesasWallet/${walletId}`)
-      const responseInvestimentos = await fetch(`http://localhost:3333/walletInvestimentos/${walletId}`)
+      const responseAtivos = await fetch(`http://localhost:3333/api/ativosWallet/${walletId}`)
+      const responseDespesas = await fetch(`http://localhost:3333/api/despesasWallet/${walletId}`)
+      const responseInvestimentos = await fetch(`http://localhost:3333/api/walletInvestimentos/${walletId}`)
 
       const ativos: Ativo[] = await responseAtivos.json()
       const despesas: Despesa[] = await responseDespesas.json()

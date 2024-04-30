@@ -454,7 +454,7 @@ const CarteiraContent: React.FC = () =>{
     
     useEffect(() => {
       fetchData()
-    }, [IdWallet])
+    }, [IdWallet, fetchData])
     
     return(
         <Container>

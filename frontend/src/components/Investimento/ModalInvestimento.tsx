@@ -98,7 +98,7 @@ const ModalInvestimento: React.FC<ModalProps> = ({ onClose, walletId, onSubmit, 
     console.log('Requisição:', requestData)
   
     try {
-      const response = await fetch('http://localhost:3333/investimento', {
+      const response = await fetch('http://localhost:3333/api/investimento', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
