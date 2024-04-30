@@ -1,5 +1,4 @@
 import express from 'express'
-
 import {createAtivo, deleteAtivo, getAtivoById, getAtivos, updateAtivo, getAtivosByWalletId} from '../controllers/AtivoController'
 
 const router = express.Router()
