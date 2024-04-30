@@ -89,10 +89,10 @@ export const updateUser = (req: Request, res: Response) => {
     const q = `UPDATE users SET ${placeholders} WHERE id=?`
     const values = [...fieldsToUpdate.map((field) => updatedFields[field]), userId]
 
-    localDB.query(q, values, (erro, data) => {
-        if (erro) return res.status(500).json({ erro: 'Erro ao Atualizar Usuário' })
+    awsDB.query(q, values, (erro, data) => {
+        if (erro) return res.status(500).json({ erro: 'Erro of Update USER' })
 
-        return res.status(200).json('Usuário Atualizado!!')
+        return res.status(200).json('USER Updated!!')
     })
 }
 
@@ -101,9 +101,9 @@ export const deleteUser = (req: Request, res: Response) => {
     const userId = req.params.id
 
     const q = "DELETE FROM users WHERE `id`=?"
-    localDB.query(q, [userId], (erro, data) => {
-        if (erro) return res.status(500).json({ erro: 'Erro ao Deletar Usuário' })
-        return res.status(200).json('Usuário Deletado!!')
+    awsDB.query(q, [userId], (erro, data) => {
+        if (erro) return res.status(500).json({ erro: 'Erro of DELETE User' })
+        return res.status(200).json('User Deleted!!')
     })
 }
 
@@ -113,9 +113,9 @@ export const loginUser = async (req: Request, res: Response) => {
         const { cpf, password } = req.body
         const q = "SELECT * FROM users WHERE cpf=?"
         const result: any[] = await new Promise((resolve, reject) => {
-            localDB.query(q, [cpf], (error, result) => {
+            awsDB.query(q, [cpf], (error, result) => {
                 if (error) {
-                    console.error('Erro ao buscar usuário no banco de dados:', error)
+                    console.error('Erro of get User:', error)
                     reject(error)
                 } else {
                     if (result.length > 0) {
@@ -141,7 +141,7 @@ export const loginUser = async (req: Request, res: Response) => {
     }
 }
 
-// Adiciona Foto de Perfil
+// Adiciona Foto de Perfil ------------ TEST -------------
 export const updateUserPicture = (req: Request, res: Response) => {
     const userId = req.params.id;
     const { picture } = req.body;

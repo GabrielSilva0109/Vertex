@@ -7,7 +7,6 @@ import walletRoutes from './routes/WalletRoutes'
 import ativoRoutes from './routes/AtivoRoutes'
 import despesaRoutes from './routes/DespesaRoutes'
 import investimentoRoutes from './routes/InvestimentoRoutes'
-import awsRoutes from './routes/awsRoutes'
 
 dotenv.config()
 
@@ -30,7 +29,8 @@ app.get('/', (req, res) => {
 app.use('/', userRoutes, walletRoutes, ativoRoutes, despesaRoutes, investimentoRoutes)
 
 // Rotas AWS Cloud
-app.use('/api', awsRoutes)
+//app.use('/api', awsRoutes)
+
 
 app.listen(port, () => {
   console.log(`Servidor rodando em http://localhost:${port}`)
