@@ -26,7 +26,7 @@ app.get('/', (req, res) => {
 })
 
 // Routes API AWS Cloud
-app.use('/', userRoutes, walletRoutes, ativoRoutes, despesaRoutes, investimentoRoutes)
+app.use('/api', userRoutes, walletRoutes, ativoRoutes, despesaRoutes, investimentoRoutes)
 
 app.listen(port, () => {
   console.log(`Servidor rodando em http://localhost:${port}`)

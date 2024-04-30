@@ -5,11 +5,6 @@ require('dotenv').config()
 const userLocalhost = process.env.HOST
 const passwordLocalhost = process.env.PASSWORD
 
-//AWS
-const hostAWS = process.env.awsHOST
-const userAWS = process.env.awsUSER
-const passwordAWS = process.env.awsPASSWORD
-
 //Conection with LocalHost for TEST
 const localDB = mysql.createConnection({
     host: "localhost",
@@ -18,13 +13,18 @@ const localDB = mysql.createConnection({
     database: "vertex"
 })
 
-localDB.connect((erro) => {
-    if(erro){
-        console.log("Erro Connection MySQL", erro)
-        return
-    }
-    console.log("MySQL Connection Successfull!!")
-})
+// localDB.connect((erro) => {
+//     if(erro){
+//         console.log("Erro Connection MySQL", erro)
+//         return
+//     }
+//     console.log("MySQL Connection Successfull!!")
+// })
+
+//AWS
+const hostAWS = process.env.awsHOST
+const userAWS = process.env.awsUSER
+const passwordAWS = process.env.awsPASSWORD
 
 //Conection with AWS Database SERVER
 const awsDB = mysql.createConnection({

@@ -184,7 +184,7 @@ const FormCadastro: React.FC<{ onBackToLogin: () => void }> = ({ onBackToLogin }
 
     const handleCadastroClick = async () => {
         try {    
-            const response = await fetch('http://localhost:3333/user', {
+            const response = await fetch('http://localhost:3333/api/user', {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',
@@ -240,7 +240,7 @@ const FormLogin: React.FC = () => {
 
     const handleLoginClick = async () => {
         try {
-            const response = await fetch('http://localhost:3333/login', {
+            const response = await fetch('http://localhost:3333/api/login', {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',

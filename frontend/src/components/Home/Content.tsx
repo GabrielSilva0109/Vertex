@@ -26,7 +26,6 @@ const Container = styled.div`
   display: flex;
   background: rgb(28, 28, 30);
   width: 100%;
-  
   color: white;
 
   @media (max-width: 768px) {
@@ -245,9 +244,9 @@ const Content: React.FC = () =>{
 
     const fetchWallet = async (userId: number) => {
       try {
-        const response = await fetch(`http://localhost:3333/walletUser/${userId}`);
+        const response = await fetch(`http://localhost:3333/api/walletUser/${userId}`)
         if (!response.ok) {
-          console.error(`Erro na requisição: ${response.status} - ${response.statusText}`);
+          console.error(`Erro na requisição: ${response.status} - ${response.statusText}`)
           return 
         }
 
@@ -267,7 +266,7 @@ const Content: React.FC = () =>{
       try {
         await fetchWallet(userId)
 
-        const response = await fetch(`http://localhost:3333/ativosWallet/${walletId}`)
+        const response = await fetch(`http://localhost:3333/api/ativosWallet/${walletId}`)
         
         if (!response.ok) {
           console.error(`Erro na requisição ATIVOS: ${response.status} - ${response.statusText}`)
@@ -292,7 +291,7 @@ const Content: React.FC = () =>{
       try {
         await fetchWallet(userId)
 
-        const response = await fetch(`http://localhost:3333/despesasWallet/${walletId}`)
+        const response = await fetch(`http://localhost:3333/api/despesasWallet/${walletId}`)
         
         if (!response.ok) {
           console.error(`Erro na requisição DESPESAS: ${response.status} - ${response.statusText}`)
@@ -342,7 +341,7 @@ const Content: React.FC = () =>{
 
     const fetchInvestimentos = async (walletId: number) => {
       try {
-        const response = await fetch(`http://localhost:3333/walletInvestimentos/${walletId}`)
+        const response = await fetch(`http://localhost:3333/api/walletInvestimentos/${walletId}`)
         
         if (!response.ok) {
           throw new Error(`Erro na requisição: ${response.status} - ${response.statusText}`)

@@ -278,11 +278,11 @@ const CarteiraContent: React.FC = () =>{
     
     const onSubmit = async () => {
       if (isDespesa) {
-        await adicionarDespesa();
+        await adicionarDespesa()
       } else {
-        await adicionarAtivo();
+        await adicionarAtivo()
       }
-      closeModal();
+      closeModal()
     }
 
     const openModal = () => {
@@ -305,7 +305,7 @@ const CarteiraContent: React.FC = () =>{
 
     const walletUser = async () => {
       try {
-        const response = await fetch(`http://localhost:3333/walletUser/${idUser}`)
+        const response = await fetch(`http://localhost:3333/api/walletUser/${idUser}`)
         if (response.ok) {
           const data = await response.json()
           setIdWallet(data.id)
@@ -324,7 +324,7 @@ const CarteiraContent: React.FC = () =>{
     const adicionarAtivo = async () => {
       try {    
         // Cadastra a transação
-        const response = await fetch('http://localhost:3333/ativo', {
+        const response = await fetch('http://localhost:3333/api/ativo', {
           method: 'POST',
           headers: {
             'Content-Type': 'application/json',
@@ -339,15 +339,15 @@ const CarteiraContent: React.FC = () =>{
           toast.error('Erro ao fazer requisição para cadastrar o ativo!')
         }
       } catch (error) {
-        console.error("Erro ao adicionar ativo:", error);
-        toast.error('Erro ao cadastrar ativo!');
+        console.error("Erro ao adicionar ativo:", error)
+        toast.error('Erro ao cadastrar ativo!')
       }
     }
     
     const adicionarDespesa = async () => {
       try {   
         // Cadastra a transação
-        const response = await fetch("http://localhost:3333/despesa", {
+        const response = await fetch("http://localhost:3333/api/despesa", {
           method: "POST",
           headers: {
             "Content-Type": "application/json",
@@ -369,8 +369,8 @@ const CarteiraContent: React.FC = () =>{
     
     const getExtrato = async () => {
       try {
-        const ativosResponse = await fetch(`http://localhost:3333/ativosWallet/${IdWallet}`)
-        const despesasResponse = await fetch(`http://localhost:3333/despesasWallet/${IdWallet}`)
+        const ativosResponse = await fetch(`http://localhost:3333/api/ativosWallet/${IdWallet}`)
+        const despesasResponse = await fetch(`http://localhost:3333/api/despesasWallet/${IdWallet}`)
   
         const ativos =  (await ativosResponse.json()).map((ativo: any) => ({ ...ativo, categoria: 'ativo'}))
         const despesas = (await despesasResponse.json()).map((despesa: any) => ({...despesa, categoria: 'despesa'}))
@@ -389,7 +389,7 @@ const CarteiraContent: React.FC = () =>{
         } else {
           return 0;
         }
-        });
+        })
   
         setExtrato(todasTransacoes)
       } catch (error) {
@@ -403,10 +403,10 @@ const CarteiraContent: React.FC = () =>{
         let colunaAPI
     
         if (categoria === 'ativo') {
-          url = `http://localhost:3333/ativo/${transacaoId}`
+          url = `http://localhost:3333/api/ativo/${transacaoId}`
           colunaAPI = 'ativos'
         } else if (categoria === 'despesa') {
-          url = `http://localhost:3333/despesa/${transacaoId}`
+          url = `http://localhost:3333/api/despesa/${transacaoId}`
           colunaAPI = 'despesas'
         } else {
           console.warn('Categoria desconhecida:', categoria)
@@ -414,7 +414,7 @@ const CarteiraContent: React.FC = () =>{
         }
     
         // Obtém o valor atual da coluna
-        const walletResponse = await fetch(`http://localhost:3333/wallet/${IdWallet}`)
+        const walletResponse = await fetch(`http://localhost:3333/api/wallet/${IdWallet}`)
         if (!walletResponse.ok) {
           toast.error("Erro ao obter o saldo!")
           return

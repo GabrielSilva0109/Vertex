@@ -11,16 +11,16 @@ const storage = multer.diskStorage({
     filename: function(req, file, cb) {
         cb(null, Date.now() + '-' + file.originalname)
     }
-});
+})
 
 const upload = multer({ storage: storage })
 
-router.get('/users', getUsers);
-router.get('/users/:id', getUserById);
-router.post('/user', createUser);
+router.get('/users', getUsers)
+router.get('/users/:id', getUserById)
+router.post('/user', createUser)
 router.put('/userPicture/:id', upload.single('picture'), updateUserPicture)
-router.put('/user/:id', updateUser);
-router.delete('/user/:id', deleteUser);
-router.post('/login', loginUser);
+router.put('/user/:id', updateUser)
+router.delete('/user/:id', deleteUser)
+router.post('/login', loginUser)
 
 export default router;
