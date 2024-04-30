@@ -25,12 +25,8 @@ app.get('/', (req, res) => {
   res.send('Bem-vindo ao VertexBank!')
 })
 
-// Rotas específicas do LOCALHOST
+// Routes API AWS Cloud
 app.use('/', userRoutes, walletRoutes, ativoRoutes, despesaRoutes, investimentoRoutes)
-
-// Rotas AWS Cloud
-//app.use('/api', awsRoutes)
-
 
 app.listen(port, () => {
   console.log(`Servidor rodando em http://localhost:${port}`)

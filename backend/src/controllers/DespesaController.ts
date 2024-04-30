@@ -1,30 +1,30 @@
-import { localDB } from "../db"
+import { localDB, awsDB } from "../db"
 import { Request, Response } from 'express'
 
 // Retorna todos os DESPESAS
 export const getDespesas = async (req: Request, res: Response) => {
-    const q = "SELECT * FROM despesas;";  
-    localDB.query(q, (erro, data) => {
-        if (erro) return res.status(500).json({ erro: "Erro ao trazer os Despesas" });
-        return res.status(200).json(data);
-    });
+    const q = "SELECT * FROM despesas;"
+    awsDB.query(q, (erro, data) => {
+        if (erro) return res.status(500).json({ erro: "Erro ao trazer os Despesas" })
+        return res.status(200).json(data)
+    })
 }
 
 // Retorna DESPESA por ID
 export const getDespesaById = async (req: Request, res: Response) => {
     const q = "SELECT * FROM despesas WHERE `id`=?;"
 
-    localDB.query(q, [req.params.id], (erro, data) => {
-        if (erro) return res.status(500).json({ erro: "Erro ao trazer Ativo por ID" });
-        return res.status(200).json(data[0]);
-    });
+    awsDB.query(q, [req.params.id], (erro, data) => {
+        if (erro) return res.status(500).json({ erro: "Erro ao trazer Ativo por ID" })
+        return res.status(200).json(data[0])
+    })
 }
 
 // Retorna DESPESAS por ID da WALLET
 export const getDespesasByWalletId = async (req: Request, res: Response) => {
     const q = "SELECT * FROM despesas WHERE `wallet_id`=?"
 
-    localDB.query(q, [req.params.id], (erro, data) => {
+    awsDB.query(q, [req.params.id], (erro, data) => {
         if(erro) return res.status(500).json({erro: "Erro ao trazer as Despesas dessa Wallet"})
         return res.status(200).json(data)
     })
@@ -32,23 +32,23 @@ export const getDespesasByWalletId = async (req: Request, res: Response) => {
 
 // Cria o DESPESA
 export const createDespesa = async (req: Request, res: Response) => {
-    const { wallet_id, titulo, valor, observacao, categoria, fonte, data } = req.body; 
+    const { wallet_id, titulo, valor, observacao, categoria, fonte, data } = req.body
 
     if (!titulo || !valor || !wallet_id) {
-        return res.status(400).json({ erro: "Campos Obrigatórios!" });
+        return res.status(400).json({ erro: "Campos Obrigatórios!" })
     }
 
     const q = "INSERT INTO despesas(`wallet_id`, `titulo`, `valor`, `observacao`, `categoria`, `fonte`, `data`) VALUES (?,?,?,?,?,?,?);"
-    localDB.query(q, [wallet_id, titulo, valor, observacao, categoria, fonte, data], (erro, data) => {
-        if (erro) return res.status(500).json({ erro: "Erro ao Cadastrar a Despesa" });
-        return res.status(201).json("Despesa Cadastrada!");
-    });
+    awsDB.query(q, [wallet_id, titulo, valor, observacao, categoria, fonte, data], (erro, data) => {
+        if (erro) return res.status(500).json({ erro: "Erro ao Cadastrar a Despesa" })
+        return res.status(201).json("Despesa Cadastrada!")
+    })
 }
 
 // Atualiza o DESPESA
 export const updateDespesa = async (req: Request, res: Response) => {
-    const despesaId = req.params.id;
-    const { titulo, valor, observacao, categoria, fonte, data } = req.body;  
+    const despesaId = req.params.id
+    const { titulo, valor, observacao, categoria, fonte, data } = req.body
 
     // Construir a parte SET dinamicamente com base nos campos fornecidos pelo usuário
     const setFields = [];
