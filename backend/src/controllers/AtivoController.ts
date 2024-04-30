@@ -22,7 +22,7 @@ export const getAtivoById = async (req: Request, res: Response) => {
 
 // Retorna ATIVOS por ID da WALLET
 export const getAtivosByWalletId = async (req: Request, res: Response) => {
-    const q = "SELECT * FROM Ativos WHERE `wallet_id`=?"
+    const q = "SELECT * FROM ativos WHERE `wallet_id`=?"
 
     awsDB.query(q, [req.params.id], (erro, data) => {
         if(erro) return res.status(500).json({erro: "Erro ao trazer os Ativos dessa Wallet"})
@@ -38,7 +38,7 @@ export const createAtivo = async (req: Request, res: Response) => {
         return res.status(400).json({ erro: "Campos Obrigatórios!" })
     }
 
-    const q = "INSERT INTO ativos(`wallet_id`, `titulo`, `valor`, `observacao`, `categoria`, `fonte`, `data`) VALUES (?,?,?,?,?,?,?);" // Alteração do nome da tabela para 'ativos'
+    const q = "INSERT INTO ativos(`wallet_id`, `titulo`, `valor`, `observacao`, `categoria`, `fonte`, `data`) VALUES (?,?,?,?,?,?,?);" 
     awsDB.query(q, [wallet_id, titulo, valor, observacao, categoria, fonte, data], (erro, data) => {
         if (erro) return res.status(500).json({ erro: "Erro ao Cadastrar o Ativo" })
         return res.status(201).json("Cadastrado Ativo!")

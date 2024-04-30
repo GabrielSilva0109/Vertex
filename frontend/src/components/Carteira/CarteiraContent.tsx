@@ -319,7 +319,6 @@ const CarteiraContent: React.FC = () =>{
       } catch (error) {
         console.error("Erro ao buscar carteira:", error)
       }
-      
     }
 
     const adicionarAtivo = async () => {
@@ -331,11 +330,11 @@ const CarteiraContent: React.FC = () =>{
             'Content-Type': 'application/json',
           },
           body: JSON.stringify({...formData, wallet_id: IdWallet}),
-        });
+        })
     
         if(response.ok){
           toast.success('Ativo cadastrado !')
-          await getExtrato();
+          await getExtrato()
         } else {
           toast.error('Erro ao fazer requisição para cadastrar o ativo!')
         }
@@ -380,8 +379,8 @@ const CarteiraContent: React.FC = () =>{
 
       // Ordene as transações por data
       todasTransacoes.sort((a, b) => {
-        const dateA = new Date(a.data).getTime();
-        const dateB = new Date(b.data).getTime();
+        const dateA = new Date(a.data).getTime()
+        const dateB = new Date(b.data).getTime()
 
         if (dateA < dateB) {
           return 1;
@@ -392,9 +391,9 @@ const CarteiraContent: React.FC = () =>{
         }
         });
   
-        setExtrato(todasTransacoes);
+        setExtrato(todasTransacoes)
       } catch (error) {
-        console.error("Erro ao obter extrato:", error);
+        console.error("Erro ao obter extrato:", error)
       }
     }
 

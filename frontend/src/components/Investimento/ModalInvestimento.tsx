@@ -1,9 +1,9 @@
-import React, { useState } from 'react';
-import styled from 'styled-components';
-import { Form } from '../Carteira/ModalCarteira';
-import { BtnAtivo, BtnDespesa } from '../Carteira/CarteiraContent';
-import { Input } from '../Login/FormLogin';
-import { toast } from 'react-toastify';
+import React, { useState } from 'react'
+import styled from 'styled-components'
+import { Form } from '../Carteira/ModalCarteira'
+import { BtnAtivo, BtnDespesa } from '../Carteira/CarteiraContent'
+import { Input } from '../Login/FormLogin'
+import { toast } from 'react-toastify'
 
 interface ModalProps {
   onClose: () => void
@@ -122,10 +122,10 @@ const ModalInvestimento: React.FC<ModalProps> = ({ onClose, walletId, onSubmit, 
       <ModalContent>
         <Form>
           <h1>Investimento</h1>
-          <Input type='text' placeholder='Ativo' value={titulo} onChange={(e) => setTitulo(e.target.value)} />
-          <Input type='number' placeholder='Valor' value={valor} onChange={(e) => setValor(e.target.value)} />
-          <Input type='number' placeholder='Quantidade' value={quantidade} onChange={(e) => setQuantidade(e.target.value)} />
-          <Select id="categoria" value={categoria} onChange={(e) => setCategoria(e.target.value)}>
+          <Input required={true} type='text' placeholder='Ativo' value={titulo} onChange={(e) => setTitulo(e.target.value)} />
+          <Input required={true} type='number' placeholder='Valor' value={valor} onChange={(e) => setValor(e.target.value)} />
+          <Input required={true} type='number' placeholder='Quantidade' value={quantidade} onChange={(e) => setQuantidade(e.target.value)} />
+          <Select required={true} id="categoria" value={categoria} onChange={(e) => setCategoria(e.target.value)}>
             <option value="">Selecione uma categoria</option>
             <option value="Ação">Ações</option>
             <option value="Crypto">Crypto</option>
@@ -134,7 +134,7 @@ const ModalInvestimento: React.FC<ModalProps> = ({ onClose, walletId, onSubmit, 
             <option value="Renda Fixa">Renda Fixa</option>
             <option value="Poupança">Poupança</option>
           </Select>
-          <Input style={{width: '85%'}} type='date' placeholder='Data' value={data} onChange={(e) => setData(e.target.value)} />
+          <Input required={true} style={{width: '85%'}} type='date' placeholder='Data' value={data} onChange={(e) => setData(e.target.value)} />
           <BtnAtivo onClick={handleSubmit} type="submit">Adicionar</BtnAtivo>
           <BtnDespesa onClick={onClose}>Fechar</BtnDespesa>
         </Form>
