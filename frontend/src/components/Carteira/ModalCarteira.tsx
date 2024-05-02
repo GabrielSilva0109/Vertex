@@ -39,12 +39,14 @@ const ModalContainer = styled.div`
   display: flex;
   justify-content: center;
   align-items: center;
+  z-index: 1;
 `
 
 export const ModalContent = styled.div`
   background: #515151;
   padding: 20px;
   border-radius: 10px;
+  
 `
 
 export const Form = styled.div`

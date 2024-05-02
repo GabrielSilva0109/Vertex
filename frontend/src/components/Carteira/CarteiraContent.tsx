@@ -131,6 +131,46 @@ const Dados = styled.p`
   min-width: 100px;
 `
 
+const Obs = styled.p<{ observacao: string }>`
+  min-width: 100px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 10px;
+  position: relative;
+  padding-left: 20px;
+  &::before {
+    content: '';
+    width: 15px;
+    height: 15px;
+    border-radius: 50%;
+    position: absolute;
+    left: 0;
+    background-color: ${props => {
+      switch (props.observacao) {
+        case 'Alimentação':
+          return '#005954'
+        case 'Transporte':
+          return '#0030bf'
+        case 'Salario':
+          return '#b0ff00'
+        case 'Lazer':
+          return 'purple';
+        case 'Serviços':
+          return 'orange'
+        case 'Vestuario':
+          return 'yellow'
+        case 'Investimentos':
+          return 'cyan'
+        case 'Vale':
+          return 'pink'
+        default:
+          return 'gray'
+      }
+    }};
+  }
+`
+
 const Valor = styled.p<{ categoria: string }>`
   width: 100px!important;
     color: ${(props) =>
@@ -139,8 +179,9 @@ const Valor = styled.p<{ categoria: string }>`
         : props.categoria === 'despesa'
         ? '#ff2d00'
         : 'gray'};
-        
+
 `
+
 const DadosData = styled.p`
   @media (max-width: 768px) {
     display:none;
@@ -478,7 +519,7 @@ const CarteiraContent: React.FC = () =>{
                 {extrato.map((transacao, index) => (
                   <ExtratoItem key={transacao.id} categoria={transacao.categoria} lastItem={index === extrato.length - 1}>
                     <Dados>{transacao.titulo}</Dados>
-                    <Dados>{transacao.observacao}</Dados>
+                    <Obs observacao={transacao.observacao}>{transacao.observacao}</Obs>
                     <Dados>{transacao.fonte}</Dados>
                     <DadosData>{formatarData(transacao.data)}</DadosData>
                     <Valor categoria={transacao.categoria}>R${formatarSaldo(transacao.valor)}</Valor>
