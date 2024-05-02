@@ -291,7 +291,7 @@ const CarteiraContent: React.FC = () =>{
   
     const closeModal = () => {
       setIsModalOpen(false)
-      // Limpar o formulário ou fazer outras ações necessárias ao fechar o modal
+    
       setFormData({
         wallet_id: IdWallet,
         titulo: '',
@@ -488,8 +488,8 @@ const CarteiraContent: React.FC = () =>{
               <Extrato>
               <Legenda>
                 <Dados>Título</Dados>
-                <Dados style={{marginRight: '100px;'}}>Observação</Dados>
-                <Dados style={{marginRight: '100px;'}}>Fonte</Dados>
+                <Dados>Observação</Dados>
+                <Dados>Fonte</Dados>
                 <Dados>Data</Dados>
                 <Dados>Valor</Dados>
                 <Dados>
