@@ -1,5 +1,5 @@
-import React, { useEffect, useState } from 'react';
-import { BarChart, Bar, XAxis, YAxis, CartesianGrid, Tooltip, Legend, ResponsiveContainer } from 'recharts';
+import React, { useEffect, useState } from 'react'
+import { BarChart, Bar, XAxis, YAxis, CartesianGrid, Tooltip, Legend, ResponsiveContainer } from 'recharts'
 
 interface Ativo {
   data: string | number | Date
@@ -25,16 +25,21 @@ interface GraficoProps {
 
 const CustomTooltip = ({ active, payload, label }: any) => {
   if (active && payload && payload.length) {
-    const ativos = payload.find((entry: any) => entry.dataKey === 'ativos');
-    const despesas = payload.find((entry: any) => entry.dataKey === 'despesas');
+    const formatNumber = (value: number) => {
+      return Number(value).toFixed(2)
+    }
+
+    const ativos = payload.find((entry: any) => entry.dataKey === 'ativos')
+    const despesas = payload.find((entry: any) => entry.dataKey === 'despesas')
     const investimentos = payload.find((entry: any) => entry.dataKey === 'investimentos')
+
     return (
       <div className="custom-tooltip">
-        {ativos && <p>{`Ativos: R$${ativos.value}`}</p>}
-        {despesas && <p>{`Despesas: R$${despesas.value}`}</p>}
-        {despesas && <p>{`Investimentos: R$${investimentos.value}`}</p>}
+        {ativos && <p>{`Ativos: R$${formatNumber(ativos.value)}`}</p>}
+        {despesas && <p>{`Despesas: R$${formatNumber(despesas.value)}`}</p>}
+        {investimentos && <p>{`Investimentos: R$${formatNumber(investimentos.value)}`}</p>}
       </div>
-    );
+    )
   }
   return null
 }
@@ -83,7 +88,6 @@ const Grafico: React.FC<GraficoProps> = ({ walletId }) => {
       groupedData[`${year}-${(month % 12) || 12}`] = { ativos: 0, despesas: 0, investimentos: 0 }
     }
 
-
     // Preenche os dados existentes
     ativos.forEach((ativo: Ativo) => {
       const date = new Date(ativo.data)
@@ -91,7 +95,7 @@ const Grafico: React.FC<GraficoProps> = ({ walletId }) => {
       if (groupedData[monthYear]) {
         groupedData[monthYear].ativos += ativo.valor
       }
-    });
+    })
 
     despesas.forEach((despesa: Despesa) => {
       const date = new Date(despesa.data)

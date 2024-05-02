@@ -102,7 +102,6 @@ const Slide = styled.label`
   cursor: pointer;
 `
 
-
 const Select = styled.select`
   max-width: 229px;
   background-color: #e1e1e1;

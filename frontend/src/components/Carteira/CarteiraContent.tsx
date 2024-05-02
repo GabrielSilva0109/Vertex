@@ -133,9 +133,10 @@ const Dados = styled.p`
 
 const Obs = styled.p<{ observacao: string }>`
   min-width: 100px;
+  font-size: 0.9rem;
   display: flex;
   align-items: center;
-  justify-content: center;
+  justify-content: start;
   border-radius: 10px;
   position: relative;
   padding-left: 20px;
