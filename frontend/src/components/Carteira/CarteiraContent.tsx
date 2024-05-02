@@ -128,7 +128,7 @@ const ExtratoItem = styled.div<{ categoria: string; lastItem?: boolean }>`
 `
 
 const Dados = styled.p`
-    width: 100px!important;
+  
 `
 
 const Valor = styled.p<{ categoria: string }>`
@@ -143,7 +143,7 @@ const Valor = styled.p<{ categoria: string }>`
 
 const Legenda = styled.div`
   display: flex;
-  justify-content: space-between;
+  justify-content: space-around;
   align-items: center;
   padding: 0px 5px;
   margin: 5px;
@@ -489,10 +489,12 @@ const CarteiraContent: React.FC = () =>{
               <Legenda>
                 <Dados>Título</Dados>
                 <Dados style={{marginRight: '100px;'}}>Observação</Dados>
-                <Dados>Fonte</Dados>
+                <Dados style={{marginRight: '100px;'}}>Fonte</Dados>
                 <Dados>Data</Dados>
                 <Dados>Valor</Dados>
-                <Dados>&nbsp;</Dados>
+                <Dados>
+                  <BtnDelete></BtnDelete>
+                </Dados>
               </Legenda>
                 {extrato.map((transacao, index) => (
                   <ExtratoItem key={transacao.id} categoria={transacao.categoria} lastItem={index === extrato.length - 1}>
