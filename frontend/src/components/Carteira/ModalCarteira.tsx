@@ -100,6 +100,42 @@ const Slide = styled.label`
   cursor: pointer;
 `
 
+
+const Select = styled.select`
+  max-width: 229px;
+  background-color: #e1e1e1;
+  color: black;
+  font-family: "Roboto", sans-serif;
+  font-weight: 400;
+  font-size: 16px;
+  padding: 12px 16px;
+  border-radius: 8px;
+  border: 1px solid #b0ff00;
+  outline: none;
+  transition: all 0.3s ease-in-out;
+
+    &:hover {
+        background-color: #f1f1f1;
+        border-color: #667788;
+    }
+
+    &:focus {
+        background-color: #272727;
+        border-color: #b0ff00;
+        box-shadow: 0 0 5px rgba(0, 0, 0, 0.2);
+    }
+
+    &.invalid {
+        border-color: #ff0000;
+        background-color: #f00;
+    }
+
+    /* Animações */
+    &.entering {
+        animation: slide-in 0.3s ease-in-out forwards;
+    }
+`
+
 const Modal: React.FC<ModalProps> = ({ isOpen, onClose, onSubmit, formData, setFormData, isDespesa, onCheckboxChange }) => {
   return (
     <ModalContainer style={{ display: isOpen ? 'flex' : 'none' }}>
@@ -132,18 +168,16 @@ const Modal: React.FC<ModalProps> = ({ isOpen, onClose, onSubmit, formData, setF
               setFormData({ ...formData, valor: formattedValue });
             }}
           />
-          <Input
-            type="text"
-            placeholder="Observação"
-            value={formData.observacao}
-            onChange={(e) => setFormData({ ...formData, observacao: e.target.value })}
-          />
-          <Input
-            type="text"
-            placeholder="categoria"
-            value={formData.categoria}
-            onChange={(e) => setFormData({ ...formData, categoria: e.target.value })}
-          />
+          <Select id="observacao" value={formData.observacao} onChange={(e) => setFormData({ ...formData, observacao: e.target.value })}>
+            <option value="">Selecione a Categoria&nbsp;&nbsp;&nbsp;&nbsp;</option>
+            <option value="Salario">Salario</option>
+            <option value="Alimentação">Alimentação</option>
+            <option value="Transporte">Transporte</option>
+            <option value="Lazer">Lazer</option>
+            <option value="Investimentos">Investimentos</option>
+            <option value="Vestuario">Vestuario</option>
+          </Select>
+          
           <Input
             type="text"
             placeholder="fonte"
