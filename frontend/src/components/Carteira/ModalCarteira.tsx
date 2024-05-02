@@ -57,12 +57,17 @@ export const Form = styled.div`
 
 const CheckboxLabel = styled.label`
   position: relative;
-  display: inline-block;
-`;
+  display: flex;
+  width: 100%;
+  border-radius: 50px;
+  height: 40px;
+  background: #393939;
+  align-items: center;
+`
 
 const CustomCheckbox = styled.input`
   display: none;
-`;
+`
 
 const CheckboxText = styled.span<{ isDespesa: boolean }>`
   padding: 6px 20px;
@@ -70,44 +75,46 @@ const CheckboxText = styled.span<{ isDespesa: boolean }>`
   border-radius: 5px;
   font-weight: bold;
   color: black;
-`;
+`
 
-const Toggle = styled.span`
+const Toggle = styled.span<{ isDespesa: boolean }>`
   width: 100px;
-  height: 50px;
-  position: absolute;
-  border-radius: 30px;
-  left: 5px;
-  cursor: pointer;
-  background: linear-gradient(40deg, #FF0080,#FF8C00 70%);
-  transition: 0.4s;
-  box-shadow: 0px 0px 3px rgb(255, 255, 20), 0px 0px 5px rgb(255, 255, 20);
-`;
-
-const Slide = styled.label`
-  width: 230px;
-  height: 60px;
+  height: 30px;
   display: flex;
   align-items: center;
-  justify-content: space-around;
+  justify-content: center;
+  font-weight: bold;
+  position: absolute;
+  border-radius: 50px;
   cursor: pointer;
-`;
+  background: ${props => (props.isDespesa ? 'red' : '#b0ff00')};
+  transition: left 0.4s, background 0.4s;
+`
+
+const Slide = styled.label`
+  width: 40px; 
+  height: 40px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+`
 
 const Modal: React.FC<ModalProps> = ({ isOpen, onClose, onSubmit, formData, setFormData, isDespesa, onCheckboxChange }) => {
   return (
     <ModalContainer style={{ display: isOpen ? 'flex' : 'none' }}>
       <ModalContent>
         <Form>
-            <CheckboxLabel>
-              <CustomCheckbox
-                type="checkbox"
-                id="inpLock"
-                checked={isDespesa}
-                onChange={onCheckboxChange}
-                />
-              <CheckboxText isDespesa={isDespesa}>{isDespesa ? 'Despesa' : 'Ativo'}</CheckboxText>
-            </CheckboxLabel>
-          
+          <CheckboxLabel>
+            <CustomCheckbox
+              type="checkbox"
+              id="inpLock"
+              checked={isDespesa}
+              onChange={onCheckboxChange}
+            />
+            <Toggle isDespesa={isDespesa} style={{ left: isDespesa ? 'calc(100% - 104px)' : '5px' }}>{isDespesa ? 'Despesa' : 'Ativo'}</Toggle> 
+          </CheckboxLabel>
+
           <Input
             type="text"
             placeholder="Título"
@@ -143,7 +150,7 @@ const Modal: React.FC<ModalProps> = ({ isOpen, onClose, onSubmit, formData, setF
             value={formData.fonte}
             onChange={(e) => setFormData({ ...formData, fonte: e.target.value })}
           />
-         
+
           <BtnAtivo onClick={onSubmit}>Adicionar</BtnAtivo>
           <BtnDespesa onClick={onClose}>Fechar</BtnDespesa>
         </Form>
