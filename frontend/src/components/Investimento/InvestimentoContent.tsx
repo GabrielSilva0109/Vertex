@@ -986,7 +986,7 @@ const InvestimentoContent: React.FC = () => {
           <MiniBox style={{ marginTop: '-50px' }}>
             <Info>
               <h3>Valor Aplicado</h3>
-              <h3>R${totalInvestido}</h3>
+              <h3>R${totalInvestido.toFixed(2)}</h3>
             </Info>
           </MiniBox>
           <MiniBox>
