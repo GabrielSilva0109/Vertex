@@ -276,6 +276,8 @@ const CarteiraContent: React.FC = () =>{
     const [ativos, setAtivos] = useState<number | null>(null)
     const [despesas, setDespesas] = useState<number | null>(null)
     const [extrato, setExtrato] = useState<Transacao[] | []>([])
+    const [isDespesa, setIsDespesa] = useState(false)
+    const [selectedFile, setSelectedFile] = useState<File | null>(null)
     const [formData, setFormData] = useState({
       wallet_id: IdWallet,
       titulo: '',
@@ -285,9 +287,6 @@ const CarteiraContent: React.FC = () =>{
       fonte: '',
       data: dataFormatada
     })
-    const [isDespesa, setIsDespesa] = useState(false)
-    const [selectedFile, setSelectedFile] = useState<File | null>(null);
-
 
     const formatarData = (data: string): string => {
       const dataObj = new Date(data)
