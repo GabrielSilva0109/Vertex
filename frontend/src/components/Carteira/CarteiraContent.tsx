@@ -142,7 +142,8 @@ const Valor = styled.p<{ categoria: string }>`
 `
 
 const Legenda = styled.div`
-  display: flex;
+  display: grid;
+  grid-template-columns: repeat(6, 1fr); /* Aqui você pode ajustar o número de colunas conforme necessário */
   justify-content: space-around;
   align-items: center;
   padding: 0px 5px;
@@ -150,7 +151,7 @@ const Legenda = styled.div`
   font-weight: bold;
   font-size: 1.15rem;
   color: gray;
-`
+`;
 
 const DadosData = styled.p`
   @media (max-width: 768px) {
