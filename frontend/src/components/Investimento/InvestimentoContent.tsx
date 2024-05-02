@@ -13,6 +13,7 @@ interface Investimento {
   id: number
   categoria: string
   valor: number
+  quantidade: number
 }
 
 export const MiniBox = styled.div`
@@ -337,67 +338,86 @@ const InvestimentoContent: React.FC = () => {
 
   const fetchInvestimentos = async (walletId: number) => {
     try {
-      const response = await fetch(`http://localhost:3333/api/walletInvestimentos/${walletId}`)
-      
-      if (!response.ok) {
-        throw new Error(`Erro na requisição: ${response.status} - ${response.statusText}`)
-      }
-      
-      const data: Investimento[] = await response.json()
-      let total = 0
-  
-      data.forEach((investimento: Investimento) => {
-        total += investimento.valor;
-      })
-  
-      setTotalInvestido(total)
-      
-      // Atualizar os estados com os investimentos filtrados
-      const investimentosAcoes = data.filter((investimento: Investimento) => investimento.categoria === 'Ação')
-      const investimentosCryptomoedas = data.filter((investimento: Investimento) => investimento.categoria === 'Crypto')
-      const investimentoMoedas = data.filter((investimento: Investimento) => investimento.categoria === 'Moeda')
-      const investimentoFiis = data.filter((investimento: Investimento) => investimento.categoria === 'FIIs')
-      const investimentoRendaFixa = data.filter((investimento: Investimento) => investimento.categoria === 'Renda Fixa')
-      const investimentoPoupanca = data.filter((investimento: Investimento) => investimento.categoria === 'Poupança')
-  
-      // Adicione mais estados conforme necessário para outras categorias
-      setInvestimentosAcoes(investimentosAcoes)
-      setInvestimentosCryptomoedas(investimentosCryptomoedas)
-      setInvestimentosMoedas(investimentoMoedas)
-      setInvestimentosFiis(investimentoFiis)
-      setInvestimentosRendaFixa(investimentoRendaFixa)
-      setInvestimentosPoupanca(investimentoPoupanca)
-  
-      // Calcular porcentagem de cada categoria de investimento
-      const porcentagemAcoes = ((investimentosAcoes.reduce((acc, investimento) => acc + investimento.valor, 0) / total) * 100).toFixed(2);
-      const porcentagemCryptomoedas = ((investimentosCryptomoedas.reduce((acc, investimento) => acc + investimento.valor, 0) / total) * 100).toFixed(2);
-      const porcentagemMoedas = ((investimentoMoedas.reduce((acc, investimento) => acc + investimento.valor, 0) / total) * 100).toFixed(2);
-      const porcentagemFiis = ((investimentoFiis.reduce((acc, investimento) => acc + investimento.valor, 0) / total) * 100).toFixed(2);
-      const porcentagemRendaFixa = ((investimentoRendaFixa.reduce((acc, investimento) => acc + investimento.valor, 0) / total) * 100).toFixed(2);
-      const porcentagemPoupanca = ((investimentoPoupanca.reduce((acc, investimento) => acc + investimento.valor, 0) / total) * 100).toFixed(2);
-  
-      // Converter porcentagens para números
-      const porcentagemAcoesNumber = parseFloat(porcentagemAcoes)
-      const porcentagemCryptomoedasNumber = parseFloat(porcentagemCryptomoedas)
-      const porcentagemMoedasNumber = parseFloat(porcentagemMoedas)
-      const porcentagemFiisNumber = parseFloat(porcentagemFiis)
-      const porcentagemRendaFixaNumber = parseFloat(porcentagemRendaFixa)
-      const porcentagemPoupancaNumber = parseFloat(porcentagemPoupanca)
-  
-      // Atualizar os estados das porcentagens de investimento
-      setPorcentagemAcoes(porcentagemAcoesNumber);
-      setPorcentagemCryptomoedas(porcentagemCryptomoedasNumber);
-      setPorcentagemMoedas(porcentagemMoedasNumber);
-      setPorcentagemFiis(porcentagemFiisNumber);
-      setPorcentagemRendaFixa(porcentagemRendaFixaNumber);
-      setPorcentagemPoupanca(porcentagemPoupancaNumber);
-      
-      // Fechar o modal após a atualização dos investimentos
-      closeModal()
+        const response = await fetch(`http://localhost:3333/api/walletInvestimentos/${walletId}`)
+
+        if (!response.ok) {
+            throw new Error(`Erro na requisição: ${response.status} - ${response.statusText}`)
+        }
+
+        const data: Investimento[] = await response.json()
+        
+        let totalAcoes = 0
+        let totalCrypto = 0
+        let totalMoedas = 0
+        let totalFiis = 0
+        let totalRendaFixa = 0
+        let totalPoupanca = 0
+
+        data.forEach((investimento: Investimento) => {
+            if (investimento.categoria === 'Ação') {
+                totalAcoes += investimento.valor * investimento.quantidade
+            } else if (investimento.categoria === 'Crypto') {
+                totalCrypto += investimento.valor 
+            } else if (investimento.categoria === 'Moeda') {
+                totalMoedas += investimento.valor * investimento.quantidade
+            } else if (investimento.categoria === 'FIIs') {
+                totalFiis += investimento.valor * investimento.quantidade
+            } else if (investimento.categoria === 'Renda Fixa') {
+                totalRendaFixa += investimento.valor * investimento.quantidade
+            } else if (investimento.categoria === 'Poupança') {
+                totalPoupanca += investimento.valor * investimento.quantidade
+            }
+        })
+        const total = totalAcoes + totalCrypto + totalMoedas + totalFiis + totalRendaFixa + totalPoupanca;
+        
+        setTotalInvestido(total)
+
+        // Atualizar os estados com os investimentos filtrados
+        const investimentosAcoes = data.filter((investimento: Investimento) => investimento.categoria === 'Ação')
+        const investimentosCryptomoedas = data.filter((investimento: Investimento) => investimento.categoria === 'Crypto')
+        const investimentoMoedas = data.filter((investimento: Investimento) => investimento.categoria === 'Moeda')
+        const investimentoFiis = data.filter((investimento: Investimento) => investimento.categoria === 'FIIs')
+        const investimentoRendaFixa = data.filter((investimento: Investimento) => investimento.categoria === 'Renda Fixa')
+        const investimentoPoupanca = data.filter((investimento: Investimento) => investimento.categoria === 'Poupança')
+
+        setInvestimentosAcoes(investimentosAcoes)
+        setInvestimentosCryptomoedas(investimentosCryptomoedas)
+        setInvestimentosMoedas(investimentoMoedas)
+        setInvestimentosFiis(investimentoFiis)
+        setInvestimentosRendaFixa(investimentoRendaFixa)
+        setInvestimentosPoupanca(investimentoPoupanca)
+
+        // Calcular porcentagem de cada categoria de investimento
+        const porcentagemAcoes = ((totalAcoes / total) * 100).toFixed(2)
+        const porcentagemCrypto = ((totalCrypto / total) * 100).toFixed(2)
+        const porcentagemMoedas = ((totalMoedas / total) * 100).toFixed(2)
+        const porcentagemFiis = ((totalFiis / total) * 100).toFixed(2)
+        const porcentagemRendaFixa = ((totalRendaFixa / total) * 100).toFixed(2)
+        const porcentagemPoupanca = ((totalPoupanca / total) * 100).toFixed(2)
+
+        // Converter porcentagens para números
+        const porcentagemAcoesNumber = parseFloat(porcentagemAcoes)
+        const porcentagemCryptoNumber = parseFloat(porcentagemCrypto)
+        const porcentagemMoedasNumber = parseFloat(porcentagemMoedas)
+        const porcentagemFiisNumber = parseFloat(porcentagemFiis)
+        const porcentagemRendaFixaNumber = parseFloat(porcentagemRendaFixa)
+        const porcentagemPoupancaNumber = parseFloat(porcentagemPoupanca)
+
+        // Atualizar os estados das porcentagens de investimento
+        setPorcentagemAcoes(porcentagemAcoesNumber)
+        setPorcentagemCryptomoedas(porcentagemCryptoNumber)
+        setPorcentagemMoedas(porcentagemMoedasNumber)
+        setPorcentagemFiis(porcentagemFiisNumber)
+        setPorcentagemRendaFixa(porcentagemRendaFixaNumber)
+        setPorcentagemPoupanca(porcentagemPoupancaNumber)
+
+        // Fechar o modal após a atualização dos investimentos
+        closeModal()
     } catch (error) {
-      console.error("Erro ao buscar os investimentos da carteira:", error)
+        console.error("Erro ao buscar os investimentos da carteira:", error)
     }
-  }
+}
+
 
   const deleteInvestimento = async (investimentoId: number) => {
     try {
@@ -485,7 +505,7 @@ const InvestimentoContent: React.FC = () => {
                     <p>{investimento.titulo}</p>
                     <p>Quantidade: {investimento.quantidade}</p>
                     <p>Valor: R${investimento.valor}</p>
-                    <p>Total: R${somaTotalAcao(investimento.quantidade, investimento.valor)}</p>
+                    <p>Total: R${somaTotalAcao(investimento.quantidade, investimento.valor).toFixed(2)}</p>
                     <Btns>
                       <BtnEdit onClick={() => openModalEdit(investimento, wallet_id)}>
 
@@ -725,7 +745,7 @@ const InvestimentoContent: React.FC = () => {
                     <p>{investimento.titulo}</p>
                     <p>Quantidade: {investimento.quantidade}</p>
                     <p>Valor: R${investimento.valor}</p>
-                    <p>Total: R${somaTotalAcao(investimento.quantidade, investimento.valor)}</p>
+                    <p>Total: R${somaTotalAcao(investimento.quantidade, investimento.valor).toFixed(2)}</p>
                     <Btns>
                     <BtnEdit onClick={() => openModalEdit(investimento, wallet_id)}>
 
