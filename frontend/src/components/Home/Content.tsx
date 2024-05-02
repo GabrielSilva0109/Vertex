@@ -478,7 +478,6 @@ const Content: React.FC = () =>{
         fetchAtivos(walletId)
         fetchDespesas(walletId)
         fetchInvestimentos(walletId)
-        console.log("CArteira", user.id)
       }
     }, [user, walletId])
 

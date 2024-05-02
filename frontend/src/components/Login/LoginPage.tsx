@@ -10,8 +10,6 @@ const Btn = styled(Link)`
 const LoginPage: React.FC = () => {
     const { state } = useLocation()
     const user = state?.user
-
-    console.log('Esse é o usuario', user)
     
     return (
         <div>
