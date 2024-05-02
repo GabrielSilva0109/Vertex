@@ -128,7 +128,7 @@ const ExtratoItem = styled.div<{ categoria: string; lastItem?: boolean }>`
 `
 
 const Dados = styled.p`
-  
+  min-width: 100px;
 `
 
 const Valor = styled.p<{ categoria: string }>`
@@ -139,20 +139,8 @@ const Valor = styled.p<{ categoria: string }>`
         : props.categoria === 'despesa'
         ? '#ff2d00'
         : 'gray'};
+        
 `
-
-const Legenda = styled.div`
-  display: grid;
-  grid-template-columns: repeat(6, 1fr); /* Aqui você pode ajustar o número de colunas conforme necessário */
-  justify-content: space-around;
-  align-items: center;
-  padding: 0px 5px;
-  margin: 5px;
-  font-weight: bold;
-  font-size: 1.15rem;
-  color: gray;
-`;
-
 const DadosData = styled.p`
   @media (max-width: 768px) {
     display:none;
@@ -487,16 +475,6 @@ const CarteiraContent: React.FC = () =>{
             <Main>
               <h1>Extrato</h1>
               <Extrato>
-              <Legenda>
-                <Dados>Título</Dados>
-                <Dados>Observação</Dados>
-                <Dados>Fonte</Dados>
-                <Dados>Data</Dados>
-                <Dados>Valor</Dados>
-                <Dados>
-                  <BtnDelete></BtnDelete>
-                </Dados>
-              </Legenda>
                 {extrato.map((transacao, index) => (
                   <ExtratoItem key={transacao.id} categoria={transacao.categoria} lastItem={index === extrato.length - 1}>
                     <Dados>{transacao.titulo}</Dados>
