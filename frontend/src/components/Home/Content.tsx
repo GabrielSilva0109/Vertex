@@ -496,7 +496,6 @@ const Content: React.FC = () =>{
       }
     }, [user, walletId])
 
-    // Atualiza o saldo quando os valores de ativos e despesas mudam
     useEffect(() => {
       setSaldo(ativos - despesas)
     }, [ativos, despesas])
@@ -545,7 +544,7 @@ const Content: React.FC = () =>{
         </Top>
 
         <Main>
-          <h1>Carteira gráfico</h1>
+          <h1>Gráfico </h1>
           <Grafico walletId={walletId} />
         </Main>
       </LeftContainer>
