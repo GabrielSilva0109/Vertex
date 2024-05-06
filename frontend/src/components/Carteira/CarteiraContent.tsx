@@ -259,7 +259,8 @@ const BoxInfo = styled.div`
 
 const Filters = styled.div`
   display: flex;
-  justify-content: center;
+  justify-content: space-around;
+  width: 100%;
 `
 
 const BtnTransacoes = styled.button`
