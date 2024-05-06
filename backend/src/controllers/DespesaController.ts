@@ -30,7 +30,7 @@ export const getDespesasByWalletId = async (req: Request, res: Response) => {
     })
 }
 
-// Cria o DESPESA
+// Cria a DESPESA
 export const createDespesa = async (req: Request, res: Response) => {
     const { wallet_id, titulo, valor, observacao, categoria, fonte, data } = req.body
 
@@ -45,7 +45,7 @@ export const createDespesa = async (req: Request, res: Response) => {
     })
 }
 
-// Atualiza o DESPESA
+// Atualiza a DESPESA
 export const updateDespesa = async (req: Request, res: Response) => {
     const despesaId = req.params.id
     const { titulo, valor, observacao, categoria, fonte, data } = req.body
@@ -71,7 +71,7 @@ export const updateDespesa = async (req: Request, res: Response) => {
     })
 }
 
-// Excluir o ATIVO
+// Excluir a DESPESA
 export const deleteDespesa = async (req: Request, res: Response) => {
     const despesaId = req.params.id;
 

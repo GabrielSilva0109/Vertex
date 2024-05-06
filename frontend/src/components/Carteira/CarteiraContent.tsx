@@ -128,6 +128,7 @@ const ExtratoItem = styled.div<{ categoria: string; lastItem?: boolean }>`
 `
 
 const Dados = styled.p`
+  max-width: 100px;
   min-width: 100px;
 `
 
