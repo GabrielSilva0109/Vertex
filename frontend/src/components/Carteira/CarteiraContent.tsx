@@ -166,6 +166,8 @@ const Obs = styled.p<{ observacao: string }>`
           return 'cyan'
         case 'Vale':
           return 'pink'
+        case 'Serviços':
+          return 'red'
         default:
           return 'gray'
       }

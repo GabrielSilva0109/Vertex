@@ -177,6 +177,7 @@ const Modal: React.FC<ModalProps> = ({ isOpen, onClose, onSubmit, formData, setF
             <option value="Lazer">Lazer</option>
             <option value="Investimentos">Investimentos</option>
             <option value="Vestuario">Vestuario</option>
+            <option value="Serviços">Serviços</option>
           </Select>
           
           <Input
