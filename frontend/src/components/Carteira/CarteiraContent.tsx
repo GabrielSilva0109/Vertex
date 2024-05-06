@@ -257,6 +257,28 @@ const BoxInfo = styled.div`
   
 `
 
+const Filters = styled.div`
+  display: flex;
+  justify-content: center;
+`
+
+const BtnTransacoes = styled.button`
+
+`
+
+
+const BtnsFilters = styled.div`
+
+`
+
+const BtnData = styled.button`
+
+`
+
+const BtnSearch = styled.button`
+
+`
+
 interface Transacao {
   id: number;
   titulo: string;
@@ -518,6 +540,22 @@ const CarteiraContent: React.FC = () =>{
           <LeftContainer>  
             <Main>
               <h1>Extrato</h1>
+              <Filters>
+                <BtnTransacoes>Transações
+
+                </BtnTransacoes>
+
+                <BtnsFilters>
+                  <BtnSearch>
+                    Pesquisar
+                  </BtnSearch>
+
+                  <BtnData>
+                    Tipo
+                  </BtnData>
+                </BtnsFilters>
+
+              </Filters>
               <Extrato>
                 {extrato.map((transacao, index) => (
                   <ExtratoItem key={transacao.id} categoria={transacao.categoria} lastItem={index === extrato.length - 1}>
