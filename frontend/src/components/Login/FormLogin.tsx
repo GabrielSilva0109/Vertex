@@ -154,14 +154,13 @@ const BtnSenha = styled.button`
 `
 
 const FormCadastro: React.FC<{ onBackToLogin: () => void }> = ({ onBackToLogin }) => {
+    const [registrationStatus, setRegistrationStatus] = useState<string | null>(null)
     const [formData, setFormData] = useState({
         name: '',
         email: '',
         cpf: '',
         password: '',
     })
-
-    const [registrationStatus, setRegistrationStatus] = useState<string | null>(null)
 
     const formatCPF = (value: string) => {
         const onlyNumbers = value.replace(/[^\d]/g, '')

@@ -333,7 +333,6 @@ const CarteiraContent: React.FC = () =>{
     const [selectedFile, setSelectedFile] = useState<File | null>(null)
     const [filtroSelecionado, setFiltroSelecionado] = useState("Todas")
     const [filtroTexto, setFiltroTexto] = useState("")
-
     const [formData, setFormData] = useState({
       wallet_id: IdWallet,
       titulo: '',
