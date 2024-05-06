@@ -176,6 +176,8 @@ const Obs = styled.p<{ observacao: string }>`
 `
 
 const Valor = styled.p<{ categoria: string }>`
+  max-width: 100px;
+  min-width: 100px;
   width: 100px!important;
     color: ${(props) =>
       props.categoria === 'ativo'
@@ -261,6 +263,12 @@ const Filters = styled.div`
   display: flex;
   justify-content: space-around;
   width: 100%;
+
+  @media (max-width: 768px) {
+    flex-direction: column;
+    align-items: center;
+    gap: 10px;
+  }
 `
 
 const BtnTransacoes = styled.div`
@@ -287,7 +295,11 @@ const Input = styled.input`
   font-weight: bold;
   color: white;
   user-select: none!important;
-  outline: none; 
+  outline: none;
+
+  @media (max-width: 768px) {
+    width: 70%;
+  }
 `
 
 interface Transacao {
