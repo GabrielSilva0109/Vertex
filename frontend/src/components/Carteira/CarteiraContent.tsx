@@ -263,21 +263,31 @@ const Filters = styled.div`
   width: 100%;
 `
 
-const BtnTransacoes = styled.button`
+const BtnTransacoes = styled.div`
 
 `
 
-
-const BtnsFilters = styled.div`
-
+const BtnTransacao = styled.button<BtnTransacaoProps>`
+  padding: 8px 16px;
+  border: none;
+  background-color: ${props => props.selected ? '#b0ff00' : '#1c1c1e'};
+  color: ${props => props.selected ? 'black' : 'white'};
+  cursor: pointer;
+  width: 100px;
+  font-weight: bold;
+  font-size: 1rem;
 `
 
-const BtnData = styled.button`
-
-`
-
-const BtnSearch = styled.button`
-
+const Input = styled.input`
+  border: none;
+  background: #1c1c1e;
+  padding: 8px 16px;
+  border-radius: 8px;
+  font-size: 1rem;
+  font-weight: bold;
+  color: white;
+  user-select: none!important;
+  outline: none; 
 `
 
 interface Transacao {
@@ -288,6 +298,10 @@ interface Transacao {
   categoria: string
   fonte: string
   data: string 
+}
+
+interface BtnTransacaoProps {
+  selected: boolean;
 }
 
 const CarteiraContent: React.FC = () =>{
@@ -305,6 +319,9 @@ const CarteiraContent: React.FC = () =>{
     const [extrato, setExtrato] = useState<Transacao[] | []>([])
     const [isDespesa, setIsDespesa] = useState(false)
     const [selectedFile, setSelectedFile] = useState<File | null>(null)
+    const [filtroSelecionado, setFiltroSelecionado] = useState("Todas")
+    const [filtroTexto, setFiltroTexto] = useState("")
+
     const [formData, setFormData] = useState({
       wallet_id: IdWallet,
       titulo: '',
@@ -516,7 +533,7 @@ const CarteiraContent: React.FC = () =>{
         <Container>
           <RightContainer>
             <BoxRight>
-                <h1>{user.name}</h1>
+                <h2>{user.name}</h2>
               <BoxInfo>
                 <label >Email </label>
                 <h4>{user.email}</h4>
@@ -542,23 +559,22 @@ const CarteiraContent: React.FC = () =>{
             <Main>
               <h1>Extrato</h1>
               <Filters>
-                <BtnTransacoes>Transações
-
+                <BtnTransacoes>
+                  <BtnTransacao style={{borderTopLeftRadius: '8px', borderBottomLeftRadius: '8px', }} selected={filtroSelecionado === "Todas"} onClick={() => setFiltroSelecionado("Todas")}>Todas</BtnTransacao>
+                  <BtnTransacao selected={filtroSelecionado === "ativo"} onClick={() => setFiltroSelecionado("ativo")}>Ativos</BtnTransacao>
+                  <BtnTransacao style={{borderTopRightRadius: '8px', borderBottomRightRadius: '8px', }} selected={filtroSelecionado === "despesa"} onClick={() => setFiltroSelecionado("despesa")}>Despesas</BtnTransacao>
                 </BtnTransacoes>
-
-                <BtnsFilters>
-                  <BtnSearch>
-                    Pesquisar
-                  </BtnSearch>
-
-                  <BtnData>
-                    Tipo
-                  </BtnData>
-                </BtnsFilters>
+                
+                <Input placeholder="Pesquisar" value={filtroTexto} onChange={(e) => setFiltroTexto(e.target.value)} />
 
               </Filters>
               <Extrato>
-                {extrato.map((transacao, index) => (
+              {extrato
+                  .filter(transacao =>
+                    (filtroSelecionado === "Todas" || transacao.categoria === filtroSelecionado) &&
+                    (filtroTexto === "" || transacao.titulo.toLowerCase().includes(filtroTexto.toLowerCase()))
+                  )
+                  .map((transacao, index) => (
                   <ExtratoItem key={transacao.id} categoria={transacao.categoria} lastItem={index === extrato.length - 1}>
                     <Dados>{transacao.titulo}</Dados>
                     <Obs observacao={transacao.observacao}>{transacao.observacao}</Obs>
