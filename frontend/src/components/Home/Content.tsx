@@ -17,6 +17,9 @@ import solana from '../Sections/img/solana.png'
 import xrp from '../Sections/img/xrp.svg'
 import litecoin from '../Sections/img/litecoin.png'
 import monero from '../Sections/img/monero.png'
+import polkadot from '../Sections/img/polkadot.png'
+import uniswap from '../Sections/img/uniswap.png'
+import gmx from '../Sections/img/gmx.png'
 import Grafico from "../Graficos/Grafico"
 import appleIcon from '../Sections/img/apple.png'
 import amazonIcon from '../Sections/img/amazonIcon.png'
@@ -98,22 +101,25 @@ const Main = styled.main`
 
 const BoxRight = styled.div`
   padding: 10px;
-  height: 48%;
+  max-height: 48vh; /* Definindo a altura máxima como 48% da altura da viewport */
   border-radius: 1rem;
   background: rgba(255,255,255,.05);
   box-shadow: 0 0 10px rgba(0,0,0,0.25);
+  overflow-y: auto; /* Adicionando scroll vertical quando necessário */
   border-radius: 8px;
 
-  overflow: auto;
-  -ms-overflow-style: none;
+  /* Escondendo a barra de rolagem nativa */
+  scrollbar-width: none; /* Firefox */
+  -ms-overflow-style: none; /* Internet Explorer/Edge */
   &::-webkit-scrollbar {
-    width: 0px; 
+    width: 0px; /* Chrome/Safari/Opera */
   }
   &::-webkit-scrollbar-thumb {
     background-color: #bfc1c1b3;
     border-radius: 10px;
   }
 `
+
 
 const Title = styled.h1`
   color: white;
@@ -500,7 +506,7 @@ const Content: React.FC = () =>{
                     <Icon src={getCryptoIcon(crypto.id)} />
                     <AcoesA>
                       <span>{crypto.id.toUpperCase()} </span>
-                      <span> ${crypto.current_price} </span>
+                      <span> ${(crypto.current_price).toFixed(2)} </span>
                       <CryptoPriceChange positive={crypto.price_change_percentage_24h >= 0}>
                         {crypto.price_change_percentage_24h.toFixed(2)}%
                       </CryptoPriceChange>
@@ -561,6 +567,15 @@ function getCryptoIcon(cryptoId: string): string {
             return xrp
       case "litecoin":
         return litecoin
+      case "monero":
+        return monero
+      case "polkadot":
+        return polkadot
+      case "uniswap":
+        return uniswap
+      case "gmx":
+        return gmx  
+        
       default:
         return ""
     }
