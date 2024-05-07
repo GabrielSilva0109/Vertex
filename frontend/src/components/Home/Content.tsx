@@ -331,131 +331,84 @@ const Content: React.FC = () =>{
       setSaldo(ativos - despesas)
     }, [ativos, despesas])
 
-    const fetchApple = async () => {
-      try{
-        const ApiKey = "co6mvr9r01qj6a5mbgl0co6mvr9r01qj6a5mbglg"
-        const symbol = "AAPL"
-        const response = await fetch(`https://finnhub.io/api/v1/quote?symbol=${symbol}&token=${ApiKey}`)
 
-        if(!response.ok){
-          console.log("Erro ao trazer preço das ações")
-          return
-        }
-        const data = await response.json()
-        const previousPrice = data.pc
-        const currentPrice = data.c
-        const priceChangePercentage = ((currentPrice - previousPrice) / previousPrice) * 100;
-        setApple(data.c)
-        setAppleVari(priceChangePercentage)
-      } catch (erro) {
-        
-      }
+   const fetchStockData = async (symbol: string) => {
+  try {
+    const ApiKey = "co6mvr9r01qj6a5mbgl0co6mvr9r01qj6a5mbglg";
+    const response = await fetch(`https://finnhub.io/api/v1/quote?symbol=${symbol}&token=${ApiKey}`);
+
+    if (!response.ok) {
+      throw new Error("Erro ao buscar preço das ações");
     }
 
-    const fetchAmazon = async () => {
-      try{
-        const ApiKey = "co6mvr9r01qj6a5mbgl0co6mvr9r01qj6a5mbglg"
-        const symbol = "AMZN"
-        const response = await fetch(`https://finnhub.io/api/v1/quote?symbol=${symbol}&token=${ApiKey}`)
+    const data = await response.json();
+    const previousPrice = data.pc;
+    const currentPrice = data.c;
+    const priceChangePercentage = ((currentPrice - previousPrice) / previousPrice) * 100;
 
-        if(!response.ok){
-          console.log("Erro ao trazer preço das ações")
-          return
+    return { currentPrice, priceChangePercentage };
+  } catch (error) {
+    console.error("Ocorreu um erro ao obter os dados:", error);
+    return { currentPrice: 0, priceChangePercentage: 0 };
+  }
+};
+
+const fetchStocks = async () => {
+  const symbols = ["AAPL", "AMZN", "MSFT", "GOOGL", "TSLA"];
+
+  const stocksData = await Promise.all(
+    symbols.map(async (symbol) => {
+      const data = await fetchStockData(symbol);
+      return { symbol, ...data };
+    })
+  );
+
+  return stocksData;
+};
+
+  useEffect(() => {
+    if (user && user.id) {
+      const fetchStocksData = async () => {
+        try {
+          const stocksData = await fetchStocks()
+          stocksData.forEach((stock: any) => {
+            switch (stock.symbol) {
+              case "AAPL":
+                setApple(stock.currentPrice)
+                setAppleVari(stock.priceChangePercentage)
+                break
+              case "AMZN":
+                setAmazon(stock.currentPrice)
+                setAmazonVari(stock.priceChangePercentage)
+                break
+              case "MSFT":
+                setMicrosoft(stock.currentPrice)
+                setMicrosoftVari(stock.priceChangePercentage)
+                break
+              case "GOOGL":
+                setGoogle(stock.currentPrice)
+                setGoogleVari(stock.priceChangePercentage)
+                break
+              case "TSLA":
+                setTesla(stock.currentPrice);
+                setTeslaVari(stock.priceChangePercentage)
+                break
+              default:
+                break
+            }
+          });
+        } catch (error) {
+          console.error("Ocorreu um erro ao buscar dados das ações:", error)
         }
-        const data = await response.json()
-        const previousPrice = data.pc
-        const currentPrice = data.c
-        const priceChangePercentage = ((currentPrice - previousPrice) / previousPrice) * 100;
-        setAmazon(data.c)
-        setAmazonVari(priceChangePercentage)
-      } catch (erro) {
-        
       }
-    }
 
-    const fetchMicrosoft = async () => {
-      try{
-        const ApiKey = "co6mvr9r01qj6a5mbgl0co6mvr9r01qj6a5mbglg"
-        const symbol = "MSFT"
-        const response = await fetch(`https://finnhub.io/api/v1/quote?symbol=${symbol}&token=${ApiKey}`)
+      fetchStocksData()
 
-        if(!response.ok){
-          console.log("Erro ao trazer preço das ações")
-          return
-        }
-        const data = await response.json()
-        const previousPrice = data.pc
-        const currentPrice = data.c
-        const priceChangePercentage = ((currentPrice - previousPrice) / previousPrice) * 100;
-
-        setMicrosoft(data.c)
-        setMicrosoftVari(priceChangePercentage)
-      } catch (erro) {
-        
-      }
-    }
-
-    const fetchGoogle = async () => {
-      try{
-        const ApiKey = "co6mvr9r01qj6a5mbgl0co6mvr9r01qj6a5mbglg"
-        const symbol = "GOOGL"
-        const response = await fetch(`https://finnhub.io/api/v1/quote?symbol=${symbol}&token=${ApiKey}`)
-
-        if(!response.ok){
-          console.log("Erro ao trazer preço das ações")
-          return
-        }
-        const data = await response.json()
-
-        const previousPrice = data.pc
-        const currentPrice = data.c
-        const priceChangePercentage = ((currentPrice - previousPrice) / previousPrice) * 100;
-        
-        setGoogle(data.c)
-        setGoogleVari(priceChangePercentage)
-      } catch (erro) {
-        
-      }
-    }
-
-    const fetchTesla = async () => {
-      try {
-        const ApiKey = "co6mvr9r01qj6a5mbgl0co6mvr9r01qj6a5mbglg";
-        const symbol = "TSLA";
-        const response = await fetch(`https://finnhub.io/api/v1/quote?symbol=${symbol}&token=${ApiKey}`);
-    
-        if (!response.ok) {
-          console.log("Erro ao trazer preço das ações");
-          return;
-        }
-    
-        const data = await response.json();
-
-        const previousPrice = data.pc
-        const currentPrice = data.c
-        const priceChangePercentage = ((currentPrice - previousPrice) / previousPrice) * 100;
-    
-        setTesla(data.c); // Define o preço atual das ações
-        setTeslaVari(priceChangePercentage); // Define a variação percentual nas últimas 24 horas
-    
-      } catch (error) {
-        console.error("Ocorreu um erro ao obter os dados:", error);
-      }
-    }
-    
-    useEffect(() => {
-      if (user && user.id) {
-        fetchApple()
-        fetchAmazon()
-        fetchGoogle()
-        fetchMicrosoft()
-        fetchTesla()
-
-        const intervalId = setInterval(fetchTesla, 20000)
+      const intervalId = setInterval(fetchStocksData, 20000)
 
       return () => clearInterval(intervalId)
-      }
-    }, [user, walletId])
+    }
+  }, [user, walletId])
 
   return (
     <Container>
