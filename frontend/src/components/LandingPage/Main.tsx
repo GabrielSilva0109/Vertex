@@ -1,6 +1,12 @@
-import React from 'react';
-import styled from 'styled-components';
-import vertex from '../Sections/img/vertex.png';
+import React from 'react'
+import styled from 'styled-components'
+import vertex from '../Sections/img/vertex.png'
+import Slider from 'react-slick'
+import 'slick-carousel/slick/slick.css'
+import 'slick-carousel/slick/slick-theme.css'
+import aws from '../Sections/img/awsIcon.png'
+import coinmarket from '../Sections/img/coinmarkert.png'
+import logo3 from '../Sections/img/apple.png'
 
 const Container = styled.div`
     display: flex;
@@ -59,20 +65,53 @@ const Image = styled.img`
     max-width: 500px; 
 `
 
-const Main: React.FC = () => {
-    return (
-        <Container>
-            <LeftContainer>
-                <TitleMain>Seu universo financeiro<br /> em um só lugar</TitleMain>
-                <TextMain><span>Ações</span>, <span>Criptomoedas</span>, <span>ETFs</span>, <span>Renda fixa </span>
-                     e muito mais.<br /> Diversifique seu portfólio, maximize seus retornos e <br />
-                    acompanhe tudo em tempo real com nossa plataforma.</TextMain>
-            </LeftContainer>
-            <RightContainer>
-                <Image src={vertex} />
-            </RightContainer>
-        </Container>
-    );
-};
+const LogoImage = styled.img`
+    width: 50px;
+`
 
-export default Main;
+const Slide = styled.div`
+    width: 100%;
+    background: #1c1c1e;
+`
+
+const Main: React.FC = () => {
+    const logos = [aws, coinmarket, logo3]
+
+    const settings = {
+        dots: false,
+        infinite: true,
+        speed: 5000,
+        slidesToShow: 3,
+        slidesToScroll: 1,
+        autoplay: true,
+        autoplaySpeed: 20,
+    }
+
+    return (
+        <>
+            <Container>
+                <LeftContainer>
+                    <TitleMain>Seu universo financeiro<br /> em um só lugar</TitleMain>
+                    <TextMain><span>Ações</span>, <span>Criptomoedas</span>, <span>ETFs</span>, <span>Renda fixa </span>
+                        e muito mais.<br /> Diversifique seu portfólio, maximize seus retornos e <br />
+                        acompanhe tudo em tempo real com nossa plataforma.</TextMain>
+                </LeftContainer>
+                <RightContainer>
+                    <Image src={vertex} />
+                </RightContainer>
+                
+            </Container>
+            <Slide>
+                <Slider {...settings}>
+                    {logos.map((logo, index) => (
+                        <div key={index}>
+                            <LogoImage src={logo} />
+                        </div>
+                    ))}
+                </Slider>
+            </Slide>
+        </>
+    )
+}
+
+export default Main

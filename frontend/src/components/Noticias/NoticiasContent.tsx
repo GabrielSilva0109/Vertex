@@ -165,16 +165,16 @@ const ImgMark = styled.img`
 `
 
 const NoticiasContent: React.FC = () => {
-  const [noticiasGerais, setNoticiasGerais] = useState([]);
-  const [noticiasCrypto, setNoticiasCrypto] = useState([]);
-  const [startIndexGerais, setStartIndexGerais] = useState(0);
-  const [startIndexCrypto, setStartIndexCrypto] = useState(0);
-  const [currencyData, setCurrencyData] = useState<any>(null);
+  const [noticiasGerais, setNoticiasGerais] = useState([])
+  const [noticiasCrypto, setNoticiasCrypto] = useState([])
+  const [startIndexGerais, setStartIndexGerais] = useState(0)
+  const [startIndexCrypto, setStartIndexCrypto] = useState(0)
+  const [currencyData, setCurrencyData] = useState<any>(null)
 
   useEffect(() => {
     const fetchNoticiasGerais = async () => {
       try {
-        const response = await fetch("https://newsapi.org/v2/everything?q=tecnologia&language=pt&apiKey=3ba975a9509b47f9958e5534f814dec7");
+        const response = await fetch("https://newsapi.org/v2/everything?q=tecnologia&language=pt&apiKey=3ba975a9509b47f9958e5534f814dec7")
         const data = await response.json();
         setNoticiasGerais(data.articles);
       } catch (error) {
@@ -184,7 +184,7 @@ const NoticiasContent: React.FC = () => {
 
     const fetchNoticiasCrypto = async () => {
       try {
-        const response = await fetch("https://newsapi.org/v2/everything?q=Crypto&language=pt&apiKey=3ba975a9509b47f9958e5534f814dec7");
+        const response = await fetch("https://newsapi.org/v2/everything?q=Crypto&language=pt&apiKey=3ba975a9509b47f9958e5534f814dec7")
         const data = await response.json();
         setNoticiasCrypto(data.articles);
       } catch (error) {
@@ -224,19 +224,19 @@ const NoticiasContent: React.FC = () => {
   }, [])
 
   const handleNextGerais = () => {
-    setStartIndexGerais(startIndexGerais + 3);
+    setStartIndexGerais(startIndexGerais + 3)
   }
 
   const handlePreviousGerais = () => {
-    setStartIndexGerais(Math.max(0, startIndexGerais - 3));
+    setStartIndexGerais(Math.max(0, startIndexGerais - 3))
   }
 
   const handleNextCrypto = () => {
-    setStartIndexCrypto(startIndexCrypto + 3);
+    setStartIndexCrypto(startIndexCrypto + 3)
   }
 
   const handlePreviousCrypto = () => {
-    setStartIndexCrypto(Math.max(0, startIndexCrypto - 3));
+    setStartIndexCrypto(Math.max(0, startIndexCrypto - 3))
   }
 
   const CustomPrevArrow = (props: any) => { return <></> } 

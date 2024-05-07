@@ -4,6 +4,9 @@ import iconAcoes from '../Sections/img/iconsAcoes.png'
 import iconCoin from '../Sections/img/iconsCoin.png'
 import iconBitcoin from '../Sections/img/iconsBitcoin.png'
 import iconCard from '../Sections/img/iconsCard.png'
+import Slider from 'react-slick'
+import 'slick-carousel/slick/slick.css'
+import 'slick-carousel/slick/slick-theme.css'
 
 const Container = styled.div`
     display: flex;
@@ -15,7 +18,7 @@ const Container = styled.div`
 `
 
 const Card = styled.div`
-    background: #e9e8e8;
+    background: black;
     width: 200px;
     height: 280px;
     padding: 20px;
@@ -28,11 +31,13 @@ const Card = styled.div`
 `
 
 const Title = styled.div`
+    padding: 5px;
     font-size: 1.2rem;
-    color: black;
+    color: white;
     font-weight: bold;
     display: flex;
     align-items: center;
+    border-bottom: 1px solid gray;
 `
 
 const Icon = styled.img`
@@ -48,7 +53,7 @@ const Description = styled.p`
 
 const Cards: React.FC = () => {
     return (
-        <Container>
+         <Container>
             <Card>
                 <Title>
                     <Icon src={iconAcoes} />
@@ -86,7 +91,7 @@ const Cards: React.FC = () => {
                 <Description>Sistema de pontuação.</Description>
             </Card>
         </Container>
-    );
-};
+    )
+}
 
 export default Cards;
