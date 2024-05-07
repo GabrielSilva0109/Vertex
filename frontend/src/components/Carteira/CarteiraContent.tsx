@@ -286,7 +286,7 @@ const BtnTransacao = styled.button<BtnTransacaoProps>`
   font-size: 1rem;
 `
 
-const Input = styled.input`
+const InputSearch = styled.input`
   border: none;
   background: #1c1c1e;
   padding: 8px 16px;
@@ -576,7 +576,7 @@ const CarteiraContent: React.FC = () =>{
                   <BtnTransacao style={{borderTopRightRadius: '8px', borderBottomRightRadius: '8px', }} selected={filtroSelecionado === "despesa"} onClick={() => setFiltroSelecionado("despesa")}>Despesas</BtnTransacao>
                 </BtnTransacoes>
                 
-                <Input placeholder="Pesquisar" value={filtroTexto} onChange={(e) => setFiltroTexto(e.target.value)} />
+                <InputSearch placeholder="Pesquisar" value={filtroTexto} onChange={(e) => setFiltroTexto(e.target.value)} />
 
               </Filters>
               <Extrato>

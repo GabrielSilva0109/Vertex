@@ -15,6 +15,8 @@ import cardano from '../Sections/img/cardano.svg'
 import eth from '../Sections/img/eth.svg'
 import solana from '../Sections/img/solana.png'
 import xrp from '../Sections/img/xrp.svg'
+import litecoin from '../Sections/img/litecoin.png'
+import monero from '../Sections/img/monero.png'
 import Grafico from "../Graficos/Grafico"
 import appleIcon from '../Sections/img/apple.png'
 import amazonIcon from '../Sections/img/amazonIcon.png'
@@ -100,7 +102,6 @@ const BoxRight = styled.div`
   border-radius: 1rem;
   background: rgba(255,255,255,.05);
   box-shadow: 0 0 10px rgba(0,0,0,0.25);
-  backdrop-filter: blur(10px);
   border-radius: 8px;
 
   overflow: auto;
@@ -218,6 +219,22 @@ const AcoesA = styled.div`
 const ImgAcoes = styled.img`
   width: 30px;
 `
+
+const InputSearch = styled.input`
+  border: none;
+  background: #1c1c1e;
+  padding: 8px 16px;
+  border-radius: 8px;
+  font-size: 1rem;
+  font-weight: bold;
+  color: white;
+  user-select: none!important;
+  outline: none;
+  width: 100px;
+  @media (max-width: 768px) {
+    width: 70%;
+  }
+`
 const Content: React.FC = () =>{
     const [ cryptoData, setCryptoData] = useState<any[]>([])
     const [ saldo, setSaldo] = useState<number>(0)
@@ -229,6 +246,8 @@ const Content: React.FC = () =>{
     const [isLoading, setIsLoading] = useState<boolean>(false)//lembrar de trocar apos a API AÇÔES
     const { state } = useLocation()
     const user = state?.user
+    const [filtroTextoCrypto, setFiltroTextoCrypto] = useState("")
+    const [filtroTextoStocks, setFiltroTextoStocks] = useState("")
 
     //Teste antes de achar uma API para fazer varias requisições Gratuitas
     const [apple, setApple] = useState<number>(0)
@@ -302,7 +321,7 @@ const Content: React.FC = () =>{
             {
               params: {
                 vs_currency: "usd",
-                ids: "bitcoin,ethereum,binancecoin,cardano,solana,ripple",
+                ids:  "bitcoin,ethereum,binancecoin,cardano,solana,ripple,monero,litecoin,matic,bsw,gmx,uniswap,polkadot,pancakeswap",
                 order: "market_cap_desc",
                 per_page: 100,
                 page: 1,
@@ -331,84 +350,84 @@ const Content: React.FC = () =>{
       setSaldo(ativos - despesas)
     }, [ativos, despesas])
 
+    //Stocks
+    const fetchStockData = async (symbol: string) => {
+      try {
+        const ApiKey = "co6mvr9r01qj6a5mbgl0co6mvr9r01qj6a5mbglg"
+        const response = await fetch(`https://finnhub.io/api/v1/quote?symbol=${symbol}&token=${ApiKey}`)
 
-   const fetchStockData = async (symbol: string) => {
-  try {
-    const ApiKey = "co6mvr9r01qj6a5mbgl0co6mvr9r01qj6a5mbglg";
-    const response = await fetch(`https://finnhub.io/api/v1/quote?symbol=${symbol}&token=${ApiKey}`);
-
-    if (!response.ok) {
-      throw new Error("Erro ao buscar preço das ações");
-    }
-
-    const data = await response.json();
-    const previousPrice = data.pc;
-    const currentPrice = data.c;
-    const priceChangePercentage = ((currentPrice - previousPrice) / previousPrice) * 100;
-
-    return { currentPrice, priceChangePercentage };
-  } catch (error) {
-    console.error("Ocorreu um erro ao obter os dados:", error);
-    return { currentPrice: 0, priceChangePercentage: 0 };
-  }
-};
-
-const fetchStocks = async () => {
-  const symbols = ["AAPL", "AMZN", "MSFT", "GOOGL", "TSLA"];
-
-  const stocksData = await Promise.all(
-    symbols.map(async (symbol) => {
-      const data = await fetchStockData(symbol);
-      return { symbol, ...data };
-    })
-  );
-
-  return stocksData;
-};
-
-  useEffect(() => {
-    if (user && user.id) {
-      const fetchStocksData = async () => {
-        try {
-          const stocksData = await fetchStocks()
-          stocksData.forEach((stock: any) => {
-            switch (stock.symbol) {
-              case "AAPL":
-                setApple(stock.currentPrice)
-                setAppleVari(stock.priceChangePercentage)
-                break
-              case "AMZN":
-                setAmazon(stock.currentPrice)
-                setAmazonVari(stock.priceChangePercentage)
-                break
-              case "MSFT":
-                setMicrosoft(stock.currentPrice)
-                setMicrosoftVari(stock.priceChangePercentage)
-                break
-              case "GOOGL":
-                setGoogle(stock.currentPrice)
-                setGoogleVari(stock.priceChangePercentage)
-                break
-              case "TSLA":
-                setTesla(stock.currentPrice);
-                setTeslaVari(stock.priceChangePercentage)
-                break
-              default:
-                break
-            }
-          });
-        } catch (error) {
-          console.error("Ocorreu um erro ao buscar dados das ações:", error)
+        if (!response.ok) {
+          throw new Error("Erro ao buscar preço das ações")
         }
+
+        const data = await response.json()
+        const previousPrice = data.pc
+        const currentPrice = data.c
+        const priceChangePercentage = ((currentPrice - previousPrice) / previousPrice) * 100
+
+        return { currentPrice, priceChangePercentage }
+      } catch (error) {
+        console.error("Ocorreu um erro ao obter os dados:", error)
+        return { currentPrice: 0, priceChangePercentage: 0 }
       }
-
-      fetchStocksData()
-
-      const intervalId = setInterval(fetchStocksData, 20000)
-
-      return () => clearInterval(intervalId)
     }
-  }, [user, walletId])
+
+    const fetchStocks = async () => {
+      const symbols = ["AAPL", "AMZN", "MSFT", "GOOGL", "TSLA"]
+
+      const stocksData = await Promise.all(
+        symbols.map(async (symbol) => {
+          const data = await fetchStockData(symbol)
+          return { symbol, ...data }
+        })
+      )
+
+      return stocksData
+    }
+
+    useEffect(() => {
+      if (user && user.id) {
+        const fetchStocksData = async () => {
+          try {
+            const stocksData = await fetchStocks()
+            stocksData.forEach((stock: any) => {
+              switch (stock.symbol) {
+                case "AAPL":
+                  setApple(stock.currentPrice)
+                  setAppleVari(stock.priceChangePercentage)
+                  break
+                case "AMZN":
+                  setAmazon(stock.currentPrice)
+                  setAmazonVari(stock.priceChangePercentage)
+                  break
+                case "MSFT":
+                  setMicrosoft(stock.currentPrice)
+                  setMicrosoftVari(stock.priceChangePercentage)
+                  break
+                case "GOOGL":
+                  setGoogle(stock.currentPrice)
+                  setGoogleVari(stock.priceChangePercentage)
+                  break
+                case "TSLA":
+                  setTesla(stock.currentPrice);
+                  setTeslaVari(stock.priceChangePercentage)
+                  break
+                default:
+                  break
+              }
+            });
+          } catch (error) {
+            console.error("Ocorreu um erro ao buscar dados das ações:", error)
+          }
+        }
+
+        fetchStocksData()
+
+        const intervalId = setInterval(fetchStocksData, 20000)
+
+        return () => clearInterval(intervalId)
+      }
+    }, [user, walletId])
 
   return (
     <Container>
@@ -463,91 +482,62 @@ const fetchStocks = async () => {
           <Title>
             <Icon src={iconBitcoin} />
             Crypto
-            {isLoadingCrypto ? ( 
-            <Loader></Loader>
-          ) : (
-            <>
-          </>
-          )}
+            <InputSearch style={{marginLeft: '70px'}} placeholder="Pesquisar" value={filtroTextoCrypto} onChange={(e) => setFiltroTextoCrypto(e.target.value)}/>
           </Title>
-          
+          {isLoadingCrypto ? ( 
+            <Loader></Loader>
+            ) : (
+              <>
+            </>
+            )}
           <CryptoPrice>
-            {cryptoData.map((crypto) => (
-              <Crypto key={crypto.id}>
-                <Icon src={getCryptoIcon(crypto.id)} />
-                <AcoesA>
-                <span>{crypto.id.toUpperCase()} </span>
-                <span> ${crypto.current_price} </span>
-                <CryptoPriceChange positive={crypto.price_change_percentage_24h >= 0}>
-                  {crypto.price_change_percentage_24h.toFixed(2)}%
-                </CryptoPriceChange>
-                </AcoesA>
-                
-              </Crypto>
-            ))}
+              {cryptoData
+                .filter(crypto =>
+                  crypto.id.toLowerCase().includes(filtroTextoCrypto.toLowerCase())
+                )
+                .map(crypto => (
+                  <Crypto key={crypto.id}>
+                    <Icon src={getCryptoIcon(crypto.id)} />
+                    <AcoesA>
+                      <span>{crypto.id.toUpperCase()} </span>
+                      <span> ${crypto.current_price} </span>
+                      <CryptoPriceChange positive={crypto.price_change_percentage_24h >= 0}>
+                        {crypto.price_change_percentage_24h.toFixed(2)}%
+                      </CryptoPriceChange>
+                    </AcoesA>
+                  </Crypto>
+                ))}
           </CryptoPrice>
         </BoxRight>
 
         <BoxRight>
-            <Title>
-              <Icon src={iconAcoes} />
-              Ações
-            </Title>
-            <Acoes>
-              <ImgAcoes src={appleIcon}/>
+          <Title>
+            <Icon src={iconAcoes} />
+            Ações
+            <InputSearch style={{marginLeft: '82px'}} placeholder="Pesquisar" value={filtroTextoStocks} onChange={(e) => setFiltroTextoStocks(e.target.value)}/>
+          </Title>
+
+          {[
+            { name: "Apple", price: apple, variation: appleVari, icon: appleIcon },
+            { name: "Amazon", price: amazon, variation: amazonVari, icon: amazonIcon },
+            { name: "Google", price: google, variation: googleVari, icon: googleIcon },
+            { name: "Microsoft", price: microsoft, variation: microsoftVari, icon: microsoftIcon },
+            { name: "Tesla", price: tesla, variation: teslaVari, icon: teslaIcon }
+          ].filter(stock =>
+            stock.name.toLowerCase().includes(filtroTextoStocks.toLowerCase())
+          ).map((stock, index) => (
+            <Acoes key={index} style={{ marginTop: index === 0 ? 0 : "-15px" }}>
+              <ImgAcoes src={stock.icon} />
               <AcoesA>
-                <h3>Apple</h3>
-                <h4>${apple.toFixed(2)}</h4>
-                <CryptoPriceChange positive={appleVari >= 0}>
-                <h4>{appleVari.toFixed(2)}%</h4>
-                </CryptoPriceChange>
-              </AcoesA>
-              
-            </Acoes>
-            <Acoes style={{marginTop: "-15px"}}>
-              <ImgAcoes src={amazonIcon}/>
-              
-              <AcoesA>
-                <h3>Amazon</h3>
-                <h4>${amazon}</h4>
-                <CryptoPriceChange positive={amazonVari >= 0}>
-                  <h4>{amazonVari.toFixed(2)}%</h4>
-                </CryptoPriceChange>
-              </AcoesA>
-              
-            </Acoes>
-            <Acoes style={{marginTop: "-15px"}}>
-              <ImgAcoes src={googleIcon}/>
-              <AcoesA>
-                <h3>Google</h3>
-                <h4>${google}</h4>
-                <CryptoPriceChange positive={googleVari >= 0}>
-                  <h4>{googleVari.toFixed(2)}%</h4>
-                </CryptoPriceChange>
-              </AcoesA>
-              
-            </Acoes>
-            <Acoes style={{marginTop: "-15px"}}>
-              <ImgAcoes src={microsoftIcon}/>
-              <AcoesA>
-                <h3>Microsoft</h3>
-                <h4>${microsoft}</h4>
-                <CryptoPriceChange positive={microsoftVari >= 0}>
-                  <h4>{microsoftVari.toFixed(2)}%</h4>
+                <h3>{stock.name}</h3>
+                <h4>${stock.price.toFixed(2)}</h4>
+                <CryptoPriceChange positive={stock.variation >= 0}>
+                  <h4>{stock.variation.toFixed(2)}%</h4>
                 </CryptoPriceChange>
               </AcoesA>
             </Acoes>
-            <Acoes style={{marginTop: "-15px"}}>
-              <ImgAcoes src={teslaIcon}/>
-              <AcoesA>
-              <h3>Tesla</h3>
-              <h4>${tesla.toFixed(2)}</h4>
-              <CryptoPriceChange positive={teslaVari >= 0}>
-                <h4>{teslaVari.toFixed(2)}%</h4>
-              </CryptoPriceChange>
-              </AcoesA>
-            </Acoes>
-          </BoxRight>
+          ))}
+        </BoxRight>
       </RightContainer>
     </Container>
   )
@@ -567,8 +557,10 @@ function getCryptoIcon(cryptoId: string): string {
         return cardano;
       case "solana":
         return solana;
-        case "ripple":
-            return xrp;
+      case "ripple":
+            return xrp
+      case "litecoin":
+        return litecoin
       default:
         return ""
     }
