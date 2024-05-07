@@ -27,7 +27,7 @@ import googleIcon from '../Sections/img/googleIcon.png'
 import microsoftIcon from '../Sections/img/microsoftIcon.png'
 import teslaIcon from '../Sections/img/teslaIcon.png'
 import netflixIcon from '../Sections/img/netflixIcon.png'
-import facebookIcon from '../Sections/img/facebookIcon.png'
+import metaIcon from '../Sections/img/facebookIcon.png'
 import nvidiaIcon from '../Sections/img/nvidiaIcon.png'
 import intelIcon from '../Sections/img/intelcon.png'
 import paypalIcon from '../Sections/img/paypalIcon.png'
@@ -273,8 +273,8 @@ const Content: React.FC = () =>{
     const [teslaVari, setTeslaVari] = useState<number>(0)
     const [netflix, setNetflix] = useState<number>(0)
     const [netflixVari, setNetflixVari] = useState<number>(0)
-    const [facebook, setFacebook] = useState<number>(0)
-    const [facebookVari, setFacebookVari] = useState<number>(0)
+    const [meta, setMeta] = useState<number>(0)
+    const [metaVari, setMetaVari] = useState<number>(0)
     const [nvidia, setNvidia] = useState<number>(0)
     const [nvidiaVari, setNvidiaVari] = useState<number>(0)
     const [paypal, setPaypal] = useState<number>(0)
@@ -394,7 +394,7 @@ const Content: React.FC = () =>{
     }
 
     const fetchStocks = async () => {
-      const symbols = ["AAPL", "AMZN", "MSFT", "GOOGL", "TSLA", "NFLX", "FB", "NVDA", "PYPL", "INTC"]
+      const symbols = ["AAPL", "AMZN", "MSFT", "GOOGL", "TSLA", "NFLX", "META", "NVDA", "PYPL", "INTC"]
     
       const stocksData = await Promise.all(
         symbols.map(async (symbol) => {
@@ -439,9 +439,9 @@ const Content: React.FC = () =>{
                   setNetflix(stock.currentPrice)
                   setNetflixVari(stock.priceChangePercentage)
                   break
-                case "FB":
-                  setFacebook(stock.currentPrice)
-                  setFacebookVari(stock.priceChangePercentage)
+                case "META":
+                  setMeta(stock.currentPrice)
+                  setMetaVari(stock.priceChangePercentage)
                   break
                 case "NVDA":
                   setNvidia(stock.currentPrice)
@@ -561,33 +561,33 @@ const Content: React.FC = () =>{
             <InputSearch style={{ marginLeft: '82px' }} placeholder="Pesquisar" value={filtroTextoStocks} onChange={(e) => setFiltroTextoStocks(e.target.value)} />
           </Title>
 
-  {[
-    { name: "Apple", price: apple, variation: appleVari, icon: appleIcon },
-    { name: "Amazon", price: amazon, variation: amazonVari, icon: amazonIcon },
-    { name: "Google", price: google, variation: googleVari, icon: googleIcon },
-    { name: "Microsoft", price: microsoft, variation: microsoftVari, icon: microsoftIcon },
-    { name: "Tesla", price: tesla, variation: teslaVari, icon: teslaIcon },
-    // Adicione mais ações aqui
-    { name: "Netflix", price: netflix, variation: netflixVari, icon: netflixIcon },
-    { name: "Facebook", price: facebook, variation: facebookVari, icon: facebookIcon },
-    { name: "Nvidia", price: nvidia, variation: nvidiaVari, icon: nvidiaIcon },
-    { name: "PayPal", price: paypal, variation: paypalVari, icon: paypalIcon },
-    { name: "Intel", price: intel, variation: intelVari, icon: intelIcon }
-  ].filter(stock =>
-    stock.name.toLowerCase().includes(filtroTextoStocks.toLowerCase())
-  ).map((stock, index) => (
-    <Acoes key={index} style={{ marginTop: index === 0 ? 0 : "-15px" }}>
-      <ImgAcoes src={stock.icon} />
-      <AcoesA>
-        <h3>{stock.name}</h3>
-        <h4>${stock.price.toFixed(2)}</h4>
-        <CryptoPriceChange positive={stock.variation >= 0}>
-          <h4>{stock.variation.toFixed(2)}%</h4>
-        </CryptoPriceChange>
-      </AcoesA>
-    </Acoes>
-  ))}
-</BoxRight>
+            {[
+              { name: "Apple", price: apple, variation: appleVari, icon: appleIcon },
+              { name: "Amazon", price: amazon, variation: amazonVari, icon: amazonIcon },
+              { name: "Google", price: google, variation: googleVari, icon: googleIcon },
+              { name: "Microsoft", price: microsoft, variation: microsoftVari, icon: microsoftIcon },
+              { name: "Tesla", price: tesla, variation: teslaVari, icon: teslaIcon },
+              // Adicione mais ações aqui
+              { name: "Netflix", price: netflix, variation: netflixVari, icon: netflixIcon },
+              { name: "Meta", price: meta, variation: metaVari, icon: metaIcon },
+              { name: "Nvidia", price: nvidia, variation: nvidiaVari, icon: nvidiaIcon },
+              { name: "PayPal", price: paypal, variation: paypalVari, icon: paypalIcon },
+              { name: "Intel", price: intel, variation: intelVari, icon: intelIcon }
+            ].filter(stock =>
+              stock.name.toLowerCase().includes(filtroTextoStocks.toLowerCase())
+            ).map((stock, index) => (
+              <Acoes key={index} style={{ marginTop: index === 0 ? 0 : "-15px" }}>
+                <ImgAcoes src={stock.icon} />
+                <AcoesA>
+                  <h3>{stock.name}</h3>
+                  <h4>${stock.price.toFixed(2)}</h4>
+                  <CryptoPriceChange positive={stock.variation >= 0}>
+                    <h4>{stock.variation.toFixed(2)}%</h4>
+                  </CryptoPriceChange>
+                </AcoesA>
+              </Acoes>
+            ))}
+          </BoxRight>
 
       </RightContainer>
     </Container>
