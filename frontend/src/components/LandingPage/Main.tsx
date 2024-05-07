@@ -4,7 +4,7 @@ import vertex from '../Sections/img/vertex.png';
 
 const Container = styled.div`
     display: flex;
-    background: black;
+    background: #1c1c1e;
     color: white;
     justify-content: center;
     align-items: center;
@@ -56,7 +56,7 @@ const RightContainer = styled.div`
 const Image = styled.img`
     width: 100%;
     height: auto;
-    max-width: 500px; /* Define uma largura máxima para a imagem */
+    max-width: 500px; 
 `
 
 const Main: React.FC = () => {

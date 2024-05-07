@@ -7,7 +7,7 @@ import { useNavigate } from 'react-router-dom'
 const Container = styled.div`
     height: 87.9vh;
     width: 100%;
-    background:black;
+    background: #1c1c1e;
     display: flex;
     justify-content:center;
     align-items: center;

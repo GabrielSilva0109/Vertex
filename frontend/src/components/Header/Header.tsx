@@ -4,7 +4,7 @@ import { Link } from 'react-router-dom'
 import vertex from '../Sections/img/VertexLogo.png'
 
 const HeaderStyle = styled.div`
-    background: black;
+    background: #1c1c1e;
     display: flex;
     justify-content: space-between;
     padding: 0px 20px;
