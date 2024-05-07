@@ -242,123 +242,91 @@ const Content: React.FC = () =>{
     const [tesla, setTesla] = useState<number>(0)
     const [teslaVari, setTeslaVari] = useState<number>(0)
 
-    const fetchWallet = async (userId: number) => {
-      try {
-        const response = await fetch(`http://localhost:3333/api/walletUser/${userId}`)
-        if (!response.ok) {
-          console.error(`Erro na requisição: ${response.status} - ${response.statusText}`)
-          return 
-        }
-
-        const data = await response.json()
-
-        if (data && data.saldo !== undefined) {
-          setWalletId(data.id)
-        } else {
-          console.error(`Resposta inesperada do servidor: ${JSON.stringify(data)}`)
-        }
-      } catch (error) {
-        console.error("Erro ao buscar saldo:", error)
-      }
-    }
-
-    const fetchAtivos = async (userId: number) => {
-      try {
-        await fetchWallet(userId)
-
-        const response = await fetch(`http://localhost:3333/api/ativosWallet/${walletId}`)
-        
-        if (!response.ok) {
-          console.error(`Erro na requisição ATIVOS: ${response.status} - ${response.statusText}`)
-          return 
-        }
-
-        const data = await response.json()
-    
-        if (data && data.length > 0) {
-          // Somando os valores dos ativos
-          const totalAtivos = data.reduce((total: number, ativo: any) => total + ativo.valor, 0)
-          setAtivos(totalAtivos)
-        } else {
-          console.error(`Resposta inesperada do servidor: ${JSON.stringify(data)}`)
-        }
-      } catch (error) {
-        console.error("Erro ao buscar ativos:", error)
-      }
-    }
-
-    const fetchDespesas = async(userId: number) =>{
-      try {
-        await fetchWallet(userId)
-
-        const response = await fetch(`http://localhost:3333/api/despesasWallet/${walletId}`)
-        
-        if (!response.ok) {
-          console.error(`Erro na requisição DESPESAS: ${response.status} - ${response.statusText}`)
-          return 
-        }
-
-        const data = await response.json()
-    
-        if (data && data.length > 0) {
-          // Somando os valores das despesas
-          const totalDespesas = data.reduce((total: number, despesa: any) => total + despesa.valor, 0)
-          setDespesas(totalDespesas)
-        } else {
-          console.error(`Resposta inesperada do servidor: ${JSON.stringify(data)}`)
-        }
-      } catch (error) {
-        console.error("Erro ao buscar ativos:", error)
-      }
-    }
-
-    const fetchCryptoData = async () => {
-      try {
-        setIsLoadingCrypto(true)
-        const response = await axios.get(
-          "https://api.coingecko.com/api/v3/coins/markets",
-          {
-            params: {
-              vs_currency: "usd",
-              ids: "bitcoin,ethereum,binancecoin,cardano,solana,ripple",
-              order: "market_cap_desc",
-              per_page: 100,
-              page: 1,
-              sparkline: false,
-              price_change_percentage: "1h,24h,7d",
-            },
+    useEffect(() => {
+      const fetchData = async () => {
+        if (user && user.id) {
+          try {
+            const walletResponse = await fetch(
+              `http://localhost:3333/api/walletUser/${user.id}`
+            )
+            if (!walletResponse.ok) throw new Error(`Erro na requisição: ${walletResponse.status} - ${walletResponse.statusText}`)
+            const walletData = await walletResponse.json()
+            setWalletId(walletData.id)
+  
+            const [ativosResponse, despesasResponse, investimentosResponse] = await Promise.all([
+              fetch(`http://localhost:3333/api/ativosWallet/${walletData.id}`),
+              fetch(`http://localhost:3333/api/despesasWallet/${walletData.id}`),
+              fetch(`http://localhost:3333/api/walletInvestimentos/${walletData.id}`)
+            ])
+  
+            if (!ativosResponse.ok || !despesasResponse.ok || !investimentosResponse.ok) {
+              throw new Error(`Erro na requisição: ${ativosResponse.status} - ${ativosResponse.statusText}`)
+            }
+  
+            const [ativosData, despesasData, investimentosData] = await Promise.all([
+              ativosResponse.json(),
+              despesasResponse.json(),
+              investimentosResponse.json()
+            ])
+  
+            const totalAtivos = ativosData.reduce((total: number, ativo: any) => total + ativo.valor, 0)
+            setAtivos(totalAtivos)
+  
+            const totalDespesas = despesasData.reduce((total: number, despesa: any) => total + despesa.valor, 0)
+            setDespesas(totalDespesas)
+  
+            let totalInvestido = 0
+            investimentosData.forEach((investimento: any) => {
+              totalInvestido += investimento.valor
+            })
+            setTotalInvestido(totalInvestido)
+  
+            setIsLoadingCrypto(false)
+          } catch (error) {
+            console.error("Erro ao buscar dados:", error)
           }
-        )
-
-        if (response.status === 200) {
-          setCryptoData(response.data)
         }
-        setIsLoadingCrypto(false)
-      } catch (error) {
-        console.error("Erro ao buscar dados de criptomoedas:", error)
-      } 
-    }
-
-    const fetchInvestimentos = async (walletId: number) => {
-      try {
-        const response = await fetch(`http://localhost:3333/api/walletInvestimentos/${walletId}`)
-        
-        if (!response.ok) {
-          throw new Error(`Erro na requisição: ${response.status} - ${response.statusText}`)
-        }
-        
-        const data = await response.json()
-        let total = 0
-  
-        data.forEach((investimento: any) => {
-          total += investimento.valor;
-        })
-  
-        setTotalInvestido(total)
-      } catch (error) {
-        console.error("Erro ao buscar os investimentos da carteira:", error)
       }
-    }
+  
+      fetchData()
+    }, [user])
+
+    useEffect(() => {
+      const fetchCryptoData = async () => {
+        try {
+          setIsLoadingCrypto(true);
+          const response = await axios.get(
+            "https://api.coingecko.com/api/v3/coins/markets",
+            {
+              params: {
+                vs_currency: "usd",
+                ids: "bitcoin,ethereum,binancecoin,cardano,solana,ripple",
+                order: "market_cap_desc",
+                per_page: 100,
+                page: 1,
+                sparkline: false,
+                price_change_percentage: "1h,24h,7d",
+              },
+            }
+          );
+  
+          if (response.status === 200) {
+            setCryptoData(response.data);
+          }
+          setIsLoadingCrypto(false);
+        } catch (error) {
+          console.error("Erro ao buscar dados de criptomoedas:", error);
+        }
+      };
+  
+      const intervalId = setInterval(fetchCryptoData, 20000);
+  
+      return () => clearInterval(intervalId);
+    }, [])
+  
+    useEffect(() => {
+      setSaldo(ativos - despesas);
+    }, [ativos, despesas])
 
     const fetchApple = async () => {
       try{
@@ -472,34 +440,19 @@ const Content: React.FC = () =>{
       }
     }
     
-    useEffect(() => { 
-      if(user && user.id) {
-        fetchWallet(user.id)
-        fetchAtivos(walletId)
-        fetchDespesas(walletId)
-        fetchInvestimentos(walletId)
-      }
-    }, [user, walletId])
-
     useEffect(() => {
       if (user && user.id) {
-        fetchCryptoData()
         fetchApple()
         fetchAmazon()
         fetchGoogle()
         fetchMicrosoft()
         fetchTesla()
 
-        const intervalId = setInterval(fetchCryptoData, 20000)
+        const intervalId = setInterval(fetchTesla, 20000)
 
       return () => clearInterval(intervalId)
       }
     }, [user, walletId])
-
-    useEffect(() => {
-      setSaldo(ativos - despesas)
-    }, [ativos, despesas])
-
 
   return (
     <Container>
