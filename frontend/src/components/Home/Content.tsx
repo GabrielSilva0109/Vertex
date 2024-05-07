@@ -242,6 +242,7 @@ const Content: React.FC = () =>{
     const [tesla, setTesla] = useState<number>(0)
     const [teslaVari, setTeslaVari] = useState<number>(0)
 
+    //Wallet | Ativos | Despesas | Investimento 
     useEffect(() => {
       const fetchData = async () => {
         if (user && user.id) {
@@ -291,10 +292,11 @@ const Content: React.FC = () =>{
       fetchData()
     }, [user])
 
+    //Cryto 
     useEffect(() => {
       const fetchCryptoData = async () => {
         try {
-          setIsLoadingCrypto(true);
+          setIsLoadingCrypto(true)
           const response = await axios.get(
             "https://api.coingecko.com/api/v3/coins/markets",
             {
@@ -308,24 +310,25 @@ const Content: React.FC = () =>{
                 price_change_percentage: "1h,24h,7d",
               },
             }
-          );
+          )
   
           if (response.status === 200) {
-            setCryptoData(response.data);
+            setCryptoData(response.data)
           }
-          setIsLoadingCrypto(false);
+          setIsLoadingCrypto(false)
         } catch (error) {
-          console.error("Erro ao buscar dados de criptomoedas:", error);
+          console.error("Erro ao buscar dados de criptomoedas:", error)
         }
-      };
+      }
   
-      const intervalId = setInterval(fetchCryptoData, 20000);
+      const intervalId = setInterval(fetchCryptoData, 20000)
   
-      return () => clearInterval(intervalId);
+      return () => clearInterval(intervalId)
     }, [])
   
+    //Saldo
     useEffect(() => {
-      setSaldo(ativos - despesas);
+      setSaldo(ativos - despesas)
     }, [ativos, despesas])
 
     const fetchApple = async () => {
