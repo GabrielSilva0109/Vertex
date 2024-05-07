@@ -1,6 +1,6 @@
 import React from 'react';
 import styled from 'styled-components';
-import creditCardImage from './credit-card.png';
+import vertex from '../Sections/img/vertex.png';
 
 const Container = styled.div`
     display: flex;
@@ -8,13 +8,13 @@ const Container = styled.div`
     color: white;
     justify-content: center;
     align-items: center;
-    flex-wrap: wrap; /* Permite que os elementos quebrem para a próxima linha em telas menores */
-    padding: 20px; /* Adiciona espaço ao redor dos elementos */
+    flex-wrap: wrap; 
+    padding: 20px; 
 `
 
 const LeftContainer = styled.div`
     flex: 1;
-    max-width: 600px; /* Define uma largura máxima para o LeftContainer */
+    max-width: 600px; 
     padding: 20px;
 `
 
@@ -69,7 +69,7 @@ const Main: React.FC = () => {
                     acompanhe tudo em tempo real com nossa plataforma.</TextMain>
             </LeftContainer>
             <RightContainer>
-                <Image src={creditCardImage} />
+                <Image src={vertex} />
             </RightContainer>
         </Container>
     );

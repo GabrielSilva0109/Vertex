@@ -1,6 +1,7 @@
 import React from 'react';
 import styled from 'styled-components'
 import { Link } from 'react-router-dom'
+import vertex from '../Sections/img/VertexLogo.png'
 
 const HeaderStyle = styled.div`
     background: black;
@@ -27,9 +28,8 @@ const Nav = styled.div`
     gap: 20px;
 `
 
-const Icon = styled.h1`
-    color: #b0ff00;
-    margin-right: 8px;
+const Icon = styled.img`
+    width: 80px;
 `
 
 const NavLinks = styled.div`
@@ -84,7 +84,7 @@ const Header: React.FC = () => {
     return (
         <HeaderStyle>
             <TitleBank>
-                <Icon>$</Icon>                
+                <Icon src={vertex}/>                
                 <h1>Vertex </h1>
             </TitleBank>
 

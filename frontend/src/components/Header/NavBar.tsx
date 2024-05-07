@@ -1,6 +1,7 @@
 import React from 'react'
 import styled from 'styled-components'
 import { Link, useNavigate } from 'react-router-dom'
+import vertex from '../Sections/img/VertexLogo.png'
 
 const Nav = styled.div`
     background: rgb(28, 28, 30);
@@ -21,9 +22,8 @@ const TitleBank = styled.div`
     color: white;
 `
 
-const Icon = styled.h1`
-    color: #b0ff00;
-    margin-right: 8px;
+const Icon = styled.img`
+    width: 80px;
 `
 
 const Links = styled.div`
@@ -109,9 +109,9 @@ const NavBar: React.FC<{user?: any}> = ({user}) => {
     return (
         <Nav>
             <TitleBank>
+                <Icon src={vertex}/> 
                 <h1>Vertex</h1>
-                <Icon>&nbsp;&nbsp;$&nbsp;</Icon>                
-                <UserName>{user.name}</UserName>
+                <UserName></UserName>
             </TitleBank>
 
             <Links>

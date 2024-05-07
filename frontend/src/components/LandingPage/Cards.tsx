@@ -1,9 +1,9 @@
-import React from 'react';
-import styled from 'styled-components';
-import iconAcoes from './img/iconsAcoes.png';
-import iconCoin from './img/iconsCoin.png';
-import iconBitcoin from './img/iconsBitcoin.png';
-import iconCard from './img/iconsCard.png';
+import React from 'react'
+import styled from 'styled-components'
+import iconAcoes from '../Sections/img/iconsAcoes.png'
+import iconCoin from '../Sections/img/iconsCoin.png'
+import iconBitcoin from '../Sections/img/iconsBitcoin.png'
+import iconCard from '../Sections/img/iconsCard.png'
 
 const Container = styled.div`
     display: flex;
@@ -12,7 +12,7 @@ const Container = styled.div`
     background: #2C2C2E;
     flex-wrap: wrap; 
     padding: 20px; 
-`;
+`
 
 const Card = styled.div`
     background: #e9e8e8;
@@ -25,7 +25,7 @@ const Card = styled.div`
     flex-direction: column;
     gap: 10px;
     flex: 1; 
-`;
+`
 
 const Title = styled.div`
     font-size: 1.2rem;

@@ -1,8 +1,8 @@
 import React from 'react'
 import Header from '../Header/Header'
-import Main from '../MainContent/Main'
-import Cards from '../Sections/Cards'
-import About from '../Sections/About'
+import Main from './Main'
+import Cards from './Cards'
+import About from './About'
 
 const LandingPage: React.FC = () => {
   return (
