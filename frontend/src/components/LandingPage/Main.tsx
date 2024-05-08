@@ -1,6 +1,5 @@
-import React from 'react'
+import React, { ImgHTMLAttributes } from 'react'
 import styled from 'styled-components'
-import vertex from '../Sections/img/vertex.png'
 import Slider from 'react-slick'
 import 'slick-carousel/slick/slick.css'
 import 'slick-carousel/slick/slick-theme.css'
@@ -8,6 +7,11 @@ import aws from '../Sections/img/awsIcon.png'
 import coinmarket from '../Sections/img/coinmarkert.png'
 import news from '../Sections/img/newsApi.png'
 import google from '../Sections/img/googleIcon.png'
+import vertex from '../Sections/img/vertex.png'
+
+interface LogoImageProps extends ImgHTMLAttributes<HTMLImageElement> {
+    isNews?: boolean
+}
 
 const Container = styled.div`
     display: flex;
@@ -66,8 +70,20 @@ const Image = styled.img`
     max-width: 500px; 
 `
 
-const LogoImage = styled.img`
+const LogoImage = styled.img<LogoImageProps>`
     width: 50px;
+    height: auto;
+
+    ${({ isNews }) => isNews && `
+        margin-top: -30px;
+        width: 120px;
+    `}
+`
+
+const SlideContainer = styled.div`
+    max-width: 100%; 
+    height: 70px;
+    overflow: hidden;
 `
 
 const Slide = styled.div`
@@ -77,12 +93,12 @@ const Slide = styled.div`
 `
 
 const Main: React.FC = () => {
-    const logos = [aws, coinmarket, news, google]
+    const logos = [aws, coinmarket, news, google];
 
     const settings = {
         dots: false,
         infinite: true,
-        speed: 5000,
+        speed: 10000,
         slidesToShow: 4,
         slidesToScroll: 1,
         autoplay: true,
@@ -94,24 +110,28 @@ const Main: React.FC = () => {
             <Container>
                 <LeftContainer>
                     <TitleMain>Seu universo financeiro<br /> em um só lugar</TitleMain>
-                    <TextMain><span>Ações</span>, <span>Criptomoedas</span>, <span>ETFs</span>, <span>Renda fixa </span>
+                    <TextMain>
+                        <span>Ações</span>, <span>Criptomoedas</span>, <span>ETFs</span>, <span>Renda fixa </span>
                         e muito mais.<br /> Diversifique seu portfólio, maximize seus retornos e <br />
-                        acompanhe tudo em tempo real com nossa plataforma.</TextMain>
+                        acompanhe tudo em tempo real com nossa plataforma.
+                    </TextMain>
                 </LeftContainer>
                 <RightContainer>
                     <Image src={vertex} />
                 </RightContainer>
-                
             </Container>
-            <Slide>
-                <Slider {...settings}>
-                    {logos.map((logo, index) => (
-                        <div key={index}>
-                            <LogoImage src={logo} />
-                        </div>
-                    ))}
-                </Slider>
-            </Slide>
+            <SlideContainer> 
+                <Slide>
+                    <Slider {...settings}>
+                        {logos.map((logo, index) => (
+                            <div key={index}>
+                                {/* Adicione a propriedade isNews para o LogoImage */}
+                                <LogoImage src={logo} isNews={logo === news} />
+                            </div>
+                        ))}
+                    </Slider>
+                </Slide>
+            </SlideContainer>
         </>
     )
 }
