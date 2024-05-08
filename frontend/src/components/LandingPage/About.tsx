@@ -1,19 +1,19 @@
-import React from 'react';
-import styled from 'styled-components';
-import bnb from '../Sections/img/bnb2.svg';
-import btc from '../Sections/img/bitcoin.svg';
-import cardano from '../Sections/img/cardano.svg';
-import eth from '../Sections/img/eth.svg';
-import solana from '../Sections/img/solana.png';
-import xrp from '../Sections/img/xrp.svg';
-import litecoin from '../Sections/img/litecoin.png';
-import monero from '../Sections/img/monero.png';
-import polkadot from '../Sections/img/polkadot.png';
-import uniswap from '../Sections/img/uniswap.png';
-import gmx from '../Sections/img/gmx.png';
-import Slider from 'react-slick';
-import 'slick-carousel/slick/slick.css';
-import 'slick-carousel/slick/slick-theme.css';
+import React from 'react'
+import styled from 'styled-components'
+import bnb from '../Sections/img/bnb2.svg'
+import btc from '../Sections/img/bitcoin.svg'
+import cardano from '../Sections/img/cardano.svg'
+import eth from '../Sections/img/eth.svg'
+import solana from '../Sections/img/solana.png'
+import xrp from '../Sections/img/xrp.svg'
+import litecoin from '../Sections/img/litecoin.png'
+import monero from '../Sections/img/monero.png'
+import polkadot from '../Sections/img/polkadot.png'
+import uniswap from '../Sections/img/uniswap.png'
+import gmx from '../Sections/img/gmx.png'
+import Slider from 'react-slick'
+import 'slick-carousel/slick/slick.css'
+import 'slick-carousel/slick/slick-theme.css'
 
 const Container = styled.div`
     display: flex;
@@ -59,6 +59,7 @@ const Title = styled.h2`
     padding: 0px;
     display: flex;
     text-align: start;
+    border-left: 3px solid white;
 `
 
 const Text = styled.h4`
@@ -113,8 +114,8 @@ const About: React.FC = () => {
         <Container>
             <Card>
                 <CardLeft>
-                    <Title>Acompanhe suas Criptomoedas</Title>
-                    <Text>Aproveite a integração com as principais criptomoedas <br/> do mercado em tempo real.</Text>
+                    <Title>&nbsp;Acompanhe suas Criptomoedas</Title>
+                    <Text>&nbsp;&nbsp;Aproveite a integração com as principais criptomoedas <br/> &nbsp;&nbsp;do mercado em tempo real.</Text>
                 </CardLeft>
                 <CardRight>
                     <SlideContainer>
