@@ -294,17 +294,20 @@ const NoticiasContent: React.FC = () => {
           <ImgMark src={crypto} style={{ marginLeft: "20px" }} />
         </Box>
         <BoxNews style={{background: "#b0ff00"}}>
-          <Button onClick={handlePreviousCrypto} disabled={startIndexCrypto === 0}>-</Button>
-          {noticiasCrypto.slice(startIndexCrypto, startIndexCrypto + 3).map((noticia: any, index: number) => (
-            <Item key={index}>
-              <Image src={noticia.urlToImage} alt="Imagem da notícia" />
-              <Title>{noticia.title}</Title>
-              <Description>{noticia.description}</Description>
-              <CustomLink href={noticia.url} target="_blank" rel="noopener noreferrer">Ler mais</CustomLink>
-            </Item>
-          ))}
-          <Button onClick={handleNextCrypto} disabled={startIndexCrypto + 3 >= noticiasCrypto.length}>+</Button>
-        </BoxNews> 
+            <Button onClick={handlePreviousCrypto} disabled={startIndexCrypto === 0}>-</Button>
+            {noticiasCrypto
+              .slice(startIndexCrypto, startIndexCrypto + 3)
+              .filter((noticia: any) => noticia && noticia.urlToImage) 
+              .map((noticia: any, index: number) => (
+                <Item key={index}>
+                  <Image src={noticia.urlToImage} alt="Imagem da notícia" />
+                  <Title>{noticia.title}</Title>
+                  <Description>{noticia.description}</Description>
+                  <CustomLink href={noticia.url} target="_blank" rel="noopener noreferrer">Ler mais</CustomLink>
+                </Item>
+            ))}
+            <Button onClick={handleNextCrypto} disabled={startIndexCrypto + 3 >= noticiasCrypto.length}>+</Button>
+          </BoxNews>
       </Main>
     </Container>
   )
