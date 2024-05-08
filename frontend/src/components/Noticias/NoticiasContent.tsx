@@ -175,10 +175,11 @@ const NoticiasContent: React.FC = () => {
     const fetchNoticiasGerais = async () => {
       try {
         const response = await fetch("https://newsapi.org/v2/everything?q=tecnologia&language=pt&apiKey=3ba975a9509b47f9958e5534f814dec7")
-        const data = await response.json();
-        setNoticiasGerais(data.articles);
+        const data = await response.json()
+        const filteredData = data.articles.filter((noticia: { status: string }) => noticia.status !== "removed")
+        setNoticiasGerais(filteredData)
       } catch (error) {
-        console.error('Erro ao buscar notícias gerais:', error);
+        console.error('Erro ao buscar notícias gerais:', error)
       }
     }
 
@@ -186,11 +187,12 @@ const NoticiasContent: React.FC = () => {
       try {
         const response = await fetch("https://newsapi.org/v2/everything?q=Crypto&language=pt&apiKey=3ba975a9509b47f9958e5534f814dec7")
         const data = await response.json();
-        setNoticiasCrypto(data.articles);
+        const filteredData = data.articles.filter((noticia: { status: string })  => noticia.status !== "removed")
+        setNoticiasCrypto(filteredData)
       } catch (error) {
-        console.error('Erro ao buscar notícias sobre criptomoedas:', error);
+        console.error('Erro ao buscar notícias sobre criptomoedas:', error)
       }
-    };
+    }
 
     const fetchCurrencyData = async () => {
       try {
