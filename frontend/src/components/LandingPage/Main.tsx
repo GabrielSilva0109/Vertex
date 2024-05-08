@@ -8,9 +8,14 @@ import coinmarket from '../Sections/img/coinmarkert.png'
 import news from '../Sections/img/newsApi.png'
 import google from '../Sections/img/googleIcon.png'
 import vertex from '../Sections/img/vertex.png'
+import recharts from '../Sections/img/recharts.png'
+import canva from '../Sections/img/canvaIcon.png'
+import binance from '../Sections/img/binance.png'
 
 interface LogoImageProps extends ImgHTMLAttributes<HTMLImageElement> {
     isNews?: boolean
+    isRecharts?: boolean
+    isBinance?: boolean
 }
 
 const Container = styled.div`
@@ -76,7 +81,19 @@ const LogoImage = styled.img<LogoImageProps>`
 
     ${({ isNews }) => isNews && `
         margin-top: -30px;
+        margin-left: -30px;
         width: 120px;
+    `}
+
+    ${({ isRecharts }) => isRecharts && `
+        margin-top: -10px;
+        width: 140px;
+    `}
+
+    ${({ isBinance }) => isBinance && `
+        margin-top: -15px;
+        margin-left: -30px;
+        width: 150px;
     `}
 `
 
@@ -93,16 +110,16 @@ const Slide = styled.div`
 `
 
 const Main: React.FC = () => {
-    const logos = [aws, coinmarket, news, google];
+    const logos = [aws, coinmarket, news, google, recharts, canva, binance]
 
     const settings = {
         dots: false,
         infinite: true,
         speed: 10000,
-        slidesToShow: 4,
+        slidesToShow: 6,
         slidesToScroll: 1,
         autoplay: true,
-        autoplaySpeed: 20,
+        autoplaySpeed: 1,
     }
 
     return (
@@ -125,8 +142,7 @@ const Main: React.FC = () => {
                     <Slider {...settings}>
                         {logos.map((logo, index) => (
                             <div key={index}>
-                                {/* Adicione a propriedade isNews para o LogoImage */}
-                                <LogoImage src={logo} isNews={logo === news} />
+                                 <LogoImage src={logo} isNews={logo === news}  isRecharts={logo === recharts} isBinance={logo === binance}/>
                             </div>
                         ))}
                     </Slider>
