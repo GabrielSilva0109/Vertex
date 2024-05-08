@@ -71,8 +71,9 @@ const LogoImage = styled.img`
 `
 
 const Slide = styled.div`
-    width: 100%;
     background: #1c1c1e;
+    margin: 0px;
+    padding: 0px;
 `
 
 const Main: React.FC = () => {
