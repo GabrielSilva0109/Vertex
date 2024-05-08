@@ -20,7 +20,7 @@ const Container = styled.div`
     justify-content: center;
     align-items: center;
     background: #1c1c1e;
-`;
+`
 
 const Card = styled.div`
     display: flex;
@@ -30,7 +30,7 @@ const Card = styled.div`
     padding: 20px;
     margin: 20px;
     border-radius: 8px;
-`;
+`
 
 const CardLeft = styled.div`
     display: flex;
