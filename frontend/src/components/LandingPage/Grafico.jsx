@@ -4,11 +4,10 @@ import { Container } from "../Carteira/CarteiraContent"
 
 const Grafico: React.FC = () => {
     return(
-        <>
         <Container>
-        <h1>Graficos</h1>
+            <h1>Graficos</h1>
         </Container>
-        </>
+        
     )
 }
 
