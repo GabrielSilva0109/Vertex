@@ -3,6 +3,8 @@ import Header from '../Header/Header'
 import Main from './Main'
 import Cards from './Cards'
 import About from './About'
+import Grafico from './Grafico'
+import Footer from '../Footer/Footer'
 
 const LandingPage: React.FC = () => {
   return (
@@ -11,6 +13,8 @@ const LandingPage: React.FC = () => {
         <Main />
         <Cards />
         <About />
+        <Grafico />
+        <Footer />
     </div>
   )
 }

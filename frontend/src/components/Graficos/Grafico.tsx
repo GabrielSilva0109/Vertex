@@ -75,14 +75,19 @@ const Grafico: React.FC<GraficoProps> = ({ walletId }) => {
     const currentYear = currentDate.getFullYear()
 
     // Adiciona os últimos 3 meses
-    for (let i = currentMonth - 2; i <= currentMonth; i++) {
-      const month = (i < 0 ? 12 + i : i) + 1;
-      const year = i < 0 ? currentYear - 1 : currentYear;
-      groupedData[`${year}-${month}`] = { ativos: 0, despesas: 0, investimentos: 0 }
-    }
+    // Adiciona os últimos 3 meses
+      for (let i = 2; i >= 0; i--) {
+        let year = currentYear;
+        let month = currentMonth - i;
+        if (month <= 0) {
+          month = 12 + month;
+          year = currentYear - 1;
+        }
+        groupedData[`${year}-${month}`] = { ativos: 0, despesas: 0, investimentos: 0 }
+      }
 
     // Adiciona os próximos 6 meses
-    for (let i = 1; i <= 6; i++) {
+    for (let i = 1; i <= 5; i++) {
       const month = currentMonth + i;
       const year = currentYear + Math.floor((currentMonth + i) / 12);
       groupedData[`${year}-${(month % 12) || 12}`] = { ativos: 0, despesas: 0, investimentos: 0 }
