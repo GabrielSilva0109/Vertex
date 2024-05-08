@@ -6,7 +6,8 @@ import 'slick-carousel/slick/slick.css'
 import 'slick-carousel/slick/slick-theme.css'
 import aws from '../Sections/img/awsIcon.png'
 import coinmarket from '../Sections/img/coinmarkert.png'
-import logo3 from '../Sections/img/apple.png'
+import news from '../Sections/img/newsApi.png'
+import google from '../Sections/img/googleIcon.png'
 
 const Container = styled.div`
     display: flex;
@@ -75,13 +76,13 @@ const Slide = styled.div`
 `
 
 const Main: React.FC = () => {
-    const logos = [aws, coinmarket, logo3]
+    const logos = [aws, coinmarket, news, google]
 
     const settings = {
         dots: false,
         infinite: true,
         speed: 5000,
-        slidesToShow: 3,
+        slidesToShow: 4,
         slidesToScroll: 1,
         autoplay: true,
         autoplaySpeed: 20,
