@@ -7,23 +7,27 @@ const Container = styled.div`
     justify-content: center;
     align-items: center;
     background: #1c1c1e;
+    
 `
 
 const Img = styled.img`
     width: 100%;
     border-top-left-radius: 20px;
     border-bottom-left-radius: 20px;
+    max-height: 300px;
 `
 
 const Left = styled.div`
     width: 55.5%;
-
+    background: url
 `
 
 const Right = styled.div`
     width: 40%;
     background: black;
-    border: 1px solid gray;
+    height: 302px;
+    border-top-right-radius: 10px;
+    border-bottom-right-radius: 10px;
 `
 
 const Top = styled.div``
@@ -38,11 +42,11 @@ const Grafico: React.FC = () => {
     return(
        <Container>
         <Left>
-        <Img src={grafico}/>
+            
         </Left>
         <Right>
             <Top>
-
+                <p>Graficos  --- 2024</p>
             </Top>
             <Title>
 
