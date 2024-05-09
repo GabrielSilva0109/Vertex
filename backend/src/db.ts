@@ -42,18 +42,17 @@ awsDB.connect((erro) => {
     console.log("AWS DB Connection Successfull!")
 })
 
-
 //RAILWAY
 const hostRailway = process.env.railwayHOST
 const userRailway = process.env.railwayUSER
 const passwordRailway = process.env.railwayPASSWORD
 
-
 const railDB = mysql.createConnection({
     host: hostRailway,
     user: userRailway,
     password: passwordRailway,
-    database: "vertex"
+    database: "vertex",
+    port: 59003 
 })
 
 railDB.connect((erro) => {
