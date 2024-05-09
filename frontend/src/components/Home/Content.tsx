@@ -106,25 +106,23 @@ const Main = styled.main`
 
 const BoxRight = styled.div`
   padding: 10px;
-  max-height: 48vh; /* Definindo a altura máxima como 48% da altura da viewport */
+  max-height: 48vh;
+  min-height: 48vh; 
   border-radius: 1rem;
   background: rgba(255,255,255,.05);
   box-shadow: 0 0 10px rgba(0,0,0,0.25);
-  overflow-y: auto; /* Adicionando scroll vertical quando necessário */
+  overflow-y: auto; 
   border-radius: 8px;
-
-  /* Escondendo a barra de rolagem nativa */
-  scrollbar-width: none; /* Firefox */
-  -ms-overflow-style: none; /* Internet Explorer/Edge */
+  scrollbar-width: none; 
+  -ms-overflow-style: none; 
   &::-webkit-scrollbar {
-    width: 0px; /* Chrome/Safari/Opera */
+    width: 0px;
   }
   &::-webkit-scrollbar-thumb {
     background-color: #bfc1c1b3;
     border-radius: 10px;
   }
 `
-
 
 const Title = styled.h1`
   color: white;
@@ -360,9 +358,7 @@ const Content: React.FC = () =>{
           console.error("Erro ao buscar dados de criptomoedas:", error)
         }
       }
-  
       const intervalId = setInterval(fetchCryptoData, 20000)
-  
       return () => clearInterval(intervalId)
     }, [])
   
@@ -587,7 +583,7 @@ const Content: React.FC = () =>{
                 </AcoesA>
               </Acoes>
             ))}
-          </BoxRight>
+        </BoxRight>
 
       </RightContainer>
     </Container>
