@@ -12,12 +12,11 @@ const Container = styled.div`
 
 const Text = styled.p`
   font-weight: bold;
-
 `
 
 const Footer: React.FC = () => {
   return (
-    <Container><span>|</span>
+    <Container>
       <Text>© 2024 Vertex, Inc.</Text>
     </Container>
   )

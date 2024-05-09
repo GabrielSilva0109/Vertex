@@ -1,5 +1,5 @@
-import React from "react";
-import styled from "styled-components";
+import React from "react"
+import styled from "styled-components"
 import grafico from '../Sections/img/graficos.jpg'
 
 const Container = styled.div`
@@ -7,6 +7,7 @@ const Container = styled.div`
     justify-content: center;
     background: #1c1c1e;
     align-items: center;
+    height: 400px;
 
     @media (max-width: 768px) {
         flex-direction: column;
@@ -19,9 +20,6 @@ const Left = styled.div`
     border-top-left-radius: 20px;
     border-bottom-left-radius: 20px;
     margin-left: 30px;
-    border-left: 1px solid gray;
-    border-top: 1px solid gray;
-    border-bottom: 1px solid gray;
     width: 50%;
     height: 340px;
 
@@ -56,9 +54,7 @@ const Right = styled.div`
     align-items: start;
     height: 340px;
     width: 50%;
-    border-right: 1px solid gray;
-    border-top: 1px solid gray;
-    border-bottom: 1px solid gray;
+    margin-right:30px;
 
     @media (max-width: 768px) {
         border-bottom-left-radius: 20px;
@@ -87,6 +83,7 @@ const Title = styled.h1`
 const Text = styled.div`
     color: gray;
     margin-left: 20px;
+    margin-right:30px;
     text-align: left;
     font-weight: bold;
     line-height: 1.5; 
