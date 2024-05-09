@@ -78,22 +78,40 @@ const Image = styled.img`
 const LogoImage = styled.img<LogoImageProps>`
     width: 50px;
     height: auto;
+    @media(max-width: 750px){
+        width: 40px;
+    }
 
     ${({ isNews }) => isNews && `
         margin-top: -30px;
         margin-left: -30px;
         width: 120px;
+
+        @media(max-width: 750px){
+            margin-right: 10px;
+        }
     `}
 
     ${({ isRecharts }) => isRecharts && `
         margin-top: -10px;
         width: 140px;
+
+        @media(max-width: 750px){
+            width: 100px;
+            margin-right: 10px;
+        }
     `}
 
     ${({ isBinance }) => isBinance && `
         margin-top: -15px;
         margin-left: -30px;
         width: 150px;
+
+        @media(max-width: 750px){
+            margin-top: -5px;
+            width: 100px;
+            margin-right: 10px;
+        }
     `}
 `
 
@@ -101,6 +119,10 @@ const SlideContainer = styled.div`
     max-width: 100%; 
     height: 70px;
     overflow: hidden;
+
+    @media(max-width: 750px){
+        height: auto;
+    }
 `
 
 const Slide = styled.div`
