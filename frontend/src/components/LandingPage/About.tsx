@@ -30,6 +30,12 @@ const Card = styled.div`
     padding: 20px;
     margin: 20px;
     border-radius: 8px;
+
+    @media(max-width: 750px){
+        flex-direction: column;
+        height: auto;
+        width: 85%;
+    }
 `
 
 const CardLeft = styled.div`
@@ -40,6 +46,10 @@ const CardLeft = styled.div`
     height: 100%;
     justify-content: center;
     padding-left: 30px;
+
+    @media(max-width: 750px){
+        width: 100%
+    }
 `
 
 const CardRight = styled.div`
@@ -49,6 +59,10 @@ const CardRight = styled.div`
     align-items: center;
     justify-content: center;
     padding: 5px;
+
+    @media(max-width: 750px){
+        width: 100%
+    }
 `
 
 const Title = styled.h2`
@@ -60,6 +74,10 @@ const Title = styled.h2`
     display: flex;
     text-align: start;
     border-left: 3px solid white;
+    
+    @media(max-width: 750px){
+        font-size: 1.5rem;
+    }
 `
 
 const Text = styled.h4`
@@ -67,12 +85,19 @@ const Text = styled.h4`
     margin: 0px;
     padding: 0px;
     color: #323233;
+    @media(max-width: 750px){
+        font-size: 1rem;
+    }
 `
 
 const LogoImage = styled.img`
     width: 70px;
     height: auto;
     border-radius: 50%;
+
+    @media(max-width: 750px){
+        width: 50px;
+    }
 `
 
 const SlideContainer = styled.div`
