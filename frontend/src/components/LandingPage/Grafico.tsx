@@ -16,13 +16,24 @@ const Img = styled.img`
 `
 
 const Left = styled.div`
-width: 800px;
+    width: 55.5%;
 
 `
 
 const Right = styled.div`
-
+    width: 40%;
+    background: black;
+    border: 1px solid gray;
 `
+
+const Top = styled.div``
+
+const Title = styled.div``
+
+const Text = styled.div``
+
+const BtnLogin = styled.button``
+
 const Grafico: React.FC = () => {
     return(
        <Container>
@@ -30,7 +41,18 @@ const Grafico: React.FC = () => {
         <Img src={grafico}/>
         </Left>
         <Right>
+            <Top>
 
+            </Top>
+            <Title>
+
+            </Title>
+            <Text>
+
+            </Text>
+            <BtnLogin>
+
+            </BtnLogin>
         </Right>
             
        </Container> 
