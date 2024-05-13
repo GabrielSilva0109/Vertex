@@ -557,6 +557,9 @@ const CarteiraContent: React.FC = () =>{
                 <Label >CPF </Label>
                 <h4>{user.cpf}</h4>
 
+                <Label >CEP </Label>
+                <h4>{user.cep}</h4>
+
               </BoxInfo>
 
               <BtnAtivo onClick={openModal}>Adicionar Transação</BtnAtivo>
