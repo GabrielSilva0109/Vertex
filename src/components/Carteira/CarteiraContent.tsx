@@ -255,8 +255,14 @@ const BoxInfo = styled.div`
   align-items: start;
   justify-content: start;
   width: 100%;
-  padding-left: 20px;
+  padding-left: 30px;
   
+`
+
+const Label = styled.label`
+  margin-bottom: -15px;
+  color: #b0ff008a;
+  font-weight: bold;
 `
 
 const Filters = styled.div`
@@ -546,9 +552,9 @@ const CarteiraContent: React.FC = () =>{
             <BoxRight>
                 <h2>{user.name}</h2>
               <BoxInfo>
-                <label >Email </label>
+                <Label >Email </Label>
                 <h4>{user.email}</h4>
-                <label >CPF </label>
+                <Label >CPF </Label>
                 <h4>{user.cpf}</h4>
 
               </BoxInfo>
