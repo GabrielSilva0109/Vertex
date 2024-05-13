@@ -303,9 +303,9 @@ const InputSearch = styled.input`
 `
 
 interface Transacao {
-  id: number;
-  titulo: string;
-  valor: number;
+  id: number
+  titulo: string
+  valor: number
   observacao: string
   categoria: string
   fonte: string
@@ -313,7 +313,7 @@ interface Transacao {
 }
 
 interface BtnTransacaoProps {
-  selected: boolean;
+  selected: boolean
 }
 
 const CarteiraContent: React.FC = () =>{
