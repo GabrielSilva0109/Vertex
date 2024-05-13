@@ -159,6 +159,7 @@ const FormCadastro: React.FC<{ onBackToLogin: () => void }> = ({ onBackToLogin }
         name: '',
         email: '',
         cpf: '',
+        cep: '',
         password: '',
     })
 
@@ -210,6 +211,7 @@ const FormCadastro: React.FC<{ onBackToLogin: () => void }> = ({ onBackToLogin }
             <Input placeholder='Nome' type="text" name='name' required value={formData.name} onChange={handleInputChange} />
             <Input placeholder='Email' type="email" name='email' required value={formData.email} onChange={handleInputChange}/>
             <Input placeholder='CPF' type="text" name='cpf' required value={formData.cpf} onChange={handleInputChange}/>
+            <Input placeholder='CEP' type="text" name='cep' required value={formData.cep} onChange={handleInputChange}/>
             <Input placeholder='Senha' type="password" required name='password' value={formData.password} onChange={handleInputChange}/>
             <BtnCadastro onClick={handleCadastroClick}>Cadastrar</BtnCadastro>
             <BtnLogin onClick={onBackToLogin}>Login</BtnLogin>
