@@ -556,10 +556,10 @@ const CarteiraContent: React.FC = () =>{
                 <h4>{user.email}</h4>
                 <Label >CPF </Label>
                 <h4>{user.cpf}</h4>
-
                 <Label >CEP </Label>
                 <h4>{user.cep}</h4>
-
+                <Label >Nascimento </Label>
+                <h4>{formatarData(user.birth)}</h4>
               </BoxInfo>
 
               <BtnAtivo onClick={openModal}>Adicionar Transação</BtnAtivo>
