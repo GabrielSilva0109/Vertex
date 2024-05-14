@@ -261,7 +261,7 @@ const BoxInfo = styled.div`
 
 const Label = styled.label`
   margin-bottom: -15px;
-  color: #b0ff008a;
+  color: #b0ff00cc;
   font-weight: bold;
 `
 
