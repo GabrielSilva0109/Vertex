@@ -3,8 +3,8 @@ import styled from 'styled-components'
 import Slider from 'react-slick'
 import 'slick-carousel/slick/slick.css'
 import 'slick-carousel/slick/slick-theme.css'
-import world from "../Sections/img/world.png"
-import crypto from '../Sections/img/crypto.png'
+import world from '../../IMG/world.png'
+import crypto from '../../IMG/crypto.png'
 
 const Container = styled.div`
   display: flex;

@@ -1,7 +1,7 @@
 import React from 'react';
 import styled from 'styled-components'
 import { Link } from 'react-router-dom'
-import vertex from '../Sections/img/VertexLogo.png'
+import vertex from '../../IMG/VertexLogo.png'
 
 const HeaderStyle = styled.div`
     background: #1c1c1e;

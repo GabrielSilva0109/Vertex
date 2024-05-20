@@ -1,6 +1,6 @@
 import React from "react"
 import styled from "styled-components"
-import grafico from '../Sections/img/graficos.jpg'
+import grafico from '../../IMG/graficos.jpg'
 
 const Container = styled.div`
     display: flex;

@@ -1,7 +1,7 @@
 import React from 'react'
 import styled from 'styled-components'
 import { Link, useNavigate } from 'react-router-dom'
-import vertex from '../Sections/img/VertexLogo.png'
+import vertex from '../../IMG/VertexLogo.png'
 
 const Nav = styled.div`
     background: rgb(28, 28, 30);
