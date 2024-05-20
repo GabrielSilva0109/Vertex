@@ -17,6 +17,7 @@ interface LogoImageProps extends ImgHTMLAttributes<HTMLImageElement> {
     isNews?: boolean
     isRecharts?: boolean
     isBinance?: boolean
+    isVercel?: boolean
 }
 
 const Container = styled.div`
@@ -87,6 +88,16 @@ const LogoImage = styled.img<LogoImageProps>`
         margin-top: -30px;
         margin-left: -30px;
         width: 120px;
+
+        @media(max-width: 750px){
+            margin-right: 10px;
+        }
+    `}
+
+    ${({ isVercel }) => isVercel && `
+        margin-top: -30px;
+        margin-left: -30px;
+        width: 140px;
 
         @media(max-width: 750px){
             margin-right: 10px;
@@ -165,7 +176,7 @@ const Main: React.FC = () => {
                     <Slider {...settings}>
                         {logos.map((logo, index) => (
                             <div key={index}>
-                                 <LogoImage src={logo} isNews={logo === news}  isRecharts={logo === recharts} isBinance={logo === binance}/>
+                                 <LogoImage src={logo} isVercel={logo === vercel} isNews={logo === news} isRecharts={logo === recharts} isBinance={logo === binance}/>
                             </div>
                         ))}
                     </Slider>
