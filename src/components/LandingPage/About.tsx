@@ -112,8 +112,8 @@ const Slide = styled.div`
 `
 
 const About: React.FC = () => {
-    const logos1 = [bnb, btc, cardano, eth, polkadot];
-    const logos2 = [solana, xrp, gmx, monero, uniswap];
+    const logos1 = [bnb, btc, cardano, eth, polkadot]
+    const logos2 = [solana, xrp, gmx, monero, uniswap]
 
     const settings1 = {
         dots: false,

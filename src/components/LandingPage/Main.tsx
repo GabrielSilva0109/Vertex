@@ -4,6 +4,7 @@ import Slider from 'react-slick'
 import 'slick-carousel/slick/slick.css'
 import 'slick-carousel/slick/slick-theme.css'
 import aws from '../Sections/img/awsIcon.png'
+import vercel from '../Sections/img/vercel.png'
 import coinmarket from '../Sections/img/coinmarkert.png'
 import news from '../Sections/img/newsApi.png'
 import google from '../Sections/img/googleIcon.png'
@@ -132,7 +133,7 @@ const Slide = styled.div`
 `
 
 const Main: React.FC = () => {
-    const logos = [aws, coinmarket, news, google, recharts, canva, binance]
+    const logos = [aws, coinmarket, news, google, recharts, canva, binance, vercel]
 
     const settings = {
         dots: false,
