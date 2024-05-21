@@ -154,6 +154,7 @@ const BtnSenha = styled.button`
 `
 
 const FormCadastro: React.FC<{ onBackToLogin: () => void }> = ({ onBackToLogin }) => {
+    const baseURL = 'https://server-production-d3ab.up.railway.app/api/'
     const [registrationStatus, setRegistrationStatus] = useState<string | null>(null)
     const [formData, setFormData] = useState({
         name: '',
@@ -185,7 +186,7 @@ const FormCadastro: React.FC<{ onBackToLogin: () => void }> = ({ onBackToLogin }
 
     const handleCadastroClick = async () => {
         try {    
-            const response = await fetch('http://localhost:3333/api/user', {
+            const response = await fetch(`${baseURL}user`, {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',
@@ -223,6 +224,7 @@ const FormCadastro: React.FC<{ onBackToLogin: () => void }> = ({ onBackToLogin }
 }
 
 const FormLogin: React.FC = () => {
+    const baseURL = 'https://server-production-d3ab.up.railway.app/api/'
     const navigate = useNavigate()
     const [user, setUser] = useState<any>(null)
     const [isLoginForm, setIsLoginForm] = useState(true)
@@ -243,7 +245,7 @@ const FormLogin: React.FC = () => {
 
     const handleLoginClick = async () => {
         try {
-            const response = await fetch('http://localhost:3333/api/login', {
+            const response = await fetch(`${baseURL}login`, {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',
