@@ -8,6 +8,10 @@ const Container = styled.div`
     display: flex;
     align-items: center;
     justify-content: center;
+    @media (max-width: 768px) {
+      height: auto;
+      margin-top: -5px;
+  }
 `
 
 const Text = styled.p`

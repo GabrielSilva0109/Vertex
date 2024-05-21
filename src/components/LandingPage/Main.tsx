@@ -101,6 +101,7 @@ const LogoImage = styled.img<LogoImageProps>`
 
         @media(max-width: 750px){
             margin-right: 10px;
+            width: 0px;
         }
     `}
 

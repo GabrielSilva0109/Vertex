@@ -14,6 +14,7 @@ const Container = styled.div`
         justify-content: center;
         align-items: center;
         height: auto;
+        margin-top: -5px;
     }
 `
 
@@ -52,7 +53,7 @@ const Right = styled.div`
     flex-direction: column;
     justify-content: center;
     align-items: start;
-    height: 380px;
+    height: 340px;
     width: 50%;
     margin-right:30px;
 
@@ -62,7 +63,7 @@ const Right = styled.div`
         border-top-right-radius: 0px;
         border: none;
         width: 93%;
-        height: 480px;
+        height: auto;
         margin-top: -39px;
         margin-left: 30px;
     }
@@ -111,6 +112,7 @@ const BtnLogin = styled.button`
 
     @media (max-width: 768px) {
         margin-left: 20px;
+        margin-bottom: 10px;
     }
 `
 

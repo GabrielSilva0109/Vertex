@@ -15,6 +15,7 @@ const Container = styled.div`
     background: #1c1c1e;
     flex-wrap: wrap; 
     padding: 20px; 
+    margin-bottom: -5px;
 `
 
 const Card = styled.div`
