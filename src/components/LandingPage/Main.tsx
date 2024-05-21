@@ -1,38 +1,46 @@
-import React, { ImgHTMLAttributes } from 'react'
-import styled from 'styled-components'
-import Slider from 'react-slick'
-import 'slick-carousel/slick/slick.css'
-import 'slick-carousel/slick/slick-theme.css'
-import aws from '../../IMG/awsIcon.png'
-import vercel from '../../IMG/vercel.png'
-import coinmarket from '../../IMG/coinmarkert.png'
-import news from '../../IMG/newsApi.png'
-import google from '../../IMG/googleIcon.png'
-import vertex from '../../IMG/vertex.png'
-import recharts from '../../IMG/recharts.png'
-import canva from '../../IMG/canvaIcon.png'
-import binance from '../../IMG/binance.png'
+import React, { ImgHTMLAttributes } from 'react';
+import styled from 'styled-components';
+import Slider from 'react-slick';
+import 'slick-carousel/slick/slick.css';
+import 'slick-carousel/slick/slick-theme.css';
+import aws from '../../IMG/awsIcon.png';
+import vercel from '../../IMG/vercel.png';
+import coinmarket from '../../IMG/coinmarkert.png';
+import news from '../../IMG/newsApi.png';
+import google from '../../IMG/googleIcon.png';
+import vertex from '../../IMG/vertex.png';
+import recharts from '../../IMG/recharts.png';
+import canva from '../../IMG/canvaIcon.png';
+import binance from '../../IMG/binance.png';
 
 interface LogoImageProps extends ImgHTMLAttributes<HTMLImageElement> {
-    isNews?: boolean
-    isRecharts?: boolean
-    isBinance?: boolean
-    isVercel?: boolean
+    isNews?: boolean;
+    isRecharts?: boolean;
+    isBinance?: boolean;
+    isVercel?: boolean;
 }
 
 const Container = styled.div`
     display: flex;
+    flex-direction: column;
     background: #1c1c1e;
     color: white;
+    align-items: center;
+    padding: 20px;
+`
+
+const ContentContainer = styled.div`
+    display: flex;
+    flex-direction: row;
     justify-content: center;
     align-items: center;
-    flex-wrap: wrap; 
-    padding: 20px; 
+    flex-wrap: wrap;
+    width: 100%;
+    max-width: 1200px;
 `
 
 const LeftContainer = styled.div`
     flex: 1;
-    max-width: 600px; 
     padding: 20px;
 `
 
@@ -74,34 +82,32 @@ const RightContainer = styled.div`
 const Image = styled.img`
     width: 100%;
     height: auto;
-    max-width: 500px; 
+    max-width: 500px;
 `
 
 const LogoImage = styled.img<LogoImageProps>`
     width: 50px;
     height: auto;
-    @media(max-width: 750px){
-        width: 40px;
-    }
 
     ${({ isNews }) => isNews && `
         margin-top: -30px;
-        margin-left: -30px;
         width: 120px;
 
-        @media(max-width: 750px){
-            margin-right: 10px;
+        @media (max-width: 750px) {
+            width: 100px;
+            margin-top: -25px;
+            margin-left:-15px;
         }
     `}
 
     ${({ isVercel }) => isVercel && `
         margin-top: -30px;
-        margin-left: -30px;
         width: 140px;
 
-        @media(max-width: 750px){
-            margin-right: 10px;
-            width: 0px;
+        @media (max-width: 750px) {
+            width: 120px;
+            margin-top: -15px;
+            margin-left: -10px;
         }
     `}
 
@@ -109,43 +115,38 @@ const LogoImage = styled.img<LogoImageProps>`
         margin-top: -10px;
         width: 140px;
 
-        @media(max-width: 750px){
+        @media (max-width: 750px) {
             width: 100px;
-            margin-right: 10px;
+            margin-top: 0;
+            margin-left: -10px
         }
     `}
 
     ${({ isBinance }) => isBinance && `
         margin-top: -15px;
-        margin-left: -30px;
         width: 150px;
 
-        @media(max-width: 750px){
+        @media (max-width: 750px) {
+            width: 120px;
             margin-top: -5px;
-            width: 100px;
-            margin-right: 10px;
+            margin-left:-25px;
         }
     `}
 `
 
 const SlideContainer = styled.div`
-    max-width: 100%; 
-    height: 70px;
+    width: 100%;
     overflow: hidden;
-
-    @media(max-width: 750px){
-        height: auto;
-    }
 `
 
 const Slide = styled.div`
     background: #1c1c1e;
-    margin: 0px;
-    padding: 0px;
+    margin: 0;
+    padding: 0;
 `
 
 const Main: React.FC = () => {
-    const logos = [aws, coinmarket, news, google, recharts, canva, binance, vercel]
+    const logos = [aws, coinmarket, news, google, recharts, canva, binance, vercel];
 
     const settings = {
         dots: false,
@@ -155,11 +156,43 @@ const Main: React.FC = () => {
         slidesToScroll: 1,
         autoplay: true,
         autoplaySpeed: 1,
-    }
+        responsive: [
+            {
+                breakpoint: 1200,
+                settings: {
+                    slidesToShow: 5,
+                },
+            },
+            {
+                breakpoint: 992,
+                settings: {
+                    slidesToShow: 4,
+                },
+            },
+            {
+                breakpoint: 768,
+                settings: {
+                    slidesToShow: 3,
+                },
+            },
+            {
+                breakpoint: 576,
+                settings: {
+                    slidesToShow: 3,
+                },
+            },
+            {
+                breakpoint: 480,
+                settings: {
+                    slidesToShow: 3,
+                },
+            },
+        ],
+    };
 
     return (
-        <>
-            <Container>
+        <Container>
+            <ContentContainer>
                 <LeftContainer>
                     <TitleMain>Seu universo financeiro<br /> em um só lugar</TitleMain>
                     <TextMain>
@@ -171,20 +204,26 @@ const Main: React.FC = () => {
                 <RightContainer>
                     <Image src={vertex} />
                 </RightContainer>
-            </Container>
-            <SlideContainer> 
+            </ContentContainer>
+            <SlideContainer>
                 <Slide>
                     <Slider {...settings}>
                         {logos.map((logo, index) => (
                             <div key={index}>
-                                 <LogoImage src={logo} isVercel={logo === vercel} isNews={logo === news} isRecharts={logo === recharts} isBinance={logo === binance}/>
+                                <LogoImage 
+                                    src={logo} 
+                                    isVercel={logo === vercel} 
+                                    isNews={logo === news} 
+                                    isRecharts={logo === recharts} 
+                                    isBinance={logo === binance}
+                                />
                             </div>
                         ))}
                     </Slider>
                 </Slide>
             </SlideContainer>
-        </>
-    )
+        </Container>
+    );
 }
 
-export default Main
+export default Main;

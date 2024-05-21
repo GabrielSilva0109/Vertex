@@ -1,6 +1,7 @@
 import React from "react"
 import styled from "styled-components"
 import grafico from '../../IMG/graficos.jpg'
+import { Link } from 'react-router-dom'
 
 const Container = styled.div`
     display: flex;
@@ -95,7 +96,7 @@ const Text = styled.div`
     line-height: 1.5; 
 `
 
-const BtnLogin = styled.button`
+const BtnLogin = styled(Link)`
     background-color: #b0ff00;
     border: none;
     color: black;
@@ -130,7 +131,7 @@ const Grafico: React.FC = () => {
             <Text>
             Desvende novas perspectivas com os gráficos de elite da nossa plataforma. Com uma variedade de opções visuais e recursos personalizáveis, nossa ferramenta oferece uma experiência de visualização de dados excepcional. Transforme insights em ações concretas e impulsione seu projeto para o próximo nível com nossos gráficos de ponta.
             </Text>
-            <BtnLogin>Cadastrar</BtnLogin>
+            <BtnLogin to="/login">Cadastrar</BtnLogin>
         </Right>
        </Container> 
     )
