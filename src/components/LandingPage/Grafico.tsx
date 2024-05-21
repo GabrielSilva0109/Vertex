@@ -13,6 +13,7 @@ const Container = styled.div`
         flex-direction: column;
         justify-content: center;
         align-items: center;
+        height: auto;
     }
 `
 
@@ -24,10 +25,9 @@ const Left = styled.div`
     height: 340px;
 
     @media (max-width: 768px) {
-        margin: 0;
+        margin: 0px 0 20px;
         border-radius: 20px;
         border: none;
-        margin-bottom: 20px;
         width: 93%;
     }
     
@@ -52,7 +52,7 @@ const Right = styled.div`
     flex-direction: column;
     justify-content: center;
     align-items: start;
-    height: 340px;
+    height: 380px;
     width: 50%;
     margin-right:30px;
 
@@ -62,8 +62,9 @@ const Right = styled.div`
         border-top-right-radius: 0px;
         border: none;
         width: 93%;
-        height: 360px;
+        height: 480px;
         margin-top: -39px;
+        margin-left: 30px;
     }
 `
 
@@ -71,6 +72,10 @@ const Top = styled.div`
     color: gray;
     margin-left: 20px;
     margin-bottom: -10px;
+
+    @media (max-width: 768px) {
+        margin-top:20px;
+    }
 `
 
 const Title = styled.h1`
