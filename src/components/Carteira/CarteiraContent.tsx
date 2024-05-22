@@ -397,14 +397,12 @@ const CarteiraContent: React.FC = () =>{
     const walletUser = async () => {
       try {
         const response = await fetch(`${baseURL}/walletUser/${idUser}`)
-        
         if (response.ok) {
           const data = await response.json()
           setIdWallet(data.id)
           setSaldo(data.saldo)
           setAtivos(data.ativos)
           setDespesas(data.despesas)
-          console.log("ID USER", data.id)
         } else {
           console.error("Erro na resposta da requisição:", response.status)
           toast.error("Deu ERRADO o Id Wallet")
@@ -463,8 +461,8 @@ const CarteiraContent: React.FC = () =>{
     const getExtrato = async () => {
       await walletUser()
       try {
-        const ativosResponse = await fetch(`https://server-production-d3ab.up.railway.app/api/ativosWallet/2`)
-        const despesasResponse = await fetch(`https://server-production-d3ab.up.railway.app/api/ativosWallet/2`)
+        const ativosResponse = await fetch(`${baseURL}/ativosWallet/${IdWallet}`)
+        const despesasResponse = await fetch(`${baseURL}/despesasWallet/${IdWallet}`)
   
         const ativos =  (await ativosResponse.json()).map((ativo: any) => ({ ...ativo, categoria: 'ativo'}))
         const despesas = (await despesasResponse.json()).map((despesa: any) => ({...despesa, categoria: 'despesa'}))
@@ -497,10 +495,10 @@ const CarteiraContent: React.FC = () =>{
         let colunaAPI
     
         if (categoria === 'ativo') {
-          url = `http://localhost:3333/api/ativo/${transacaoId}`
+          url = `${baseURL}/ativo/${transacaoId}`
           colunaAPI = 'ativos'
         } else if (categoria === 'despesa') {
-          url = `http://localhost:3333/api/despesa/${transacaoId}`
+          url = `${baseURL}/despesa/${transacaoId}`
           colunaAPI = 'despesas'
         } else {
           console.warn('Categoria desconhecida:', categoria)
@@ -508,7 +506,7 @@ const CarteiraContent: React.FC = () =>{
         }
     
         // Obtém o valor atual da coluna
-        const walletResponse = await fetch(`http://localhost:3333/api/wallet/${IdWallet}`)
+        const walletResponse = await fetch(`${baseURL}/wallet/${IdWallet}`)
         if (!walletResponse.ok) {
           toast.error("Erro ao obter o saldo!")
           return
