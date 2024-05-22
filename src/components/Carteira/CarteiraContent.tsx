@@ -459,22 +459,39 @@ const CarteiraContent: React.FC = () =>{
     }
     
     const getExtrato = async () => {
-      await walletUser()
       try {
-        const ativosResponse = await fetch(`${baseURL}/ativosWallet/2`)
-        const despesasResponse = await fetch(`${baseURL}/despesasWallet/1`)
-  
-        const ativos =  (await ativosResponse.json()).map((ativo: any) => ({ ...ativo, categoria: 'ativo'}))
-        const despesas = (await despesasResponse.json()).map((despesa: any) => ({...despesa, categoria: 'despesa'}))
-  
-        const todasTransacoes: Transacao[] = [...ativos, ...despesas]
-
-        setExtrato(todasTransacoes)
+        const ativosResponse = await fetch(`${baseURL}/ativosWallet/${IdWallet}`);
+        const despesasResponse = await fetch(`${baseURL}/despesasWallet/${IdWallet}`);
+    
+        const ativos = (await ativosResponse.json()).map((ativo: any) => ({
+          ...ativo,
+          categoria: 'ativo',
+          valorComDuasCasasDecimais: parseFloat(ativo.valor).toFixed(2)
+        }));
+        const despesas = (await despesasResponse.json()).map((despesa: any) => ({
+          ...despesa,
+          categoria: 'despesa'
+        }));
+    
+        const todasTransacoes: Transacao[] = [...ativos, ...despesas];
+    
+        todasTransacoes.sort((a, b) => {
+          const dateA = new Date(a.data).getTime();
+          const dateB = new Date(b.data).getTime();
+    
+          if (dateA < dateB) {
+            return 1;
+          } else if (dateA > dateB) {
+            return -1;
+          } else {
+            return 0;
+          }
+        });
+        setExtrato(todasTransacoes);
       } catch (error) {
-        console.error("Erro ao obter extrato:", error)
+        console.error("Erro ao obter extrato:", error);
       }
-    }
-
+    };
     const deleteTransacao = async (transacaoId: number, categoria: string, valor: number) => {
       try {
         let url
