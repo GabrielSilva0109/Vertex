@@ -324,7 +324,7 @@ interface BtnTransacaoProps {
 
 const CarteiraContent: React.FC = () =>{
     const { state } = useLocation()
-    const user = state?.user    
+    const user = state?.user  
     const navigate = useNavigate()
     const [isModalOpen, setIsModalOpen] = useState(false) 
     const idUser = user.id
@@ -397,12 +397,14 @@ const CarteiraContent: React.FC = () =>{
     const walletUser = async () => {
       try {
         const response = await fetch(`${baseURL}/walletUser/${idUser}`)
+        
         if (response.ok) {
           const data = await response.json()
           setIdWallet(data.id)
           setSaldo(data.saldo)
           setAtivos(data.ativos)
           setDespesas(data.despesas)
+          console.log("ID USER", data.id)
         } else {
           console.error("Erro na resposta da requisição:", response.status)
           toast.error("Deu ERRADO o Id Wallet")
@@ -459,7 +461,9 @@ const CarteiraContent: React.FC = () =>{
     }
     
     const getExtrato = async () => {
+      await walletUser()
       try {
+        
         const ativosResponse = await fetch(`${baseURL}/ativosWallet/${IdWallet}`)
         const despesasResponse = await fetch(`${baseURL}/despesasWallet/${IdWallet}`)
   
