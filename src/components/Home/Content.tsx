@@ -280,22 +280,24 @@ const Content: React.FC = () =>{
     const [intel, setIntel] = useState<number>(0)
     const [intelVari, setIntelVari] = useState<number>(0)
 
+    const baseURL = 'https://server-production-d3ab.up.railway.app/api'
+
     //Wallet | Ativos | Despesas | Investimento 
     useEffect(() => {
       const fetchData = async () => {
         if (user && user.id) {
           try {
             const walletResponse = await fetch(
-              `http://localhost:3333/api/walletUser/${user.id}`
+              `${baseURL}/walletUser/${user.id}`
             )
             if (!walletResponse.ok) throw new Error(`Erro na requisição: ${walletResponse.status} - ${walletResponse.statusText}`)
             const walletData = await walletResponse.json()
             setWalletId(walletData.id)
   
             const [ativosResponse, despesasResponse, investimentosResponse] = await Promise.all([
-              fetch(`http://localhost:3333/api/ativosWallet/${walletData.id}`),
-              fetch(`http://localhost:3333/api/despesasWallet/${walletData.id}`),
-              fetch(`http://localhost:3333/api/walletInvestimentos/${walletData.id}`)
+              fetch(`${baseURL}/ativosWallet/${walletData.id}`),
+              fetch(`${baseURL}/despesasWallet/${walletData.id}`),
+              fetch(`${baseURL}/walletInvestimentos/${walletData.id}`)
             ])
   
             if (!ativosResponse.ok || !despesasResponse.ok || !investimentosResponse.ok) {

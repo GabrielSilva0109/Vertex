@@ -46,12 +46,13 @@ const CustomTooltip = ({ active, payload, label }: any) => {
 
 const Grafico: React.FC<GraficoProps> = ({ walletId }) => {
   const [data, setData] = useState<any[]>([])
+  const baseURL = 'https://server-production-d3ab.up.railway.app/api'
 
   const fetchData = async () => {
     try {
-      const responseAtivos = await fetch(`http://localhost:3333/api/ativosWallet/${walletId}`)
-      const responseDespesas = await fetch(`http://localhost:3333/api/despesasWallet/${walletId}`)
-      const responseInvestimentos = await fetch(`http://localhost:3333/api/walletInvestimentos/${walletId}`)
+      const responseAtivos = await fetch(`${baseURL}/ativosWallet/${walletId}`)
+      const responseDespesas = await fetch(`${baseURL}/despesasWallet/${walletId}`)
+      const responseInvestimentos = await fetch(`${baseURL}/walletInvestimentos/${walletId}`)
 
       const ativos: Ativo[] = await responseAtivos.json()
       const despesas: Despesa[] = await responseDespesas.json()

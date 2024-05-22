@@ -469,7 +469,6 @@ const CarteiraContent: React.FC = () =>{
   
         const todasTransacoes: Transacao[] = [...ativos, ...despesas]
 
-      
         setExtrato(todasTransacoes)
       } catch (error) {
         console.error("Erro ao obter extrato:", error)
