@@ -348,7 +348,7 @@ const CarteiraContent: React.FC = () =>{
       fonte: '',
       data: dataFormatada
     })
-    const baseURL = 'https://server-production-d3ab.up.railway.app'
+    const baseURL = 'https://server-production-d3ab.up.railway.app/api'
 
     const formatarData = (data: string): string => {
       const dataObj = new Date(data)
@@ -396,7 +396,7 @@ const CarteiraContent: React.FC = () =>{
 
     const walletUser = async () => {
       try {
-        const response = await fetch(`${baseURL}/api/walletUser/${idUser}`)
+        const response = await fetch(`${baseURL}/walletUser/${idUser}`)
         if (response.ok) {
           const data = await response.json()
           setIdWallet(data.id)
