@@ -469,20 +469,7 @@ const CarteiraContent: React.FC = () =>{
   
         const todasTransacoes: Transacao[] = [...ativos, ...despesas]
 
-      // Ordene as transações por data
-      todasTransacoes.sort((a, b) => {
-        const dateA = new Date(a.data).getTime()
-        const dateB = new Date(b.data).getTime()
-
-        if (dateA < dateB) {
-          return 1;
-        } else if (dateA > dateB) {
-          return -1;
-        } else {
-          return 0;
-        }
-        })
-  
+      
         setExtrato(todasTransacoes)
       } catch (error) {
         console.error("Erro ao obter extrato:", error)
