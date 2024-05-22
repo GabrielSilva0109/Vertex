@@ -1,14 +1,13 @@
-import React, { useEffect } from "react";
-import { useLocation, useNavigate } from "react-router-dom";
-import { toast } from 'react-toastify';
-import 'react-toastify/dist/ReactToastify.css';
-import NavBar from "../Header/NavBar";
-import Content from "./Content";
+import React, { useEffect } from "react"
+import { useLocation, useNavigate } from "react-router-dom"
+import { toast } from 'react-toastify'
+import 'react-toastify/dist/ReactToastify.css'
+import NavBar from "../Header/NavBar"
+import Content from "./Content"
 
 const Home: React.FC = () => {
   const { state } = useLocation()
   const user = state?.user
-
   const navigate = useNavigate()
 
   const handleCarteiraClick = () => {
@@ -27,7 +26,6 @@ const Home: React.FC = () => {
   }, [])
 
   useEffect(() => {
-    
   }, [user])
 
   return (

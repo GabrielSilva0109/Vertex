@@ -463,7 +463,6 @@ const CarteiraContent: React.FC = () =>{
     const getExtrato = async () => {
       await walletUser()
       try {
-        
         const ativosResponse = await fetch(`${baseURL}/ativosWallet/${IdWallet}`)
         const despesasResponse = await fetch(`${baseURL}/despesasWallet/${IdWallet}`)
   
