@@ -348,6 +348,7 @@ const CarteiraContent: React.FC = () =>{
       fonte: '',
       data: dataFormatada
     })
+    const baseURL = 'https://server-production-d3ab.up.railway.app'
 
     const formatarData = (data: string): string => {
       const dataObj = new Date(data)
@@ -395,7 +396,7 @@ const CarteiraContent: React.FC = () =>{
 
     const walletUser = async () => {
       try {
-        const response = await fetch(`http://localhost:3333/api/walletUser/${idUser}`)
+        const response = await fetch(`${baseURL}/api/walletUser/${idUser}`)
         if (response.ok) {
           const data = await response.json()
           setIdWallet(data.id)
@@ -414,7 +415,7 @@ const CarteiraContent: React.FC = () =>{
     const adicionarAtivo = async () => {
       try {    
         // Cadastra a transação
-        const response = await fetch('http://localhost:3333/api/ativo', {
+        const response = await fetch(`${baseURL}/ativo`, {
           method: 'POST',
           headers: {
             'Content-Type': 'application/json',
@@ -437,7 +438,7 @@ const CarteiraContent: React.FC = () =>{
     const adicionarDespesa = async () => {
       try {   
         // Cadastra a transação
-        const response = await fetch("http://localhost:3333/api/despesa", {
+        const response = await fetch(`${baseURL}/despesa`, {
           method: "POST",
           headers: {
             "Content-Type": "application/json",
@@ -453,14 +454,14 @@ const CarteiraContent: React.FC = () =>{
         }
       } catch (error) {
         console.error("Erro ao adicionar despesa:", error)
-        toast.error("Erro ao cadastrar despesa!");
+        toast.error("Erro ao cadastrar despesa!")
       }
     }
     
     const getExtrato = async () => {
       try {
-        const ativosResponse = await fetch(`http://localhost:3333/api/ativosWallet/${IdWallet}`)
-        const despesasResponse = await fetch(`http://localhost:3333/api/despesasWallet/${IdWallet}`)
+        const ativosResponse = await fetch(`${baseURL}/api/ativosWallet/${IdWallet}`)
+        const despesasResponse = await fetch(`${baseURL}/api/despesasWallet/${IdWallet}`)
   
         const ativos =  (await ativosResponse.json()).map((ativo: any) => ({ ...ativo, categoria: 'ativo'}))
         const despesas = (await despesasResponse.json()).map((despesa: any) => ({...despesa, categoria: 'despesa'}))
