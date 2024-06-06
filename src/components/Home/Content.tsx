@@ -280,7 +280,7 @@ const Content: React.FC = () =>{
     const [intel, setIntel] = useState<number>(0)
     const [intelVari, setIntelVari] = useState<number>(0)
 
-    const baseURL = 'https://server-production-d3ab.up.railway.app/api'
+    const baseURL = 'http://localhost:3333/api/'
 
     //Wallet | Ativos | Despesas | Investimento 
     useEffect(() => {

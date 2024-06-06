@@ -46,7 +46,7 @@ const CustomTooltip = ({ active, payload, label }: any) => {
 
 const Grafico: React.FC<GraficoProps> = ({ walletId }) => {
   const [data, setData] = useState<any[]>([])
-  const baseURL = 'https://server-production-d3ab.up.railway.app/api'
+  const baseURL = 'http://localhost:3333/api'
 
   const fetchData = async () => {
     try {
@@ -88,7 +88,7 @@ const Grafico: React.FC<GraficoProps> = ({ walletId }) => {
       }
 
     // Adiciona os próximos 6 meses
-    for (let i = 1; i <= 5; i++) {
+    for (let i = 1; i <= 4; i++) {
       const month = currentMonth + i;
       const year = currentYear + Math.floor((currentMonth + i) / 12);
       groupedData[`${year}-${(month % 12) || 12}`] = { ativos: 0, despesas: 0, investimentos: 0 }

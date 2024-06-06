@@ -348,7 +348,7 @@ const CarteiraContent: React.FC = () =>{
       fonte: '',
       data: dataFormatada
     })
-    const baseURL = 'http://localhost:3000/api'
+    const baseURL = 'http://localhost:3333/api'
 
     const formatarData = (data: string): string => {
       const dataObj = new Date(data)
