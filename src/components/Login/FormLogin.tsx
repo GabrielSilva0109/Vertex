@@ -154,7 +154,7 @@ const BtnSenha = styled.button`
 `
 
 const FormCadastro: React.FC<{ onBackToLogin: () => void }> = ({ onBackToLogin }) => {
-    const baseURL = 'http://localhost:3000/api/'
+    const baseURL = 'http://localhost:3333/api/'
     const [registrationStatus, setRegistrationStatus] = useState<string | null>(null)
     const [formData, setFormData] = useState({
         name: '',
@@ -224,7 +224,7 @@ const FormCadastro: React.FC<{ onBackToLogin: () => void }> = ({ onBackToLogin }
 }
 
 const FormLogin: React.FC = () => {
-    const baseURL = 'http://localhost:3000/api/'
+    const baseURL = 'http://localhost:3333/api/'
     const navigate = useNavigate()
     const [user, setUser] = useState<any>(null)
     const [isLoginForm, setIsLoginForm] = useState(true)
