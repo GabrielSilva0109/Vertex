@@ -335,7 +335,6 @@ const CarteiraContent: React.FC = () =>{
     const [ativos, setAtivos] = useState<number | null>(null)
     const [despesas, setDespesas] = useState<number | null>(null)
     const [extrato, setExtrato] = useState<Transacao[] | []>([])
-    const [loading, setLoading] = useState(false)
     const [isDespesa, setIsDespesa] = useState(false)
     const [selectedFile, setSelectedFile] = useState<File | null>(null)
     const [filtroSelecionado, setFiltroSelecionado] = useState("Todas")
@@ -460,6 +459,7 @@ const CarteiraContent: React.FC = () =>{
     }
     
     const getExtrato = async () => {
+    
       try {
         const ativosResponse = await fetch(`${baseURL}/ativosWallet/${IdWallet}`)
         const despesasResponse = await fetch(`${baseURL}/despesasWallet/${IdWallet}`)
@@ -485,16 +485,6 @@ const CarteiraContent: React.FC = () =>{
         setExtrato(todasTransacoes)
       } catch (error) {
         console.error("Erro ao obter extrato:", error)
-      }
-    }
-
-    const getAtivos = async () => {
-      try {
-        const ativosRes = await fetch(`${baseURL}/ativosWallet/${IdWallet}`);
-        const data = await ativosRes.json();
-        setExtrato(data)
-      } catch (error) {
-        console.error('Erro ao buscar ativos:', error)
       }
     }
 
@@ -547,12 +537,9 @@ const CarteiraContent: React.FC = () =>{
     const fetchData = async () => {
       try {
         await walletUser()
-        await getAtivos()
-        // await getExtrato()
+        await getExtrato()
       } catch (error) {
         console.error("Erro ao carregar dados:", error)
-      } finally {
-        setLoading(false)
       }
     }
     
@@ -565,7 +552,6 @@ const CarteiraContent: React.FC = () =>{
           <RightContainer>
             <BoxRight>
                 <h2>{user.name}</h2>
-                <h3>{user.id}</h3>
               <BoxInfo>
                 <Label >Email </Label>
                 <h4>{user.email}</h4>
@@ -614,8 +600,8 @@ const CarteiraContent: React.FC = () =>{
                     <Dados>{transacao.titulo}</Dados>
                     <Obs observacao={transacao.observacao}>{transacao.observacao}</Obs>
                     <Dados>{transacao.fonte}</Dados>
-                    <DadosData>{transacao.data}</DadosData>
-                    <Valor categoria={transacao.categoria}>R${transacao.valor}</Valor>
+                    <DadosData>{formatarData(transacao.data)}</DadosData>
+                    <Valor categoria={transacao.categoria}>R${formatarSaldo(transacao.valor)}</Valor>
                     <Btns>
                       <BtnDelete onClick={() => deleteTransacao(transacao.id,  transacao.categoria, transacao.valor)}>
                       <svg
