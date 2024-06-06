@@ -492,9 +492,9 @@ const CarteiraContent: React.FC = () =>{
       try {
         const ativosRes = await fetch(`${baseURL}/ativosWallet/${IdWallet}`);
         const data = await ativosRes.json();
-        setExtrato(data);
+        setExtrato(data)
       } catch (error) {
-        console.error('Erro ao buscar ativos:', error);
+        console.error('Erro ao buscar ativos:', error)
       }
     }
 
@@ -614,8 +614,8 @@ const CarteiraContent: React.FC = () =>{
                     <Dados>{transacao.titulo}</Dados>
                     <Obs observacao={transacao.observacao}>{transacao.observacao}</Obs>
                     <Dados>{transacao.fonte}</Dados>
-                    <DadosData>{formatarData(transacao.data)}</DadosData>
-                    <Valor categoria={transacao.categoria}>R${formatarSaldo(transacao.valor)}</Valor>
+                    <DadosData>{transacao.data}</DadosData>
+                    <Valor categoria={transacao.categoria}>R${transacao.valor}</Valor>
                     <Btns>
                       <BtnDelete onClick={() => deleteTransacao(transacao.id,  transacao.categoria, transacao.valor)}>
                       <svg
