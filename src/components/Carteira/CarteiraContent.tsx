@@ -103,12 +103,13 @@ export const BoxRight = styled.div`
   }
 `
 
-const Extrato =  styled.div`
+const Extrato = styled.div`
   padding-bottom: 20px;
   width: 90%;
   overflow-y: auto;
   scrollbar-width: thin;
   scrollbar-color: transparent transparent;
+
   &::-webkit-scrollbar-thumb {
     background-color: transparent; 
     border-radius: 10px;
@@ -595,6 +596,15 @@ const CarteiraContent: React.FC = () =>{
                     (filtroSelecionado === "Todas" || transacao.categoria === filtroSelecionado) &&
                     (filtroTexto === "" || transacao.titulo.toLowerCase().includes(filtroTexto.toLowerCase()))
                   )
+                  .reduce((acc: Transacao[], transacao) => {
+                    const existe = acc.some(item => item.id === transacao.id);
+            
+                    if (!existe) {
+                      acc.push(transacao);
+                    }
+            
+                    return acc;
+                  }, [])
                   .map((transacao, index) => (
                   <ExtratoItem key={transacao.id} categoria={transacao.categoria} lastItem={index === extrato.length - 1}>
                     <Dados>{transacao.titulo}</Dados>
