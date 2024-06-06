@@ -459,7 +459,6 @@ const CarteiraContent: React.FC = () =>{
     }
     
     const getExtrato = async () => {
-    
       try {
         const ativosResponse = await fetch(`${baseURL}/ativosWallet/${IdWallet}`)
         const despesasResponse = await fetch(`${baseURL}/despesasWallet/${IdWallet}`)
@@ -552,6 +551,7 @@ const CarteiraContent: React.FC = () =>{
           <RightContainer>
             <BoxRight>
                 <h2>{user.name}</h2>
+                <h3>{user.id}</h3>
               <BoxInfo>
                 <Label >Email </Label>
                 <h4>{user.email}</h4>
