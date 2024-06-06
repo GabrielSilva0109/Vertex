@@ -335,6 +335,7 @@ const CarteiraContent: React.FC = () =>{
     const [ativos, setAtivos] = useState<number | null>(null)
     const [despesas, setDespesas] = useState<number | null>(null)
     const [extrato, setExtrato] = useState<Transacao[] | []>([])
+    const [loading, setLoading] = useState(false)
     const [isDespesa, setIsDespesa] = useState(false)
     const [selectedFile, setSelectedFile] = useState<File | null>(null)
     const [filtroSelecionado, setFiltroSelecionado] = useState("Todas")
@@ -535,16 +536,23 @@ const CarteiraContent: React.FC = () =>{
 
     const fetchData = async () => {
       try {
+        setLoading(true)
         await walletUser()
         await getExtrato()
       } catch (error) {
         console.error("Erro ao carregar dados:", error)
+      } finally {
+        setLoading(false)
       }
     }
     
     useEffect(() => {
       fetchData()
     }, [IdWallet])
+
+    if (loading) {
+      return <div>Carregando...</div>;
+    }
     
     return(
         <Container>
