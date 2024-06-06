@@ -488,6 +488,16 @@ const CarteiraContent: React.FC = () =>{
       }
     }
 
+    const getAtivos = async () => {
+      try {
+        const ativosRes = await fetch(`${baseURL}/ativosWallet/${IdWallet}`);
+        const data = await ativosRes.json();
+        setExtrato(data);
+      } catch (error) {
+        console.error('Erro ao buscar ativos:', error);
+      }
+    }
+
     const deleteTransacao = async (transacaoId: number, categoria: string, valor: number) => {
       try {
         let url
@@ -536,9 +546,9 @@ const CarteiraContent: React.FC = () =>{
 
     const fetchData = async () => {
       try {
-        setLoading(true)
         await walletUser()
-        await getExtrato()
+        await getAtivos()
+        // await getExtrato()
       } catch (error) {
         console.error("Erro ao carregar dados:", error)
       } finally {
@@ -549,10 +559,6 @@ const CarteiraContent: React.FC = () =>{
     useEffect(() => {
       fetchData()
     }, [IdWallet])
-
-    if (loading) {
-      return <div>Carregando...</div>;
-    }
     
     return(
         <Container>
