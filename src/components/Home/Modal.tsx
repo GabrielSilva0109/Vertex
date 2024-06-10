@@ -111,28 +111,21 @@ const Modal: React.FC<ModalProps> = ({ isOpen, onClose, cryptoName }) => {
                     {error && <ErrorMsg>{error}</ErrorMsg>}
                     {cryptoData && (
                         <>
-                            <InfoLabel>Descrição: {cryptoData.description?.en}</InfoLabel>
                             <InfoLabel>Ranking: {cryptoData.market_cap_rank}</InfoLabel>
                             <InfoLabel>Fornecimento Circulante: {cryptoData.market_data.circulating_supply}</InfoLabel>
                             <InfoLabel>Fornecimento Máximo: {cryptoData.market_data.max_supply}</InfoLabel>
                             <InfoLabel>Fornecimento Total: {cryptoData.market_data.total_supply}</InfoLabel>
+                            <InfoLabel>Preço atual: ${cryptoData.market_data.current_price.usd}</InfoLabel>
+                            <InfoLabel>Variação 24h: {cryptoData.market_data.price_change_percentage_24h}%</InfoLabel>
+                            <InfoLabel>Volume 24h: ${cryptoData.market_data.total_volume.usd}</InfoLabel>
                             <InfoLabel>Data de Lançamento: {cryptoData.genesis_date}</InfoLabel>
-                            <InfoLabel>Desenvolvedor: {cryptoData.developer_data?.developer}</InfoLabel>
-                            <InfoLabel>Comunidades Sociais:</InfoLabel>
-                            {cryptoData.links && cryptoData.links.homepage && (
-                                cryptoData.links.homepage.map((link: string, index: number) => (
-                                    <InfoLabel key={index}><a href={link} target="_blank" rel="noopener noreferrer">{link}</a></InfoLabel>
-                                ))
-                            )}
-                            <InfoLabel>Mercados de Negociação: {cryptoData.market_data?.markets.map((market: any) => market.name).join(', ')}</InfoLabel>
                         </>
                     )}
-
                     <BtnClose onClick={onClose}>x</BtnClose>
                 </ModalContent>
             </ModalContainer>
         </>
-    );
-};
+    )
+}
 
-export default Modal;
+export default Modal
