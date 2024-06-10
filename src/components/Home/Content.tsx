@@ -367,8 +367,9 @@ const Content: React.FC = () =>{
   
           if (response.status === 200) {
             setCryptoData(response.data)
+            setIsLoadingCrypto(false)
           }
-          setIsLoadingCrypto(false)
+          
         } catch (error) {
           console.error("Erro ao buscar dados de criptomoedas:", error)
         }
@@ -483,11 +484,13 @@ const Content: React.FC = () =>{
       }
     }, [user, walletId])
 
-    const openModal = () => {
+    const openModal = (crypto: CryptoData) => {
+      setSelectedCrypto(crypto)
       setIsModalOpen(true)
     }
   
     const closeModal = () => {
+      setSelectedCrypto(null)
       setIsModalOpen(false)
     }
     
