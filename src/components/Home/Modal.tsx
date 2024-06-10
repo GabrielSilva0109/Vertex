@@ -1,9 +1,10 @@
-import React from 'react'
+import React, { useEffect } from 'react'
 import styled from 'styled-components'
 
 interface ModalProps {
     isOpen: boolean
     onClose: () => void
+    cryptoName: string
 }
 
 const ModalContainer = styled.div`
@@ -26,14 +27,20 @@ const ModalContent = styled.div`
 `
 
 const BtnClose = styled.button`
-    width: 10px;
-    height: 10px;
-    padding: 5px;
+    width: 20px;
+    height: 20px;
     display: flex;
     justify-content: center;
     align-items: center;
     background: red;
     color: white;
+    border: none;
+    border-radius: 50%;
+    cursor: pointer;
+
+    &:hover{
+    background:#a30000;
+    }
 `
 
 const Title = styled.h1`
@@ -53,7 +60,7 @@ const Variation = styled.h1`
 `
 
 
-const Modal : React.FC<ModalProps> = ({ isOpen, onClose}) => {
+const Modal: React.FC<ModalProps> = ({ isOpen, onClose, cryptoName }) => {
     useEffect(() => {
         if (isOpen) {
           // Faça a requisição para a API aqui usando o cryptoName
@@ -64,9 +71,10 @@ const Modal : React.FC<ModalProps> = ({ isOpen, onClose}) => {
             })
             .catch(error => console.error('Erro ao buscar dados da criptomoeda:', error));
         }
-      }, [isOpen, cryptoName]);
+    }, [isOpen, cryptoName])
     
-      if (!isOpen) return null;
+    if (!isOpen) return null
+
      return (
         <>
         <ModalContainer>

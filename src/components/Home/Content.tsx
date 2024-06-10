@@ -253,7 +253,12 @@ const BtnInfo = styled.button`
   font-size: .9rem;
   font-weight: bold;
   text-align: start;
-
+  cursor: pointer;
+  transition: 1s;
+  &:hover{
+    color: gray;
+  
+  }
 `
 
 const Content: React.FC = () =>{
@@ -537,7 +542,7 @@ const Content: React.FC = () =>{
         </Top>
 
         <Main>
-          <h1 onClick={openModal}>Gráfico </h1>
+          <h1>Gráfico </h1>
           <Grafico walletId={walletId} />
         </Main>
       </LeftContainer>
@@ -613,11 +618,13 @@ const Content: React.FC = () =>{
         </BoxRight>
 
       </RightContainer>
-      <Modal
-        isOpen={isModalOpen}
-        onClose={closeModal}
-        cryptoName={selectedCryptoName}
-        />
+        {selectedCryptoName && (
+          <Modal
+            isOpen={isModalOpen}
+            onClose={closeModal}
+            cryptoName={selectedCryptoName} 
+          />
+        )}
     </Container>
   )
 }
