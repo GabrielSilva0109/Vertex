@@ -54,7 +54,19 @@ const Variation = styled.h1`
 
 
 const Modal : React.FC<ModalProps> = ({ isOpen, onClose}) => {
-        if (!isOpen) return null
+    useEffect(() => {
+        if (isOpen) {
+          // Faça a requisição para a API aqui usando o cryptoName
+          fetch(`https://api.coingecko.com/api/v3/coins/${cryptoName}`)
+            .then(response => response.json())
+            .then(data => {
+              console.log(data); // Faça algo com os dados recebidos
+            })
+            .catch(error => console.error('Erro ao buscar dados da criptomoeda:', error));
+        }
+      }, [isOpen, cryptoName]);
+    
+      if (!isOpen) return null;
      return (
         <>
         <ModalContainer>

@@ -269,7 +269,8 @@ const Content: React.FC = () =>{
     const user = state?.user
     const [filtroTextoCrypto, setFiltroTextoCrypto] = useState("")
     const [filtroTextoStocks, setFiltroTextoStocks] = useState("")
-    const [isModalOpen, setIsModalOpen] = useState(false) 
+    const [isModalOpen, setIsModalOpen] = useState(false)
+    const [selectedCryptoName, setSelectedCryptoName] = useState<string | null>(null)
 
     //Teste antes de achar uma API para fazer varias requisições Gratuitas
     const [apple, setApple] = useState<number>(0)
@@ -484,16 +485,15 @@ const Content: React.FC = () =>{
       }
     }, [user, walletId])
 
-    const openModal = (crypto: CryptoData) => {
-      setSelectedCrypto(crypto)
-      setIsModalOpen(true)
+    const openModal = (cryptoName: string) => {
+      setSelectedCryptoName(cryptoName);
+      setIsModalOpen(true);
     }
   
     const closeModal = () => {
-      setSelectedCrypto(null)
-      setIsModalOpen(false)
+      setSelectedCryptoName(null);
+      setIsModalOpen(false);
     }
-    
   return (
     <Container>
       <LeftContainer>
@@ -564,7 +564,9 @@ const Content: React.FC = () =>{
                   <Crypto key={crypto.id}>
                     <Icon src={getCryptoIcon(crypto.id)} />
                     <AcoesA>
-                      <BtnInfo onClick={openModal}>{crypto.id.toUpperCase()}</BtnInfo>
+                    <BtnInfo onClick={() => openModal(crypto.id)}>
+                      {crypto.id.toUpperCase()}
+                    </BtnInfo>
                       <span> ${(crypto.current_price).toFixed(2)} </span>
                       <CryptoPriceChange positive={crypto.price_change_percentage_24h >= 0}>
                         {crypto.price_change_percentage_24h.toFixed(2)}%
@@ -614,6 +616,7 @@ const Content: React.FC = () =>{
       <Modal
         isOpen={isModalOpen}
         onClose={closeModal}
+        cryptoName={selectedCryptoName}
         />
     </Container>
   )
