@@ -160,9 +160,9 @@ const Modal: React.FC<ModalProps> = ({ isOpen, onClose, cryptoName }) => {
                     {cryptoData && (
                         <>
                             <InfoLabel>Ranking: {cryptoData.market_cap_rank}</InfoLabel>
-                            <InfoLabel>Fornecimento Circulante: {cryptoData.market_data.circulating_supply}</InfoLabel>
-                            <InfoLabel>Fornecimento Máximo: {cryptoData.market_data.max_supply}</InfoLabel>
-                            <InfoLabel>Fornecimento Total: {cryptoData.market_data.total_supply}</InfoLabel>
+                            <InfoLabel>Fornecimento Circulante: {formatarValor(cryptoData.market_data.circulating_supply)}</InfoLabel>
+                            <InfoLabel>Fornecimento Máximo: {formatarValor(cryptoData.market_data.max_supply)}</InfoLabel>
+                            <InfoLabel>Fornecimento Total: {formatarValor(cryptoData.market_data.total_supply)}</InfoLabel>
                             <InfoLabel>Preço atual: ${cryptoData.market_data.current_price.usd}</InfoLabel>
                             <InfoLabel>Variação 24h: {cryptoData.market_data.price_change_percentage_24h}%</InfoLabel>
                             <InfoLabel>Volume 24h: ${cryptoData.market_data.total_volume.usd}</InfoLabel>
