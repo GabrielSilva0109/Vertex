@@ -421,10 +421,10 @@ const Content: React.FC = () =>{
     
       const stocksData = await Promise.all(
         symbols.map(async (symbol) => {
-          const data = await fetchStockData(symbol);
-          return { symbol, ...data };
+          const data = await fetchStockData(symbol)
+          return { symbol, ...data }
         })
-      );
+      )
     
       return stocksData;
     }

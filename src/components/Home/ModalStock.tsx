@@ -109,7 +109,7 @@ const Icon = styled.img`
 `
 
 const ModalStock: React.FC<ModalProps> = ({ isOpen, onClose, stockName }) => {
-    const [loading, setLoading] = useState<boolean>(false);
+    const [loading, setLoading] = useState<boolean>(false)
     const [error, setError] = useState<string>('')
 
     const symbols: { [key: string]: string } = {
@@ -176,6 +176,7 @@ const ModalStock: React.FC<ModalProps> = ({ isOpen, onClose, stockName }) => {
                     </Top>
                     {loading && <Loader />}
                     {error && <ErrorMsg>{error}</ErrorMsg>}
+                    
                 </ModalContent>
             </ModalContainer>
         </>
@@ -202,7 +203,7 @@ function getStockIcon(stockName: string): string {
         return meta
       case "Nvidia":
         return nvidia
-      case "Paypal":
+      case "PayPal":
         return paypal
       case "Intel":
         return intel        

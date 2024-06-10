@@ -114,7 +114,11 @@ const Icon = styled.img`
 const Modal: React.FC<ModalProps> = ({ isOpen, onClose, cryptoName }) => {
     const [loading, setLoading] = useState<boolean>(false);
     const [error, setError] = useState<string>('');
-    const [cryptoData, setCryptoData] = useState<any>(null);
+    const [cryptoData, setCryptoData] = useState<any>(null)
+
+    const formatarValor = (valor: number): string => {
+        return valor.toLocaleString('pt-BR');
+    }
 
     useEffect(() => {
         if (isOpen) {
