@@ -31,7 +31,7 @@ export const Input = styled.input`
     background-color: #e1e1e1;
     color: black;
     font-family: "Roboto", sans-serif;
-    font-weight: 400;
+    font-weight: bold;
     font-size: 16px;
     padding: 12px 16px;
     border-radius: 8px;
@@ -42,12 +42,6 @@ export const Input = styled.input`
     &:hover {
         background-color: #f1f1f1;
         border-color: #667788;
-    }
-
-    &:focus {
-        background-color: #272727;
-        border-color: #b0ff00;
-        box-shadow: 0 0 5px rgba(0, 0, 0, 0.2);
     }
 
     &.invalid {

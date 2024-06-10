@@ -31,6 +31,7 @@ import metaIcon from '../../IMG/facebookIcon.png'
 import nvidiaIcon from '../../IMG/nvidiaIcon.png'
 import intelIcon from '../../IMG/intelcon.png'
 import paypalIcon from '../../IMG/paypalIcon.png'
+import Modal from "./Modal"
 
 const Container = styled.div`
   display: flex;
@@ -587,6 +588,7 @@ const Content: React.FC = () =>{
         </BoxRight>
 
       </RightContainer>
+      <Modal />
     </Container>
   )
 }
