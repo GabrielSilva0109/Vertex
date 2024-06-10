@@ -114,26 +114,16 @@ const Icon = styled.img`
 const Modal: React.FC<ModalProps> = ({ isOpen, onClose, cryptoName }) => {
     const [loading, setLoading] = useState<boolean>(false);
     const [error, setError] = useState<string>('');
-    const [cryptoData, setCryptoData] = useState<any>(null)
-
-    const formatarValor = (valor: number): string => {
-        return valor.toLocaleString('pt-BR');
-    }
+    const [cryptoData, setCryptoData] = useState<any>(null);
 
     useEffect(() => {
         if (isOpen) {
             setLoading(true);
             setError('');
-            fetch(`https://api.coingecko.com/api/v3/coins/${cryptoName}`)
+            axios
+                .get(`https://api.coingecko.com/api/v3/coins/${cryptoName}`)
                 .then(response => {
-                    if (!response.ok) {
-                        throw new Error('Erro ao buscar dados da criptomoeda');
-                    }
-                    return response.json();
-                })
-                .then(data => {
-                    console.log(data);
-                    setCryptoData(data);
+                    setCryptoData(response.data);
                     setLoading(false);
                 })
                 .catch(error => {
@@ -142,9 +132,13 @@ const Modal: React.FC<ModalProps> = ({ isOpen, onClose, cryptoName }) => {
                     setLoading(false);
                 });
         }
-    }, [isOpen, cryptoName])
+    }, [isOpen, cryptoName]);
 
-    if (!isOpen) return null
+    const formatarValor = (valor: number): string => {
+        return valor ? valor.toLocaleString('pt-BR') : '';
+    };
+
+    if (!isOpen) return null;
 
     return (
         <>
@@ -165,17 +159,17 @@ const Modal: React.FC<ModalProps> = ({ isOpen, onClose, cryptoName }) => {
                             <InfoLabel>Fornecimento Total: {formatarValor(cryptoData.market_data.total_supply)}</InfoLabel>
                             <InfoLabel>Preço atual: ${cryptoData.market_data.current_price.usd}</InfoLabel>
                             <InfoLabel>Variação 24h: {cryptoData.market_data.price_change_percentage_24h}%</InfoLabel>
-                            <InfoLabel>Volume 24h: ${cryptoData.market_data.total_volume.usd}</InfoLabel>
+                            <InfoLabel>Volume 24h: ${formatarValor(cryptoData.market_data.total_volume.usd)}</InfoLabel>
                             <InfoLabel>Data de Lançamento: {cryptoData.genesis_date}</InfoLabel>
                         </>
                     )}
-                </ModalContent>
+               </ModalContent>
             </ModalContainer>
         </>
-    )
-}
+    );
+};
 
-export default Modal
+export default Modal;
 
 function getCryptoIcon(cryptoId: string): string {
     switch (cryptoId) {
