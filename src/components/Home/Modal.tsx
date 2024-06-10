@@ -69,7 +69,7 @@ const Loader = styled.div`
 
 const ErrorMsg = styled.p`
     color: red;
-`;
+`
 
 const Modal: React.FC<ModalProps> = ({ isOpen, onClose, cryptoName }) => {
     const [loading, setLoading] = useState<boolean>(false);
