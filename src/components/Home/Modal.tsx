@@ -80,7 +80,7 @@ const Title = styled.h1`
 const InfoLabel = styled.p`
     color: #ccc; 
     font-size: 16px;
-    margin: 5px 0;
+    margin: 10px 0;
 `
 
 const Loader = styled.div`

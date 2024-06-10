@@ -32,6 +32,7 @@ import nvidiaIcon from '../../IMG/nvidiaIcon.png'
 import intelIcon from '../../IMG/intelcon.png'
 import paypalIcon from '../../IMG/paypalIcon.png'
 import Modal from "./Modal"
+import ModalStock from "./ModalStock"
 
 const Container = styled.div`
   display: flex;
@@ -261,6 +262,8 @@ const BtnInfo = styled.button`
   }
 `
 
+
+
 const Content: React.FC = () =>{
     const [ cryptoData, setCryptoData] = useState<any[]>([])
     const [ saldo, setSaldo] = useState<number>(0)
@@ -275,7 +278,9 @@ const Content: React.FC = () =>{
     const [filtroTextoCrypto, setFiltroTextoCrypto] = useState("")
     const [filtroTextoStocks, setFiltroTextoStocks] = useState("")
     const [isModalOpen, setIsModalOpen] = useState(false)
+    const [isModalOpenStock, setIsModalOpenStock] = useState(false)
     const [selectedCryptoName, setSelectedCryptoName] = useState<string | null>(null)
+    const [selectedStockName, setSelectedStockName] = useState<string | null>(null)
 
     //Teste antes de achar uma API para fazer varias requisições Gratuitas
     const [apple, setApple] = useState<number>(0)
@@ -499,6 +504,16 @@ const Content: React.FC = () =>{
       setSelectedCryptoName(null);
       setIsModalOpen(false);
     }
+
+    const openModalStock = (stockName: string) => {
+      setSelectedStockName(stockName);
+      setIsModalOpenStock(true);
+    }
+  
+    const closeModalStock = () => {
+      setSelectedStockName(null);
+      setIsModalOpenStock(false);
+    }
   return (
     <Container>
       <LeftContainer>
@@ -595,7 +610,6 @@ const Content: React.FC = () =>{
               { name: "Google", price: google, variation: googleVari, icon: googleIcon },
               { name: "Microsoft", price: microsoft, variation: microsoftVari, icon: microsoftIcon },
               { name: "Tesla", price: tesla, variation: teslaVari, icon: teslaIcon },
-              // Adicione mais ações aqui
               { name: "Netflix", price: netflix, variation: netflixVari, icon: netflixIcon },
               { name: "Meta", price: meta, variation: metaVari, icon: metaIcon },
               { name: "Nvidia", price: nvidia, variation: nvidiaVari, icon: nvidiaIcon },
@@ -607,7 +621,9 @@ const Content: React.FC = () =>{
               <Acoes key={index} style={{ marginTop: index === 0 ? 0 : "-15px" }}>
                 <ImgAcoes src={stock.icon} />
                 <AcoesA>
-                  <h3>{stock.name}</h3>
+                  <BtnInfo onClick={() => openModalStock(stock.name)}>
+                      {stock.name.toUpperCase()}
+                    </BtnInfo>
                   <h4>${stock.price.toFixed(2)}</h4>
                   <CryptoPriceChange positive={stock.variation >= 0}>
                     <h4>{stock.variation.toFixed(2)}%</h4>
@@ -623,6 +639,13 @@ const Content: React.FC = () =>{
             isOpen={isModalOpen}
             onClose={closeModal}
             cryptoName={selectedCryptoName} 
+          />
+        )}
+        {selectedStockName && (
+          <ModalStock
+            isOpen={isModalOpenStock}
+            onClose={closeModalStock}
+            stockName={selectedStockName} 
           />
         )}
     </Container>
