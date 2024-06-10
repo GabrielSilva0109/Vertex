@@ -122,9 +122,6 @@ const ModalInvestimento: React.FC<ModalProps> = ({ onClose, walletId, onSubmit, 
       <ModalContent>
         <Form>
           <h1>Investimento</h1>
-          <Input type='text' placeholder='Ativo' value={titulo} onChange={(e) => setTitulo(e.target.value)} />
-          <Input type='number' placeholder='Valor' value={valor} onChange={(e) => setValor(e.target.value)} />
-          <Input type='number' placeholder='Quantidade' value={quantidade} onChange={(e) => setQuantidade(e.target.value)} />
           <Select id="categoria" value={categoria} onChange={(e) => setCategoria(e.target.value)}>
             <option value="">Selecione uma categoria</option>
             <option value="Ação">Ações</option>
@@ -134,6 +131,9 @@ const ModalInvestimento: React.FC<ModalProps> = ({ onClose, walletId, onSubmit, 
             <option value="Renda Fixa">Renda Fixa</option>
             <option value="Poupança">Poupança</option>
           </Select>
+          <Input type='text' placeholder='Ativo' value={titulo} onChange={(e) => setTitulo(e.target.value)} />
+          <Input type='number' placeholder='Valor' value={valor} onChange={(e) => setValor(e.target.value)} />
+          <Input type='number' placeholder='Quantidade' value={quantidade} onChange={(e) => setQuantidade(e.target.value)} />
           <Input style={{width: '85%'}} type='date' placeholder='Data' value={data} onChange={(e) => setData(e.target.value)} />
           <BtnAtivo onClick={handleSubmit} type="submit">Adicionar</BtnAtivo>
           <BtnDespesa onClick={onClose}>Fechar</BtnDespesa>

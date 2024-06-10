@@ -402,9 +402,8 @@ const Content: React.FC = () =>{
       );
     
       return stocksData;
-    };
+    }
     
-
     useEffect(() => {
       if (user && user.id) {
         const fetchStocksData = async () => {
