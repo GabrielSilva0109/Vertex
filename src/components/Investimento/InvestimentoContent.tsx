@@ -282,12 +282,12 @@ const InvestimentoContent: React.FC = () => {
   const [modalOpen, setModalOpen] = useState(false)
   const [modalOpenEdit, setModalOpenEdit] = useState(false)
 
-  const [porcentagemAcoes, setPorcentagemAcoes] = useState<number>(0);
-  const [porcentagemCryptomoedas, setPorcentagemCryptomoedas] = useState<number>(0);
-  const [porcentagemMoedas, setPorcentagemMoedas] = useState<number>(0);
-  const [porcentagemFiis, setPorcentagemFiis] = useState<number>(0);
-  const [porcentagemRendaFixa, setPorcentagemRendaFixa] = useState<number>(0);
-  const [porcentagemPoupanca, setPorcentagemPoupanca] = useState<number>(0);
+  const [porcentagemAcoes, setPorcentagemAcoes] = useState<number>(0)
+  const [porcentagemCryptomoedas, setPorcentagemCryptomoedas] = useState<number>(0)
+  const [porcentagemMoedas, setPorcentagemMoedas] = useState<number>(0)
+  const [porcentagemFiis, setPorcentagemFiis] = useState<number>(0)
+  const [porcentagemRendaFixa, setPorcentagemRendaFixa] = useState<number>(0)
+  const [porcentagemPoupanca, setPorcentagemPoupanca] = useState<number>(0)
 
   const openModal = () => {
     setModalOpen(true)
@@ -416,8 +416,7 @@ const InvestimentoContent: React.FC = () => {
     } catch (error) {
         console.error("Erro ao buscar os investimentos da carteira:", error)
     }
-}
-
+  }
 
   const deleteInvestimento = async (investimentoId: number) => {
     try {
