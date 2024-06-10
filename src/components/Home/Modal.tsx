@@ -1,5 +1,19 @@
-import React, { useEffect, useState } from 'react';
-import styled from 'styled-components';
+import React, { useEffect, useState } from 'react'
+import styled from 'styled-components'
+
+
+import axios from "axios"
+import bnb from '../../IMG/bnb2.svg'
+import btc from '../../IMG/bitcoin.svg'
+import cardano from '../../IMG/cardano.svg'
+import eth from '../../IMG/eth.svg'
+import solana from '../../IMG/solana.png'
+import xrp from '../../IMG/xrp.svg'
+import litecoin from '../../IMG/litecoin.png'
+import monero from '../../IMG/monero.png'
+import polkadot from '../../IMG/polkadot.png'
+import uniswap from '../../IMG/uniswap.png'
+import gmx from '../../IMG/gmx.png'
 
 interface ModalProps {
     isOpen: boolean;
@@ -18,13 +32,25 @@ const ModalContainer = styled.div`
     justify-content: center;
     align-items: center;
     z-index: 1;
-`;
+`
 
 const ModalContent = styled.div`
-    background: #515151;
-    padding: 20px;
-    border-radius: 10px;
-`;
+    background: #1e1e1e;
+    width: 400px;
+    padding: 30px;
+    border-radius: 20px;
+    box-shadow: 0 0 20px rgba(0, 0, 0, 0.5);
+
+    @media(max-width: 768px){
+        width: 250px;
+    }
+`
+
+const Top = styled.div`
+    display: flex;
+    align-items: center;
+    justify-content: space-around;
+`
 
 const BtnClose = styled.button`
     width: 20px;
@@ -32,25 +58,33 @@ const BtnClose = styled.button`
     display: flex;
     justify-content: center;
     align-items: center;
-    background: red;
+    background: #ff4141;
     color: white;
     border: none;
     border-radius: 50%;
     cursor: pointer;
+    font-size: 20px;
+    outline: none;
 
     &:hover {
-        background: #a30000;
+        background: #d63030; 
     }
-`;
+`
 
-const Title = styled.h1``;
+const Title = styled.h1`
+    color: #fff; /* White */
+    font-size: 24px;
+    margin-bottom: 20px;
+`
 
 const InfoLabel = styled.p`
+    color: #ccc; 
+    font-size: 16px;
     margin: 5px 0;
-`;
+`
 
 const Loader = styled.div`
-    border: 4px solid #f3f3f3; /* Light grey */
+    border: 4px solid #f3f3f3; /* Light gray */
     border-top: 4px solid #3498db; /* Blue */
     border-radius: 50%;
     width: 30px;
@@ -65,10 +99,16 @@ const Loader = styled.div`
             transform: rotate(360deg);
         }
     }
-`;
+`
 
 const ErrorMsg = styled.p`
-    color: red;
+    color: #ff6b6b; /* Light red */
+    font-size: 14px;
+`
+
+const Icon = styled.img`
+  width: 35px;
+  border-radius: 50%;
 `
 
 const Modal: React.FC<ModalProps> = ({ isOpen, onClose, cryptoName }) => {
@@ -106,7 +146,11 @@ const Modal: React.FC<ModalProps> = ({ isOpen, onClose, cryptoName }) => {
         <>
             <ModalContainer>
                 <ModalContent>
-                    <Title>{cryptoName}</Title>
+                    <Top>
+                        <Icon src={getCryptoIcon(cryptoName)} />
+                        <Title>{cryptoName.toUpperCase()}</Title>
+                        <BtnClose onClick={onClose}>x</BtnClose>
+                    </Top>
                     {loading && <Loader />}
                     {error && <ErrorMsg>{error}</ErrorMsg>}
                     {cryptoData && (
@@ -121,7 +165,6 @@ const Modal: React.FC<ModalProps> = ({ isOpen, onClose, cryptoName }) => {
                             <InfoLabel>Data de Lançamento: {cryptoData.genesis_date}</InfoLabel>
                         </>
                     )}
-                    <BtnClose onClick={onClose}>x</BtnClose>
                 </ModalContent>
             </ModalContainer>
         </>
@@ -129,3 +172,33 @@ const Modal: React.FC<ModalProps> = ({ isOpen, onClose, cryptoName }) => {
 }
 
 export default Modal
+
+function getCryptoIcon(cryptoId: string): string {
+    switch (cryptoId) {
+      case "bitcoin":
+        return btc;
+      case "ethereum":
+        return eth;
+      case "binancecoin":
+        return bnb;
+      case "cardano":
+        return cardano;
+      case "solana":
+        return solana;
+      case "ripple":
+            return xrp
+      case "litecoin":
+        return litecoin
+      case "monero":
+        return monero
+      case "polkadot":
+        return polkadot
+      case "uniswap":
+        return uniswap
+      case "gmx":
+        return gmx  
+        
+      default:
+        return ""
+    }
+}
