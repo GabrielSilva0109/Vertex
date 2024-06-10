@@ -245,6 +245,17 @@ const InputSearch = styled.input`
     width: 70%;
   }
 `
+
+const BtnInfo = styled.button`
+  background: none;
+  border: none;
+  color: white;
+  font-size: .9rem;
+  font-weight: bold;
+  text-align: start;
+
+`
+
 const Content: React.FC = () =>{
     const [ cryptoData, setCryptoData] = useState<any[]>([])
     const [ saldo, setSaldo] = useState<number>(0)
@@ -258,6 +269,7 @@ const Content: React.FC = () =>{
     const user = state?.user
     const [filtroTextoCrypto, setFiltroTextoCrypto] = useState("")
     const [filtroTextoStocks, setFiltroTextoStocks] = useState("")
+    const [isModalOpen, setIsModalOpen] = useState(false) 
 
     //Teste antes de achar uma API para fazer varias requisições Gratuitas
     const [apple, setApple] = useState<number>(0)
@@ -470,6 +482,14 @@ const Content: React.FC = () =>{
         return () => clearInterval(intervalId)
       }
     }, [user, walletId])
+
+    const openModal = () => {
+      setIsModalOpen(true)
+    }
+  
+    const closeModal = () => {
+      setIsModalOpen(false)
+    }
     
   return (
     <Container>
@@ -514,7 +534,7 @@ const Content: React.FC = () =>{
         </Top>
 
         <Main>
-          <h1>Gráfico </h1>
+          <h1 onClick={openModal}>Gráfico </h1>
           <Grafico walletId={walletId} />
         </Main>
       </LeftContainer>
@@ -541,7 +561,7 @@ const Content: React.FC = () =>{
                   <Crypto key={crypto.id}>
                     <Icon src={getCryptoIcon(crypto.id)} />
                     <AcoesA>
-                      <span>{crypto.id.toUpperCase()} </span>
+                      <BtnInfo onClick={openModal}>{crypto.id.toUpperCase()}</BtnInfo>
                       <span> ${(crypto.current_price).toFixed(2)} </span>
                       <CryptoPriceChange positive={crypto.price_change_percentage_24h >= 0}>
                         {crypto.price_change_percentage_24h.toFixed(2)}%
@@ -588,7 +608,10 @@ const Content: React.FC = () =>{
         </BoxRight>
 
       </RightContainer>
-      <Modal />
+      <Modal
+        isOpen={isModalOpen}
+        onClose={closeModal}
+        />
     </Container>
   )
 }
