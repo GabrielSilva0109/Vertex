@@ -248,12 +248,10 @@ const FormLogin: React.FC = () => {
             })
     
             if (response.ok) {
-                // const userData = await response.json()
-                const { token, user } = await response.json()
-                localStorage.setItem('token', token);
+                const userData = await response.json()
     
-                if (user) {
-                    navigate('/home', { state: { user: user } })
+                if (userData) {
+                    navigate('/home', { state: { user: userData } })
                 } else {
                     toast.error('Erro ao obter informações do usuário após o login')
                 }
