@@ -193,8 +193,8 @@ const FormCadastro: React.FC<{ onBackToLogin: () => void }> = ({ onBackToLogin }
                 toast.success('Faça o Login!')
                 onBackToLogin()
             } else {
-                const responseBody = await response.text()
-                toast.error(`Erro: Campos obrigatorios!`)
+                const responseBody = await response.json()
+                toast.error(`Erro: ${responseBody.error}`)
             }
         } catch (error) {
             toast.error('Erro ao processar a requisição')
