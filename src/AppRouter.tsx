@@ -25,4 +25,4 @@ const AppRouter: React.FC = () => {
   )
 }
 
-export default AppRouter
+export default AppRouter  
